@@ -12,13 +12,21 @@ export const SHOPEE_OFFICIAL_CATEGORIES = {
   pet_caes_coleiras: "Animais Domésticos > Cães > Coleiras, Guias e Peitorais",
   pet_geral: "Animais Domésticos > Cães > Acessórios para Cães",
   copos_termicos: "Esportes e Atividades ao Ar Livre > Acessórios Esportivos e Atividades ao Ar Livre > Garrafas e Copos Térmicos",
+  sandalias_masculinas: "Sapatos Masculinos > Sandalia e Chinelos > Chinelos",
 };
 
 /**
  * Identifica a categoria oficial exata com base nas palavras-chave do produto.
  */
 export function resolveCorrectShopeeCategory(product) {
-  const fullText = `${product.titulo_shopee || ""} ${product.modelo || ""} ${product.descricao || ""} ${product.marca || ""}`.toLowerCase();
+  const fullText = `${product.titulo_shopee || ""} ${product.modelo || ""} ${product.descricao || ""} ${product.marca || ""} ${product.sku || ""}`.toLowerCase();
+
+  // 0. Sandálias e Chinelos Masculinos
+  const isFootwear = /sand[aá]lia|chinelo|babuche|croc|clog|tamanco|\bslides?\b/i.test(fullText) || /colt|brave|adventure|flow|star/i.test(product.sku || "");
+  const isFem = /feminin|mulher|starfem|flowf/i.test(fullText);
+  if (isFootwear && !isFem) {
+    return SHOPEE_OFFICIAL_CATEGORIES.sandalias_masculinas;
+  }
 
   // 1. Linhas de Pesca
   if (/linha|monofilamento|multifilamento|fluorocarbono|fluorcarbon/i.test(fullText)) {

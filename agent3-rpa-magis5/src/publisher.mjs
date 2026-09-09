@@ -262,8 +262,17 @@ export async function publishProductToMagis5(page, product, options = {}) {
       .replace(/Artigos para Cães/gi, "Cães")
       .replace(/Cachorros/gi, "Cães");
 
-    // Para produtos de pesca, garante a árvore oficial da Shopee
-    const isFishing = /pesca|isca|linha|anzol|vara|carretilha|molinete|snap|chumbada/i.test(
+    // Para calçados/sandálias masculinas, garante a árvore oficial padrão da Shopee
+    const fullSearch = `${product.titulo_shopee || ""} ${product.modelo || ""} ${product.categoria_sugerida || ""} ${product.sku || ""}`.toLowerCase();
+    const isFootwear = /sand[aá]lia|chinelo|babuche|croc|clog|tamanco|\bslides?\b|sapato|cal[çc]ado/i.test(fullSearch) || /colt|brave|boaonda/i.test(product.sku || "");
+    const isFem = /feminin|mulher|starfem|flowf/i.test(fullSearch);
+
+    if (isFootwear && !isFem) {
+      catPath = "Sapatos Masculinos > Sandalia e Chinelos > Chinelos";
+    }
+
+    // Para produtos de pesca (excluindo calçados), garante a árvore oficial da Shopee
+    const isFishing = !isFootwear && /pesca|isca|linha|anzol|vara|carretilha|molinete|snap|chumbada/i.test(
       `${product.titulo_shopee || ""} ${product.modelo || ""} ${product.categoria_sugerida || ""}`
     );
     if (isFishing && !catPath.includes("Pescaria")) {

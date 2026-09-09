@@ -99,25 +99,41 @@ export function validateAndNormalize(data, sku) {
     errors.push("Marca não identificada, usando 'Genérica'");
   }
 
-  // 5b. Normalizar Categoria Padrão Shopee para Iscas e Anzóis
+  // 5b. Normalizar Categoria Padrão Shopee para Iscas, Anzóis e Sandálias Masculinas
   const CATEGORIA_PADRAO_ISCAS =
     "Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Iscas";
   const CATEGORIA_PADRAO_ANZOIS =
     "Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Anzóis";
+  const CATEGORIA_PADRAO_SANDALIAS_MASC =
+    "Sapatos Masculinos > Sandalia e Chinelos > Chinelos";
 
   const isAnzol =
     /anzol|encastoado|hook/i.test(data.titulo_shopee || "") ||
     /anzol|encastoado|hook/i.test(data.modelo || "");
 
+  const isSandaliaOuChinelo =
+    /sand[aá]lia|chinelo|babuche|croc|clog|tamanco|\bslides?\b/i.test(data.titulo_shopee || "") ||
+    /sand[aá]lia|chinelo|babuche|croc|clog|tamanco|\bslides?\b/i.test(data.modelo || "") ||
+    /sand[aá]lia|chinelo|babuche|croc|clog|tamanco|\bslides?\b/i.test(data.categoria_sugerida || "") ||
+    /colt|brave|boaonda/i.test(data.sku || "");
+
+  const isFeminina =
+    /feminin|mulher|starfem|flowf/i.test(data.titulo_shopee || "") ||
+    /feminin|mulher|starfem|flowf/i.test(data.sku || "");
+
+  const isSandaliaMasculina = isSandaliaOuChinelo && !isFeminina;
+
   const isIsca =
-    !isAnzol && (
+    !isAnzol && !isSandaliaOuChinelo && (
       /isca/i.test(data.categoria_sugerida || "") ||
       /isca/i.test(data.titulo_shopee || "") ||
       /popper|minnow|zara|stick|crank|shad|frog|sapo|jumping/i.test(data.titulo_shopee || "") ||
       /popper|minnow|zara|stick|crank|shad|frog|sapo|jumping/i.test(data.modelo || "")
     );
 
-  if (isAnzol) {
+  if (isSandaliaMasculina) {
+    data.categoria_sugerida = CATEGORIA_PADRAO_SANDALIAS_MASC;
+  } else if (isAnzol) {
     data.categoria_sugerida = CATEGORIA_PADRAO_ANZOIS;
   } else if (isIsca) {
     data.categoria_sugerida = CATEGORIA_PADRAO_ISCAS;
