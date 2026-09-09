@@ -70,15 +70,23 @@ O objeto "atributos" DEVE conter obrigatoriamente os campos exigidos pela Shopee
 9. Se o produto tiver variações (cores, tamanhos), liste-as.
 10. As palavras-chave devem ser termos que compradores usariam para buscar o produto na Shopee.
 
-CATEGORIAS COMUNS na Shopee:
-- Para Iscas Artificiais (OBRIGATÓRIO USAR EXATAMENTE ESTA):
+CATEGORIAS OFICIAIS NA SHOPEE (USE EXATAMENTE ESTAS ÁRVORES RECONHECIDAS):
+- Para Iscas Artificiais:
   Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Iscas
-- Para Anzóis (NÃO classificar anzol como isca):
+- Para Anzóis:
   Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Anzóis
-- Esportes e Lazer > Pesca > Linhas de Pesca
-- Esportes e Lazer > Pesca > Varas de Pesca
-- Esportes e Lazer > Pesca > Molinetes e Carretilhas
-- Esportes e Lazer > Pesca > Acessórios de Pesca
+- Para Linhas de Pesca:
+  Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Linhas de Pesca
+- Para Varas de Pesca:
+  Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Varas de Pescar
+- Para Molinetes e Carretilhas:
+  Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Molinetes
+- Para Copos Térmicos / Garrafas:
+  Esportes e Atividades ao Ar Livre > Acessórios Esportivos e Atividades ao Ar Livre > Garrafas de Água e Acessórios
+- Para Pet / Cães / Coleiras:
+  Animais Domésticos > Cães > Coleiras, Guias e Peitorais
+- Para Bolsas e Estojos de Pesca:
+  Esportes e Atividades ao Ar Livre > Acessórios Esportivos e Atividades ao Ar Livre > Bolsas Impermeáveis
 
 RESPONDA EXCLUSIVAMENTE com o JSON, sem markdown em volta do JSON, sem explicações, sem \`\`\`json.`;
 }

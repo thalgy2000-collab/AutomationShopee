@@ -29,6 +29,7 @@ import {
   extractBaseTitle,
 } from "./grouping.mjs";
 import { fetchAndCacheShopifyPrices, getProductPrices } from "./shopify_prices.mjs";
+import { resolveCorrectShopeeCategory } from "../agent4-diagnostician/rules.mjs";
 
 // Carrega variáveis de ambiente
 dotenv.config();
@@ -861,6 +862,11 @@ async function main() {
       allImages.push(...directImgs);
     }
     result.data.imagens = allImages;
+
+    // 3.5. Sanitização com Regras Oficiais da Shopee (Agente 4)
+    if (result.data) {
+      result.data.categoria_sugerida = resolveCorrectShopeeCategory(result.data);
+    }
 
     // 4. Salvar JSON do Produto Pai
     await writeFile(jsonPath, JSON.stringify(result.data, null, 2), "utf-8");
