@@ -7,7 +7,7 @@
   ],
   "marca": "EzyDog",
   "modelo": "Peitoral Refletivo Acolchoado",
-  "categoria_sugerida": "Animais de Estimação > Artigos para Cães > Coleiras, Guias e Peitorais",
+  "categoria_sugerida": "Animais Domésticos > Cães > Coleiras, Guias e Peitorais",
   "descricao": "Coleira Peitoral Para Cães EzyDog Ajustável Refletiva Acolchoada\n\nO Peitoral EzyDog foi desenvolvido para proporcionar máximo conforto, controle e segurança durante os passeios com seu pet. Com design ergonômico e acolchoamento interno, ele distribui a pressão do puxão de forma uniforme pelo peito do cão, evitando lesões no pescoço e garantindo passeios tranquilos e agradáveis.\n\nPor que escolher este produto:\n- Design ergonômico acolchoado: proporciona extremo conforto e evita atritos na pele do cão\n- Costuras refletivas de alta visibilidade: garantem segurança máxima durante passeios noturnos ou de pouca luz\n- Fivelas de engate rápido e ajustes múltiplos: facilita o vestir e garante o encaixe perfeito no corpo do pet\n- Argolas D-ring reforçadas em metal: ponto de fixação duplo e altamente resistente para a guia\n- Materiais de altíssima durabilidade: nylon e tecidos reforçados ideais para cães de todos os portes\n\nIndicado para:\nCães de médio e grande porte em caminhadas, adestramento, passeios diários e atividades ao ar livre.\n\nEspecificações:\n- Marca: EzyDog\n- Modelo: Peitoral Ergonomico Refletivo\n- Material: Nylon reforçado, revestimento acolchoado e argolas de aço inoxidável\n- Tamanho: Conforme variação selecionada (M, GG)\n- Peso: Aprox. 200g\n- Tipo / Ação: Peitoral anti-puxão acolchoado com fivelas de segurança\n- Argolas / Engates: Argolas duplas D-Ring em liga metálica resistente\n- Cor / Variação: Verde com detalhes pretos e cinza\n\nDicas de uso:\nAjuste as tiras laterais para que fiquem firmes, mas permitindo a folga de dois dedos entre o peitoral e o corpo do cão. Conecte a guia na argola D-ring superior ou peitoral conforme a necessidade de controle do passeio.",
   "atributos": {
     "material": "Nylon, tecido acolchoado e argolas metálicas",
@@ -109,5 +109,7 @@
     "em_promocao": false,
     "desconto_percentual": 0
   },
-  "cod_sankhya": "53863, 65646"
+  "cod_sankhya": "53863, 65646",
+  "is_published": true,
+  "status": "concluido"
 }

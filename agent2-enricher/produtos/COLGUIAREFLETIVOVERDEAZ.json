@@ -95,5 +95,7 @@
     "em_promocao": false,
     "desconto_percentual": 0
   },
-  "cod_sankhya": "53865"
+  "cod_sankhya": "53865",
+  "is_published": true,
+  "status": "concluido"
 }

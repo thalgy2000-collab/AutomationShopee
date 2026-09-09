@@ -47,6 +47,7 @@
       flex-direction: column;
     }
 
+    /* ── Header Unificado ─────────────────────────────── */
     header {
       background: rgba(11, 15, 25, 0.85);
       backdrop-filter: blur(16px);
@@ -54,10 +55,12 @@
       position: sticky;
       top: 0;
       z-index: 50;
-      padding: 16px 32px;
+      padding: 12px 32px;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
     }
 
     .brand {
@@ -78,7 +81,7 @@
     }
     .brand-title {
       font-family: 'Outfit', sans-serif;
-      font-size: 20px;
+      font-size: 19px;
       font-weight: 700;
       letter-spacing: -0.5px;
       display: flex;
@@ -90,11 +93,56 @@
       background: rgba(239, 68, 68, 0.2);
       color: #F87171;
       border: 1px solid var(--danger-border);
-      padding: 3px 8px;
+      padding: 2px 8px;
       border-radius: 20px;
       font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 0.5px;
+    }
+
+    /* Tabs de Navegação Global */
+    .nav-tabs {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(0, 0, 0, 0.35);
+      padding: 4px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .nav-tab {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 14px;
+      border-radius: 8px;
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 600;
+      transition: all 0.2s ease;
+    }
+
+    .nav-tab:hover {
+      color: #FFF;
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .nav-tab.active {
+      color: #FFF;
+      background: rgba(239, 68, 68, 0.18);
+      border: 1px solid rgba(239, 68, 68, 0.35);
+      box-shadow: 0 2px 8px rgba(239, 68, 68, 0.2);
+    }
+
+    .nav-badge-count {
+      background: var(--danger);
+      color: #FFF;
+      font-size: 11px;
+      padding: 1px 6px;
+      border-radius: 10px;
+      font-weight: 700;
     }
 
     .nav-actions {
@@ -102,15 +150,40 @@
       align-items: center;
       gap: 12px;
     }
+
+    .server-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      color: #34D399;
+      background: rgba(16, 185, 129, 0.1);
+      border: 1px solid rgba(16, 185, 129, 0.25);
+      padding: 5px 10px;
+      border-radius: 20px;
+    }
+    .pulse-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #10B981;
+      box-shadow: 0 0 8px #10B981;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.85); }
+    }
+
     .btn {
-      padding: 9px 16px;
+      padding: 8px 15px;
       border-radius: var(--radius-md);
       font-size: 13px;
       font-weight: 600;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
-      gap: 8px;
+      gap: 7px;
       transition: all 0.2s ease;
       border: 1px solid transparent;
       text-decoration: none;
@@ -138,10 +211,22 @@
       color: white;
       box-shadow: 0 4px 14px rgba(239, 68, 68, 0.3);
     }
-    .btn-success {
-      background: var(--success);
-      color: white;
-      box-shadow: 0 4px 14px rgba(16, 185, 129, 0.3);
+    .btn-bulk {
+      background: linear-gradient(135deg, #4F46E5 0%, #7C3AED 100%);
+      color: #FFF;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 4px 15px rgba(124, 58, 237, 0.35);
+      font-weight: 700;
+    }
+    .btn-bulk:hover {
+      background: linear-gradient(135deg, #4338CA 0%, #6D28D9 100%);
+      transform: translateY(-1px);
+    }
+    .bulk-badge {
+      background: rgba(255, 255, 255, 0.25);
+      padding: 1px 7px;
+      border-radius: 10px;
+      font-size: 11px;
     }
 
     main {
@@ -149,10 +234,10 @@
       max-width: 1440px;
       width: 100%;
       margin: 0 auto;
-      padding: 32px 24px 60px;
+      padding: 24px 24px 60px;
       display: flex;
       flex-direction: column;
-      gap: 28px;
+      gap: 24px;
     }
 
     /* Stat Cards */
@@ -165,44 +250,40 @@
       background: var(--bg-card);
       border: 1px solid var(--border-subtle);
       border-radius: var(--radius-lg);
-      padding: 20px 24px;
-      backdrop-filter: blur(12px);
+      padding: 18px 20px;
       box-shadow: var(--shadow-card);
-      position: relative;
-      overflow: hidden;
+      backdrop-filter: blur(12px);
+      transition: transform 0.2s;
     }
-    .stat-card::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 4px;
-      height: 100%;
+    .stat-card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(255, 255, 255, 0.15);
     }
-    .stat-card.card-danger::after { background: var(--danger); }
-    .stat-card.card-warning::after { background: var(--warning); }
-    .stat-card.card-success::after { background: var(--success); }
-    .stat-card.card-primary::after { background: var(--primary); }
+    .card-primary { border-top: 3px solid var(--primary); }
+    .card-danger { border-top: 3px solid var(--danger); }
+    .card-warning { border-top: 3px solid var(--warning); }
+    .card-success { border-top: 3px solid var(--success); }
 
     .stat-label {
-      font-size: 13px;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
       color: var(--text-muted);
-      font-weight: 500;
-      margin-bottom: 6px;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      font-weight: 600;
     }
     .stat-val {
-      font-size: 32px;
       font-family: 'Outfit', sans-serif;
+      font-size: 32px;
       font-weight: 700;
+      margin: 6px 0 2px;
       color: #fff;
     }
     .stat-desc {
       font-size: 12px;
       color: var(--text-muted);
-      margin-top: 4px;
     }
 
     /* Filter & Controls */
@@ -252,14 +333,22 @@
       border-radius: 12px;
       color: #fff;
     }
+
+    .controls-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
     .search-input {
-      background: rgba(0, 0, 0, 0.3);
+      background: rgba(0, 0, 0, 0.4);
       border: 1px solid var(--border-subtle);
       padding: 9px 16px;
       border-radius: var(--radius-md);
       color: #fff;
       font-size: 13px;
-      min-width: 260px;
+      min-width: 280px;
       outline: none;
       transition: border-color 0.2s;
     }
@@ -278,13 +367,13 @@
       background: var(--bg-card);
       border: 1px solid var(--border-subtle);
       border-radius: var(--radius-lg);
-      padding: 24px;
+      padding: 22px;
       display: grid;
       grid-template-columns: 280px 1fr 340px;
-      gap: 24px;
+      gap: 22px;
       align-items: start;
       box-shadow: var(--shadow-card);
-      transition: border-color 0.2s, transform 0.2s;
+      transition: all 0.2s ease;
       position: relative;
     }
     .diag-card:hover {
@@ -292,8 +381,9 @@
       background: var(--bg-card-hover);
     }
     .diag-card.resolved {
-      opacity: 0.75;
+      opacity: 0.8;
       border-color: var(--success-border);
+      background: rgba(16, 185, 129, 0.03);
     }
 
     /* Coluna 1: Screenshot & Identificação */
@@ -351,9 +441,19 @@
       color: #60A5FA;
       background: rgba(96, 165, 250, 0.12);
       border: 1px solid rgba(96, 165, 250, 0.25);
-      padding: 3px 10px;
+      padding: 4px 10px;
       border-radius: 6px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s;
     }
+    .diag-sku:hover {
+      background: rgba(96, 165, 250, 0.2);
+      border-color: #60A5FA;
+    }
+
     .diag-pill {
       font-size: 11px;
       font-weight: 700;
@@ -369,10 +469,10 @@
 
     .diag-title {
       font-family: 'Outfit', sans-serif;
-      font-size: 17px;
+      font-size: 16px;
       font-weight: 700;
       color: #fff;
-      line-height: 1.3;
+      line-height: 1.35;
     }
 
     .error-box {
@@ -390,6 +490,59 @@
       font-size: 13.5px;
       color: var(--text-muted);
       line-height: 1.5;
+    }
+
+    /* Visual Diff Container */
+    .diff-container {
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      padding: 10px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-size: 12.5px;
+    }
+
+    .diff-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+
+    .diff-tag-old {
+      background: rgba(239, 68, 68, 0.15);
+      color: #F87171;
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      padding: 1px 6px;
+      border-radius: 4px;
+      font-size: 10px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .diff-tag-new {
+      background: rgba(16, 185, 129, 0.15);
+      color: #34D399;
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      padding: 1px 6px;
+      border-radius: 4px;
+      font-size: 10px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .diff-text-old {
+      color: #FCA5A5;
+      font-family: 'JetBrains Mono', monospace;
+      word-break: break-all;
+    }
+
+    .diff-text-new {
+      color: #6EE7B7;
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 600;
+      word-break: break-all;
     }
 
     /* Coluna 3: Proposta de Solução & Ações */
@@ -443,30 +596,28 @@
       border: 1px dashed var(--border-subtle);
       border-radius: var(--radius-lg);
     }
-    .empty-icon { font-size: 48px; margin-bottom: 12px; }
+    .empty-icon { font-size: 44px; margin-bottom: 12px; }
     .empty-title { font-size: 18px; font-weight: 700; color: #fff; margin-bottom: 6px; }
-    .empty-desc { font-size: 14px; color: var(--text-muted); max-width: 460px; margin: 0 auto; }
+    .empty-desc { font-size: 13px; color: var(--text-muted); max-width: 480px; margin: 0 auto; }
 
-    /* Image Modal */
+    /* Modal de Imagem */
     .modal-backdrop {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
+      inset: 0;
       background: rgba(0, 0, 0, 0.85);
-      backdrop-filter: blur(8px);
-      z-index: 1000;
+      backdrop-filter: blur(10px);
       display: none;
       align-items: center;
       justify-content: center;
-      padding: 30px;
+      z-index: 100;
+      padding: 24px;
     }
     .modal-content {
-      max-width: 90vw;
+      max-width: 95vw;
       max-height: 90vh;
-      border-radius: var(--radius-lg);
+      background: #0f172a;
       border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
       overflow: hidden;
       box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.9);
       position: relative;
@@ -499,6 +650,26 @@
       transform: scale(1.1);
     }
 
+    /* Toast */
+    #toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: #1E293B;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      padding: 12px 20px;
+      border-radius: 10px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.7);
+      font-size: 13.5px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transform: translateY(150%);
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 1000;
+    }
+    #toast.show { transform: translateY(0); }
+
     @media (max-width: 1024px) {
       .diag-card {
         grid-template-columns: 1fr;
@@ -511,23 +682,44 @@
 </head>
 <body>
 
-  <!-- Header -->
+  <!-- Unified Global Header -->
   <header>
     <div class="brand">
       <div class="brand-icon">🕵️</div>
       <div>
         <div class="brand-title">
-          Auditor de Rejeições & Soluções
+          Auditor de Rejeições
           <span class="brand-badge">Agente 4</span>
         </div>
-        <div style="font-size: 12px; color: var(--text-muted);">Diagnóstico de Bloqueios Magis5 & Propostas de Solução</div>
+        <div style="font-size: 11px; color: var(--text-muted);">Diagnóstico Forense Magis5 & Correções em 1 Clique</div>
       </div>
     </div>
+
+    <!-- Navigation Tabs -->
+    <nav class="nav-tabs">
+      <a href="/painel.html" class="nav-tab">
+        <span>🎛️</span>
+        <span>Central de Agentes</span>
+      </a>
+      <a href="/rejeitados.html" class="nav-tab active">
+        <span>🚨</span>
+        <span>Diagnósticos & Falhas</span>
+        <span class="nav-badge-count" id="headerRejectedCount">0</span>
+      </a>
+      <a href="/relatorio.html" target="_blank" class="nav-tab">
+        <span>📊</span>
+        <span>Auditoria & Catálogo</span>
+      </a>
+    </nav>
+
+    <!-- Right Controls -->
     <div class="nav-actions">
-      <a href="/" class="btn btn-secondary">🎛️ Painel de Controle</a>
-      <a href="/relatorio.html" class="btn btn-secondary">📊 Catálogo Enriquecido</a>
-      <button id="btnRefresh" class="btn btn-primary" onclick="refreshAudit()">
-        <span>🔄 Re-auditar Agora</span>
+      <div class="server-status">
+        <span class="pulse-dot"></span>
+        <span>Online</span>
+      </div>
+      <button id="btnRefresh" class="btn btn-secondary" onclick="refreshAudit()">
+        <span>🔄 Re-auditar</span>
       </button>
     </div>
   </header>
@@ -538,17 +730,17 @@
       <div class="stat-card card-primary">
         <div class="stat-label">Total Investigados <span>🔍</span></div>
         <div class="stat-val" id="statTotal">-</div>
-        <div class="stat-desc">Anúncios rejeitados ou auditados</div>
+        <div class="stat-desc">Anúncios auditados pelo robô</div>
       </div>
       <div class="stat-card card-danger">
         <div class="stat-label">Pendentes de Solução <span>⏳</span></div>
         <div class="stat-val" id="statPendentes">-</div>
-        <div class="stat-desc">Exigem ação ou correção no cadastro</div>
+        <div class="stat-desc">Exigem ação ou correção</div>
       </div>
       <div class="stat-card card-warning">
         <div class="stat-label">Categorias Fora da Árvore <span>📂</span></div>
         <div class="stat-val" id="statCat">-</div>
-        <div class="stat-desc">Subcategorias não reconhecidas</div>
+        <div class="stat-desc">Taxonomia Shopee incompatível</div>
       </div>
       <div class="stat-card card-success">
         <div class="stat-label">Já Resolvidos / Ativos <span>✅</span></div>
@@ -557,7 +749,7 @@
       </div>
     </div>
 
-    <!-- Barra de Filtros e Busca -->
+    <!-- Barra de Filtros, Ação em Massa e Busca -->
     <div class="controls-bar">
       <div class="filter-tabs">
         <button class="tab-btn active" onclick="setFilter('pendentes', this)">
@@ -585,7 +777,14 @@
           <span class="badge-count" id="badgeResolvidos">0</span>
         </button>
       </div>
-      <input type="text" id="searchInput" class="search-input" placeholder="Buscar por SKU, título ou erro..." oninput="handleSearch()">
+
+      <div class="controls-right">
+        <button id="btnBulkFix" class="btn btn-bulk" onclick="applyBulkCategoryFix()" title="Corrige todas as categorias com sugestão automática">
+          <span>⚡ Corrigir Todas as Categorias</span>
+          <span class="bulk-badge" id="bulkCatCount">0</span>
+        </button>
+        <input type="text" id="searchInput" class="search-input" placeholder="🔍 Buscar por SKU, título ou erro..." oninput="handleSearch()">
+      </div>
     </div>
 
     <!-- Grid de Diagnósticos -->
@@ -606,16 +805,35 @@
     </div>
   </div>
 
+  <div id="toast"></div>
+
   <script>
     let diagnosticsData = [];
     let currentFilter = 'pendentes';
     let searchQuery = '';
 
+    function showToast(msg, isError = false) {
+      const toast = document.getElementById('toast');
+      toast.innerHTML = (isError ? '⚠️ ' : '✅ ') + msg;
+      toast.style.borderColor = isError ? 'rgba(239, 68, 68, 0.4)' : 'rgba(16, 185, 129, 0.4)';
+      toast.className = 'show';
+      setTimeout(() => { toast.className = ''; }, 3500);
+    }
+
+    function copySku(sku) {
+      navigator.clipboard.writeText(sku).then(() => {
+        showToast(`SKU <strong>${sku}</strong> copiado para a área de transferência!`);
+      }).catch(() => {
+        showToast(`SKU: ${sku}`);
+      });
+    }
+
     async function loadDiagnostics() {
       try {
         const res = await fetch('/api/diagnostics');
         const data = await res.json();
-        diagnosticsData = data.diagnostics || [];
+        // Compatibilidade com chaves diagnostics ou produtos
+        diagnosticsData = data.diagnostics || data.produtos || [];
         updateStats(data);
         renderList();
       } catch (err) {
@@ -630,17 +848,33 @@
     }
 
     function updateStats(data) {
-      document.getElementById('statTotal').innerText = data.totalAuditados || 0;
-      document.getElementById('statPendentes').innerText = data.pendentesResolucao || 0;
-      document.getElementById('statCat').innerText = data.porTipoErro?.categoriaIncompativel || 0;
-      document.getElementById('statResolvidos').innerText = data.jaResolvidos || 0;
+      const total = data.totalAuditados || diagnosticsData.length;
+      const pendentes = data.pendentesResolucao !== undefined ? data.pendentesResolucao : diagnosticsData.filter(d => !d.isCurrentlyPublished).length;
+      const catCount = data.porTipoErro?.categoriaIncompativel || diagnosticsData.filter(d => d.classificacao?.codigo === 'CATEGORIA_INCOMPATIVEL' && !d.isCurrentlyPublished).length;
+      const resolvidos = data.jaResolvidos !== undefined ? data.jaResolvidos : diagnosticsData.filter(d => d.isCurrentlyPublished).length;
 
-      document.getElementById('badgeTodos').innerText = data.totalAuditados || 0;
-      document.getElementById('badgePendentes').innerText = data.pendentesResolucao || 0;
-      document.getElementById('badgeCat').innerText = data.porTipoErro?.categoriaIncompativel || 0;
-      document.getElementById('badgeFotos').innerText = data.porTipoErro?.limiteFotos || 0;
-      document.getElementById('badgeSku').innerText = data.porTipoErro?.skuDuplicado || 0;
-      document.getElementById('badgeResolvidos').innerText = data.jaResolvidos || 0;
+      document.getElementById('statTotal').innerText = total;
+      document.getElementById('statPendentes').innerText = pendentes;
+      document.getElementById('statCat').innerText = catCount;
+      document.getElementById('statResolvidos').innerText = resolvidos;
+
+      document.getElementById('headerRejectedCount').innerText = pendentes;
+      document.getElementById('bulkCatCount').innerText = catCount;
+      const btnBulk = document.getElementById('btnBulkFix');
+      if (catCount === 0) {
+        btnBulk.style.opacity = '0.5';
+        btnBulk.style.pointerEvents = 'none';
+      } else {
+        btnBulk.style.opacity = '1';
+        btnBulk.style.pointerEvents = 'auto';
+      }
+
+      document.getElementById('badgeTodos').innerText = total;
+      document.getElementById('badgePendentes').innerText = pendentes;
+      document.getElementById('badgeCat').innerText = catCount;
+      document.getElementById('badgeFotos').innerText = data.porTipoErro?.limiteFotos || diagnosticsData.filter(d => d.classificacao?.codigo === 'LIMITE_FOTOS_VARIACAO').length;
+      document.getElementById('badgeSku').innerText = data.porTipoErro?.skuDuplicado || diagnosticsData.filter(d => d.classificacao?.codigo === 'SKU_DUPLICADO').length;
+      document.getElementById('badgeResolvidos').innerText = resolvidos;
     }
 
     function setFilter(filter, btn) {
@@ -661,17 +895,18 @@
         // Filtro de abas
         if (currentFilter === 'pendentes' && item.isCurrentlyPublished) return false;
         if (currentFilter === 'resolvidos' && !item.isCurrentlyPublished) return false;
-        if (currentFilter === 'categoria' && item.classificacao.codigo !== 'CATEGORIA_INCOMPATIVEL') return false;
-        if (currentFilter === 'fotos' && item.classificacao.codigo !== 'LIMITE_FOTOS_VARIACAO') return false;
-        if (currentFilter === 'sku_dup' && item.classificacao.codigo !== 'SKU_DUPLICADO') return false;
+        if (currentFilter === 'categoria' && item.classificacao?.codigo !== 'CATEGORIA_INCOMPATIVEL') return false;
+        if (currentFilter === 'fotos' && item.classificacao?.codigo !== 'LIMITE_FOTOS_VARIACAO') return false;
+        if (currentFilter === 'sku_dup' && item.classificacao?.codigo !== 'SKU_DUPLICADO') return false;
 
-        // Filtro de busca
+        // Filtro de busca em tempo real
         if (searchQuery) {
           const matchSku = (item.sku || '').toLowerCase().includes(searchQuery);
           const matchTitle = (item.titulo || '').toLowerCase().includes(searchQuery);
           const matchErr = (item.erro_bruto || '').toLowerCase().includes(searchQuery);
           const matchDiag = (item.diagnostico || '').toLowerCase().includes(searchQuery);
-          return matchSku || matchTitle || matchErr || matchDiag;
+          const matchProp = (item.proposta?.acao || '').toLowerCase().includes(searchQuery);
+          return matchSku || matchTitle || matchErr || matchDiag || matchProp;
         }
         return true;
       });
@@ -689,8 +924,10 @@
 
       container.innerHTML = filtered.map(item => {
         const isResolved = item.isCurrentlyPublished;
-        const pillClass = isResolved ? 'pill-success' : (item.classificacao.gravidade === 'ALTA' ? 'pill-danger' : 'pill-warning');
-        const pillText = isResolved ? '✅ JÁ RESOLVIDO' : `${item.classificacao.icone} ${item.classificacao.tipo}`;
+        const pillClass = isResolved ? 'pill-success' : (item.classificacao?.gravidade === 'ALTA' ? 'pill-danger' : 'pill-warning');
+        const pillText = isResolved ? '✅ JÁ RESOLVIDO' : `${item.classificacao?.icone || '⚠️'} ${item.classificacao?.tipo || 'REJEITADO'}`;
+
+        const isCategoryIssue = item.classificacao?.codigo === 'CATEGORIA_INCOMPATIVEL';
 
         return `
           <div class="diag-card ${isResolved ? 'resolved' : ''}" id="card-${item.sku}">
@@ -701,28 +938,45 @@
                 <div class="shot-overlay">🔍 Ampliar Prova</div>
               </div>
               <div style="margin-top: 10px; font-size: 12px; color: var(--text-muted); display: flex; justify-content: space-between;">
-                <span>ERP Sankhya: <strong>${item.cod_sankhya}</strong></span>
-                <span>R$ ${Number(item.preco).toFixed(2)}</span>
+                <span>ERP Sankhya: <strong>${item.cod_sankhya || 'N/A'}</strong></span>
+                <span>R$ ${Number(item.preco || 0).toFixed(2)}</span>
               </div>
             </div>
 
             <!-- Coluna 2: Diagnóstico -->
             <div class="diag-info">
               <div class="diag-header">
-                <span class="diag-sku">${item.sku}</span>
+                <span class="diag-sku" onclick="copySku('${item.sku}')" title="Clique para copiar SKU">
+                  ${item.sku}
+                  <span style="font-size: 11px; opacity: 0.7;">📋</span>
+                </span>
                 <span class="diag-pill ${pillClass}">${pillText}</span>
                 ${item.marca && item.marca !== 'N/A' ? `<span style="font-size: 12px; color: var(--text-muted);">Marca: <strong>${item.marca}</strong></span>` : ''}
               </div>
 
-              <div class="diag-title">${item.titulo}</div>
+              <div class="diag-title">${escapeHtml(item.titulo)}</div>
 
               <div class="error-box">
-                <strong>🚫 Bloqueio Magis5:</strong> ${escapeHtml(item.erro_bruto)}
+                <strong>🚫 Bloqueio Magis5:</strong> ${escapeHtml(item.erro_bruto || 'Erro durante o salvamento')}
               </div>
 
-              <div class="explanation-text">
-                <strong>🕵️ Diagnóstico da Causa Raiz:</strong> ${item.diagnostico}
-              </div>
+              <!-- Comparativo Visual se for problema de categoria -->
+              ${isCategoryIssue && item.proposta?.categoria_correta ? `
+                <div class="diff-container">
+                  <div class="diff-row">
+                    <span class="diff-tag-old">❌ ANTES (INVÁLIDA)</span>
+                    <span class="diff-text-old">${escapeHtml(item.categoriaAtual || 'Esportes e Lazer > Pesca')}</span>
+                  </div>
+                  <div class="diff-row">
+                    <span class="diff-tag-new">✅ AGORA (OFICIAL)</span>
+                    <span class="diff-text-new">${escapeHtml(item.proposta.categoria_correta)}</span>
+                  </div>
+                </div>
+              ` : `
+                <div class="explanation-text">
+                  <strong>🕵️ Diagnóstico da Causa Raiz:</strong> ${escapeHtml(item.diagnostico)}
+                </div>
+              `}
             </div>
 
             <!-- Coluna 3: Proposta & Ações -->
@@ -731,19 +985,19 @@
                 <span>💡 Proposta de Solução</span>
               </div>
               <div class="solution-desc">
-                <strong>${item.proposta.acao}</strong>
-                <p style="margin-top: 4px; color: var(--text-muted); font-size: 12px;">${item.proposta.explicacao}</p>
+                <strong>${escapeHtml(item.proposta?.acao || 'Ajuste necessário')}</strong>
+                <p style="margin-top: 4px; color: var(--text-muted); font-size: 12px;">${escapeHtml(item.proposta?.explicacao || '')}</p>
               </div>
 
-              ${item.proposta.categoria_correta ? `
+              ${item.proposta?.categoria_correta && !isCategoryIssue ? `
                 <div class="solution-highlight">
                   <div style="font-size: 11px; color: #818CF8; font-weight: 600; margin-bottom: 2px;">Árvore Oficial Sugerida:</div>
-                  ${item.proposta.categoria_correta}
+                  ${escapeHtml(item.proposta.categoria_correta)}
                 </div>
               ` : ''}
 
               <div class="solution-actions">
-                ${item.proposta.autoFixAvailable && !isResolved ? `
+                ${item.proposta?.autoFixAvailable && !isResolved ? `
                   <button class="btn btn-primary" onclick="applyFix('${item.sku}', '${item.proposta.fixType}')">
                     <span>⚡ Aplicar Solução Automática</span>
                   </button>
@@ -755,7 +1009,7 @@
                   </button>
                 ` : `
                   <div style="text-align: center; color: var(--success); font-size: 12px; font-weight: 600; padding: 6px;">
-                    ✅ Anúncio Publicado com Sucesso
+                    ✅ Anúncio Pronto & Publicado
                   </div>
                 `}
               </div>
@@ -774,6 +1028,11 @@
       document.getElementById('imageModal').style.display = 'none';
     }
 
+    // Fechar modal com tecla Esc
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeModal();
+    });
+
     async function refreshAudit() {
       const btn = document.getElementById('btnRefresh');
       btn.disabled = true;
@@ -784,15 +1043,16 @@
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ agent: 'agent4' })
         });
+        showToast('Auditoria iniciada pelo Agente 4!');
         setTimeout(async () => {
           await loadDiagnostics();
           btn.disabled = false;
-          btn.innerHTML = '<span>🔄 Re-auditar Agora</span>';
-        }, 3000);
+          btn.innerHTML = '<span>🔄 Re-auditar</span>';
+        }, 2500);
       } catch (e) {
-        alert('Erro ao disparar auditoria: ' + e.message);
+        showToast('Erro ao disparar auditoria: ' + e.message, true);
         btn.disabled = false;
-        btn.innerHTML = '<span>🔄 Re-auditar Agora</span>';
+        btn.innerHTML = '<span>🔄 Re-auditar</span>';
       }
     }
 
@@ -808,15 +1068,37 @@
         });
         const json = await res.json();
         if (json.success) {
-          alert(`✅ ${json.message}`);
+          showToast(`Correção aplicada ao SKU ${sku}!`);
           await loadDiagnostics();
         } else {
-          alert(`❌ Falha: ${json.error}`);
+          showToast(`Falha: ${json.error}`, true);
         }
       } catch (e) {
-        alert(`Erro de conexão: ${e.message}`);
+        showToast(`Erro de conexão: ${e.message}`, true);
       } finally {
         if (card) card.style.opacity = '1';
+      }
+    }
+
+    async function applyBulkCategoryFix() {
+      const btn = document.getElementById('btnBulkFix');
+      btn.disabled = true;
+      btn.innerHTML = '<span>⏳ Corrigindo...</span>';
+
+      try {
+        const res = await fetch('/api/diagnostics/fix-all', { method: 'POST' });
+        const json = await res.json();
+        if (json.fixed !== undefined) {
+          showToast(`🎉 ${json.fixed} produto(s) corrigidos com sucesso!`);
+          await loadDiagnostics();
+        } else {
+          showToast(`Erro na correção em lote: ${json.error}`, true);
+        }
+      } catch (e) {
+        showToast(`Erro de conexão: ${e.message}`, true);
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = `<span>⚡ Corrigir Todas as Categorias</span> <span class="bulk-badge" id="bulkCatCount">0</span>`;
       }
     }
 
@@ -837,13 +1119,15 @@
         });
         const data = await res.json();
         if (data.success) {
-          alert(`🚀 Agente 3 iniciado para o SKU ${sku}! Redirecionando para o Painel de Controle para acompanhar os logs...`);
-          window.location.href = '/';
+          showToast(`🚀 Agente 3 disparado para o SKU ${sku}! Redirecionando...`);
+          setTimeout(() => {
+            window.location.href = '/painel.html';
+          }, 1200);
         } else {
-          alert(`❌ ${data.error}`);
+          showToast(`Erro: ${data.error}`, true);
         }
       } catch (e) {
-        alert('Erro: ' + e.message);
+        showToast('Erro: ' + e.message, true);
       }
     }
 
@@ -856,7 +1140,7 @@
         .replace(/"/g, '&quot;');
     }
 
-    // Inicialização
+    // Inicialização imediata
     loadDiagnostics();
   </script>
 </body>

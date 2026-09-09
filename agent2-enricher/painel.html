@@ -104,6 +104,51 @@
       gap: 1rem;
     }
 
+    /* Tabs de Navegação Global */
+    .nav-tabs {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(0, 0, 0, 0.35);
+      padding: 4px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .nav-tab {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 14px;
+      border-radius: 8px;
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 600;
+      transition: all 0.2s ease;
+    }
+
+    .nav-tab:hover {
+      color: #FFF;
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .nav-tab.active {
+      color: #FFF;
+      background: rgba(59, 130, 246, 0.18);
+      border: 1px solid rgba(59, 130, 246, 0.35);
+      box-shadow: 0 2px 8px rgba(59, 130, 246, 0.2);
+    }
+
+    .nav-badge-count {
+      background: #EF4444;
+      color: #FFF;
+      font-size: 11px;
+      padding: 1px 6px;
+      border-radius: 10px;
+      font-weight: 700;
+    }
+
     .status-pill {
       display: inline-flex;
       align-items: center;
@@ -172,7 +217,7 @@
     /* ── Stats Row ─────────────────────────────────────── */
     .stats-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
       gap: 1.25rem;
     }
 
@@ -223,6 +268,211 @@
     .stat-card:nth-child(2) .stat-icon { background: rgba(139, 92, 246, 0.15); color: #A78BFA; }
     .stat-card:nth-child(3) .stat-icon { background: rgba(16, 185, 129, 0.15); color: #34D399; }
     .stat-card:nth-child(4) .stat-icon { background: rgba(245, 158, 11, 0.15); color: #FBBF24; }
+    .stat-card:nth-child(5) .stat-icon { background: rgba(239, 68, 68, 0.15); color: #F87171; }
+
+    /* ── Pipeline Stepper ───────────────────────────────── */
+    .pipeline-stepper {
+      background: var(--bg-card);
+      border: 1px solid var(--bg-card-border);
+      border-radius: var(--radius-lg);
+      padding: 1.25rem 1.5rem;
+      backdrop-filter: blur(12px);
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .stepper-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .stepper-title {
+      font-family: var(--font-heading);
+      font-size: 1rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: #FFF;
+    }
+
+    .stepper-subtitle {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      font-weight: 400;
+    }
+
+    .stepper-track {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr auto 1fr auto 1fr;
+      gap: 0.75rem;
+      align-items: center;
+    }
+
+    @media (max-width: 900px) {
+      .stepper-track {
+        grid-template-columns: 1fr;
+        gap: 0.5rem;
+      }
+      .step-arrow { display: none; }
+    }
+
+    .step-card {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: var(--radius-md);
+      padding: 0.85rem 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      position: relative;
+    }
+
+    .step-card:hover {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: rgba(255, 255, 255, 0.15);
+      transform: translateY(-2px);
+    }
+
+    .step-card.active-step {
+      border-color: #3B82F6;
+      background: rgba(59, 130, 246, 0.12);
+      box-shadow: 0 0 15px rgba(59, 130, 246, 0.25);
+    }
+
+    .step-num {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text-muted);
+      font-weight: 700;
+      font-size: 0.8rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .step-card.active-step .step-num {
+      background: #3B82F6;
+      color: #FFF;
+      box-shadow: 0 0 8px #3B82F6;
+    }
+
+    .step-card-info h4 {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #FFF;
+    }
+
+    .step-card-info span {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+    }
+
+    .step-arrow {
+      color: var(--text-dim);
+      font-size: 1.1rem;
+      user-select: none;
+      text-align: center;
+    }
+
+    /* ── Log Filters in Terminal ────────────────────────── */
+    .log-filters {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      background: rgba(255, 255, 255, 0.04);
+      padding: 2px 4px;
+      border-radius: 6px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .log-filter-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .log-filter-btn:hover {
+      color: #FFF;
+      background: rgba(255, 255, 255, 0.08);
+    }
+    .log-filter-btn.active {
+      background: rgba(59, 130, 246, 0.25);
+      color: #93C5FD;
+    }
+
+    /* ── Floating Mini Dock ─────────────────────────────── */
+    .mini-dock {
+      position: fixed;
+      bottom: 1.5rem;
+      left: 50%;
+      transform: translateX(-50%) translateY(150%);
+      background: rgba(13, 17, 23, 0.92);
+      border: 1px solid rgba(59, 130, 246, 0.4);
+      border-radius: 9999px;
+      padding: 0.5rem 1.25rem 0.5rem 1rem;
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.7), 0 0 20px rgba(59, 130, 246, 0.2);
+      backdrop-filter: blur(16px);
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      z-index: 1000;
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      max-width: 90vw;
+    }
+
+    .mini-dock.visible {
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .dock-status {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: #60A5FA;
+      white-space: nowrap;
+    }
+
+    .dock-log-preview {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: #E2E8F0;
+      max-width: 380px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .btn-dock-expand {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #FFF;
+      padding: 0.25rem 0.65rem;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .btn-dock-expand:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
 
     /* ── Agents Grid ───────────────────────────────────── */
     .section-title {
@@ -908,7 +1158,7 @@
 </head>
 <body>
 
-  <!-- Header -->
+  <!-- Unified Global Header -->
   <header>
     <div class="brand-group">
       <div class="brand-logo">🎣</div>
@@ -917,24 +1167,39 @@
         <p>BRK Fishing Pipeline Control Center</p>
       </div>
     </div>
+
+    <!-- Navigation Tabs -->
+    <nav class="nav-tabs">
+      <a href="/painel.html" class="nav-tab active">
+        <span>🎛️</span>
+        <span>Central de Agentes</span>
+      </a>
+      <a href="/rejeitados.html" class="nav-tab" id="nav-tab-rejeitados">
+        <span>🚨</span>
+        <span>Diagnósticos & Falhas</span>
+        <span class="nav-badge-count" id="header-rejected-count">0</span>
+      </a>
+      <a href="/relatorio.html" target="_blank" class="nav-tab">
+        <span>📊</span>
+        <span>Auditoria & Catálogo</span>
+      </a>
+    </nav>
+
     <div class="header-actions">
       <div class="status-pill" id="system-status">
         <span class="status-dot"></span>
         <span id="system-status-text">Sistema Pronto</span>
       </div>
-      <a href="/relatorio.html" class="btn-nav" target="_blank">
-        📊 Auditoria de Produtos
-      </a>
-      <a href="/rejeitados.html" class="btn-nav" target="_blank" style="background: rgba(239, 68, 68, 0.15); border-color: rgba(239, 68, 68, 0.35); color: #FCA5A5;">
-        🚨 Falhas & Soluções (Agente 4)
-      </a>
+      <button class="btn-nav" onclick="fetchStats()" title="Atualizar dados">
+        <span>🔄</span>
+      </button>
     </div>
   </header>
 
   <!-- Main Content -->
   <main>
 
-    <!-- Stats Hero -->
+    <!-- Stats Hero (5 Cards) -->
     <div class="stats-grid">
       <div class="stat-card">
         <div class="stat-info">
@@ -963,6 +1228,70 @@
           <h2 id="stat-pendentes">-</h2>
         </div>
         <div class="stat-icon">⏳</div>
+      </div>
+      <div class="stat-card" style="cursor: pointer; border-color: rgba(239, 68, 68, 0.35);" onclick="window.location.href='/rejeitados.html'" title="Clique para abrir o painel de diagnósticos">
+        <div class="stat-info">
+          <span style="color: #F87171;">Rejeições / Falhas</span>
+          <h2 id="stat-rejeitados" style="color: #FCA5A5;">-</h2>
+        </div>
+        <div class="stat-icon">🚨</div>
+      </div>
+    </div>
+
+    <!-- Pipeline Stepper -->
+    <div class="pipeline-stepper">
+      <div class="stepper-top">
+        <div class="stepper-title">
+          <span>⚡</span> Fluxo do Pipeline em Tempo Real
+          <span class="stepper-subtitle">— Acompanhe a progressão sequencial dos produtos</span>
+        </div>
+        <div style="font-size: 0.75rem; color: var(--text-muted);">
+          Clique em uma etapa para focar no agente
+        </div>
+      </div>
+
+      <div class="stepper-track">
+        <!-- Step 1 -->
+        <div class="step-card" id="step-card-agent1" onclick="focusAgent('agent1')">
+          <div class="step-num">1</div>
+          <div class="step-card-info">
+            <h4>Coleta & Imagens</h4>
+            <span id="step-metric-agent1">Agente 1 — Coletor</span>
+          </div>
+        </div>
+
+        <div class="step-arrow">➔</div>
+
+        <!-- Step 2 -->
+        <div class="step-card" id="step-card-agent2" onclick="focusAgent('agent2')">
+          <div class="step-num">2</div>
+          <div class="step-card-info">
+            <h4>Enriquecimento IA</h4>
+            <span id="step-metric-agent2">Agente 2 — IA Vision</span>
+          </div>
+        </div>
+
+        <div class="step-arrow">➔</div>
+
+        <!-- Step 3 -->
+        <div class="step-card" id="step-card-agent3" onclick="focusAgent('agent3')">
+          <div class="step-num">3</div>
+          <div class="step-card-info">
+            <h4>Publicação Magis5</h4>
+            <span id="step-metric-agent3">Agente 3 — RPA Robô</span>
+          </div>
+        </div>
+
+        <div class="step-arrow">➔</div>
+
+        <!-- Step 4 -->
+        <div class="step-card" id="step-card-agent4" onclick="window.location.href='/rejeitados.html'" style="border-color: rgba(239, 68, 68, 0.3);">
+          <div class="step-num" style="background: rgba(239, 68, 68, 0.2); color: #FCA5A5;">4</div>
+          <div class="step-card-info">
+            <h4>Auditoria & Falhas</h4>
+            <span id="step-metric-agent4" style="color: #F87171;">Agente 4 — Auditor</span>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -1212,6 +1541,12 @@
           <span id="terminal-agent-tag">CONSOLE DE LOGS DO AGENTE</span>
         </div>
         <div class="terminal-actions">
+          <div class="log-filters">
+            <button class="log-filter-btn active" onclick="filterLogs('all', this)">Todos</button>
+            <button class="log-filter-btn" onclick="filterLogs('success', this)">✅ Sucessos</button>
+            <button class="log-filter-btn" onclick="filterLogs('error', this)">❌ Erros</button>
+            <button class="log-filter-btn" onclick="filterLogs('warn', this)">⚠️ Avisos</button>
+          </div>
           <label class="toggle-label">
             <input type="checkbox" id="autoscroll-toggle" checked> Auto-scroll
           </label>
@@ -1233,11 +1568,23 @@
 
   </main>
 
+  <!-- Floating Mini Dock -->
+  <div class="mini-dock" id="mini-dock">
+    <div class="dock-status">
+      <span class="status-dot"></span>
+      <span id="dock-agent-name">AGENTE</span>
+    </div>
+    <div class="dock-log-preview" id="dock-log-preview">Aguardando logs...</div>
+    <button class="btn-dock-expand" onclick="scrollToTerminal()">🖥️ Ver Logs</button>
+  </div>
+
   <div id="toast"></div>
 
   <script>
     let isRunning = false;
     let pollInterval = null;
+    let cachedLogs = [];
+    let currentLogFilter = 'all';
 
     function showToast(msg, isError = false) {
       const toast = document.getElementById('toast');
@@ -1258,6 +1605,17 @@
         document.getElementById('stat-publicados').textContent = s.publishedJsons || 0;
         document.getElementById('stat-pendentes').textContent = s.pendingJsons || 0;
 
+        // Atualiza métricas de rejeições do Agente 4
+        fetch('/api/diagnostics').then(r => r.json()).then(diag => {
+          const pendentes = diag.pendentesResolucao !== undefined ? diag.pendentesResolucao : (diag.diagnostics || diag.produtos || []).filter(d => !d.isCurrentlyPublished).length;
+          const statRej = document.getElementById('stat-rejeitados');
+          const badgeHeader = document.getElementById('header-rejected-count');
+          const stepRej = document.getElementById('step-metric-agent4');
+          if (statRej) statRej.textContent = pendentes;
+          if (badgeHeader) badgeHeader.textContent = pendentes;
+          if (stepRej) stepRej.textContent = `${pendentes} pendente(s)`;
+        }).catch(() => {});
+
         updateRunningState(data.agentRunning, data.currentAgent, data.agentStatus);
       } catch (e) {
         console.error('Erro ao buscar stats:', e);
@@ -1270,33 +1628,88 @@
       const statusText = document.getElementById('system-status-text');
       const stopBtn = document.getElementById('btn-stop-agent');
       const tag = document.getElementById('terminal-agent-tag');
+      const miniDock = document.getElementById('mini-dock');
+      const dockName = document.getElementById('dock-agent-name');
 
       const allRunBtns = [
         document.getElementById('btn-run-agent1'),
         document.getElementById('btn-run-agent2'),
-        document.getElementById('btn-run-agent3')
-      ];
+        document.getElementById('btn-run-agent3'),
+        document.getElementById('btn-run-agent4')
+      ].filter(Boolean);
 
-      if (running) {
+      // Atualiza stepper
+      document.querySelectorAll('.step-card').forEach(c => c.classList.remove('active-step'));
+
+      if (running && currentAgent) {
         statusPill.classList.add('busy');
         statusText.textContent = `Executando: ${currentAgent.toUpperCase()}...`;
         stopBtn.disabled = false;
         allRunBtns.forEach(b => b.disabled = true);
         tag.textContent = `CONSOLE [${currentAgent.toUpperCase()} EM EXECUÇÃO]`;
+
+        const activeStep = document.getElementById(`step-card-${currentAgent}`);
+        if (activeStep) activeStep.classList.add('active-step');
+
+        if (miniDock) {
+          miniDock.classList.add('visible');
+          if (dockName) dockName.textContent = currentAgent.toUpperCase();
+        }
       } else {
         statusPill.classList.remove('busy');
         statusText.textContent = agentStatus === 'error' ? 'Última Tarefa com Erro' : 'Sistema Pronto';
         stopBtn.disabled = true;
         allRunBtns.forEach(b => b.disabled = false);
         tag.textContent = 'CONSOLE DE LOGS';
+
+        if (miniDock) {
+          miniDock.classList.remove('visible');
+        }
       }
+    }
+
+    function focusAgent(agentId) {
+      let cardSelector = '';
+      if (agentId === 'agent1') cardSelector = '#btn-run-agent1';
+      else if (agentId === 'agent2') cardSelector = '#btn-run-agent2';
+      else if (agentId === 'agent3') cardSelector = '#btn-run-agent3';
+      else if (agentId === 'agent4') cardSelector = '#btn-run-agent4';
+
+      const btn = document.querySelector(cardSelector);
+      if (btn) {
+        const card = btn.closest('.agent-card');
+        if (card) {
+          card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          card.style.borderColor = '#3B82F6';
+          card.style.boxShadow = '0 0 25px rgba(59, 130, 246, 0.4)';
+          setTimeout(() => {
+            card.style.borderColor = '';
+            card.style.boxShadow = '';
+          }, 1500);
+        }
+      }
+    }
+
+    function scrollToTerminal() {
+      const term = document.getElementById('terminal-body');
+      if (term) {
+        term.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    }
+
+    function filterLogs(filterType, btn) {
+      currentLogFilter = filterType;
+      document.querySelectorAll('.log-filter-btn').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+      renderLogs(cachedLogs);
     }
 
     async function fetchLogs() {
       try {
         const res = await fetch('/api/agents/logs');
         const data = await res.json();
-        renderLogs(data.logs);
+        cachedLogs = data.logs || [];
+        renderLogs(cachedLogs);
         updateRunningState(data.running, data.currentAgent, data.agentStatus);
       } catch (e) {
         console.error('Erro ao buscar logs:', e);
@@ -1305,10 +1718,34 @@
 
     function renderLogs(logs) {
       const body = document.getElementById('terminal-body');
-      if (!logs || logs.length === 0) return;
+      if (!logs) return;
+
+      // Atualiza preview no mini dock
+      if (logs.length > 0) {
+        const lastMsg = logs[logs.length - 1].message;
+        const dockPreview = document.getElementById('dock-log-preview');
+        if (dockPreview) dockPreview.textContent = lastMsg;
+      }
+
+      const filtered = logs.filter(entry => {
+        const txt = entry.message;
+        const isErr = entry.stream === 'stderr' || txt.includes('❌') || txt.includes('Error') || txt.includes('Falha');
+        const isSucc = txt.includes('✅') || txt.includes('Sucesso') || txt.includes('finalizou com código');
+        const isWarn = txt.includes('⚠️') || txt.includes('Aviso');
+
+        if (currentLogFilter === 'error') return isErr;
+        if (currentLogFilter === 'success') return isSucc;
+        if (currentLogFilter === 'warn') return isWarn;
+        return true;
+      });
 
       body.innerHTML = '';
-      logs.forEach(entry => {
+      if (filtered.length === 0) {
+        body.innerHTML = `<div class="log-line"><span class="log-time">[--:--:--]</span><span class="log-msg highlight">Nenhum log encontrado para o filtro selecionado.</span></div>`;
+        return;
+      }
+
+      filtered.forEach(entry => {
         const line = document.createElement('div');
         line.className = 'log-line';
 
@@ -1335,6 +1772,19 @@
         body.scrollTop = body.scrollHeight;
       }
     }
+
+    // Atalhos de teclado
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        const modal = document.getElementById('batch-modal');
+        if (modal && modal.classList.contains('open')) closeBatchModal();
+      } else if (e.key.toLowerCase() === 'l' && !['INPUT', 'SELECT', 'TEXTAREA'].includes(e.target.tagName)) {
+        scrollToTerminal();
+      } else if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        openBatchModal();
+      }
+    });
 
     function escapeHtml(text) {
       const div = document.createElement('div');

@@ -6,7 +6,7 @@ import { spawn } from 'node:child_process';
 import { parse } from 'csv-parse/sync';
 import { stringify } from 'csv-stringify/sync';
 import { extractParentSku } from './grouping.mjs';
-import { runDiagnostics, applySolution } from '../agent4-diagnostician/diagnose.mjs';
+import { runDiagnostics, applySolution, applyAllCategoryFixes } from '../agent4-diagnostician/diagnose.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const PORT = 3000;
@@ -641,6 +641,16 @@ const server = http.createServer(async (req, res) => {
       }
     });
     return;
+  }
+
+  // 9.5. API: Aplicar Correção em Massa de Categorias (Agente 4)
+  if (req.method === 'POST' && urlPath === '/api/diagnostics/fix-all') {
+    try {
+      const result = await applyAllCategoryFixes();
+      return sendJson(200, result);
+    } catch (err) {
+      return sendJson(500, { error: err.message });
+    }
   }
 
   // 10. Servir screenshots do Agente 3

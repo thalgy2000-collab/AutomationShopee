@@ -256,6 +256,31 @@ export async function applySolution(sku, fixType) {
   };
 }
 
+/**
+ * Corrige em lote todas as categorias incompatíveis diagnosticadas.
+ */
+export async function applyAllCategoryFixes() {
+  console.log('⚡ [AGENTE 4] Aplicando correção em massa para todas as categorias incompatíveis...');
+  const diag = await runDiagnostics();
+  const eligible = (diag.diagnostics || []).filter(p => !p.isCurrentlyPublished && p.classificacao?.codigo === 'CATEGORIA_INCOMPATIVEL');
+  const results = [];
+  for (const item of eligible) {
+    try {
+      const res = await applySolution(item.sku, 'UPDATE_CATEGORY');
+      results.push({ sku: item.sku, success: true, newCategory: res.product?.categoria_sugerida });
+    } catch (err) {
+      results.push({ sku: item.sku, success: false, error: err.message });
+    }
+  }
+  const updatedDiag = await runDiagnostics();
+  return {
+    totalEligible: eligible.length,
+    fixed: results.filter(r => r.success).length,
+    results,
+    diagnostics: updatedDiag
+  };
+}
+
 // Executa diretamente se invocado via linha de comando
 if (process.argv[1] && process.argv[1].endsWith('diagnose.mjs')) {
   runDiagnostics().catch(console.error);

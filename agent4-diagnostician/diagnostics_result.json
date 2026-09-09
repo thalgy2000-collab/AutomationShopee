@@ -9,7 +9,7 @@
     "eanOuSankhya": 1,
     "outros": 3
   },
-  "timestamp": "2026-09-09T16:36:47.335Z",
+  "timestamp": "2026-09-09T17:02:46.557Z",
   "diagnostics": [
     {
       "sku": "7908788613401",
@@ -40,7 +40,7 @@
         "badgeClass": "badge-danger",
         "icone": "📸"
       },
-      "dataAuditoria": "2026-09-09T16:36:47.335Z"
+      "dataAuditoria": "2026-09-09T17:02:46.557Z"
     },
     {
       "sku": "7908456417386",
@@ -71,7 +71,7 @@
         "badgeClass": "badge-danger",
         "icone": "📸"
       },
-      "dataAuditoria": "2026-09-09T16:36:47.335Z"
+      "dataAuditoria": "2026-09-09T17:02:46.557Z"
     },
     {
       "sku": "7899675830165",
@@ -102,7 +102,7 @@
         "badgeClass": "badge-danger",
         "icone": "📸"
       },
-      "dataAuditoria": "2026-09-09T16:36:47.335Z"
+      "dataAuditoria": "2026-09-09T17:02:46.557Z"
     },
     {
       "sku": "7899675812338",
@@ -133,7 +133,7 @@
         "badgeClass": "badge-danger",
         "icone": "📸"
       },
-      "dataAuditoria": "2026-09-09T16:36:47.335Z"
+      "dataAuditoria": "2026-09-09T17:02:46.557Z"
     },
     {
       "sku": "7792959130510",
@@ -164,7 +164,7 @@
         "badgeClass": "badge-danger",
         "icone": "📸"
       },
-      "dataAuditoria": "2026-09-09T16:36:47.335Z"
+      "dataAuditoria": "2026-09-09T17:02:46.557Z"
     },
     {
       "sku": "7794688569241",
@@ -195,7 +195,7 @@
         "badgeClass": "badge-danger",
         "icone": "🔢"
       },
-      "dataAuditoria": "2026-09-09T16:36:47.335Z"
+      "dataAuditoria": "2026-09-09T17:02:46.557Z"
     },
     {
       "sku": "11RACON58CHP",
@@ -226,7 +226,7 @@
         "badgeClass": "badge-danger",
         "icone": "📸"
       },
-      "dataAuditoria": "2026-09-09T16:36:47.335Z"
+      "dataAuditoria": "2026-09-09T17:02:46.557Z"
     },
     {
       "sku": "COLGUIAREFLETIVOVERDEAZ",
@@ -241,8 +241,8 @@
       "status_planilha": "pendente",
       "cor_planilha": "#D1FAE5",
       "isCurrentlyPublished": false,
-      "screenshot": "/screenshots/erro-COLGUIAREFLETIVOVERDEAZ-1788964349162.png",
-      "screenshotFile": "erro-COLGUIAREFLETIVOVERDEAZ-1788964349162.png",
+      "screenshot": "/screenshots/published-COLGUIAREFLETIVOVERDEAZ-1788972530566.png",
+      "screenshotFile": "published-COLGUIAREFLETIVOVERDEAZ-1788972530566.png",
       "diagnostico": "A categoria sugerida pela IA (Animais Domésticos > Cães > Coleiras, Guias e Peitorais) não correspondeu à árvore oficial exigida pela Shopee na Magis5. O formulário não encontrou os níveis filhos e bloqueou o salvamento.",
       "proposta": {
         "acao": "Atualizar para a categoria oficial padronizada da Shopee",
@@ -258,7 +258,7 @@
         "badgeClass": "badge-danger",
         "icone": "📂"
       },
-      "dataAuditoria": "2026-09-09T16:36:47.335Z"
+      "dataAuditoria": "2026-09-09T17:02:46.557Z"
     },
     {
       "sku": "COLGUIAREFLETIVOLAR",
@@ -267,15 +267,15 @@
       "modelo": "Peitoral Refletivo Acolchoado",
       "preco": 29.9,
       "cod_sankhya": "53863, 65646",
-      "categoria_atual": "Animais de Estimação > Artigos para Cães > Coleiras, Guias e Peitorais",
+      "categoria_atual": "Animais Domésticos > Cães > Coleiras, Guias e Peitorais",
       "categoria_sugerida_correta": "Animais Domésticos > Cães > Coleiras, Guias e Peitorais",
       "erro_bruto": "Finalize a seleção de categorias de todos os marketplaces antes de salvar. | 'Animais de Estimação' não corresponde a 'Animais Domésticos'",
       "status_planilha": "pendente",
       "cor_planilha": "#D1FAE5",
       "isCurrentlyPublished": false,
-      "screenshot": "/screenshots/erro-COLGUIAREFLETIVOLAR-1788964291519.png",
-      "screenshotFile": "erro-COLGUIAREFLETIVOLAR-1788964291519.png",
-      "diagnostico": "A categoria sugerida pela IA (Animais de Estimação > Artigos para Cães > Coleiras, Guias e Peitorais) não correspondeu à árvore oficial exigida pela Shopee na Magis5. O formulário não encontrou os níveis filhos e bloqueou o salvamento.",
+      "screenshot": "/screenshots/published-COLGUIAREFLETIVOLAR-1788972482236.png",
+      "screenshotFile": "published-COLGUIAREFLETIVOLAR-1788972482236.png",
+      "diagnostico": "A categoria sugerida pela IA (Animais Domésticos > Cães > Coleiras, Guias e Peitorais) não correspondeu à árvore oficial exigida pela Shopee na Magis5. O formulário não encontrou os níveis filhos e bloqueou o salvamento.",
       "proposta": {
         "acao": "Atualizar para a categoria oficial padronizada da Shopee",
         "categoria_correta": "Animais Domésticos > Cães > Coleiras, Guias e Peitorais",
@@ -290,7 +290,7 @@
         "badgeClass": "badge-danger",
         "icone": "📂"
       },
-      "dataAuditoria": "2026-09-09T16:36:47.335Z"
+      "dataAuditoria": "2026-09-09T17:02:46.557Z"
     },
     {
       "sku": "ACTIONBIGGAMECINZA",
@@ -322,7 +322,7 @@
         "badgeClass": "badge-danger",
         "icone": "📂"
       },
-      "dataAuditoria": "2026-09-09T16:36:47.335Z"
+      "dataAuditoria": "2026-09-09T17:02:46.556Z"
     },
     {
       "sku": "BIGGAMENYLONCINZA100",
@@ -337,8 +337,8 @@
       "status_planilha": "pendente",
       "cor_planilha": "#D1FAE5",
       "isCurrentlyPublished": false,
-      "screenshot": "/screenshots/erro-BIGGAMENYLONCINZA100-1788964224390.png",
-      "screenshotFile": "erro-BIGGAMENYLONCINZA100-1788964224390.png",
+      "screenshot": "/screenshots/erro-BIGGAMENYLONCINZA100-1788972428798.png",
+      "screenshotFile": "erro-BIGGAMENYLONCINZA100-1788972428798.png",
       "diagnostico": "O SKU principal \"BIGGAMENYLONCINZA100\" já está cadastrado em outro anúncio dentro da sua conta da Magis5 (produto criado anteriormente).",
       "proposta": {
         "acao": "Marcar como Concluído ou Gerar Variação / Sufixo",
@@ -353,7 +353,7 @@
         "badgeClass": "badge-warning",
         "icone": "⚠️"
       },
-      "dataAuditoria": "2026-09-09T16:36:47.335Z"
+      "dataAuditoria": "2026-09-09T17:02:46.557Z"
     },
     {
       "sku": "4330",
@@ -384,7 +384,7 @@
         "badgeClass": "badge-info",
         "icone": "📋"
       },
-      "dataAuditoria": "2026-09-09T16:36:47.335Z"
+      "dataAuditoria": "2026-09-09T17:02:46.557Z"
     },
     {
       "sku": "7797208814135",
@@ -415,7 +415,7 @@
         "badgeClass": "badge-info",
         "icone": "📋"
       },
-      "dataAuditoria": "2026-09-09T16:36:47.335Z"
+      "dataAuditoria": "2026-09-09T17:02:46.557Z"
     },
     {
       "sku": "7797208813961",
@@ -446,7 +446,7 @@
         "badgeClass": "badge-info",
         "icone": "📋"
       },
-      "dataAuditoria": "2026-09-09T16:36:47.335Z"
+      "dataAuditoria": "2026-09-09T17:02:46.557Z"
     }
   ]
 }
