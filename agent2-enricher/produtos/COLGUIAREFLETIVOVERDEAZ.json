@@ -14,7 +14,8 @@
     "cor": "Verde",
     "tamanho": "M",
     "quantidade": "1 unidade",
-    "peso_produto": "180g"
+    "peso_produto": "180g",
+    "quantidade_por_pacote": 1
   },
   "variacoes": [
     {

@@ -21,10 +21,10 @@
     "estilo_de_calcado": "Casual / Conforto / Ortopédico",
     "ocasiao_de_uso": "Dia a Dia / Praia / Piscina / Lazer",
     "caracteristicas": "Impermeável / Leve / Antiderrapante / Respirável",
-    "quantidade_da_embalagem": "1",
+    "quantidade_da_embalagem": 1,
     "tamanho_do_pacote": "15 x 25 x 35 cm",
     "produto_personalizado": "Não",
-    "quantidade_por_pacote": "1"
+    "quantidade_por_pacote": 1
   },
   "variacoes": [
     {

@@ -18,10 +18,10 @@
     "condicao": "Novo",
     "comprimento": "1.80 m",
     "dimensoes_do_produto": "4 x 4 x 95 cm",
-    "quantidade_da_embalagem": "1",
+    "quantidade_da_embalagem": 1,
     "tamanho_do_pacote": "5 x 5 x 100 cm",
     "produto_personalizado": "Não",
-    "quantidade_por_pacote": "1",
+    "quantidade_por_pacote": 1,
     "tipo_vara": "Molinete",
     "resistencia_linha": "30 Lbs",
     "partes": "2 Partes"

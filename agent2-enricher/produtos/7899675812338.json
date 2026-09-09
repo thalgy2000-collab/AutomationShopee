@@ -18,10 +18,10 @@
     "condicao": "Novo",
     "comprimento": "16 cm",
     "dimensoes_do_produto": "16 x 6 x 2 cm",
-    "quantidade_da_embalagem": "1",
+    "quantidade_da_embalagem": 1,
     "tamanho_do_pacote": "5 x 12 x 22 cm",
     "produto_personalizado": "Não",
-    "quantidade_por_pacote": "1",
+    "quantidade_por_pacote": 1,
     "tipo_isca": "N/A (Acessório de Pesca)",
     "flutuabilidade": "N/A"
   },

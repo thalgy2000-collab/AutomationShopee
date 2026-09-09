@@ -17,10 +17,10 @@
     "condicao": "Novo",
     "comprimento": "1,50 m",
     "dimensoes_do_produto": "3 x 3 x 150 cm",
-    "quantidade_da_embalagem": "1",
+    "quantidade_da_embalagem": 1,
     "tamanho_do_pacote": "5 x 10 x 85 cm",
     "produto_personalizado": "Não",
-    "quantidade_por_pacote": "1",
+    "quantidade_por_pacote": 1,
     "tipo_vara": "Molinete",
     "libragem": "17 lbs",
     "partes": "2 Partes"

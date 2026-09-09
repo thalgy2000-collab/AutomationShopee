@@ -18,10 +18,10 @@
     "condicao": "Novo",
     "comprimento": "100 m",
     "dimensoes_do_produto": "2.5 x 10 x 10 cm",
-    "quantidade_da_embalagem": "1",
+    "quantidade_da_embalagem": 1,
     "tamanho_do_pacote": "3 x 20 x 30 cm",
     "produto_personalizado": "Não",
-    "quantidade_por_pacote": "1",
+    "quantidade_por_pacote": 1,
     "tipo_isca": "Linha de Pesca",
     "flutuabilidade": "Sinking"
   },

@@ -18,10 +18,10 @@
     "condicao": "Novo",
     "comprimento": "Variável por Tamanho",
     "dimensoes_do_produto": "10 x 15 x 30 cm",
-    "quantidade_da_embalagem": "1",
+    "quantidade_da_embalagem": 1,
     "tamanho_do_pacote": "3 x 20 x 30 cm",
     "produto_personalizado": "Não",
-    "quantidade_por_pacote": "1",
+    "quantidade_por_pacote": 1,
     "tipo_isca": "Não Aplicável para Calçados",
     "flutuabilidade": "Não Aplicável para Calçados"
   },

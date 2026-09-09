@@ -59,10 +59,10 @@ O objeto "atributos" DEVE conter obrigatoriamente os campos exigidos pela Shopee
 - "condicao": "Novo"
 - "comprimento": Tamanho da isca com unidade (ex: "9 cm", "9.5 cm", "8 cm")
 - "dimensoes_do_produto": Dimensões A x L x C sem embalagem (ex: "2 x 2 x 9 cm")
-- "quantidade_da_embalagem": "1"
+- "quantidade_da_embalagem": 1 (número inteiro)
 - "tamanho_do_pacote": "3 x 20 x 30 cm"
 - "produto_personalizado": "Não"
-- "quantidade_por_pacote": "1"
+- "quantidade_por_pacote": 1 (ATENÇÃO: SEMPRE número inteiro puro, ex: 1. NUNCA string como "1 unidade" ou "1 par")
 - "tipo_isca": Ação da isca (ex: "Meia-Água (Minnow)", "Superfície (Zara/Stick)", "Fundo (Sinking)")
 - "flutuabilidade": Flutuabilidade (ex: "Floating (Flutuante)", "Sinking (Afundante)", "Suspending")
 (Se for outra categoria, como anzóis ou linhas, adapte os atributos pertinentes ao produto).
@@ -158,10 +158,10 @@ Gere um JSON com esta estrutura EXATA:
     "condicao": "Novo",
     "comprimento": "ex: 9 cm",
     "dimensoes_do_produto": "ex: 2 x 2 x 9 cm",
-    "quantidade_da_embalagem": "1",
+    "quantidade_da_embalagem": 1,
     "tamanho_do_pacote": "3 x 20 x 30 cm",
     "produto_personalizado": "Não",
-    "quantidade_por_pacote": "1",
+    "quantidade_por_pacote": 1,
     "tipo_isca": "Meia-Água / Floating",
     "flutuabilidade": "Floating"
   },

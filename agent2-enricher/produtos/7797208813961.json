@@ -17,10 +17,10 @@
     "condicao": "Novo",
     "comprimento_da_linha": "10 Metros",
     "cor_da_linha": "Transparente",
-    "quantidade_da_embalagem": "1",
+    "quantidade_da_embalagem": 1,
     "tamanho_do_pacote": "3 x 20 x 30 cm",
     "produto_personalizado": "Não",
-    "quantidade_por_pacote": "1",
+    "quantidade_por_pacote": 1,
     "tipo_de_linha": "Leader / Fluorocarbono",
     "tamanho_da_linha_diametro": "Variável (Escolha a Libragem)",
     "tensao_maxima_libragem": "Variável (Escolha o Diâmetro)"

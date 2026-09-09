@@ -17,10 +17,10 @@
     "estampa": "Liso com listras esportivas",
     "condicao": "Novo",
     "dimensoes_do_produto": "11 x 20 x 29 cm",
-    "quantidade_da_embalagem": "1 Par",
+    "quantidade_da_embalagem": 1,
     "tamanho_do_pacote": "12 x 22 x 32 cm",
     "produto_personalizado": "Não",
-    "quantidade_por_pacote": "1",
+    "quantidade_por_pacote": 1,
     "tipo_calcado": "Babuche / Sandália Ortopédica",
     "genero": "Masculino"
   },

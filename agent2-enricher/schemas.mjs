@@ -440,10 +440,9 @@ export function normalizeShopeeAttributes(data) {
       attrs.dimensoes_do_produto = `${altLarg} x ${altLarg} x ${compNum} cm`;
     }
 
-    // 9. Quantidade da embalagem
-    if (!attrs.quantidade_da_embalagem) {
-      attrs.quantidade_da_embalagem = String(attrs.quantidade || "1");
-    }
+    // 9. Quantidade da embalagem (sempre número inteiro)
+    const rawQtdEmb = attrs.quantidade_da_embalagem || attrs.quantidade || 1;
+    attrs.quantidade_da_embalagem = parseInt(String(rawQtdEmb).replace(/\D/g, ""), 10) || 1;
 
     // 10. Tamanho Do Pacote
     if (!attrs.tamanho_do_pacote) {
@@ -453,8 +452,9 @@ export function normalizeShopeeAttributes(data) {
     // 11. Produto personalizado
     attrs.produto_personalizado = "Não";
 
-    // 12. Quantidade por Pacote
-    attrs.quantidade_por_pacote = String(attrs.quantidade_da_embalagem || "1");
+    // 12. Quantidade por Pacote (sempre número inteiro, nunca string)
+    const rawQtdPacote = attrs.quantidade_por_pacote || attrs.quantidade_da_embalagem || attrs.quantidade || 1;
+    attrs.quantidade_por_pacote = parseInt(String(rawQtdPacote).replace(/\D/g, ""), 10) || 1;
 
     // Ação e Nado
     if (!attrs.tipo_isca) {

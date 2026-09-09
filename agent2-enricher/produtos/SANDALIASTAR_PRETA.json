@@ -18,10 +18,10 @@
     "condicao": "Novo",
     "comprimento": "28 cm",
     "dimensoes_do_produto": "11 x 11 x 28 cm",
-    "quantidade_da_embalagem": "1",
+    "quantidade_da_embalagem": 1,
     "tamanho_do_pacote": "15 x 20 x 32 cm",
     "produto_personalizado": "Não",
-    "quantidade_por_pacote": "1"
+    "quantidade_por_pacote": 1
   },
   "variacoes": [
     {

@@ -17,10 +17,10 @@
     "condicao": "Novo",
     "comprimento": "165 cm",
     "dimensoes_do_produto": "3 x 3 x 165 cm",
-    "quantidade_da_embalagem": "1",
+    "quantidade_da_embalagem": 1,
     "tamanho_do_pacote": "6 x 6 x 170 cm",
     "produto_personalizado": "Não",
-    "quantidade_por_pacote": "1",
+    "quantidade_por_pacote": 1,
     "tipo_de_vara": "Vara para Carretilha (Inteiriça)",
     "capacidade_de_peso": "10-20 lbs"
   },

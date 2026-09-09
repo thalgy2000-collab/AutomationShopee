@@ -18,10 +18,10 @@
     "condicao": "Novo",
     "comprimento": "12cm",
     "dimensoes_do_produto": "2.5 x 2.5 x 12 cm",
-    "quantidade_da_embalagem": "1 unidade",
+    "quantidade_da_embalagem": 1,
     "tamanho_do_pacote": "3 x 20 x 30 cm",
     "produto_personalizado": "Não",
-    "quantidade_por_pacote": "1 unidade",
+    "quantidade_por_pacote": 1,
     "tipo_isca": "Superfície (Zara / Stick / Popper)",
     "cor": "Variadas",
     "quantidade": "1 unidade"

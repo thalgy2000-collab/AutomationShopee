@@ -18,10 +18,10 @@
     "condicao": "Novo",
     "comprimento": "1.68 m",
     "dimensoes_do_produto": "4 x 4 x 168 cm",
-    "quantidade_da_embalagem": "1",
+    "quantidade_da_embalagem": 1,
     "tamanho_do_pacote": "5 x 5 x 175 cm",
     "produto_personalizado": "Não",
-    "quantidade_por_pacote": "1",
+    "quantidade_por_pacote": 1,
     "tipo_vara": "Carretilha",
     "partes_da_vara": "Inteiriça (1 parte)",
     "libragem": "20 lbs"

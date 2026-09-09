@@ -10,7 +10,8 @@
     "cor": "Nickel (Níquel)",
     "tamanho": "Não especificado",
     "quantidade": "10 unidades",
-    "peso_produto": "Não especificado"
+    "peso_produto": "Não especificado",
+    "quantidade_por_pacote": 1
   },
   "variacoes": [],
   "palavras_chave": [

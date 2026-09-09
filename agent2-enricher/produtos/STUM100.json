@@ -18,10 +18,10 @@
     "condicao": "Novo",
     "comprimento": "100 m",
     "dimensoes_do_produto": "2 x 9 x 9 cm",
-    "quantidade_da_embalagem": "1",
+    "quantidade_da_embalagem": 1,
     "tamanho_do_pacote": "3 x 12 x 15 cm",
     "produto_personalizado": "Não",
-    "quantidade_por_pacote": "1",
+    "quantidade_por_pacote": 1,
     "tipo_linha": "Monofilamento (Nylon)",
     "resistencia_linha": "Variável conforme diâmetro"
   },

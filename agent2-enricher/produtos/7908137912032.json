@@ -8,7 +8,8 @@
   "atributos": {
     "material": "Aço Carbono (High Carbon Steel)",
     "cor": "Níquel",
-    "quantidade": "10 unidades"
+    "quantidade": "10 unidades",
+    "quantidade_por_pacote": 1
   },
   "variacoes": [],
   "palavras_chave": [

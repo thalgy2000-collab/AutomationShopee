@@ -408,6 +408,35 @@ export async function publishProductToMagis5(page, product, options = {}) {
         continue;
       }
 
+      // Regra 4: "na quantidade por pacote sempre colocar número inteiro, nunca colocar string sempre número"
+      if (
+        normLabel === "quantidadeporpacote" ||
+        normLabel.includes("quantidadeporpacote") ||
+        normLabel.includes("quantidadepacote") ||
+        (normLabel.includes("quantidade") && normLabel.includes("pacote") && !normLabel.includes("tamanho"))
+      ) {
+        const rawVal = atributos.quantidade_por_pacote ?? atributos.quantidade_da_embalagem ?? atributos.quantidade ?? 1;
+        const intVal = parseInt(String(rawVal).replace(/\D/g, ""), 10) || 1;
+        await field.click({ force: true });
+        await field.fill(String(intVal));
+        console.log(`  • ${labelText}: ${intVal} (número inteiro)`);
+        continue;
+      }
+
+      // Regra 5: "quantidade da embalagem" também sempre como número inteiro
+      if (
+        normLabel === "quantidadedaembalagem" ||
+        normLabel.includes("quantidadedaembalagem") ||
+        (normLabel.includes("quantidade") && normLabel.includes("embalagem"))
+      ) {
+        const rawVal = atributos.quantidade_da_embalagem ?? atributos.quantidade_por_pacote ?? atributos.quantidade ?? 1;
+        const intVal = parseInt(String(rawVal).replace(/\D/g, ""), 10) || 1;
+        await field.click({ force: true });
+        await field.fill(String(intVal));
+        console.log(`  • ${labelText}: ${intVal} (número inteiro)`);
+        continue;
+      }
+
       for (const [attrKey, attrVal] of Object.entries(atributos)) {
         const normKey = normalize(attrKey);
         if (normLabel.includes(normKey) || normKey.includes(normLabel)) {
@@ -452,6 +481,14 @@ export async function publishProductToMagis5(page, product, options = {}) {
             break;
           }
 
+          // Regra 4: "quantidade por pacote sempre número inteiro"
+          if (normLabel.includes("quantidadeporpacote") || normKey.includes("quantidadeporpacote")) {
+            const intVal = parseInt(String(attrVal).replace(/\D/g, ""), 10) || 1;
+            await field.fill(String(intVal));
+            console.log(`  • ${labelText}: ${intVal} (número inteiro)`);
+            break;
+          }
+
           const tagName = await field.evaluate((el) => el.tagName);
           if (tagName === "SELECT") {
             await field.selectOption({ label: String(attrVal) }).catch(async () => {
@@ -465,6 +502,22 @@ export async function publishProductToMagis5(page, product, options = {}) {
         }
       }
     }
+
+    // Verificação de garantia extra para Quantidade por Pacote
+    try {
+      const qppInputs = page.locator('label:has-text("Quantidade por Pacote")').locator('xpath=..//input');
+      const qppCount = await qppInputs.count();
+      for (let i = 0; i < qppCount; i++) {
+        const inp = qppInputs.nth(i);
+        const currVal = (await inp.inputValue().catch(() => "")) || "";
+        if (!currVal.trim()) {
+          const rawVal = atributos.quantidade_por_pacote ?? 1;
+          const intVal = parseInt(String(rawVal).replace(/\D/g, ""), 10) || 1;
+          await inp.fill(String(intVal));
+          console.log(`  • [Garantia] Quantidade por Pacote preenchido com: ${intVal}`);
+        }
+      }
+    } catch (_) {}
   }
 
   // 8. Upload de Fotos

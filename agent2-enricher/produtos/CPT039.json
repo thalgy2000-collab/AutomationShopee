@@ -18,10 +18,10 @@
     "condicao": "Novo",
     "comprimento": "10 cm",
     "dimensoes_do_produto": "8 x 8 x 10 cm",
-    "quantidade_da_embalagem": "1",
+    "quantidade_da_embalagem": 1,
     "tamanho_do_pacote": "10 x 10 x 12 cm",
     "produto_personalizado": "Não",
-    "quantidade_por_pacote": "1",
+    "quantidade_por_pacote": 1,
     "tipo_isca": "Acessório de Pesca",
     "flutuabilidade": "N/A"
   },

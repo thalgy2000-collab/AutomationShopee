@@ -14,7 +14,8 @@
     "cor": "Nickel",
     "tamanho": "Variados",
     "quantidade": "Variável por embalagem",
-    "peso_produto": "N/A"
+    "peso_produto": "N/A",
+    "quantidade_por_pacote": 1
   },
   "variacoes": [],
   "palavras_chave": [

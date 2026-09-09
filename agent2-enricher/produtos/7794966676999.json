@@ -18,10 +18,10 @@
     "condicao": "Novo",
     "comprimento": "10 cm",
     "dimensoes_do_produto": "10 x 0.5 x 0.5 cm",
-    "quantidade_da_embalagem": "100",
+    "quantidade_da_embalagem": 100,
     "tamanho_do_pacote": "3 x 10 x 15 cm",
     "produto_personalizado": "Não",
-    "quantidade_por_pacote": "100"
+    "quantidade_por_pacote": 100
   },
   "variacoes": [],
   "palavras_chave": [

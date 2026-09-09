@@ -17,10 +17,10 @@
     "capacidade_volume": "473 ml",
     "condicao": "Novo",
     "dimensoes_do_produto": "9 x 9 x 17 cm",
-    "quantidade_da_embalagem": "1",
+    "quantidade_da_embalagem": 1,
     "tamanho_do_pacote": "12 x 12 x 20 cm",
     "produto_personalizado": "Não",
-    "quantidade_por_pacote": "1",
+    "quantidade_por_pacote": 1,
     "tipo_recipiente": "Copo Térmico"
   },
   "variacoes": [

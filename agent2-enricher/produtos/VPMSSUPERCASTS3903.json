@@ -18,10 +18,10 @@
     "condicao": "Novo",
     "comprimento": "3.90 m",
     "dimensoes_do_produto": "5 x 5 x 390 cm",
-    "quantidade_da_embalagem": "1",
+    "quantidade_da_embalagem": 1,
     "tamanho_do_pacote": "10 x 10 x 140 cm",
     "produto_personalizado": "Não",
-    "quantidade_por_pacote": "1",
+    "quantidade_por_pacote": 1,
     "tipo_vara": "Vara para Molinete / Pesca de Praia",
     "libragem": "44 lbs"
   },

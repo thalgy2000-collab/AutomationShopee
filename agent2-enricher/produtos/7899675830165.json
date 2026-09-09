@@ -18,10 +18,10 @@
     "condicao": "Novo",
     "comprimento": "4.5 m",
     "dimensoes_do_produto": "5 x 5 x 2.5 cm",
-    "quantidade_da_embalagem": "1",
+    "quantidade_da_embalagem": 1,
     "tamanho_do_pacote": "5 x 10 x 15 cm",
     "produto_personalizado": "Não",
-    "quantidade_por_pacote": "1",
+    "quantidade_por_pacote": 1,
     "tipo_isca": "Não se aplica",
     "flutuabilidade": "Não se aplica"
   },

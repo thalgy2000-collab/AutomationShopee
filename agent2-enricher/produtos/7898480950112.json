@@ -14,7 +14,8 @@
     "cor": "Nickel (Prateado)",
     "tamanho": "Não especificado",
     "quantidade": "Pacote",
-    "peso_produto": "Leve"
+    "peso_produto": "Leve",
+    "quantidade_por_pacote": 1
   },
   "variacoes": [],
   "palavras_chave": [
