@@ -278,6 +278,7 @@
     .agent-badge.b1 { background: rgba(59, 130, 246, 0.2); color: #93C5FD; }
     .agent-badge.b2 { background: rgba(139, 92, 246, 0.2); color: #C4B5FD; }
     .agent-badge.b3 { background: rgba(16, 185, 129, 0.2); color: #6EE7B7; }
+    .agent-badge.b4 { background: rgba(239, 68, 68, 0.2); color: #FCA5A5; }
 
     .agent-card h3 {
       font-family: var(--font-heading);
@@ -922,7 +923,10 @@
         <span id="system-status-text">Sistema Pronto</span>
       </div>
       <a href="/relatorio.html" class="btn-nav" target="_blank">
-        📊 Abrir Auditoria de Produtos
+        📊 Auditoria de Produtos
+      </a>
+      <a href="/rejeitados.html" class="btn-nav" target="_blank" style="background: rgba(239, 68, 68, 0.15); border-color: rgba(239, 68, 68, 0.35); color: #FCA5A5;">
+        🚨 Falhas & Soluções (Agente 4)
       </a>
     </div>
   </header>
@@ -1156,6 +1160,45 @@
 
         <button class="btn-action" id="btn-run-agent3" onclick="runAgent3()" style="background: linear-gradient(135deg, #059669, #10B981);">
           <span>🚀</span> Publicar Anúncios na Magis5
+        </button>
+      </div>
+
+      <!-- Agente 4: Auditor & Diagnóstico de Falhas -->
+      <div class="agent-card" style="border-color: rgba(239, 68, 68, 0.25);">
+        <div class="agent-header">
+          <div>
+            <span class="agent-badge b4">Agente 4 — Auditor</span>
+            <h3>Diagnóstico & Correção</h3>
+          </div>
+          <span style="font-size:1.8rem;">🚨</span>
+        </div>
+        <p>
+          Analisa produtos rejeitados no Magis5/Shopee, classifica a causa-raiz (categorias, duplicidades, variações), sugere a solução correta e aplica a correção automática.
+        </p>
+
+        <div style="background: rgba(239, 68, 68, 0.08); border: 1px solid rgba(239, 68, 68, 0.2); border-radius: var(--radius-sm); padding: 0.85rem; font-size: 0.8rem; color: #FCA5A5; display: flex; flex-direction: column; gap: 0.4rem;">
+          <div style="display: flex; align-items: center; justify-content: space-between;">
+            <strong>📋 Relatório Interativo de Rejeições</strong>
+            <span style="font-size: 0.7rem; background: rgba(239, 68, 68, 0.25); padding: 0.15rem 0.4rem; border-radius: 4px;">Ativo</span>
+          </div>
+          <p style="margin: 0; color: #FECACA; font-size: 0.75rem;">
+            Visualize prints de erros do Magis5, aprove soluções automáticas em 1 clique e re-envie anúncios.
+          </p>
+          <a href="/rejeitados.html" target="_blank" class="btn-secondary" style="margin-top: 0.4rem; text-align: center; justify-content: center; background: rgba(239, 68, 68, 0.2); border-color: rgba(239, 68, 68, 0.4); color: #FFF;">
+            <span>🔍</span> Abrir Painel de Rejeitados
+          </a>
+        </div>
+
+        <div class="control-group">
+          <span class="control-label">Ação de Auditoria</span>
+          <select id="agent4-action" class="control-select">
+            <option value="diagnose" selected>🔍 Executar Diagnóstico de Rejeitados</option>
+            <option value="auto-fix">⚡ Corrigir Categorias Incompatíveis Automaticamente</option>
+          </select>
+        </div>
+
+        <button class="btn-action" id="btn-run-agent4" onclick="runAgent4()" style="background: linear-gradient(135deg, #DC2626, #EF4444);">
+          <span>🩺</span> Executar Diagnóstico Agora
         </button>
       </div>
 
@@ -1544,6 +1587,11 @@
         headed,
         inputFile
       });
+    }
+
+    function runAgent4() {
+      const action = document.getElementById('agent4-action').value;
+      startAgentRequest('agent4', { action });
     }
 
     async function stopAgent() {

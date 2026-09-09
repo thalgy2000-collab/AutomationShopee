@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Auditor de Rejeições & Soluções — Agente 4 | BRK Fishing</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #07090E;
+      --bg-surface: #0E131F;
+      --bg-card: rgba(17, 24, 39, 0.75);
+      --bg-card-hover: rgba(26, 36, 56, 0.85);
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --border-focus: rgba(99, 102, 241, 0.4);
+      --text-main: #F3F4F6;
+      --text-muted: #9CA3AF;
+      --primary: #6366F1;
+      --primary-hover: #4F46E5;
+      --accent-cyan: #06B6D4;
+      --danger: #EF4444;
+      --danger-bg: rgba(239, 68, 68, 0.12);
+      --danger-border: rgba(239, 68, 68, 0.3);
+      --warning: #F59E0B;
+      --warning-bg: rgba(245, 158, 11, 0.12);
+      --warning-border: rgba(245, 158, 11, 0.3);
+      --success: #10B981;
+      --success-bg: rgba(16, 185, 129, 0.12);
+      --success-border: rgba(16, 185, 129, 0.3);
+      --radius-lg: 16px;
+      --radius-md: 10px;
+      --shadow-card: 0 10px 30px rgba(0, 0, 0, 0.5), 0 1px 0 rgba(255, 255, 255, 0.05) inset;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg-dark);
+      background-image: 
+        radial-gradient(circle at 15% 15%, rgba(99, 102, 241, 0.08) 0%, transparent 40%),
+        radial-gradient(circle at 85% 85%, rgba(239, 68, 68, 0.06) 0%, transparent 40%);
+      color: var(--text-main);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      background: rgba(11, 15, 25, 0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border-subtle);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      padding: 16px 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .brand-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: var(--radius-md);
+      background: linear-gradient(135deg, #EF4444 0%, #F59E0B 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+    }
+    .brand-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .brand-badge {
+      font-size: 11px;
+      background: rgba(239, 68, 68, 0.2);
+      color: #F87171;
+      border: 1px solid var(--danger-border);
+      padding: 3px 8px;
+      border-radius: 20px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .btn {
+      padding: 9px 16px;
+      border-radius: var(--radius-md);
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+      border: 1px solid transparent;
+      text-decoration: none;
+    }
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text-main);
+      border-color: var(--border-subtle);
+    }
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+      box-shadow: 0 4px 14px rgba(99, 102, 241, 0.3);
+    }
+    .btn-primary:hover {
+      background: var(--primary-hover);
+      transform: translateY(-1px);
+    }
+    .btn-danger {
+      background: var(--danger);
+      color: white;
+      box-shadow: 0 4px 14px rgba(239, 68, 68, 0.3);
+    }
+    .btn-success {
+      background: var(--success);
+      color: white;
+      box-shadow: 0 4px 14px rgba(16, 185, 129, 0.3);
+    }
+
+    main {
+      flex: 1;
+      max-width: 1440px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 32px 24px 60px;
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+
+    /* Stat Cards */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+    }
+    .stat-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 20px 24px;
+      backdrop-filter: blur(12px);
+      box-shadow: var(--shadow-card);
+      position: relative;
+      overflow: hidden;
+    }
+    .stat-card::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+    }
+    .stat-card.card-danger::after { background: var(--danger); }
+    .stat-card.card-warning::after { background: var(--warning); }
+    .stat-card.card-success::after { background: var(--success); }
+    .stat-card.card-primary::after { background: var(--primary); }
+
+    .stat-label {
+      font-size: 13px;
+      color: var(--text-muted);
+      font-weight: 500;
+      margin-bottom: 6px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .stat-val {
+      font-size: 32px;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 700;
+      color: #fff;
+    }
+    .stat-desc {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    /* Filter & Controls */
+    .controls-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      padding: 14px 20px;
+      border-radius: var(--radius-lg);
+    }
+    .filter-tabs {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .tab-btn {
+      background: transparent;
+      color: var(--text-muted);
+      border: 1px solid transparent;
+      padding: 8px 14px;
+      border-radius: var(--radius-md);
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .tab-btn:hover {
+      color: var(--text-main);
+      background: rgba(255, 255, 255, 0.04);
+    }
+    .tab-btn.active {
+      background: rgba(99, 102, 241, 0.15);
+      color: #818CF8;
+      border-color: rgba(99, 102, 241, 0.3);
+    }
+    .badge-count {
+      font-size: 11px;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 2px 7px;
+      border-radius: 12px;
+      color: #fff;
+    }
+    .search-input {
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid var(--border-subtle);
+      padding: 9px 16px;
+      border-radius: var(--radius-md);
+      color: #fff;
+      font-size: 13px;
+      min-width: 260px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .search-input:focus {
+      border-color: var(--primary);
+    }
+
+    /* Diagnostic Cards Grid */
+    .diag-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .diag-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      display: grid;
+      grid-template-columns: 280px 1fr 340px;
+      gap: 24px;
+      align-items: start;
+      box-shadow: var(--shadow-card);
+      transition: border-color 0.2s, transform 0.2s;
+      position: relative;
+    }
+    .diag-card:hover {
+      border-color: rgba(255, 255, 255, 0.15);
+      background: var(--bg-card-hover);
+    }
+    .diag-card.resolved {
+      opacity: 0.75;
+      border-color: var(--success-border);
+    }
+
+    /* Coluna 1: Screenshot & Identificação */
+    .shot-preview {
+      width: 100%;
+      height: 180px;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      border: 1px solid var(--border-subtle);
+      background: #000;
+      position: relative;
+      cursor: pointer;
+    }
+    .shot-preview img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top;
+      transition: transform 0.3s ease;
+    }
+    .shot-preview:hover img {
+      transform: scale(1.05);
+    }
+    .shot-overlay {
+      position: absolute;
+      bottom: 8px;
+      right: 8px;
+      background: rgba(0, 0, 0, 0.8);
+      color: #fff;
+      padding: 4px 8px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Coluna 2: Diagnóstico & Detalhes */
+    .diag-info {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .diag-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .diag-sku {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 14px;
+      font-weight: 700;
+      color: #60A5FA;
+      background: rgba(96, 165, 250, 0.12);
+      border: 1px solid rgba(96, 165, 250, 0.25);
+      padding: 3px 10px;
+      border-radius: 6px;
+    }
+    .diag-pill {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 20px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .pill-danger { background: var(--danger-bg); color: #F87171; border: 1px solid var(--danger-border); }
+    .pill-warning { background: var(--warning-bg); color: #FBBF24; border: 1px solid var(--warning-border); }
+    .pill-success { background: var(--success-bg); color: #34D399; border: 1px solid var(--success-border); }
+    .pill-info { background: rgba(59, 130, 246, 0.15); color: #93C5FD; border: 1px solid rgba(59, 130, 246, 0.3); }
+
+    .diag-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 17px;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.3;
+    }
+
+    .error-box {
+      background: rgba(239, 68, 68, 0.08);
+      border-left: 3px solid var(--danger);
+      border-radius: 0 8px 8px 0;
+      padding: 10px 14px;
+      font-size: 13px;
+      color: #FCA5A5;
+      font-family: 'JetBrains Mono', monospace;
+      line-height: 1.4;
+    }
+
+    .explanation-text {
+      font-size: 13.5px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    /* Coluna 3: Proposta de Solução & Ações */
+    .solution-box {
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      height: 100%;
+    }
+    .solution-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: #A7F3D0;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .solution-desc {
+      font-size: 13px;
+      color: #D1D5DB;
+      line-height: 1.45;
+    }
+    .solution-highlight {
+      background: rgba(99, 102, 241, 0.15);
+      border: 1px solid rgba(99, 102, 241, 0.3);
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-size: 12px;
+      color: #C7D2FE;
+      font-family: 'JetBrains Mono', monospace;
+      word-break: break-word;
+    }
+    .solution-actions {
+      margin-top: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    /* Empty state */
+    .empty-state {
+      text-align: center;
+      padding: 60px 20px;
+      background: var(--bg-card);
+      border: 1px dashed var(--border-subtle);
+      border-radius: var(--radius-lg);
+    }
+    .empty-icon { font-size: 48px; margin-bottom: 12px; }
+    .empty-title { font-size: 18px; font-weight: 700; color: #fff; margin-bottom: 6px; }
+    .empty-desc { font-size: 14px; color: var(--text-muted); max-width: 460px; margin: 0 auto; }
+
+    /* Image Modal */
+    .modal-backdrop {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(8px);
+      z-index: 1000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 30px;
+    }
+    .modal-content {
+      max-width: 90vw;
+      max-height: 90vh;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-subtle);
+      overflow: hidden;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.9);
+      position: relative;
+    }
+    .modal-content img {
+      max-width: 100%;
+      max-height: 85vh;
+      display: block;
+      object-fit: contain;
+    }
+    .modal-close {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: rgba(0, 0, 0, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #fff;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .modal-close:hover {
+      background: #EF4444;
+      transform: scale(1.1);
+    }
+
+    @media (max-width: 1024px) {
+      .diag-card {
+        grid-template-columns: 1fr;
+      }
+      .shot-preview {
+        height: 220px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="brand">
+      <div class="brand-icon">🕵️</div>
+      <div>
+        <div class="brand-title">
+          Auditor de Rejeições & Soluções
+          <span class="brand-badge">Agente 4</span>
+        </div>
+        <div style="font-size: 12px; color: var(--text-muted);">Diagnóstico de Bloqueios Magis5 & Propostas de Solução</div>
+      </div>
+    </div>
+    <div class="nav-actions">
+      <a href="/" class="btn btn-secondary">🎛️ Painel de Controle</a>
+      <a href="/relatorio.html" class="btn btn-secondary">📊 Catálogo Enriquecido</a>
+      <button id="btnRefresh" class="btn btn-primary" onclick="refreshAudit()">
+        <span>🔄 Re-auditar Agora</span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <!-- Métricas -->
+    <div class="stats-grid">
+      <div class="stat-card card-primary">
+        <div class="stat-label">Total Investigados <span>🔍</span></div>
+        <div class="stat-val" id="statTotal">-</div>
+        <div class="stat-desc">Anúncios rejeitados ou auditados</div>
+      </div>
+      <div class="stat-card card-danger">
+        <div class="stat-label">Pendentes de Solução <span>⏳</span></div>
+        <div class="stat-val" id="statPendentes">-</div>
+        <div class="stat-desc">Exigem ação ou correção no cadastro</div>
+      </div>
+      <div class="stat-card card-warning">
+        <div class="stat-label">Categorias Fora da Árvore <span>📂</span></div>
+        <div class="stat-val" id="statCat">-</div>
+        <div class="stat-desc">Subcategorias não reconhecidas</div>
+      </div>
+      <div class="stat-card card-success">
+        <div class="stat-label">Já Resolvidos / Ativos <span>✅</span></div>
+        <div class="stat-val" id="statResolvidos">-</div>
+        <div class="stat-desc">Anúncios concluídos na Shopee</div>
+      </div>
+    </div>
+
+    <!-- Barra de Filtros e Busca -->
+    <div class="controls-bar">
+      <div class="filter-tabs">
+        <button class="tab-btn active" onclick="setFilter('pendentes', this)">
+          <span>⏳ Pendentes</span>
+          <span class="badge-count" id="badgePendentes">0</span>
+        </button>
+        <button class="tab-btn" onclick="setFilter('all', this)">
+          <span>Todos</span>
+          <span class="badge-count" id="badgeTodos">0</span>
+        </button>
+        <button class="tab-btn" onclick="setFilter('categoria', this)">
+          <span>📂 Categoria Incompatível</span>
+          <span class="badge-count" id="badgeCat">0</span>
+        </button>
+        <button class="tab-btn" onclick="setFilter('fotos', this)">
+          <span>📸 Limite de Fotos</span>
+          <span class="badge-count" id="badgeFotos">0</span>
+        </button>
+        <button class="tab-btn" onclick="setFilter('sku_dup', this)">
+          <span>⚠️ SKU Existente</span>
+          <span class="badge-count" id="badgeSku">0</span>
+        </button>
+        <button class="tab-btn" onclick="setFilter('resolvidos', this)">
+          <span>✅ Concluídos</span>
+          <span class="badge-count" id="badgeResolvidos">0</span>
+        </button>
+      </div>
+      <input type="text" id="searchInput" class="search-input" placeholder="Buscar por SKU, título ou erro..." oninput="handleSearch()">
+    </div>
+
+    <!-- Grid de Diagnósticos -->
+    <div id="diagnosticsList" class="diag-grid">
+      <div class="empty-state">
+        <div class="empty-icon">⏳</div>
+        <div class="empty-title">Carregando auditoria do Agente 4...</div>
+        <div class="empty-desc">Analisando screenshots de erro, logs de validação e propostas de solução.</div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Image Modal -->
+  <div id="imageModal" class="modal-backdrop" onclick="closeModal()">
+    <div class="modal-content" onclick="event.stopPropagation()">
+      <button class="modal-close" onclick="closeModal()">&times;</button>
+      <img id="modalImg" src="" alt="Screenshot do Erro">
+    </div>
+  </div>
+
+  <script>
+    let diagnosticsData = [];
+    let currentFilter = 'pendentes';
+    let searchQuery = '';
+
+    async function loadDiagnostics() {
+      try {
+        const res = await fetch('/api/diagnostics');
+        const data = await res.json();
+        diagnosticsData = data.diagnostics || [];
+        updateStats(data);
+        renderList();
+      } catch (err) {
+        document.getElementById('diagnosticsList').innerHTML = `
+          <div class="empty-state" style="border-color: var(--danger-border);">
+            <div class="empty-icon">❌</div>
+            <div class="empty-title">Erro ao carregar diagnósticos</div>
+            <div class="empty-desc">${err.message}</div>
+          </div>
+        `;
+      }
+    }
+
+    function updateStats(data) {
+      document.getElementById('statTotal').innerText = data.totalAuditados || 0;
+      document.getElementById('statPendentes').innerText = data.pendentesResolucao || 0;
+      document.getElementById('statCat').innerText = data.porTipoErro?.categoriaIncompativel || 0;
+      document.getElementById('statResolvidos').innerText = data.jaResolvidos || 0;
+
+      document.getElementById('badgeTodos').innerText = data.totalAuditados || 0;
+      document.getElementById('badgePendentes').innerText = data.pendentesResolucao || 0;
+      document.getElementById('badgeCat').innerText = data.porTipoErro?.categoriaIncompativel || 0;
+      document.getElementById('badgeFotos').innerText = data.porTipoErro?.limiteFotos || 0;
+      document.getElementById('badgeSku').innerText = data.porTipoErro?.skuDuplicado || 0;
+      document.getElementById('badgeResolvidos').innerText = data.jaResolvidos || 0;
+    }
+
+    function setFilter(filter, btn) {
+      currentFilter = filter;
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderList();
+    }
+
+    function handleSearch() {
+      searchQuery = document.getElementById('searchInput').value.toLowerCase().trim();
+      renderList();
+    }
+
+    function renderList() {
+      const container = document.getElementById('diagnosticsList');
+      let filtered = diagnosticsData.filter(item => {
+        // Filtro de abas
+        if (currentFilter === 'pendentes' && item.isCurrentlyPublished) return false;
+        if (currentFilter === 'resolvidos' && !item.isCurrentlyPublished) return false;
+        if (currentFilter === 'categoria' && item.classificacao.codigo !== 'CATEGORIA_INCOMPATIVEL') return false;
+        if (currentFilter === 'fotos' && item.classificacao.codigo !== 'LIMITE_FOTOS_VARIACAO') return false;
+        if (currentFilter === 'sku_dup' && item.classificacao.codigo !== 'SKU_DUPLICADO') return false;
+
+        // Filtro de busca
+        if (searchQuery) {
+          const matchSku = (item.sku || '').toLowerCase().includes(searchQuery);
+          const matchTitle = (item.titulo || '').toLowerCase().includes(searchQuery);
+          const matchErr = (item.erro_bruto || '').toLowerCase().includes(searchQuery);
+          const matchDiag = (item.diagnostico || '').toLowerCase().includes(searchQuery);
+          return matchSku || matchTitle || matchErr || matchDiag;
+        }
+        return true;
+      });
+
+      if (filtered.length === 0) {
+        container.innerHTML = `
+          <div class="empty-state">
+            <div class="empty-icon">🎉</div>
+            <div class="empty-title">Nenhum produto encontrado neste filtro</div>
+            <div class="empty-desc">Todos os anúncios sob este critério estão em conformidade ou foram resolvidos!</div>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = filtered.map(item => {
+        const isResolved = item.isCurrentlyPublished;
+        const pillClass = isResolved ? 'pill-success' : (item.classificacao.gravidade === 'ALTA' ? 'pill-danger' : 'pill-warning');
+        const pillText = isResolved ? '✅ JÁ RESOLVIDO' : `${item.classificacao.icone} ${item.classificacao.tipo}`;
+
+        return `
+          <div class="diag-card ${isResolved ? 'resolved' : ''}" id="card-${item.sku}">
+            <!-- Coluna 1: Screenshot -->
+            <div>
+              <div class="shot-preview" onclick="openModal('${item.screenshot || '/screenshots/placeholder.png'}')">
+                <img src="${item.screenshot || '/screenshots/placeholder.png'}" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\\'http://www.w3.org/2000/svg\\' width=\\'280\\' height=\\'180\\' fill=\\'%231f2937\\'><rect width=\\'100%\\' height=\\'100%\\'/><text x=\\'50%\\' y=\\'50%\\' fill=\\'%239ca3af\\' dominant-baseline=\\'middle\\' text-anchor=\\'middle\\'>Sem Screenshot</text></svg>'">
+                <div class="shot-overlay">🔍 Ampliar Prova</div>
+              </div>
+              <div style="margin-top: 10px; font-size: 12px; color: var(--text-muted); display: flex; justify-content: space-between;">
+                <span>ERP Sankhya: <strong>${item.cod_sankhya}</strong></span>
+                <span>R$ ${Number(item.preco).toFixed(2)}</span>
+              </div>
+            </div>
+
+            <!-- Coluna 2: Diagnóstico -->
+            <div class="diag-info">
+              <div class="diag-header">
+                <span class="diag-sku">${item.sku}</span>
+                <span class="diag-pill ${pillClass}">${pillText}</span>
+                ${item.marca && item.marca !== 'N/A' ? `<span style="font-size: 12px; color: var(--text-muted);">Marca: <strong>${item.marca}</strong></span>` : ''}
+              </div>
+
+              <div class="diag-title">${item.titulo}</div>
+
+              <div class="error-box">
+                <strong>🚫 Bloqueio Magis5:</strong> ${escapeHtml(item.erro_bruto)}
+              </div>
+
+              <div class="explanation-text">
+                <strong>🕵️ Diagnóstico da Causa Raiz:</strong> ${item.diagnostico}
+              </div>
+            </div>
+
+            <!-- Coluna 3: Proposta & Ações -->
+            <div class="solution-box">
+              <div class="solution-title">
+                <span>💡 Proposta de Solução</span>
+              </div>
+              <div class="solution-desc">
+                <strong>${item.proposta.acao}</strong>
+                <p style="margin-top: 4px; color: var(--text-muted); font-size: 12px;">${item.proposta.explicacao}</p>
+              </div>
+
+              ${item.proposta.categoria_correta ? `
+                <div class="solution-highlight">
+                  <div style="font-size: 11px; color: #818CF8; font-weight: 600; margin-bottom: 2px;">Árvore Oficial Sugerida:</div>
+                  ${item.proposta.categoria_correta}
+                </div>
+              ` : ''}
+
+              <div class="solution-actions">
+                ${item.proposta.autoFixAvailable && !isResolved ? `
+                  <button class="btn btn-primary" onclick="applyFix('${item.sku}', '${item.proposta.fixType}')">
+                    <span>⚡ Aplicar Solução Automática</span>
+                  </button>
+                ` : ''}
+
+                ${!isResolved ? `
+                  <button class="btn btn-secondary" onclick="publishSingleSku('${item.sku}')">
+                    <span>🚀 Re-enviar para Magis5</span>
+                  </button>
+                ` : `
+                  <div style="text-align: center; color: var(--success); font-size: 12px; font-weight: 600; padding: 6px;">
+                    ✅ Anúncio Publicado com Sucesso
+                  </div>
+                `}
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function openModal(imgSrc) {
+      document.getElementById('modalImg').src = imgSrc;
+      document.getElementById('imageModal').style.display = 'flex';
+    }
+
+    function closeModal() {
+      document.getElementById('imageModal').style.display = 'none';
+    }
+
+    async function refreshAudit() {
+      const btn = document.getElementById('btnRefresh');
+      btn.disabled = true;
+      btn.innerHTML = '<span>⏳ Auditando...</span>';
+      try {
+        await fetch('/api/agents/start', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ agent: 'agent4' })
+        });
+        setTimeout(async () => {
+          await loadDiagnostics();
+          btn.disabled = false;
+          btn.innerHTML = '<span>🔄 Re-auditar Agora</span>';
+        }, 3000);
+      } catch (e) {
+        alert('Erro ao disparar auditoria: ' + e.message);
+        btn.disabled = false;
+        btn.innerHTML = '<span>🔄 Re-auditar Agora</span>';
+      }
+    }
+
+    async function applyFix(sku, fixType) {
+      const card = document.getElementById(`card-${sku}`);
+      if (card) card.style.opacity = '0.5';
+
+      try {
+        const res = await fetch('/api/diagnostics/fix', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ sku, fixType })
+        });
+        const json = await res.json();
+        if (json.success) {
+          alert(`✅ ${json.message}`);
+          await loadDiagnostics();
+        } else {
+          alert(`❌ Falha: ${json.error}`);
+        }
+      } catch (e) {
+        alert(`Erro de conexão: ${e.message}`);
+      } finally {
+        if (card) card.style.opacity = '1';
+      }
+    }
+
+    async function publishSingleSku(sku) {
+      if (!confirm(`Deseja iniciar o Agente 3 para publicar apenas o SKU ${sku}?`)) return;
+      try {
+        const res = await fetch('/api/agents/start', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            agent: 'agent3',
+            options: {
+              sku: sku,
+              publish: true,
+              headed: true
+            }
+          })
+        });
+        const data = await res.json();
+        if (data.success) {
+          alert(`🚀 Agente 3 iniciado para o SKU ${sku}! Redirecionando para o Painel de Controle para acompanhar os logs...`);
+          window.location.href = '/';
+        } else {
+          alert(`❌ ${data.error}`);
+        }
+      } catch (e) {
+        alert('Erro: ' + e.message);
+      }
+    }
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    }
+
+    // Inicialização
+    loadDiagnostics();
+  </script>
+</body>
+</html>

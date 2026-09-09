@@ -6,6 +6,7 @@ import { spawn } from 'node:child_process';
 import { parse } from 'csv-parse/sync';
 import { stringify } from 'csv-stringify/sync';
 import { extractParentSku } from './grouping.mjs';
+import { runDiagnostics, applySolution } from '../agent4-diagnostician/diagnose.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const PORT = 3000;
@@ -152,6 +153,9 @@ function startAgent(agentId, options = {}) {
     if (options.sku) {
       args.push('--sku', options.sku.trim());
     }
+  } else if (agentId === 'agent4') {
+    cwd = path.resolve(__dirname, '../agent4-diagnostician');
+    args = ['diagnose.mjs'];
   } else if (agentId === 'sync-report') {
     cwd = __dirname;
     args = ['report.mjs'];
@@ -434,7 +438,7 @@ function getBatchPreview(csvFilePath, limit = 10) {
 // Servidor HTTP
 // ─────────────────────────────────────────────────────────────────────────────
 
-const server = http.createServer((req, res) => {
+const server = http.createServer(async (req, res) => {
   const urlPath = req.url.split('?')[0];
 
   const sendJson = (status, data) => {
@@ -604,7 +608,53 @@ const server = http.createServer((req, res) => {
     return;
   }
 
-  // 8. Páginas HTML
+  // 8. API: Obter Diagnóstico de Rejeições (Agente 4)
+  if (req.method === 'GET' && urlPath === '/api/diagnostics') {
+    try {
+      const diagResultPath = path.resolve(__dirname, '../agent4-diagnostician/diagnostics_result.json');
+      const shouldRefresh = req.url.includes('refresh=true') || !fs.existsSync(diagResultPath);
+      if (shouldRefresh) {
+        const data = await runDiagnostics();
+        return sendJson(200, data);
+      }
+      const data = JSON.parse(fs.readFileSync(diagResultPath, 'utf-8'));
+      return sendJson(200, data);
+    } catch (err) {
+      return sendJson(500, { error: err.message });
+    }
+  }
+
+  // 9. API: Aplicar Solução Automática a Produto Rejeitado (Agente 4)
+  if (req.method === 'POST' && urlPath === '/api/diagnostics/fix') {
+    let body = '';
+    req.on('data', chunk => { body += chunk; });
+    req.on('end', async () => {
+      try {
+        const { sku, fixType } = JSON.parse(body || '{}');
+        if (!sku || !fixType) {
+          return sendJson(400, { error: 'sku e fixType são obrigatórios' });
+        }
+        const result = await applySolution(sku, fixType);
+        return sendJson(200, result);
+      } catch (err) {
+        return sendJson(500, { error: err.message });
+      }
+    });
+    return;
+  }
+
+  // 10. Servir screenshots do Agente 3
+  if (urlPath.startsWith('/screenshots/')) {
+    const shotName = path.basename(urlPath);
+    const shotPath = path.join(RPA_DIR, 'screenshots', shotName);
+    if (fs.existsSync(shotPath) && fs.statSync(shotPath).isFile()) {
+      res.writeHead(200, { 'Content-Type': 'image/png' });
+      fs.createReadStream(shotPath).pipe(res);
+      return;
+    }
+  }
+
+  // 11. Páginas HTML
   if (urlPath === '/' || urlPath === '/painel' || urlPath === '/painel.html') {
     if (fs.existsSync(PAINEL_PATH)) {
       res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
@@ -625,7 +675,20 @@ const server = http.createServer((req, res) => {
     }
   }
 
-  // 9. Arquivos estáticos
+  const REJEITADOS_PATH = path.join(__dirname, 'rejeitados.html');
+  if (urlPath === '/rejeitados' || urlPath === '/rejeitados.html') {
+    if (fs.existsSync(REJEITADOS_PATH)) {
+      res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+      fs.createReadStream(REJEITADOS_PATH).pipe(res);
+      return;
+    } else {
+      res.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8' });
+      res.end('rejeitados.html não encontrado.');
+      return;
+    }
+  }
+
+  // 12. Arquivos estáticos gerais
   const filePath = path.join(__dirname, urlPath);
   if (fs.existsSync(filePath) && fs.statSync(filePath).isFile()) {
     const ext = path.extname(filePath).toLowerCase();
