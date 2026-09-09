@@ -106,6 +106,8 @@ export function validateAndNormalize(data, sku) {
     "Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Anzóis";
   const CATEGORIA_PADRAO_SANDALIAS_MASC =
     "Sapatos Masculinos > Sandalia e Chinelos > Chinelos";
+  const CATEGORIA_PADRAO_VARAS =
+    "Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Varas e Molinetes de Pesca";
 
   const isAnzol =
     /anzol|encastoado|hook/i.test(data.titulo_shopee || "") ||
@@ -123,8 +125,19 @@ export function validateAndNormalize(data, sku) {
 
   const isSandaliaMasculina = isSandaliaOuChinelo && !isFeminina;
 
+  const isVara =
+    !isSandaliaOuChinelo &&
+    !/suporte|salva\s*vara|porta\s*vara/i.test(data.titulo_shopee || "") &&
+    !/suporte|salva\s*vara|porta\s*vara/i.test(data.modelo || "") &&
+    (
+      /\bvara\b|blank|\bvaras\b/i.test(data.titulo_shopee || "") ||
+      /\bvara\b|blank|\bvaras\b/i.test(data.modelo || "") ||
+      /varas/i.test(data.categoria_sugerida || "") ||
+      /^VP/i.test(data.sku || "")
+    );
+
   const isIsca =
-    !isAnzol && !isSandaliaOuChinelo && (
+    !isAnzol && !isSandaliaOuChinelo && !isVara && (
       /isca/i.test(data.categoria_sugerida || "") ||
       /isca/i.test(data.titulo_shopee || "") ||
       /popper|minnow|zara|stick|crank|shad|frog|sapo|jumping/i.test(data.titulo_shopee || "") ||
@@ -133,6 +146,8 @@ export function validateAndNormalize(data, sku) {
 
   if (isSandaliaMasculina) {
     data.categoria_sugerida = CATEGORIA_PADRAO_SANDALIAS_MASC;
+  } else if (isVara) {
+    data.categoria_sugerida = CATEGORIA_PADRAO_VARAS;
   } else if (isAnzol) {
     data.categoria_sugerida = CATEGORIA_PADRAO_ANZOIS;
   } else if (isIsca) {
@@ -516,6 +531,50 @@ export function normalizeShopeeAttributes(data) {
     attrs.tamanho_do_pacote = "";
     attrs.produto_personalizado = "Não";
     attrs.modelo = attrs.modelo || data.modelo || "Boaonda";
+  }
+
+  // Normalização específica para Varas de Pesca (conforme Ficha Técnica da Shopee)
+  const isVara =
+    !/suporte|salva\s*vara|porta\s*vara/i.test(data.titulo_shopee || "") &&
+    !/suporte|salva\s*vara|porta\s*vara/i.test(data.modelo || "") &&
+    ((data.categoria_sugerida && data.categoria_sugerida.includes("Varas e Molinetes de Pesca")) ||
+    (!isSandaliaMasculina && (
+      /\bvara\b|blank|\bvaras\b/i.test(data.titulo_shopee || "") ||
+      /\bvara\b|blank|\bvaras\b/i.test(data.modelo || "") ||
+      /^VP/i.test(data.sku || "")
+    )));
+
+  if (isVara) {
+    const fullText = `${data.titulo_shopee || ""} ${data.modelo || ""} ${data.descricao || ""}`.toLowerCase();
+
+    attrs.tipo_de_pesca = attrs.tipo_de_pesca || "";
+
+    if (!attrs.peso_do_produto) {
+      const matchPeso = fullText.match(/(\d+(?:[.,]\d+)?)\s*g(?:ramas)?\b/i);
+      attrs.peso_do_produto = matchPeso ? `${matchPeso[1].replace(',', '.')}g` : "150g";
+    }
+
+    if (!attrs.comprimento) {
+      const matchMetros = fullText.match(/(\d+[.,]\d+)\s*m\b/i);
+      if (matchMetros) {
+        attrs.comprimento = matchMetros[1].replace(',', '.');
+      } else {
+        attrs.comprimento = "1.73";
+      }
+    } else {
+      attrs.comprimento = String(attrs.comprimento).replace(/[^\d.,]/g, '').replace(',', '.').trim() || "1.73";
+    }
+
+    attrs.duracao_da_garantia = "1 Mês";
+    attrs.tipo_de_garantia = attrs.tipo_de_garantia || "";
+    attrs.quantidade_da_embalagem = 1;
+    attrs.pais_de_origem = "China";
+    attrs.material = "Fibra de Carbono";
+    attrs.condicao = "Novo";
+    attrs.tamanho_do_pacote = "";
+    attrs.produto_personalizado = "Não";
+    attrs.quantidade_por_pacote = 1;
+    attrs.modelo = attrs.modelo || data.modelo || "Carbon";
   }
 
   return data;

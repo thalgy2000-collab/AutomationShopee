@@ -77,10 +77,8 @@ CATEGORIAS OFICIAIS NA SHOPEE (USE EXATAMENTE ESTAS ÁRVORES RECONHECIDAS):
   Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Anzóis
 - Para Linhas de Pesca:
   Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Linhas de Pesca
-- Para Varas de Pesca:
-  Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Varas de Pescar
-- Para Molinetes e Carretilhas:
-  Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Molinetes
+- Para Varas de Pesca e Molinetes:
+  Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Varas e Molinetes de Pesca
 - Para Copos Térmicos / Garrafas:
   Esportes e Atividades ao Ar Livre > Acessórios Esportivos e Atividades ao Ar Livre > Garrafas de Água e Acessórios
 - Para Pet / Cães / Coleiras:

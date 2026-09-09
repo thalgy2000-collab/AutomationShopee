@@ -13,16 +13,19 @@
     "pais_de_origem": "China",
     "peso_do_produto": "25g",
     "duracao_da_garantia": "1 Mês",
-    "material": "Alumínio, Ímã e Aço Inox",
+    "material": "Alumínio / Neodímio",
     "estampa": "Lisa",
     "condicao": "Novo",
-    "comprimento": "15 cm",
+    "comprimento": "15",
     "dimensoes_do_produto": "2 x 2 x 15 cm",
     "quantidade_da_embalagem": 1,
-    "tamanho_do_pacote": "3 x 10 x 15 cm",
+    "tamanho_do_pacote": "",
     "produto_personalizado": "Não",
     "quantidade_por_pacote": 1,
-    "tipo_acessorio": "Suporte Magnético / Salva Varas"
+    "tipo_acessorio": "Suporte Magnético / Salva Varas",
+    "tipo_de_pesca": "",
+    "tipo_de_garantia": "",
+    "modelo": "MR02"
   },
   "variacoes": [],
   "palavras_chave": [

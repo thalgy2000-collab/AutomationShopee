@@ -13,14 +13,17 @@
     "pais_de_origem": "China",
     "peso_do_produto": "25g",
     "duracao_da_garantia": "1 Mês",
-    "material": "Alumínio, Aço e Neodímio",
+    "material": "Alumínio / Neodímio",
     "condicao": "Novo",
-    "comprimento": "20 cm",
+    "comprimento": "20",
     "dimensoes_do_produto": "20 x 2 x 2 cm",
     "quantidade_da_embalagem": 1,
-    "tamanho_do_pacote": "3 x 10 x 15 cm",
+    "tamanho_do_pacote": "",
     "produto_personalizado": "Não",
-    "quantidade_por_pacote": 1
+    "quantidade_por_pacote": 1,
+    "tipo_de_pesca": "",
+    "tipo_de_garantia": "",
+    "modelo": "MR03"
   },
   "variacoes": [],
   "palavras_chave": [

@@ -280,6 +280,11 @@ export async function publishProductToMagis5(page, product, options = {}) {
         (catPath.split(">").pop().trim() || "Acessórios de Pesca");
     }
 
+    // Para Varas de pesca, garante a subcategoria oficial da Shopee (Varas e Molinetes de Pesca)
+    if (!/suporte|salva\s*vara|porta\s*vara/i.test(fullSearch) && (/\bvara\b|blank|\bvaras\b/i.test(fullSearch) || catPath.toLowerCase().includes("varas"))) {
+      catPath = "Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Varas e Molinetes de Pesca";
+    }
+
     console.log(`📂 Configurando Categoria Shopee: ${catPath}`);
     const catParts = catPath.split(">").map(p => p.trim()).filter(Boolean);
 
