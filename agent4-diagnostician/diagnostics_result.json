@@ -1,7 +1,7 @@
 {
   "totalAuditados": 14,
-  "pendentesResolucao": 8,
-  "jaResolvidos": 6,
+  "pendentesResolucao": 12,
+  "jaResolvidos": 2,
   "porTipoErro": {
     "categoriaIncompativel": 3,
     "skuDuplicado": 1,
@@ -9,8 +9,39 @@
     "eanOuSankhya": 1,
     "outros": 3
   },
-  "timestamp": "2026-09-09T17:24:44.946Z",
+  "timestamp": "2026-09-09T17:36:23.277Z",
   "diagnostics": [
+    {
+      "sku": "7908788613401",
+      "titulo": "Canivete Tatico Dobravel Deyu Cabo Madeira Aco Inox Camping Pesca",
+      "marca": "Deyu",
+      "modelo": "DY018355",
+      "preco": 48.9,
+      "cod_sankhya": "65613",
+      "categoria_atual": "Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Acessórios de Pesca",
+      "categoria_sugerida_correta": "Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Linhas de Pesca",
+      "erro_bruto": "Shopee: 2/1 imagens de variação (Limite excedido)",
+      "status_planilha": "enriched",
+      "cor_planilha": "#D1FAE5",
+      "isCurrentlyPublished": false,
+      "screenshot": "/screenshots/published-7908788613401-1788960127741.png",
+      "screenshotFile": "published-7908788613401-1788960127741.png",
+      "diagnostico": "A Shopee impõe um limite estrito de exatamente 1 foto por variação (1/1). Ao puxar fotos automáticas do ERP Sankhya, a variação acumulou mais de 1 foto e a Magis5 rejeitou o envio.",
+      "proposta": {
+        "acao": "Executar Limpeza Prévia de Fotos na Variação",
+        "explicacao": "O Agente 3 agora expande a seção de variações e limpa todas as fotos pré-carregadas pelo ERP antes de subir a foto oficial individual, garantindo a proporção 1/1.",
+        "autoFixAvailable": true,
+        "fixType": "CLEAN_VARIATION_IMAGES"
+      },
+      "classificacao": {
+        "codigo": "LIMITE_FOTOS_VARIACAO",
+        "tipo": "Excesso de Fotos na Variação",
+        "gravidade": "ALTA",
+        "badgeClass": "badge-danger",
+        "icone": "📸"
+      },
+      "dataAuditoria": "2026-09-09T17:36:23.276Z"
+    },
     {
       "sku": "7908456417386",
       "titulo": "Snap Pesca CCM Engate Rápido Alta Resistência 80lb Kit C/10 Unidades Pescaria Segura",
@@ -40,7 +71,7 @@
         "badgeClass": "badge-danger",
         "icone": "📸"
       },
-      "dataAuditoria": "2026-09-09T17:24:44.946Z"
+      "dataAuditoria": "2026-09-09T17:36:23.276Z"
     },
     {
       "sku": "7899675830165",
@@ -71,7 +102,100 @@
         "badgeClass": "badge-danger",
         "icone": "📸"
       },
-      "dataAuditoria": "2026-09-09T17:24:44.946Z"
+      "dataAuditoria": "2026-09-09T17:36:23.276Z"
+    },
+    {
+      "sku": "7899675812338",
+      "titulo": "Alicate de Pesca Bico Curvo Albatroz QZ-603 Aço Carbono com Cortador de Linha",
+      "marca": "Albatroz Fishing",
+      "modelo": "QZ-603",
+      "preco": 65.75,
+      "cod_sankhya": "57187",
+      "categoria_atual": "Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Acessórios de Pesca",
+      "categoria_sugerida_correta": "Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Linhas de Pesca",
+      "erro_bruto": "Shopee: 2/1 imagens de variação (Limite excedido)",
+      "status_planilha": "enriched",
+      "cor_planilha": "#D1FAE5",
+      "isCurrentlyPublished": false,
+      "screenshot": "/screenshots/published-7899675812338-1788959959290.png",
+      "screenshotFile": "published-7899675812338-1788959959290.png",
+      "diagnostico": "A Shopee impõe um limite estrito de exatamente 1 foto por variação (1/1). Ao puxar fotos automáticas do ERP Sankhya, a variação acumulou mais de 1 foto e a Magis5 rejeitou o envio.",
+      "proposta": {
+        "acao": "Executar Limpeza Prévia de Fotos na Variação",
+        "explicacao": "O Agente 3 agora expande a seção de variações e limpa todas as fotos pré-carregadas pelo ERP antes de subir a foto oficial individual, garantindo a proporção 1/1.",
+        "autoFixAvailable": true,
+        "fixType": "CLEAN_VARIATION_IMAGES"
+      },
+      "classificacao": {
+        "codigo": "LIMITE_FOTOS_VARIACAO",
+        "tipo": "Excesso de Fotos na Variação",
+        "gravidade": "ALTA",
+        "badgeClass": "badge-danger",
+        "icone": "📸"
+      },
+      "dataAuditoria": "2026-09-09T17:36:23.276Z"
+    },
+    {
+      "sku": "7792959130510",
+      "titulo": "Suporte Porta Iscas Artificiais Alicates e Tesoura Em Aço Inox Pesca Plus Organizador para Barco",
+      "marca": "Pesca Plus",
+      "modelo": "Suporte Organizador Multifuncional Inox",
+      "preco": 59.9,
+      "cod_sankhya": "65775",
+      "categoria_atual": "Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Iscas",
+      "categoria_sugerida_correta": "Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Iscas",
+      "erro_bruto": "Shopee: 2/1 imagens de variação (Limite excedido)",
+      "status_planilha": "enriched",
+      "cor_planilha": "#D1FAE5",
+      "isCurrentlyPublished": false,
+      "screenshot": "/screenshots/published-7792959130510-1788959732163.png",
+      "screenshotFile": "published-7792959130510-1788959732163.png",
+      "diagnostico": "A Shopee impõe um limite estrito de exatamente 1 foto por variação (1/1). Ao puxar fotos automáticas do ERP Sankhya, a variação acumulou mais de 1 foto e a Magis5 rejeitou o envio.",
+      "proposta": {
+        "acao": "Executar Limpeza Prévia de Fotos na Variação",
+        "explicacao": "O Agente 3 agora expande a seção de variações e limpa todas as fotos pré-carregadas pelo ERP antes de subir a foto oficial individual, garantindo a proporção 1/1.",
+        "autoFixAvailable": true,
+        "fixType": "CLEAN_VARIATION_IMAGES"
+      },
+      "classificacao": {
+        "codigo": "LIMITE_FOTOS_VARIACAO",
+        "tipo": "Excesso de Fotos na Variação",
+        "gravidade": "ALTA",
+        "badgeClass": "badge-danger",
+        "icone": "📸"
+      },
+      "dataAuditoria": "2026-09-09T17:36:23.276Z"
+    },
+    {
+      "sku": "7794688569241",
+      "titulo": "Alicate de Bico Deyu Azul 12cm DFM0401 Ferramenta de Pesca Esportiva",
+      "marca": "Deyu",
+      "modelo": "DFM0401",
+      "preco": 33.9,
+      "cod_sankhya": "70373",
+      "categoria_atual": "Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Acessórios de Pesca",
+      "categoria_sugerida_correta": "Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Linhas de Pesca",
+      "erro_bruto": "O EAN desse produto é inválido. O limite permitido são de 16 caracteres. (Código Sankhya ausente)",
+      "status_planilha": "enriched",
+      "cor_planilha": "#D1FAE5",
+      "isCurrentlyPublished": false,
+      "screenshot": "/screenshots/published-7794688569241-1788959789477.png",
+      "screenshotFile": "published-7794688569241-1788959789477.png",
+      "diagnostico": "O campo de código de barras ou SKU da variação recebeu um valor fora do padrão (ex: SKU com mais de 16 dígitos ou campo vazio sem código Sankhya).",
+      "proposta": {
+        "acao": "Vincular Código Sankhya correto da Planilha",
+        "explicacao": "Mapear o código Sankhya exato do produto (5 dígitos) para o campo SKU da variação, permitindo a sincronização automática do EAN sem erros.",
+        "autoFixAvailable": true,
+        "fixType": "SYNC_SANKHYA_CODE"
+      },
+      "classificacao": {
+        "codigo": "EAN_OU_SANKHYA_INVALIDO",
+        "tipo": "Código ERP / EAN Inválido",
+        "gravidade": "ALTA",
+        "badgeClass": "badge-danger",
+        "icone": "🔢"
+      },
+      "dataAuditoria": "2026-09-09T17:36:23.276Z"
     },
     {
       "sku": "11RACON58CHP",
@@ -102,7 +226,7 @@
         "badgeClass": "badge-danger",
         "icone": "📸"
       },
-      "dataAuditoria": "2026-09-09T17:24:44.946Z"
+      "dataAuditoria": "2026-09-09T17:36:23.276Z"
     },
     {
       "sku": "COLGUIAREFLETIVOVERDEAZ",
@@ -134,7 +258,7 @@
         "badgeClass": "badge-danger",
         "icone": "📂"
       },
-      "dataAuditoria": "2026-09-09T17:24:44.946Z"
+      "dataAuditoria": "2026-09-09T17:36:23.276Z"
     },
     {
       "sku": "COLGUIAREFLETIVOLAR",
@@ -166,7 +290,7 @@
         "badgeClass": "badge-danger",
         "icone": "📂"
       },
-      "dataAuditoria": "2026-09-09T17:24:44.946Z"
+      "dataAuditoria": "2026-09-09T17:36:23.276Z"
     },
     {
       "sku": "ACTIONBIGGAMECINZA",
@@ -198,7 +322,7 @@
         "badgeClass": "badge-danger",
         "icone": "📂"
       },
-      "dataAuditoria": "2026-09-09T17:24:44.944Z"
+      "dataAuditoria": "2026-09-09T17:36:23.276Z"
     },
     {
       "sku": "BIGGAMENYLONCINZA100",
@@ -229,7 +353,7 @@
         "badgeClass": "badge-warning",
         "icone": "⚠️"
       },
-      "dataAuditoria": "2026-09-09T17:24:44.946Z"
+      "dataAuditoria": "2026-09-09T17:36:23.276Z"
     },
     {
       "sku": "4330",
@@ -260,131 +384,7 @@
         "badgeClass": "badge-info",
         "icone": "📋"
       },
-      "dataAuditoria": "2026-09-09T17:24:44.946Z"
-    },
-    {
-      "sku": "7908788613401",
-      "titulo": "Canivete Tatico Dobravel Deyu Cabo Madeira Aco Inox Camping Pesca",
-      "marca": "Deyu",
-      "modelo": "DY018355",
-      "preco": 48.9,
-      "cod_sankhya": "65613",
-      "categoria_atual": "Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Acessórios de Pesca",
-      "categoria_sugerida_correta": "Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Linhas de Pesca",
-      "erro_bruto": "Shopee: 2/1 imagens de variação (Limite excedido)",
-      "status_planilha": "publicado",
-      "cor_planilha": "#83E28E",
-      "isCurrentlyPublished": true,
-      "screenshot": "/screenshots/published-7908788613401-1788960127741.png",
-      "screenshotFile": "published-7908788613401-1788960127741.png",
-      "diagnostico": "A Shopee impõe um limite estrito de exatamente 1 foto por variação (1/1). Ao puxar fotos automáticas do ERP Sankhya, a variação acumulou mais de 1 foto e a Magis5 rejeitou o envio.",
-      "proposta": {
-        "acao": "Executar Limpeza Prévia de Fotos na Variação",
-        "explicacao": "O Agente 3 agora expande a seção de variações e limpa todas as fotos pré-carregadas pelo ERP antes de subir a foto oficial individual, garantindo a proporção 1/1.",
-        "autoFixAvailable": true,
-        "fixType": "CLEAN_VARIATION_IMAGES"
-      },
-      "classificacao": {
-        "codigo": "LIMITE_FOTOS_VARIACAO",
-        "tipo": "Excesso de Fotos na Variação",
-        "gravidade": "ALTA",
-        "badgeClass": "badge-danger",
-        "icone": "📸"
-      },
-      "dataAuditoria": "2026-09-09T17:24:44.946Z"
-    },
-    {
-      "sku": "7899675812338",
-      "titulo": "Alicate de Pesca Bico Curvo Albatroz QZ-603 Aço Carbono com Cortador de Linha",
-      "marca": "Albatroz Fishing",
-      "modelo": "QZ-603",
-      "preco": 65.75,
-      "cod_sankhya": "57187",
-      "categoria_atual": "Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Acessórios de Pesca",
-      "categoria_sugerida_correta": "Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Linhas de Pesca",
-      "erro_bruto": "Shopee: 2/1 imagens de variação (Limite excedido)",
-      "status_planilha": "publicado",
-      "cor_planilha": "#83E28E",
-      "isCurrentlyPublished": true,
-      "screenshot": "/screenshots/published-7899675812338-1788959959290.png",
-      "screenshotFile": "published-7899675812338-1788959959290.png",
-      "diagnostico": "A Shopee impõe um limite estrito de exatamente 1 foto por variação (1/1). Ao puxar fotos automáticas do ERP Sankhya, a variação acumulou mais de 1 foto e a Magis5 rejeitou o envio.",
-      "proposta": {
-        "acao": "Executar Limpeza Prévia de Fotos na Variação",
-        "explicacao": "O Agente 3 agora expande a seção de variações e limpa todas as fotos pré-carregadas pelo ERP antes de subir a foto oficial individual, garantindo a proporção 1/1.",
-        "autoFixAvailable": true,
-        "fixType": "CLEAN_VARIATION_IMAGES"
-      },
-      "classificacao": {
-        "codigo": "LIMITE_FOTOS_VARIACAO",
-        "tipo": "Excesso de Fotos na Variação",
-        "gravidade": "ALTA",
-        "badgeClass": "badge-danger",
-        "icone": "📸"
-      },
-      "dataAuditoria": "2026-09-09T17:24:44.946Z"
-    },
-    {
-      "sku": "7792959130510",
-      "titulo": "Suporte Porta Iscas Artificiais Alicates e Tesoura Em Aço Inox Pesca Plus Organizador para Barco",
-      "marca": "Pesca Plus",
-      "modelo": "Suporte Organizador Multifuncional Inox",
-      "preco": 59.9,
-      "cod_sankhya": "65775",
-      "categoria_atual": "Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Iscas",
-      "categoria_sugerida_correta": "Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Iscas",
-      "erro_bruto": "Shopee: 2/1 imagens de variação (Limite excedido)",
-      "status_planilha": "publicado",
-      "cor_planilha": "#83E28E",
-      "isCurrentlyPublished": true,
-      "screenshot": "/screenshots/published-7792959130510-1788959732163.png",
-      "screenshotFile": "published-7792959130510-1788959732163.png",
-      "diagnostico": "A Shopee impõe um limite estrito de exatamente 1 foto por variação (1/1). Ao puxar fotos automáticas do ERP Sankhya, a variação acumulou mais de 1 foto e a Magis5 rejeitou o envio.",
-      "proposta": {
-        "acao": "Executar Limpeza Prévia de Fotos na Variação",
-        "explicacao": "O Agente 3 agora expande a seção de variações e limpa todas as fotos pré-carregadas pelo ERP antes de subir a foto oficial individual, garantindo a proporção 1/1.",
-        "autoFixAvailable": true,
-        "fixType": "CLEAN_VARIATION_IMAGES"
-      },
-      "classificacao": {
-        "codigo": "LIMITE_FOTOS_VARIACAO",
-        "tipo": "Excesso de Fotos na Variação",
-        "gravidade": "ALTA",
-        "badgeClass": "badge-danger",
-        "icone": "📸"
-      },
-      "dataAuditoria": "2026-09-09T17:24:44.946Z"
-    },
-    {
-      "sku": "7794688569241",
-      "titulo": "Alicate de Bico Deyu Azul 12cm DFM0401 Ferramenta de Pesca Esportiva",
-      "marca": "Deyu",
-      "modelo": "DFM0401",
-      "preco": 33.9,
-      "cod_sankhya": "70373",
-      "categoria_atual": "Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Acessórios de Pesca",
-      "categoria_sugerida_correta": "Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Linhas de Pesca",
-      "erro_bruto": "O EAN desse produto é inválido. O limite permitido são de 16 caracteres. (Código Sankhya ausente)",
-      "status_planilha": "publicado",
-      "cor_planilha": "#83E28E",
-      "isCurrentlyPublished": true,
-      "screenshot": "/screenshots/published-7794688569241-1788959789477.png",
-      "screenshotFile": "published-7794688569241-1788959789477.png",
-      "diagnostico": "O campo de código de barras ou SKU da variação recebeu um valor fora do padrão (ex: SKU com mais de 16 dígitos ou campo vazio sem código Sankhya).",
-      "proposta": {
-        "acao": "Vincular Código Sankhya correto da Planilha",
-        "explicacao": "Mapear o código Sankhya exato do produto (5 dígitos) para o campo SKU da variação, permitindo a sincronização automática do EAN sem erros.",
-        "autoFixAvailable": true,
-        "fixType": "SYNC_SANKHYA_CODE"
-      },
-      "classificacao": {
-        "codigo": "EAN_OU_SANKHYA_INVALIDO",
-        "tipo": "Código ERP / EAN Inválido",
-        "gravidade": "ALTA",
-        "badgeClass": "badge-danger",
-        "icone": "🔢"
-      },
-      "dataAuditoria": "2026-09-09T17:24:44.946Z"
+      "dataAuditoria": "2026-09-09T17:36:23.277Z"
     },
     {
       "sku": "7797208814135",
@@ -415,7 +415,7 @@
         "badgeClass": "badge-info",
         "icone": "📋"
       },
-      "dataAuditoria": "2026-09-09T17:24:44.946Z"
+      "dataAuditoria": "2026-09-09T17:36:23.276Z"
     },
     {
       "sku": "7797208813961",
@@ -446,7 +446,7 @@
         "badgeClass": "badge-info",
         "icone": "📋"
       },
-      "dataAuditoria": "2026-09-09T17:24:44.946Z"
+      "dataAuditoria": "2026-09-09T17:36:23.277Z"
     }
   ]
 }

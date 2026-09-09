@@ -226,8 +226,9 @@ export async function generateReport(
       }
     }
 
-    const isPublished = csvRow.status === 'publicado' || csvRow.status === 'concluido' || csvRow.cor === '#83E28E' || csvRow.cor === '#47D359' ||
-      (Array.isArray(p.variacoes) && p.variacoes.some(v => csvData[v.sku]?.status === 'publicado' || csvData[v.sku]?.status === 'concluido' || csvData[v.sku]?.cor === '#83E28E' || csvData[v.sku]?.cor === '#47D359'));
+    const isPublished = Boolean(p.is_published) || p.status === 'publicado' || p.status === 'concluido' || Boolean(p.shopee_product_id) ||
+      csvRow.status === 'publicado' || csvRow.status === 'concluido' || csvRow.cor === '#83E28E' || csvRow.cor === '#47D359' ||
+      (Array.isArray(p.variacoes) && p.variacoes.some(v => v.is_published || csvData[v.sku]?.status === 'publicado' || csvData[v.sku]?.status === 'concluido' || csvData[v.sku]?.cor === '#83E28E' || csvData[v.sku]?.cor === '#47D359'));
 
     productCards.push({
       ...p,
@@ -1553,6 +1554,7 @@ function buildHtml(products) {
       for (const [sku, st] of Object.entries(overrides)) {
         const card = document.querySelector('[data-sku="' + sku + '"]');
         if (!card) continue;
+        if (card.dataset.published === 'true') continue;
         const isPub = st === 'publicado';
         const skuSafe = sku.replace(/[^a-zA-Z0-9]/g, '_');
         card.dataset.published = isPub ? 'true' : 'false';
@@ -1890,7 +1892,7 @@ function buildProductCard(product, idx) {
         <div style="display: flex; align-items: center; min-width: 0; flex: 1; margin-right: 1rem; gap: 0.5rem;">
           <span class="card-chevron" id="chevron-${idx}">▼</span>
           <span class="card-sku">${sku}</span>
-          <span class="badge badge--published" id="status-badge-${skuSafe}" style="${isPublished ? '' : 'display:none;'} margin:0; font-size:0.75rem; flex-shrink:0;" title="Anúncio publicado na Magis5 (Cor #83E28E)">🚀 Publicado na Magis5</span>
+          <span class="badge badge--published" id="status-badge-${skuSafe}" style="${isPublished ? '' : 'display:none;'} margin:0; font-size:0.75rem; flex-shrink:0;" title="${product.shopee_product_id ? `Anúncio ativo na Shopee (ID: ${product.shopee_product_id})` : 'Anúncio publicado na Magis5 (Cor #83E28E)'}">🚀 ${product.shopee_product_id ? `Ativo na Shopee` : 'Publicado'}</span>
           ${product.ia_etiqueta ? `<span class="badge badge--llama" style="margin:0; font-size:0.75rem; flex-shrink:0;" title="Gerado via Groq LLaMA para comparação">${escHtml(product.ia_etiqueta)}</span>` : ""}
           ${codSankhya ? `<span class="badge badge--blue" style="margin:0; font-size:0.75rem; flex-shrink:0; font-weight:600;" title="Código Sankhya (ERP)">🏷️ Sankhya: ${codSankhya}</span>` : ""}
           ${isParentGroup ? `<span class="badge badge--purple" style="margin:0; font-size:0.75rem; flex-shrink:0;">🎨 ${variacoes.length} Variações</span>` : ""}
