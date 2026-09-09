@@ -106,8 +106,9 @@ export async function runDiagnostics() {
     // Aplica o classificador de causas e propostas
     const classification = classifyErrorAndProposeSolution(rawError, product);
 
-    // Verifica se já está publicado atualmente na planilha
-    const isCurrentlyPublished = csvRow.status === 'publicado' && (csvRow.cor === '#83E28E' || csvRow.cor === '#47D359');
+    // Verifica se já está publicado atualmente na planilha ou no JSON
+    const isCurrentlyPublished = Boolean(product.is_published) || product.status === 'publicado' || product.status === 'concluido' ||
+      (csvRow.status === 'publicado' && (csvRow.cor === '#83E28E' || csvRow.cor === '#47D359'));
 
     diagnostics.push({
       sku,

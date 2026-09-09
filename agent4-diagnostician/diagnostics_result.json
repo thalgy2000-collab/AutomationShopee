@@ -1,7 +1,7 @@
 {
   "totalAuditados": 14,
-  "pendentesResolucao": 8,
-  "jaResolvidos": 6,
+  "pendentesResolucao": 0,
+  "jaResolvidos": 14,
   "porTipoErro": {
     "categoriaIncompativel": 3,
     "skuDuplicado": 1,
@@ -9,259 +9,8 @@
     "eanOuSankhya": 1,
     "outros": 3
   },
-  "timestamp": "2026-09-09T18:04:42.394Z",
+  "timestamp": "2026-09-09T18:24:40.881Z",
   "diagnostics": [
-    {
-      "sku": "7908456417386",
-      "titulo": "Snap Pesca CCM Engate Rápido Alta Resistência 80lb Kit C/10 Unidades Pescaria Segura",
-      "marca": "CCM",
-      "modelo": "Snap Engate Rápido Alta Resistência",
-      "preco": 12.9,
-      "cod_sankhya": "54775",
-      "categoria_atual": "Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Acessórios de Pesca",
-      "categoria_sugerida_correta": "Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Linhas de Pesca",
-      "erro_bruto": "Shopee: 2/1 imagens de variação (Limite excedido)",
-      "status_planilha": "enriched",
-      "cor_planilha": "#D1FAE5",
-      "isCurrentlyPublished": false,
-      "screenshot": "/screenshots/published-7908456417386-1788960071988.png",
-      "screenshotFile": "published-7908456417386-1788960071988.png",
-      "diagnostico": "A Shopee impõe um limite estrito de exatamente 1 foto por variação (1/1). Ao puxar fotos automáticas do ERP Sankhya, a variação acumulou mais de 1 foto e a Magis5 rejeitou o envio.",
-      "proposta": {
-        "acao": "Executar Limpeza Prévia de Fotos na Variação",
-        "explicacao": "O Agente 3 agora expande a seção de variações e limpa todas as fotos pré-carregadas pelo ERP antes de subir a foto oficial individual, garantindo a proporção 1/1.",
-        "autoFixAvailable": true,
-        "fixType": "CLEAN_VARIATION_IMAGES"
-      },
-      "classificacao": {
-        "codigo": "LIMITE_FOTOS_VARIACAO",
-        "tipo": "Excesso de Fotos na Variação",
-        "gravidade": "ALTA",
-        "badgeClass": "badge-danger",
-        "icone": "📸"
-      },
-      "dataAuditoria": "2026-09-09T18:04:42.394Z"
-    },
-    {
-      "sku": "7899675830165",
-      "titulo": "Fita Para Proteção De Dedos Albatroz Fishing Camo Preto 2,5cm Bandagem Elástica Autoadesiva Pesca Esportiva",
-      "marca": "Albatroz Fishing",
-      "modelo": "Fita Protetora de Dedos Camo Preto",
-      "preco": 23.6,
-      "cod_sankhya": "65669",
-      "categoria_atual": "Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Acessórios de Pesca",
-      "categoria_sugerida_correta": "Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Linhas de Pesca",
-      "erro_bruto": "Shopee: 2/1 imagens de variação (Limite excedido)",
-      "status_planilha": "enriched",
-      "cor_planilha": "#D1FAE5",
-      "isCurrentlyPublished": false,
-      "screenshot": "/screenshots/published-7899675830165-1788960014840.png",
-      "screenshotFile": "published-7899675830165-1788960014840.png",
-      "diagnostico": "A Shopee impõe um limite estrito de exatamente 1 foto por variação (1/1). Ao puxar fotos automáticas do ERP Sankhya, a variação acumulou mais de 1 foto e a Magis5 rejeitou o envio.",
-      "proposta": {
-        "acao": "Executar Limpeza Prévia de Fotos na Variação",
-        "explicacao": "O Agente 3 agora expande a seção de variações e limpa todas as fotos pré-carregadas pelo ERP antes de subir a foto oficial individual, garantindo a proporção 1/1.",
-        "autoFixAvailable": true,
-        "fixType": "CLEAN_VARIATION_IMAGES"
-      },
-      "classificacao": {
-        "codigo": "LIMITE_FOTOS_VARIACAO",
-        "tipo": "Excesso de Fotos na Variação",
-        "gravidade": "ALTA",
-        "badgeClass": "badge-danger",
-        "icone": "📸"
-      },
-      "dataAuditoria": "2026-09-09T18:04:42.394Z"
-    },
-    {
-      "sku": "11RACON58CHP",
-      "titulo": "Vara Carretilha Rapala Concept 5'8\" 1,76m 17-25lb Inteiriça para Pesca de Tucunaré e Traíra",
-      "marca": "Rapala",
-      "modelo": "Concept 11RACON58CHP",
-      "preco": 259.9,
-      "cod_sankhya": "65825",
-      "categoria_atual": "Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Varas de Pesca",
-      "categoria_sugerida_correta": "Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Linhas de Pesca",
-      "erro_bruto": "Shopee: 12/1 imagens de variação (Limite excedido)",
-      "status_planilha": "enriched",
-      "cor_planilha": "#D1FAE5",
-      "isCurrentlyPublished": false,
-      "screenshot": "/screenshots/published-11RACON58CHP-1788959601403.png",
-      "screenshotFile": "published-11RACON58CHP-1788959601403.png",
-      "diagnostico": "A Shopee impõe um limite estrito de exatamente 1 foto por variação (1/1). Ao puxar fotos automáticas do ERP Sankhya, a variação acumulou mais de 1 foto e a Magis5 rejeitou o envio.",
-      "proposta": {
-        "acao": "Executar Limpeza Prévia de Fotos na Variação",
-        "explicacao": "O Agente 3 agora expande a seção de variações e limpa todas as fotos pré-carregadas pelo ERP antes de subir a foto oficial individual, garantindo a proporção 1/1.",
-        "autoFixAvailable": true,
-        "fixType": "CLEAN_VARIATION_IMAGES"
-      },
-      "classificacao": {
-        "codigo": "LIMITE_FOTOS_VARIACAO",
-        "tipo": "Excesso de Fotos na Variação",
-        "gravidade": "ALTA",
-        "badgeClass": "badge-danger",
-        "icone": "📸"
-      },
-      "dataAuditoria": "2026-09-09T18:04:42.393Z"
-    },
-    {
-      "sku": "COLGUIAREFLETIVOVERDEAZ",
-      "titulo": "Coleira Peitoral Ergonômica Cães e Gatos Refletiva Ajustável EzyDog",
-      "marca": "EzyDog",
-      "modelo": "Peitoral Refletivo Ergonômico",
-      "preco": 29.9,
-      "cod_sankhya": "53865",
-      "categoria_atual": "Animais Domésticos > Cães > Coleiras, Guias e Peitorais",
-      "categoria_sugerida_correta": "Animais Domésticos > Cães > Coleiras, Guias e Peitorais",
-      "erro_bruto": "Finalize a seleção de categorias de todos os marketplaces antes de salvar. | 'Animais de Estimação' não corresponde a 'Animais Domésticos'",
-      "status_planilha": "pendente",
-      "cor_planilha": "#D1FAE5",
-      "isCurrentlyPublished": false,
-      "screenshot": "/screenshots/published-COLGUIAREFLETIVOVERDEAZ-1788972530566.png",
-      "screenshotFile": "published-COLGUIAREFLETIVOVERDEAZ-1788972530566.png",
-      "diagnostico": "A categoria sugerida pela IA (Animais Domésticos > Cães > Coleiras, Guias e Peitorais) não correspondeu à árvore oficial exigida pela Shopee na Magis5. O formulário não encontrou os níveis filhos e bloqueou o salvamento.",
-      "proposta": {
-        "acao": "Atualizar para a categoria oficial padronizada da Shopee",
-        "categoria_correta": "Animais Domésticos > Cães > Coleiras, Guias e Peitorais",
-        "explicacao": "Ajustar o campo \"categoria_sugerida\" para \"Animais Domésticos > Cães > Coleiras, Guias e Peitorais\", garantindo seleção automática e sem travas no seletor da Magis5.",
-        "autoFixAvailable": true,
-        "fixType": "UPDATE_CATEGORY"
-      },
-      "classificacao": {
-        "codigo": "CATEGORIA_INCOMPATIVEL",
-        "tipo": "Categoria Incompatível",
-        "gravidade": "ALTA",
-        "badgeClass": "badge-danger",
-        "icone": "📂"
-      },
-      "dataAuditoria": "2026-09-09T18:04:42.393Z"
-    },
-    {
-      "sku": "COLGUIAREFLETIVOLAR",
-      "titulo": "Coleira Peitoral Para Cães EzyDog Ajustável Refletiva Acolchoada Passeio Seguro",
-      "marca": "EzyDog",
-      "modelo": "Peitoral Refletivo Acolchoado",
-      "preco": 29.9,
-      "cod_sankhya": "53863, 65646",
-      "categoria_atual": "Animais Domésticos > Cães > Coleiras, Guias e Peitorais",
-      "categoria_sugerida_correta": "Animais Domésticos > Cães > Coleiras, Guias e Peitorais",
-      "erro_bruto": "Finalize a seleção de categorias de todos os marketplaces antes de salvar. | 'Animais de Estimação' não corresponde a 'Animais Domésticos'",
-      "status_planilha": "pendente",
-      "cor_planilha": "#D1FAE5",
-      "isCurrentlyPublished": false,
-      "screenshot": "/screenshots/published-COLGUIAREFLETIVOLAR-1788972482236.png",
-      "screenshotFile": "published-COLGUIAREFLETIVOLAR-1788972482236.png",
-      "diagnostico": "A categoria sugerida pela IA (Animais Domésticos > Cães > Coleiras, Guias e Peitorais) não correspondeu à árvore oficial exigida pela Shopee na Magis5. O formulário não encontrou os níveis filhos e bloqueou o salvamento.",
-      "proposta": {
-        "acao": "Atualizar para a categoria oficial padronizada da Shopee",
-        "categoria_correta": "Animais Domésticos > Cães > Coleiras, Guias e Peitorais",
-        "explicacao": "Ajustar o campo \"categoria_sugerida\" para \"Animais Domésticos > Cães > Coleiras, Guias e Peitorais\", garantindo seleção automática e sem travas no seletor da Magis5.",
-        "autoFixAvailable": true,
-        "fixType": "UPDATE_CATEGORY"
-      },
-      "classificacao": {
-        "codigo": "CATEGORIA_INCOMPATIVEL",
-        "tipo": "Categoria Incompatível",
-        "gravidade": "ALTA",
-        "badgeClass": "badge-danger",
-        "icone": "📂"
-      },
-      "dataAuditoria": "2026-09-09T18:04:42.393Z"
-    },
-    {
-      "sku": "ACTIONBIGGAMECINZA",
-      "titulo": "Linha Pesca Monofilamento Marine Sports Action Power Plus Nylon Alta Resistência",
-      "marca": "Marine Sports",
-      "modelo": "Action Power Plus",
-      "preco": 45.53,
-      "cod_sankhya": "54574",
-      "categoria_atual": "Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Linhas de Pesca",
-      "categoria_sugerida_correta": "Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Linhas de Pesca",
-      "erro_bruto": "Finalize a seleção de categorias de todos os marketplaces antes de salvar. | Categoria 'Esportes e Lazer' não mapeada na Shopee",
-      "status_planilha": "pendente",
-      "cor_planilha": "#D1FAE5",
-      "isCurrentlyPublished": false,
-      "screenshot": "/screenshots/erro-ACTIONBIGGAMECINZA-1788964138401.png",
-      "screenshotFile": "erro-ACTIONBIGGAMECINZA-1788964138401.png",
-      "diagnostico": "A categoria sugerida pela IA (Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Linhas de Pesca) não correspondeu à árvore oficial exigida pela Shopee na Magis5. O formulário não encontrou os níveis filhos e bloqueou o salvamento.",
-      "proposta": {
-        "acao": "Atualizar para a categoria oficial padronizada da Shopee",
-        "categoria_correta": "Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Linhas de Pesca",
-        "explicacao": "Ajustar o campo \"categoria_sugerida\" para \"Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Linhas de Pesca\", garantindo seleção automática e sem travas no seletor da Magis5.",
-        "autoFixAvailable": true,
-        "fixType": "UPDATE_CATEGORY"
-      },
-      "classificacao": {
-        "codigo": "CATEGORIA_INCOMPATIVEL",
-        "tipo": "Categoria Incompatível",
-        "gravidade": "ALTA",
-        "badgeClass": "badge-danger",
-        "icone": "📂"
-      },
-      "dataAuditoria": "2026-09-09T18:04:42.392Z"
-    },
-    {
-      "sku": "BIGGAMENYLONCINZA100",
-      "titulo": "Linha Pesca Marine Sports Action Big Game 100m Monofilamento Nylon Fluorcarbono Alta Resistencia",
-      "marca": "Marine Sports",
-      "modelo": "Action Big Game",
-      "preco": 13.9,
-      "cod_sankhya": "54569",
-      "categoria_atual": "Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Linhas de Pesca",
-      "categoria_sugerida_correta": "Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Linhas de Pesca",
-      "erro_bruto": "SKU já cadastrado em outro produto. | Shopee: 6/1 imagens de variação",
-      "status_planilha": "pendente",
-      "cor_planilha": "#D1FAE5",
-      "isCurrentlyPublished": false,
-      "screenshot": "/screenshots/erro-BIGGAMENYLONCINZA100-1788974564946.png",
-      "screenshotFile": "erro-BIGGAMENYLONCINZA100-1788974564946.png",
-      "diagnostico": "O SKU principal \"BIGGAMENYLONCINZA100\" já está cadastrado em outro anúncio dentro da sua conta da Magis5 (produto criado anteriormente).",
-      "proposta": {
-        "acao": "Marcar como Concluído ou Gerar Variação / Sufixo",
-        "explicacao": "Se este anúncio já foi criado manualmente no passado, a ação recomendada é marcar como \"publicado\" na planilha. Se for um produto novo que colidiu com SKU antigo, pode-se adicionar um sufixo (ex: \"BIGGAMENYLONCINZA100-V2\").",
-        "autoFixAvailable": true,
-        "fixType": "RESOLVE_DUPLICATE_SKU"
-      },
-      "classificacao": {
-        "codigo": "SKU_DUPLICADO",
-        "tipo": "SKU Já Existente na Magis5",
-        "gravidade": "MEDIA",
-        "badgeClass": "badge-warning",
-        "icone": "⚠️"
-      },
-      "dataAuditoria": "2026-09-09T18:04:42.393Z"
-    },
-    {
-      "sku": "4330",
-      "titulo": "Kit Anzol Encastoado Albatroz Cabo de Aço Reforçado | Anti-Corte para Pesca de Predadores",
-      "marca": "Albatroz",
-      "modelo": "4330 (Kit Anzol Encastoado)",
-      "preco": 21.9,
-      "cod_sankhya": "54561",
-      "categoria_atual": "Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Anzóis",
-      "categoria_sugerida_correta": "Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Linhas de Pesca",
-      "erro_bruto": "Rejeição detectada",
-      "status_planilha": "pendente",
-      "cor_planilha": "#D1FAE5",
-      "isCurrentlyPublished": false,
-      "screenshot": "/screenshots/published-4330-1788959671895.png",
-      "screenshotFile": "published-4330-1788959671895.png",
-      "diagnostico": "O formulário da Magis5 não concluiu o salvamento devido à validação pendente na página. Detalhe capturado: \"Rejeição detectada\"",
-      "proposta": {
-        "acao": "Re-processar com Modo Visível (Headed)",
-        "explicacao": "Executar o Agente 3 com a opção \"Modo Visível\" ativa no painel para inspecionar visualmente qual campo específico está exigindo preenchimento.",
-        "autoFixAvailable": false,
-        "fixType": "MANUAL_INSPECTION"
-      },
-      "classificacao": {
-        "codigo": "VALIDACAO_FORMULARIO",
-        "tipo": "Validação Pendente no Formulário",
-        "gravidade": "MEDIA",
-        "badgeClass": "badge-info",
-        "icone": "📋"
-      },
-      "dataAuditoria": "2026-09-09T18:04:42.394Z"
-    },
     {
       "sku": "7908788613401",
       "titulo": "Canivete Tatico Dobravel Deyu Cabo Madeira Aco Inox Camping Pesca",
@@ -272,8 +21,8 @@
       "categoria_atual": "Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Acessórios de Pesca",
       "categoria_sugerida_correta": "Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Linhas de Pesca",
       "erro_bruto": "Shopee: 2/1 imagens de variação (Limite excedido)",
-      "status_planilha": "publicado",
-      "cor_planilha": "#83E28E",
+      "status_planilha": "enriched",
+      "cor_planilha": "#D1FAE5",
       "isCurrentlyPublished": true,
       "screenshot": "/screenshots/published-7908788613401-1788960127741.png",
       "screenshotFile": "published-7908788613401-1788960127741.png",
@@ -291,7 +40,69 @@
         "badgeClass": "badge-danger",
         "icone": "📸"
       },
-      "dataAuditoria": "2026-09-09T18:04:42.394Z"
+      "dataAuditoria": "2026-09-09T18:24:40.881Z"
+    },
+    {
+      "sku": "7908456417386",
+      "titulo": "Snap Pesca CCM Engate Rápido Alta Resistência 80lb Kit C/10 Unidades Pescaria Segura",
+      "marca": "CCM",
+      "modelo": "Snap Engate Rápido Alta Resistência",
+      "preco": 12.9,
+      "cod_sankhya": "54775",
+      "categoria_atual": "Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Acessórios de Pesca",
+      "categoria_sugerida_correta": "Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Linhas de Pesca",
+      "erro_bruto": "Shopee: 2/1 imagens de variação (Limite excedido)",
+      "status_planilha": "enriched",
+      "cor_planilha": "#D1FAE5",
+      "isCurrentlyPublished": true,
+      "screenshot": "/screenshots/published-7908456417386-1788960071988.png",
+      "screenshotFile": "published-7908456417386-1788960071988.png",
+      "diagnostico": "A Shopee impõe um limite estrito de exatamente 1 foto por variação (1/1). Ao puxar fotos automáticas do ERP Sankhya, a variação acumulou mais de 1 foto e a Magis5 rejeitou o envio.",
+      "proposta": {
+        "acao": "Executar Limpeza Prévia de Fotos na Variação",
+        "explicacao": "O Agente 3 agora expande a seção de variações e limpa todas as fotos pré-carregadas pelo ERP antes de subir a foto oficial individual, garantindo a proporção 1/1.",
+        "autoFixAvailable": true,
+        "fixType": "CLEAN_VARIATION_IMAGES"
+      },
+      "classificacao": {
+        "codigo": "LIMITE_FOTOS_VARIACAO",
+        "tipo": "Excesso de Fotos na Variação",
+        "gravidade": "ALTA",
+        "badgeClass": "badge-danger",
+        "icone": "📸"
+      },
+      "dataAuditoria": "2026-09-09T18:24:40.881Z"
+    },
+    {
+      "sku": "7899675830165",
+      "titulo": "Fita Para Proteção De Dedos Albatroz Fishing Camo Preto 2,5cm Bandagem Elástica Autoadesiva Pesca Esportiva",
+      "marca": "Albatroz Fishing",
+      "modelo": "Fita Protetora de Dedos Camo Preto",
+      "preco": 23.6,
+      "cod_sankhya": "65669",
+      "categoria_atual": "Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Acessórios de Pesca",
+      "categoria_sugerida_correta": "Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Linhas de Pesca",
+      "erro_bruto": "Shopee: 2/1 imagens de variação (Limite excedido)",
+      "status_planilha": "enriched",
+      "cor_planilha": "#D1FAE5",
+      "isCurrentlyPublished": true,
+      "screenshot": "/screenshots/published-7899675830165-1788960014840.png",
+      "screenshotFile": "published-7899675830165-1788960014840.png",
+      "diagnostico": "A Shopee impõe um limite estrito de exatamente 1 foto por variação (1/1). Ao puxar fotos automáticas do ERP Sankhya, a variação acumulou mais de 1 foto e a Magis5 rejeitou o envio.",
+      "proposta": {
+        "acao": "Executar Limpeza Prévia de Fotos na Variação",
+        "explicacao": "O Agente 3 agora expande a seção de variações e limpa todas as fotos pré-carregadas pelo ERP antes de subir a foto oficial individual, garantindo a proporção 1/1.",
+        "autoFixAvailable": true,
+        "fixType": "CLEAN_VARIATION_IMAGES"
+      },
+      "classificacao": {
+        "codigo": "LIMITE_FOTOS_VARIACAO",
+        "tipo": "Excesso de Fotos na Variação",
+        "gravidade": "ALTA",
+        "badgeClass": "badge-danger",
+        "icone": "📸"
+      },
+      "dataAuditoria": "2026-09-09T18:24:40.881Z"
     },
     {
       "sku": "7899675812338",
@@ -303,8 +114,8 @@
       "categoria_atual": "Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Acessórios de Pesca",
       "categoria_sugerida_correta": "Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Linhas de Pesca",
       "erro_bruto": "Shopee: 2/1 imagens de variação (Limite excedido)",
-      "status_planilha": "publicado",
-      "cor_planilha": "#83E28E",
+      "status_planilha": "enriched",
+      "cor_planilha": "#D1FAE5",
       "isCurrentlyPublished": true,
       "screenshot": "/screenshots/published-7899675812338-1788959959290.png",
       "screenshotFile": "published-7899675812338-1788959959290.png",
@@ -322,7 +133,7 @@
         "badgeClass": "badge-danger",
         "icone": "📸"
       },
-      "dataAuditoria": "2026-09-09T18:04:42.394Z"
+      "dataAuditoria": "2026-09-09T18:24:40.881Z"
     },
     {
       "sku": "7792959130510",
@@ -334,8 +145,8 @@
       "categoria_atual": "Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Iscas",
       "categoria_sugerida_correta": "Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Iscas",
       "erro_bruto": "Shopee: 2/1 imagens de variação (Limite excedido)",
-      "status_planilha": "publicado",
-      "cor_planilha": "#83E28E",
+      "status_planilha": "enriched",
+      "cor_planilha": "#D1FAE5",
       "isCurrentlyPublished": true,
       "screenshot": "/screenshots/published-7792959130510-1788959732163.png",
       "screenshotFile": "published-7792959130510-1788959732163.png",
@@ -353,7 +164,7 @@
         "badgeClass": "badge-danger",
         "icone": "📸"
       },
-      "dataAuditoria": "2026-09-09T18:04:42.394Z"
+      "dataAuditoria": "2026-09-09T18:24:40.881Z"
     },
     {
       "sku": "7794688569241",
@@ -365,8 +176,8 @@
       "categoria_atual": "Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Acessórios de Pesca",
       "categoria_sugerida_correta": "Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Linhas de Pesca",
       "erro_bruto": "O EAN desse produto é inválido. O limite permitido são de 16 caracteres. (Código Sankhya ausente)",
-      "status_planilha": "publicado",
-      "cor_planilha": "#83E28E",
+      "status_planilha": "enriched",
+      "cor_planilha": "#D1FAE5",
       "isCurrentlyPublished": true,
       "screenshot": "/screenshots/published-7794688569241-1788959789477.png",
       "screenshotFile": "published-7794688569241-1788959789477.png",
@@ -384,7 +195,165 @@
         "badgeClass": "badge-danger",
         "icone": "🔢"
       },
-      "dataAuditoria": "2026-09-09T18:04:42.393Z"
+      "dataAuditoria": "2026-09-09T18:24:40.881Z"
+    },
+    {
+      "sku": "11RACON58CHP",
+      "titulo": "Vara Carretilha Rapala Concept 5'8\" 1,76m 17-25lb Inteiriça para Pesca de Tucunaré e Traíra",
+      "marca": "Rapala",
+      "modelo": "Concept 11RACON58CHP",
+      "preco": 259.9,
+      "cod_sankhya": "65825",
+      "categoria_atual": "Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Varas de Pesca",
+      "categoria_sugerida_correta": "Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Linhas de Pesca",
+      "erro_bruto": "Shopee: 12/1 imagens de variação (Limite excedido)",
+      "status_planilha": "enriched",
+      "cor_planilha": "#D1FAE5",
+      "isCurrentlyPublished": true,
+      "screenshot": "/screenshots/published-11RACON58CHP-1788959601403.png",
+      "screenshotFile": "published-11RACON58CHP-1788959601403.png",
+      "diagnostico": "A Shopee impõe um limite estrito de exatamente 1 foto por variação (1/1). Ao puxar fotos automáticas do ERP Sankhya, a variação acumulou mais de 1 foto e a Magis5 rejeitou o envio.",
+      "proposta": {
+        "acao": "Executar Limpeza Prévia de Fotos na Variação",
+        "explicacao": "O Agente 3 agora expande a seção de variações e limpa todas as fotos pré-carregadas pelo ERP antes de subir a foto oficial individual, garantindo a proporção 1/1.",
+        "autoFixAvailable": true,
+        "fixType": "CLEAN_VARIATION_IMAGES"
+      },
+      "classificacao": {
+        "codigo": "LIMITE_FOTOS_VARIACAO",
+        "tipo": "Excesso de Fotos na Variação",
+        "gravidade": "ALTA",
+        "badgeClass": "badge-danger",
+        "icone": "📸"
+      },
+      "dataAuditoria": "2026-09-09T18:24:40.881Z"
+    },
+    {
+      "sku": "COLGUIAREFLETIVOVERDEAZ",
+      "titulo": "Coleira Peitoral Ergonômica Cães e Gatos Refletiva Ajustável EzyDog",
+      "marca": "EzyDog",
+      "modelo": "Peitoral Refletivo Ergonômico",
+      "preco": 29.9,
+      "cod_sankhya": "53865",
+      "categoria_atual": "Animais Domésticos > Cães > Coleiras, Guias e Peitorais",
+      "categoria_sugerida_correta": "Animais Domésticos > Cães > Coleiras, Guias e Peitorais",
+      "erro_bruto": "Finalize a seleção de categorias de todos os marketplaces antes de salvar. | 'Animais de Estimação' não corresponde a 'Animais Domésticos'",
+      "status_planilha": "pendente",
+      "cor_planilha": "#D1FAE5",
+      "isCurrentlyPublished": true,
+      "screenshot": "/screenshots/published-COLGUIAREFLETIVOVERDEAZ-1788972530566.png",
+      "screenshotFile": "published-COLGUIAREFLETIVOVERDEAZ-1788972530566.png",
+      "diagnostico": "A categoria sugerida pela IA (Animais Domésticos > Cães > Coleiras, Guias e Peitorais) não correspondeu à árvore oficial exigida pela Shopee na Magis5. O formulário não encontrou os níveis filhos e bloqueou o salvamento.",
+      "proposta": {
+        "acao": "Atualizar para a categoria oficial padronizada da Shopee",
+        "categoria_correta": "Animais Domésticos > Cães > Coleiras, Guias e Peitorais",
+        "explicacao": "Ajustar o campo \"categoria_sugerida\" para \"Animais Domésticos > Cães > Coleiras, Guias e Peitorais\", garantindo seleção automática e sem travas no seletor da Magis5.",
+        "autoFixAvailable": true,
+        "fixType": "UPDATE_CATEGORY"
+      },
+      "classificacao": {
+        "codigo": "CATEGORIA_INCOMPATIVEL",
+        "tipo": "Categoria Incompatível",
+        "gravidade": "ALTA",
+        "badgeClass": "badge-danger",
+        "icone": "📂"
+      },
+      "dataAuditoria": "2026-09-09T18:24:40.881Z"
+    },
+    {
+      "sku": "COLGUIAREFLETIVOLAR",
+      "titulo": "Coleira Peitoral Para Cães EzyDog Ajustável Refletiva Acolchoada Passeio Seguro",
+      "marca": "EzyDog",
+      "modelo": "Peitoral Refletivo Acolchoado",
+      "preco": 29.9,
+      "cod_sankhya": "53863, 65646",
+      "categoria_atual": "Animais Domésticos > Cães > Coleiras, Guias e Peitorais",
+      "categoria_sugerida_correta": "Animais Domésticos > Cães > Coleiras, Guias e Peitorais",
+      "erro_bruto": "Finalize a seleção de categorias de todos os marketplaces antes de salvar. | 'Animais de Estimação' não corresponde a 'Animais Domésticos'",
+      "status_planilha": "pendente",
+      "cor_planilha": "#D1FAE5",
+      "isCurrentlyPublished": true,
+      "screenshot": "/screenshots/published-COLGUIAREFLETIVOLAR-1788972482236.png",
+      "screenshotFile": "published-COLGUIAREFLETIVOLAR-1788972482236.png",
+      "diagnostico": "A categoria sugerida pela IA (Animais Domésticos > Cães > Coleiras, Guias e Peitorais) não correspondeu à árvore oficial exigida pela Shopee na Magis5. O formulário não encontrou os níveis filhos e bloqueou o salvamento.",
+      "proposta": {
+        "acao": "Atualizar para a categoria oficial padronizada da Shopee",
+        "categoria_correta": "Animais Domésticos > Cães > Coleiras, Guias e Peitorais",
+        "explicacao": "Ajustar o campo \"categoria_sugerida\" para \"Animais Domésticos > Cães > Coleiras, Guias e Peitorais\", garantindo seleção automática e sem travas no seletor da Magis5.",
+        "autoFixAvailable": true,
+        "fixType": "UPDATE_CATEGORY"
+      },
+      "classificacao": {
+        "codigo": "CATEGORIA_INCOMPATIVEL",
+        "tipo": "Categoria Incompatível",
+        "gravidade": "ALTA",
+        "badgeClass": "badge-danger",
+        "icone": "📂"
+      },
+      "dataAuditoria": "2026-09-09T18:24:40.881Z"
+    },
+    {
+      "sku": "ACTIONBIGGAMECINZA",
+      "titulo": "Linha Pesca Monofilamento Marine Sports Action Power Plus Nylon Alta Resistência",
+      "marca": "Marine Sports",
+      "modelo": "Action Power Plus",
+      "preco": 45.53,
+      "cod_sankhya": "54574",
+      "categoria_atual": "Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Linhas de Pesca",
+      "categoria_sugerida_correta": "Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Linhas de Pesca",
+      "erro_bruto": "Finalize a seleção de categorias de todos os marketplaces antes de salvar. | Categoria 'Esportes e Lazer' não mapeada na Shopee",
+      "status_planilha": "pendente",
+      "cor_planilha": "#D1FAE5",
+      "isCurrentlyPublished": true,
+      "screenshot": "/screenshots/erro-ACTIONBIGGAMECINZA-1788964138401.png",
+      "screenshotFile": "erro-ACTIONBIGGAMECINZA-1788964138401.png",
+      "diagnostico": "A categoria sugerida pela IA (Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Linhas de Pesca) não correspondeu à árvore oficial exigida pela Shopee na Magis5. O formulário não encontrou os níveis filhos e bloqueou o salvamento.",
+      "proposta": {
+        "acao": "Atualizar para a categoria oficial padronizada da Shopee",
+        "categoria_correta": "Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Linhas de Pesca",
+        "explicacao": "Ajustar o campo \"categoria_sugerida\" para \"Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Linhas de Pesca\", garantindo seleção automática e sem travas no seletor da Magis5.",
+        "autoFixAvailable": true,
+        "fixType": "UPDATE_CATEGORY"
+      },
+      "classificacao": {
+        "codigo": "CATEGORIA_INCOMPATIVEL",
+        "tipo": "Categoria Incompatível",
+        "gravidade": "ALTA",
+        "badgeClass": "badge-danger",
+        "icone": "📂"
+      },
+      "dataAuditoria": "2026-09-09T18:24:40.877Z"
+    },
+    {
+      "sku": "BIGGAMENYLONCINZA100",
+      "titulo": "Linha Pesca Marine Sports Action Big Game 100m Monofilamento Nylon Fluorcarbono Alta Resistencia",
+      "marca": "Marine Sports",
+      "modelo": "Action Big Game",
+      "preco": 13.9,
+      "cod_sankhya": "54569",
+      "categoria_atual": "Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Linhas de Pesca",
+      "categoria_sugerida_correta": "Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Linhas de Pesca",
+      "erro_bruto": "SKU já cadastrado em outro produto. | Shopee: 6/1 imagens de variação",
+      "status_planilha": "pendente",
+      "cor_planilha": "#D1FAE5",
+      "isCurrentlyPublished": true,
+      "screenshot": "/screenshots/erro-BIGGAMENYLONCINZA100-1788974564946.png",
+      "screenshotFile": "erro-BIGGAMENYLONCINZA100-1788974564946.png",
+      "diagnostico": "O SKU principal \"BIGGAMENYLONCINZA100\" já está cadastrado em outro anúncio dentro da sua conta da Magis5 (produto criado anteriormente).",
+      "proposta": {
+        "acao": "Marcar como Concluído ou Gerar Variação / Sufixo",
+        "explicacao": "Se este anúncio já foi criado manualmente no passado, a ação recomendada é marcar como \"publicado\" na planilha. Se for um produto novo que colidiu com SKU antigo, pode-se adicionar um sufixo (ex: \"BIGGAMENYLONCINZA100-V2\").",
+        "autoFixAvailable": true,
+        "fixType": "RESOLVE_DUPLICATE_SKU"
+      },
+      "classificacao": {
+        "codigo": "SKU_DUPLICADO",
+        "tipo": "SKU Já Existente na Magis5",
+        "gravidade": "MEDIA",
+        "badgeClass": "badge-warning",
+        "icone": "⚠️"
+      },
+      "dataAuditoria": "2026-09-09T18:24:40.880Z"
     },
     {
       "sku": "7797208814135",
@@ -415,7 +384,7 @@
         "badgeClass": "badge-info",
         "icone": "📋"
       },
-      "dataAuditoria": "2026-09-09T18:04:42.394Z"
+      "dataAuditoria": "2026-09-09T18:24:40.881Z"
     },
     {
       "sku": "7797208813961",
@@ -446,7 +415,38 @@
         "badgeClass": "badge-info",
         "icone": "📋"
       },
-      "dataAuditoria": "2026-09-09T18:04:42.394Z"
+      "dataAuditoria": "2026-09-09T18:24:40.881Z"
+    },
+    {
+      "sku": "4330",
+      "titulo": "Kit Anzol Encastoado Albatroz Cabo de Aço Reforçado | Anti-Corte para Pesca de Predadores",
+      "marca": "Albatroz",
+      "modelo": "4330 (Kit Anzol Encastoado)",
+      "preco": 21.9,
+      "cod_sankhya": "54561",
+      "categoria_atual": "Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Anzóis",
+      "categoria_sugerida_correta": "Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Linhas de Pesca",
+      "erro_bruto": "Rejeição detectada",
+      "status_planilha": "pendente",
+      "cor_planilha": "#D1FAE5",
+      "isCurrentlyPublished": true,
+      "screenshot": "/screenshots/published-4330-1788959671895.png",
+      "screenshotFile": "published-4330-1788959671895.png",
+      "diagnostico": "O formulário da Magis5 não concluiu o salvamento devido à validação pendente na página. Detalhe capturado: \"Rejeição detectada\"",
+      "proposta": {
+        "acao": "Re-processar com Modo Visível (Headed)",
+        "explicacao": "Executar o Agente 3 com a opção \"Modo Visível\" ativa no painel para inspecionar visualmente qual campo específico está exigindo preenchimento.",
+        "autoFixAvailable": false,
+        "fixType": "MANUAL_INSPECTION"
+      },
+      "classificacao": {
+        "codigo": "VALIDACAO_FORMULARIO",
+        "tipo": "Validação Pendente no Formulário",
+        "gravidade": "MEDIA",
+        "badgeClass": "badge-info",
+        "icone": "📋"
+      },
+      "dataAuditoria": "2026-09-09T18:24:40.881Z"
     }
   ]
 }
