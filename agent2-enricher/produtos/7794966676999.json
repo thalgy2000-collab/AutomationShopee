@@ -75,7 +75,13 @@
       "reason": "16 marcadores/bullet points com quebras de linha"
     }
   ],
-  "preco": null,
+  "preco": {
+    "preco_sem_promocao": 21.9,
+    "preco_com_promocao": null,
+    "preco_atual": 21.9,
+    "em_promocao": false,
+    "desconto_percentual": 0
+  },
   "parent_sku": "7794966676999",
   "is_parent": false,
   "cod_sankhya": "65653",

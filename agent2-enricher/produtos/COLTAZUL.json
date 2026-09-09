@@ -97,7 +97,13 @@
       "reason": "12 marcadores/bullet points com quebras de linha"
     }
   ],
-  "preco": null,
+  "preco": {
+    "preco_sem_promocao": 149.9,
+    "preco_com_promocao": 112.42,
+    "preco_atual": 112.42,
+    "em_promocao": true,
+    "desconto_percentual": 25
+  },
   "parent_sku": "COLTAZUL",
   "is_parent": true,
   "cod_sankhya": "67343",

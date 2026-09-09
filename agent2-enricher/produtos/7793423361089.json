@@ -84,7 +84,13 @@
   "ia_etiqueta": "🦙 Gerado com LLaMA / Groq",
   "ia_modelo": "qwen/qwen3.8-27b (Groq)",
   "ia_data": "2026-09-08T20:57:02.946Z",
-  "preco": null,
+  "preco": {
+    "preco_sem_promocao": 199.9,
+    "preco_com_promocao": null,
+    "preco_atual": 199.9,
+    "em_promocao": false,
+    "desconto_percentual": 0
+  },
   "parent_sku": "7793423361089",
   "is_parent": false,
   "cod_sankhya": "66667",

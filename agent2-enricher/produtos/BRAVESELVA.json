@@ -107,7 +107,13 @@
   "ia_etiqueta": "🦙 Gerado com LLaMA / Groq",
   "ia_modelo": "qwen/qwen3.8-27b (Groq)",
   "ia_data": "2026-09-08T20:53:19.056Z",
-  "preco": null,
+  "preco": {
+    "preco_sem_promocao": 129.9,
+    "preco_com_promocao": null,
+    "preco_atual": 129.9,
+    "em_promocao": false,
+    "desconto_percentual": 0
+  },
   "parent_sku": "BRAVESELVA",
   "is_parent": true,
   "cod_sankhya": "70397",

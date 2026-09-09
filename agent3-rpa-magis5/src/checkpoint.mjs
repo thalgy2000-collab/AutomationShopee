@@ -48,15 +48,30 @@ export function validateProduct(product) {
   }
 
   // 5. Preços
-  const preco = product.preco;
-  if (!preco || (preco.preco_sem_promocao === null && preco.preco_atual === null)) {
-    errors.push("Preço regular não definido");
-  } else {
-    const pSem = preco.preco_sem_promocao ?? preco.preco_atual;
-    if (typeof pSem !== "number" || pSem <= 0) {
-      errors.push(`Preço regular inválido: ${pSem}`);
+  let pSem = null;
+  if (product.preco && typeof product.preco === "object") {
+    pSem = product.preco.preco_sem_promocao ?? product.preco.preco_atual ?? product.preco.preco_venda;
+  } else if (typeof product.preco === "number") {
+    pSem = product.preco;
+  }
+
+  // Fallback para variações se preço da raiz não foi definido
+  if ((pSem === null || pSem === undefined) && Array.isArray(product.variacoes) && product.variacoes.length > 0) {
+    for (const v of product.variacoes) {
+      const vPrice = v.preco_sem_promocao ?? v.preco_atual ?? v.preco;
+      if (typeof vPrice === "number" && vPrice > 0) {
+        pSem = vPrice;
+        break;
+      }
     }
   }
+
+  if (pSem === null || pSem === undefined) {
+    errors.push("Preço regular não definido");
+  } else if (typeof pSem !== "number" || pSem <= 0) {
+    errors.push(`Preço regular inválido: ${pSem}`);
+  }
+
 
   // 6. Imagens
   const images = Array.isArray(product.imagens) ? product.imagens : [];
