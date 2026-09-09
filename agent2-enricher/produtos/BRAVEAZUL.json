@@ -13,17 +13,22 @@
     "pais_de_origem": "Brasil",
     "peso_do_produto": "300g",
     "duracao_da_garantia": "1 Mês",
-    "material": "EVA / Borracha",
+    "material": "Sintético",
     "estampa": "Liso",
     "condicao": "Novo",
     "comprimento": "26 cm",
     "dimensoes_do_produto": "26 x 10 x 10 cm",
     "quantidade_da_embalagem": 1,
-    "tamanho_do_pacote": "30 x 15 x 12 cm",
+    "tamanho_do_pacote": "",
     "produto_personalizado": "Não",
     "quantidade_por_pacote": 1,
     "tipo_isca": "Acessório de Pesca",
-    "flutuabilidade": "N/A"
+    "flutuabilidade": "N/A",
+    "calcado_de_caminhada": "",
+    "acabamento_do_couro": "",
+    "estilo_do_sapato": "Sandália",
+    "ajuste_amplo": "Não",
+    "modelo": "Brave"
   },
   "variacoes": [
     {

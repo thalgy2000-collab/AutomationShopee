@@ -494,6 +494,30 @@ export function normalizeShopeeAttributes(data) {
     }
   }
 
+  // Normalização específica para Sandálias e Chinelos Masculinos (conforme Ficha Técnica da Shopee)
+  const fullTextCalcado = `${data.titulo_shopee || ""} ${data.modelo || ""} ${data.descricao || ""} ${data.sku || ""}`.toLowerCase();
+  const isFootwear = /sand[aá]lia|chinelo|babuche|croc|clog|tamanco|\bslides?\b|colt|brave|adventure|flow|star/i.test(fullTextCalcado);
+  const isFem = /feminin|mulher|starfem|flowf/i.test(fullTextCalcado);
+  const isSandaliaMasculina = (data.categoria_sugerida && data.categoria_sugerida.includes("Sapatos Masculinos")) || (isFootwear && !isFem);
+
+  if (isSandaliaMasculina) {
+    attrs.pais_de_origem = "Brasil";
+    attrs.material = "Sintético";
+    attrs.calcado_de_caminhada = attrs.calcado_de_caminhada || "";
+    attrs.acabamento_do_couro = attrs.acabamento_do_couro || "";
+    attrs.estilo_do_sapato = attrs.estilo_do_sapato || (
+      /chinelo/i.test(data.titulo_shopee || "") ? "Chinelo" :
+      /babuche/i.test(data.titulo_shopee || "") ? "Babuche" : "Sandália"
+    );
+    attrs.ajuste_amplo = attrs.ajuste_amplo || "Não";
+    attrs.condicao = "Novo";
+    attrs.quantidade_da_embalagem = 1;
+    attrs.quantidade_por_pacote = 1;
+    attrs.tamanho_do_pacote = "";
+    attrs.produto_personalizado = "Não";
+    attrs.modelo = attrs.modelo || data.modelo || "Boaonda";
+  }
+
   return data;
 }
 

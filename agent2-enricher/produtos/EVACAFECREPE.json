@@ -19,11 +19,16 @@
     "comprimento": "25 cm",
     "dimensoes_do_produto": "10 x 25 x 10 cm",
     "quantidade_da_embalagem": 1,
-    "tamanho_do_pacote": "15 x 30 x 15 cm",
+    "tamanho_do_pacote": "",
     "produto_personalizado": "Não",
     "quantidade_por_pacote": 1,
     "tipo_isca": "N/A",
-    "flutuabilidade": "N/A"
+    "flutuabilidade": "N/A",
+    "calcado_de_caminhada": "",
+    "acabamento_do_couro": "",
+    "estilo_do_sapato": "Babuche",
+    "ajuste_amplo": "Não",
+    "modelo": "Adventure Café Crepe"
   },
   "variacoes": [
     {

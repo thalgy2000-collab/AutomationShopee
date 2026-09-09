@@ -13,7 +13,7 @@
     "pais_de_origem": "Brasil",
     "peso_do_produto": "300g",
     "duracao_da_garantia": "1 Mês",
-    "material": "EVA",
+    "material": "Sintético",
     "estampa": "Liso / Bicolor",
     "condicao": "Novo",
     "genero": "Unissex",
@@ -22,9 +22,14 @@
     "ocasiao_de_uso": "Dia a Dia / Praia / Piscina / Lazer",
     "caracteristicas": "Impermeável / Leve / Antiderrapante / Respirável",
     "quantidade_da_embalagem": 1,
-    "tamanho_do_pacote": "15 x 25 x 35 cm",
+    "tamanho_do_pacote": "",
     "produto_personalizado": "Não",
-    "quantidade_por_pacote": 1
+    "quantidade_por_pacote": 1,
+    "calcado_de_caminhada": "",
+    "acabamento_do_couro": "",
+    "estilo_do_sapato": "Babuche",
+    "ajuste_amplo": "Não",
+    "modelo": "Adventure"
   },
   "variacoes": [
     {

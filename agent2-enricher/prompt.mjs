@@ -87,6 +87,8 @@ CATEGORIAS OFICIAIS NA SHOPEE (USE EXATAMENTE ESTAS ÁRVORES RECONHECIDAS):
   Animais Domésticos > Cães > Coleiras, Guias e Peitorais
 - Para Bolsas e Estojos de Pesca:
   Esportes e Atividades ao Ar Livre > Acessórios Esportivos e Atividades ao Ar Livre > Bolsas Impermeáveis
+- Para Sandálias e Chinelos Masculinos:
+  Sapatos Masculinos > Sandalia e Chinelos > Chinelos
 
 RESPONDA EXCLUSIVAMENTE com o JSON, sem markdown em volta do JSON, sem explicações, sem \`\`\`json.`;
 }

@@ -13,10 +13,10 @@
     "pais_de_origem": "Brasil",
     "peso_do_produto": "300g",
     "duracao_da_garantia": "1 Mês",
-    "material": "EVA",
+    "material": "Sintético",
     "condicao": "Novo",
     "quantidade_da_embalagem": 1,
-    "tamanho_do_pacote": "10 x 20 x 30 cm",
+    "tamanho_do_pacote": "",
     "produto_personalizado": "Não",
     "quantidade_por_pacote": 1,
     "genero": "Masculino",
@@ -25,7 +25,12 @@
     "tipo_de_fecho": "Calce Fácil / Slip-On",
     "material_da_sola": "EVA",
     "material_do_cabedal": "EVA",
-    "altura_do_salto": "Baixo (até 2,5 cm)"
+    "altura_do_salto": "Baixo (até 2,5 cm)",
+    "calcado_de_caminhada": "",
+    "acabamento_do_couro": "",
+    "estilo_do_sapato": "Sandália",
+    "ajuste_amplo": "Não",
+    "modelo": "Flow Discovery"
   },
   "variacoes": [
     {

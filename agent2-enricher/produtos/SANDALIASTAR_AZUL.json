@@ -13,16 +13,21 @@
     "pais_de_origem": "Brasil",
     "peso_do_produto": "450g",
     "duracao_da_garantia": "1 Mês",
-    "material": "Borracha Termoplástica / TR",
+    "material": "Sintético",
     "estampa": "Liso com listras esportivas",
     "condicao": "Novo",
     "dimensoes_do_produto": "11 x 20 x 29 cm",
     "quantidade_da_embalagem": 1,
-    "tamanho_do_pacote": "12 x 22 x 32 cm",
+    "tamanho_do_pacote": "",
     "produto_personalizado": "Não",
     "quantidade_por_pacote": 1,
     "tipo_calcado": "Babuche / Sandália Ortopédica",
-    "genero": "Masculino"
+    "genero": "Masculino",
+    "calcado_de_caminhada": "",
+    "acabamento_do_couro": "",
+    "estilo_do_sapato": "Babuche",
+    "ajuste_amplo": "Não",
+    "modelo": "Star"
   },
   "variacoes": [
     {

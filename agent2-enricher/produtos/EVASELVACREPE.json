@@ -13,17 +13,22 @@
     "pais_de_origem": "Brasil",
     "peso_do_produto": "400g",
     "duracao_da_garantia": "1 Mês",
-    "material": "EVA",
+    "material": "Sintético",
     "estampa": "Liso",
     "condicao": "Novo",
     "comprimento": "Variável por Tamanho",
     "dimensoes_do_produto": "10 x 15 x 30 cm",
     "quantidade_da_embalagem": 1,
-    "tamanho_do_pacote": "3 x 20 x 30 cm",
+    "tamanho_do_pacote": "",
     "produto_personalizado": "Não",
     "quantidade_por_pacote": 1,
     "tipo_isca": "Não Aplicável para Calçados",
-    "flutuabilidade": "Não Aplicável para Calçados"
+    "flutuabilidade": "Não Aplicável para Calçados",
+    "calcado_de_caminhada": "",
+    "acabamento_do_couro": "",
+    "estilo_do_sapato": "Babuche",
+    "ajuste_amplo": "Não",
+    "modelo": "Selva Crepe"
   },
   "variacoes": [
     {

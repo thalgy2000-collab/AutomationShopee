@@ -13,15 +13,20 @@
     "pais_de_origem": "Brasil",
     "peso_do_produto": "350g",
     "duracao_da_garantia": "1 Mês",
-    "material": "EVA / TR Emborrachado",
+    "material": "Sintético",
     "estampa": "Liso com detalhes em contraste",
     "condicao": "Novo",
     "comprimento": "28 cm",
     "dimensoes_do_produto": "11 x 11 x 28 cm",
     "quantidade_da_embalagem": 1,
-    "tamanho_do_pacote": "15 x 20 x 32 cm",
+    "tamanho_do_pacote": "",
     "produto_personalizado": "Não",
-    "quantidade_por_pacote": 1
+    "quantidade_por_pacote": 1,
+    "calcado_de_caminhada": "",
+    "acabamento_do_couro": "",
+    "estilo_do_sapato": "Babuche",
+    "ajuste_amplo": "Não",
+    "modelo": "Star"
   },
   "variacoes": [
     {
