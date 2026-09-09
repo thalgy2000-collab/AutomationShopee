@@ -1,0 +1,95 @@
+{
+  "sku": "7899675830165",
+  "titulo_shopee": "Fita Para Proteção De Dedos Albatroz Fishing Camo Preto 2,5cm Bandagem Elástica Autoadesiva Pesca Esportiva",
+  "titulos_alternativos": [
+    "Bandagem Elástica Proteção De Dedo Pesca Albatroz Camo Preto 2,5cm Fita Autoadesiva Antiderrapante Conforto",
+    "Fita Protetora Dedos Albatroz Camo Preto 2,5cm Para Pesca De Arremesso Fly E Carretilha Bandagem Coesiva"
+  ],
+  "marca": "Albatroz Fishing",
+  "modelo": "Fita Protetora de Dedos Camo Preto",
+  "categoria_sugerida": "Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Acessórios de Pesca",
+  "descricao": "Fita para Proteção de Dedos Albatroz Fishing Camo Preto — 2,5cm\n\nA Fita para Proteção de Dedos Albatroz Fishing é o acessório indispensável para pescadores que buscam alta performance, conforto e segurança. Desenvolvida especialmente para proteger os dedos contra o desgaste provocado por linhas de multifilamento, fricção na carretilha ou molinete e queimaduras, ela garante uma pescaria muito mais agradável e livre de ferimentos.\n\nPor que escolher este produto:\n- Autoaderente (coesiva): adere apenas em si mesma, sem deixar resíduos pegajosos de cola na pele ou nos seus equipamentos\n- Textura antiderrapante: melhora significativamente a pegada na vara de pesca, evitando deslizamentos indesejados mesmo com as mãos molhadas\n- Material respirável e leve: confeccionada em tecido poroso de alta qualidade que permite a transpiração natural da pele sem perder a aderência\n- Resistente à água: ideal para ambientes úmidos, mantendo-se firme e firme durante toda a sua jornada de pesca\n- Fácil de cortar e usar: dispensa o uso de tesouras, podendo ser rasgada facilmente com as próprias mãos no tamanho desejado\n\nIndicado para pescar:\nModalidades de arremessos constantes (pesca com iscas artificiais), uso de linhas de multifilamento grossas, pesca de fly (fricção constante da linha nos dedos) e proteção geral das articulações durante a atividade esportiva.\n\nEspecificações:\n- Marca: Albatroz Fishing\n- Modelo: Fita Protetora de Dedos Camo Preto\n- Material: Algodão, Elastano e Látex Coesivo\n- Tamanho: 2,5 cm de largura\n- Peso: Aprox. 10g\n- Tipo / Ação: Bandagem Elástica Autoadesiva / Coesiva\n- Garateias / Anzóis: Não aplicável\n- Cor / Variação: Camo Preto (Camuflado Preto)\n\nDicas de uso:\nEnrole a fita ao redor do dedo indicador ou polegar (onde há maior atrito com a linha ou carretilha) aplicando uma leve tensão. Pressione a ponta final da fita sobre ela mesma para garantir a fixação por contato. Evite apertar excessivamente para não comprometer a circulação sanguínea.",
+  "atributos": {
+    "pais_de_origem": "China",
+    "peso_do_produto": "10g",
+    "duracao_da_garantia": "1 Mês",
+    "material": "Algodão e Elastano",
+    "estampa": "Camuflada",
+    "condicao": "Novo",
+    "comprimento": "4.5 m",
+    "dimensoes_do_produto": "5 x 5 x 2.5 cm",
+    "quantidade_da_embalagem": "1",
+    "tamanho_do_pacote": "5 x 10 x 15 cm",
+    "produto_personalizado": "Não",
+    "quantidade_por_pacote": "1",
+    "tipo_isca": "Não se aplica",
+    "flutuabilidade": "Não se aplica"
+  },
+  "variacoes": [],
+  "palavras_chave": [
+    "fita protetora dedo",
+    "bandagem elastica pesca",
+    "protetor de dedo pesca",
+    "albatroz fishing",
+    "fita coesiva preta"
+  ],
+  "medidas": {
+    "altura_cm": 3,
+    "largura_cm": 20,
+    "comprimento_cm": 30,
+    "peso_kg": 0.25
+  },
+  "seo_score": 100,
+  "seo_checklist": [
+    {
+      "item": "Tamanho do Título",
+      "passed": true,
+      "score": 25,
+      "maxScore": 25,
+      "reason": "107/120 caracteres (faixa ideal: 60-120)"
+    },
+    {
+      "item": "Estrutura Persuasiva",
+      "passed": true,
+      "score": 25,
+      "maxScore": 25,
+      "reason": "25/25 pts (Intro: ✅, Benefícios: ✅, Indicado: ✅, Especificações: ✅, Dicas: ✅)"
+    },
+    {
+      "item": "Atributos Técnicos",
+      "passed": true,
+      "score": 20,
+      "maxScore": 20,
+      "reason": "14 atributos mapeados (meta: 3+)"
+    },
+    {
+      "item": "Palavras-chave SEO",
+      "passed": true,
+      "score": 15,
+      "maxScore": 15,
+      "reason": "5 palavras-chave identificadas (meta: 4+)"
+    },
+    {
+      "item": "Escaneabilidade & E-E-A-T",
+      "passed": true,
+      "score": 15,
+      "maxScore": 15,
+      "reason": "14 marcadores/bullet points com quebras de linha"
+    }
+  ],
+  "preco": {
+    "preco_sem_promocao": 23.6,
+    "preco_com_promocao": null,
+    "preco_atual": 23.6,
+    "em_promocao": false,
+    "desconto_percentual": 0
+  },
+  "parent_sku": "7899675830165",
+  "is_parent": false,
+  "cod_sankhya": "65669",
+  "imagens": [
+    "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\agent1-scraper\\downloads\\7899675830165\\01.jpg"
+  ],
+  "is_published": true,
+  "status": "concluido"
+}

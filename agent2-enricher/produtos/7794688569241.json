@@ -1,0 +1,101 @@
+{
+  "sku": "7794688569241",
+  "titulo_shopee": "Alicate de Bico Deyu Azul 12cm DFM0401 Ferramenta de Pesca Esportiva",
+  "titulos_alternativos": [
+    "Alicate de Bico Deyu 12cm Azul DFM0401 para Remover Anzol e Cortar Linha",
+    "Alicate de Bico Deyu DFM0401 12cm Azul Ferramenta Essencial para Pescaria"
+  ],
+  "marca": "Deyu",
+  "modelo": "DFM0401",
+  "categoria_sugerida": "Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Acessórios de Pesca",
+  "descricao": "Alicate de Bico Deyu Azul — 12cm DFM0401\n\nO Alicate de Bico Deyu é a ferramenta indispensável para o pescador que busca agilidade e precisão. Com design ergonômico e acabamento em azul vibrante, ele facilita a remoção de anzóis e o corte de linhas, garantindo a segurança do peixe e a eficiência da sua pescaria.\n\nPor que escolher este produto:\n- Lâminas de aço de alta resistência: corte limpo e preciso em linhas de nylon, fluorocarbono e trançadas\n- Design ergonômico com revestimento emborrachado: conforto na mão e firmeza mesmo com as mãos molhadas\n- Tamanho ideal de 12cm: manuseio ágil para remoção de anzóis em peixes de médio porte\n- Mola de retorno integrada: abre e fecha com facilidade, reduzindo o esforço do pescador\n- Acabamento em azul e preto: visual moderno e fácil de identificar na bolsa de pesca\n\nIndicado para pescar:\nTodos os tipos de pesca esportiva, especialmente para remoção de anzóis em espécies como Tucunaré, Traíra, Black Bass, Tilápia e peixes de linha.\n\nEspecificações:\n- Marca: Deyu\n- Modelo: DFM0401\n- Material: Aço e Plástico ABS\n- Tamanho: 12cm\n- Cor: Azul e Preto\n- Tipo: Alicate de Bico\n\nDicas de uso:\nUtilize as pontas para segurar o anzol com firmeza e girar levemente para removê-lo sem machucar o peixe. Utilize a parte interna das lâminas para cortar a linha com precisão, mantendo as mãos afastadas da lâmina para evitar cortes.",
+  "atributos": {
+    "pais_de_origem": "China",
+    "peso_do_produto": "50g",
+    "duracao_da_garantia": "1 Mês",
+    "material": "Aço e Plástico ABS",
+    "estampa": "Liso",
+    "condicao": "Novo",
+    "comprimento": "12 cm",
+    "dimensoes_do_produto": "12 x 5 x 2 cm",
+    "quantidade_da_embalagem": "1",
+    "tamanho_do_pacote": "15 x 10 x 5 cm",
+    "produto_personalizado": "Não",
+    "quantidade_por_pacote": "1"
+  },
+  "variacoes": [],
+  "palavras_chave": [
+    "alicate de bico",
+    "ferramenta de pesca",
+    "alicate de pesca",
+    "deyu",
+    "remover anzol",
+    "cortar linha",
+    "acessórios de pesca",
+    "alicate 12cm"
+  ],
+  "medidas": {
+    "altura_cm": 3,
+    "largura_cm": 20,
+    "comprimento_cm": 30,
+    "peso_kg": 0.25
+  },
+  "seo_score": 100,
+  "seo_checklist": [
+    {
+      "item": "Tamanho do Título",
+      "passed": true,
+      "score": 25,
+      "maxScore": 25,
+      "reason": "68/120 caracteres (faixa ideal: 60-120)"
+    },
+    {
+      "item": "Estrutura Persuasiva",
+      "passed": true,
+      "score": 25,
+      "maxScore": 25,
+      "reason": "25/25 pts (Intro: ✅, Benefícios: ✅, Indicado: ✅, Especificações: ✅, Dicas: ✅)"
+    },
+    {
+      "item": "Atributos Técnicos",
+      "passed": true,
+      "score": 20,
+      "maxScore": 20,
+      "reason": "12 atributos mapeados (meta: 3+)"
+    },
+    {
+      "item": "Palavras-chave SEO",
+      "passed": true,
+      "score": 15,
+      "maxScore": 15,
+      "reason": "8 palavras-chave identificadas (meta: 4+)"
+    },
+    {
+      "item": "Escaneabilidade & E-E-A-T",
+      "passed": true,
+      "score": 15,
+      "maxScore": 15,
+      "reason": "12 marcadores/bullet points com quebras de linha"
+    }
+  ],
+  "ia_provedor": "Groq / LLaMA",
+  "ia_etiqueta": "🦙 Gerado com LLaMA / Groq",
+  "ia_modelo": "qwen/qwen3.8-27b (Groq)",
+  "ia_data": "2026-09-08T20:51:55.044Z",
+  "preco": {
+    "preco_sem_promocao": 33.9,
+    "preco_com_promocao": null,
+    "preco_atual": 33.9,
+    "em_promocao": false,
+    "desconto_percentual": 0
+  },
+  "parent_sku": "7794688569241",
+  "is_parent": false,
+  "cod_sankhya": "70373",
+  "imagens": [
+    "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\agent1-scraper\\downloads\\7794688569241\\01.jpg",
+    "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\agent1-scraper\\downloads\\7794688569241\\02.jpg"
+  ],
+  "is_published": true,
+  "status": "concluido"
+}

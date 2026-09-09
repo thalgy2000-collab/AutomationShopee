@@ -1,0 +1,91 @@
+{
+  "sku": "7793423361089",
+  "titulo_shopee": "Kit Vara e Molinete Okuma Steeler XP 1,68m 2 Partes Verde",
+  "titulos_alternativos": [
+    "Kit Pesca Okuma Steeler XP 1,68m 2 Partes Verde com Molinete",
+    "Vara e Molinete Okuma Steeler XP 1,68m 2 Partes Verde Completo"
+  ],
+  "marca": "Okuma",
+  "modelo": "Steeler XP",
+  "categoria_sugerida": "Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Varas de Pesca",
+  "descricao": "Kit Vara e Molinete Okuma Steeler XP — 1,68m 2 Partes\n\nO Kit Vara e Molinete Okuma Steeler XP é a escolha definitiva para pescadores que buscam qualidade, durabilidade e performance em um conjunto completo. Com design moderno em verde vibrante e componentes de alta resistência, este kit oferece a versatilidade necessária para enfrentar os desafios da pesca esportiva em água doce e salgada.\n\nPor que escolher este kit:\n- Construção em 2 partes: facilita o transporte e o armazenamento, ideal para viagens e trilhas\n- Molinete Steeler XP: sistema de recolhimento suave e preciso, garantindo controle total da linha\n- Acabamento verde premium: visual moderno e resistente a riscos e intempéries\n- Componentes de alta qualidade: projetados para suportar a tensão de peixes de médio e grande porte\n- Versatilidade de uso: adequado para diversas técnicas de pesca, do arremesso ao recolhimento\n\nIndicado para pescar:\nPeixes de médio porte em água doce e salgada, como Tilápia, Tucunaré, Robalo e Traíra. Perfeito para iniciantes e pescadores experientes que buscam um kit completo e confiável.\n\nEspecificações:\n- Marca: Okuma\n- Modelo: Steeler XP\n- Material: Fibra de carbono e componentes metálicos\n- Tamanho: 1,68m (2 partes)\n- Peso: Aproximadamente 350g (estimativa)\n- Tipo: Kit Vara e Molinete\n- Cor: Verde\n\nDicas de uso:\nMonte as duas partes da vara com firmeza para garantir estabilidade. Utilize linhas de nylon ou fluorocarbonato de 10 a 20 lbs para melhor desempenho. Ideal para arremessos precisos e controle de peixes em águas rasas ou profundas.",
+  "atributos": {
+    "pais_de_origem": "Brasil",
+    "peso_do_produto": "350g",
+    "duracao_da_garantia": "1 Mês",
+    "material": "Fibra de Carbono",
+    "estampa": "Verde Sólido",
+    "condicao": "Novo",
+    "comprimento": "1,68 m",
+    "dimensoes_do_produto": "85 x 10 x 5 cm",
+    "quantidade_da_embalagem": "1",
+    "tamanho_do_pacote": "90 x 15 x 10 cm",
+    "produto_personalizado": "Não",
+    "quantidade_por_pacote": "1",
+    "tipo_isca": "N/A",
+    "flutuabilidade": "N/A"
+  },
+  "variacoes": [],
+  "palavras_chave": [
+    "kit vara e molinete",
+    "okuma steeler xp",
+    "vara de pesca 1,68m",
+    "molinete okuma",
+    "kit pesca completo"
+  ],
+  "medidas": {
+    "altura_cm": 3,
+    "largura_cm": 20,
+    "comprimento_cm": 30,
+    "peso_kg": 0.25
+  },
+  "seo_score": 90,
+  "seo_checklist": [
+    {
+      "item": "Tamanho do Título",
+      "passed": false,
+      "score": 15,
+      "maxScore": 25,
+      "reason": "57/120 caracteres (muito curto, adicione termos)"
+    },
+    {
+      "item": "Estrutura Persuasiva",
+      "passed": true,
+      "score": 25,
+      "maxScore": 25,
+      "reason": "25/25 pts (Intro: ✅, Benefícios: ✅, Indicado: ✅, Especificações: ✅, Dicas: ✅)"
+    },
+    {
+      "item": "Atributos Técnicos",
+      "passed": true,
+      "score": 20,
+      "maxScore": 20,
+      "reason": "14 atributos mapeados (meta: 3+)"
+    },
+    {
+      "item": "Palavras-chave SEO",
+      "passed": true,
+      "score": 15,
+      "maxScore": 15,
+      "reason": "5 palavras-chave identificadas (meta: 4+)"
+    },
+    {
+      "item": "Escaneabilidade & E-E-A-T",
+      "passed": true,
+      "score": 15,
+      "maxScore": 15,
+      "reason": "12 marcadores/bullet points com quebras de linha"
+    }
+  ],
+  "ia_provedor": "Groq / LLaMA",
+  "ia_etiqueta": "🦙 Gerado com LLaMA / Groq",
+  "ia_modelo": "qwen/qwen3.8-27b (Groq)",
+  "ia_data": "2026-09-08T20:57:02.946Z",
+  "preco": null,
+  "parent_sku": "7793423361089",
+  "is_parent": false,
+  "cod_sankhya": "66667",
+  "imagens": [
+    "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\agent1-scraper\\downloads\\7793423361089\\01.jpg"
+  ]
+}

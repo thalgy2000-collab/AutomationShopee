@@ -1,0 +1,22 @@
+{
+  "name": "agent1-scraper",
+  "version": "1.0.0",
+  "description": "Agente 1 — Scraper de produtos BRK Fishing via API Shopify",
+  "type": "module",
+  "main": "scraper.mjs",
+  "scripts": {
+    "start": "node scraper.mjs",
+    "start:sample": "node scraper.mjs --input sample_input.csv"
+  },
+  "dependencies": {
+    "csv-parse": "^5.5.0",
+    "csv-stringify": "^6.4.0",
+    "sharp": "^0.33.0"
+  },
+  "allowScripts": {
+    "sharp@0.33.5": true
+  },
+  "devDependencies": {
+    "xlsx": "^0.18.5"
+  }
+}

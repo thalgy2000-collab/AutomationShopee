@@ -1,0 +1,99 @@
+{
+  "sku": "VPRSKIPPER63",
+  "titulo_shopee": "Vara de Pesca Rapala Skipper SK163 Molinete 1,91m 3lbs Inteiriça Ultralight Vermelha",
+  "titulos_alternativos": [
+    "Vara Rapala Skipper 1,91m 3lbs Para Molinete Inteiriça Ultra Leve Pesca Finesse Tilápia",
+    "Vara Inteiriça Rapala Skipper SK163 1,91m 3lb Molinete Finesse Saicanga Truta Tilápia"
+  ],
+  "marca": "Rapala",
+  "modelo": "Skipper SK163 (11RASKI63)",
+  "categoria_sugerida": "Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Varas de Pesca",
+  "descricao": "Vara de Pesca Rapala Skipper SK163 Molinete 1,91m 3lbs Inteiriça\n\nA Vara Rapala Skipper SK163 foi desenvolvida especialmente para pescadores exigentes da modalidade Ultra Light / Finesse. Com design moderno na cor vermelha, construção inteiriça e blanque altamente sensível, proporciona arremessos precisos de iscas ultra leves e fisgadas rápidas com extrema esportividade.\n\nPor que escolher este produto:\n- Blank de alta performance: leveza extraordinária combinada com excelente resistência estrutural\n- Ação ultralight de 3lbs: sensibilidade máxima para sentir até os menores toques dos peixes\n- Design inteiriço (1 parte): curvatura perfeita e transmissão direta da vibração sem pontos cégos de emenda\n- Cabo bipartido em EVA de alta densidade: pegada ergonômica, confortável e aderente durante a pescaria\n- Passadores reforçados: ideais para o uso com linhas de multifilamento ou monofilamento fino\n\nIndicado para pescar:\nIdeal para modalidades ultra leves e pesca finesse de espécies como Tilápia, Saicanga, Truta, Lambari, Matrinxã, Jacundá e pequenos peixes predadores em rios, lagos e pesqueiros.\n\nEspecificações:\n- Marca: Rapala\n- Modelo: Skipper SK163 (11RASKI63)\n- Uso: Molinete\n- Comprimento: 1,91m (6'3\")\n- Seções: Inteiriça (1 parte)\n- Resistência / Libragem: 3 lbs (Ultra Light)\n- Material do Blank: Composto de Carbono / Fibra de alta resistência\n- Material do Cabo: EVA Bipartido\n- Cor: Vermelho metálico com detalhes pretos\n\nDicas de uso:\nUtilize com molinetes de porte pequeno (tamanhos 500 a 1000) e linhas finas de multifilamento (0.06mm a 0.10mm) ou monofilamento até 0.16mm. Excelente para arremesso de micro micro iscas artificiais, jig heads leves e anzóis pequenos para pesca de barranco.",
+  "atributos": {
+    "pais_de_origem": "China",
+    "peso_do_produto": "115g",
+    "duracao_da_garantia": "1 Mês",
+    "material": "Carbono / EVA",
+    "estampa": "Vermelha / Esportiva",
+    "condicao": "Novo",
+    "comprimento": "1.91 m",
+    "dimensoes_do_produto": "3 x 3 x 191 cm",
+    "quantidade_da_embalagem": "1",
+    "tamanho_do_pacote": "10 x 10 x 200 cm",
+    "produto_personalizado": "Não",
+    "quantidade_por_pacote": "1",
+    "tipo_vara": "Molinete",
+    "libragem": "3 lbs"
+  },
+  "variacoes": [],
+  "palavras_chave": [
+    "vara rapala skipper",
+    "vara ultra light 3lbs",
+    "vara molinete inteiriça",
+    "vara ultralight tilápia",
+    "vara de pesca finesse 1.91m"
+  ],
+  "medidas": {
+    "altura_cm": 3,
+    "largura_cm": 20,
+    "comprimento_cm": 30,
+    "peso_kg": 0.25
+  },
+  "seo_score": 100,
+  "seo_checklist": [
+    {
+      "item": "Tamanho do Título",
+      "passed": true,
+      "score": 25,
+      "maxScore": 25,
+      "reason": "84/120 caracteres (faixa ideal: 60-120)"
+    },
+    {
+      "item": "Estrutura Persuasiva",
+      "passed": true,
+      "score": 25,
+      "maxScore": 25,
+      "reason": "25/25 pts (Intro: ✅, Benefícios: ✅, Indicado: ✅, Especificações: ✅, Dicas: ✅)"
+    },
+    {
+      "item": "Atributos Técnicos",
+      "passed": true,
+      "score": 20,
+      "maxScore": 20,
+      "reason": "14 atributos mapeados (meta: 3+)"
+    },
+    {
+      "item": "Palavras-chave SEO",
+      "passed": true,
+      "score": 15,
+      "maxScore": 15,
+      "reason": "5 palavras-chave identificadas (meta: 4+)"
+    },
+    {
+      "item": "Escaneabilidade & E-E-A-T",
+      "passed": true,
+      "score": 15,
+      "maxScore": 15,
+      "reason": "14 marcadores/bullet points com quebras de linha"
+    }
+  ],
+  "preco": {
+    "preco_sem_promocao": 499.9,
+    "preco_com_promocao": 424.91,
+    "preco_atual": 424.91,
+    "em_promocao": true,
+    "desconto_percentual": 15
+  },
+  "parent_sku": "VPRSKIPPER63",
+  "is_parent": false,
+  "cod_sankhya": "54876",
+  "imagens": [
+    "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\agent1-scraper\\downloads\\VPRSKIPPER63\\01.jpg",
+    "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\agent1-scraper\\downloads\\VPRSKIPPER63\\02.jpg",
+    "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\agent1-scraper\\downloads\\VPRSKIPPER63\\03.jpg",
+    "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\agent1-scraper\\downloads\\VPRSKIPPER63\\04.jpg",
+    "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\agent1-scraper\\downloads\\VPRSKIPPER63\\05.jpg",
+    "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\agent1-scraper\\downloads\\VPRSKIPPER63\\06.jpg",
+    "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\agent1-scraper\\downloads\\VPRSKIPPER63\\07.jpg"
+  ]
+}

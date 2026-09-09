@@ -1,0 +1,120 @@
+{
+  "sku": "ACTIONBIGGAMECINZA",
+  "titulo_shopee": "Linha Pesca Monofilamento Marine Sports Action Power Plus Nylon Alta Resistência",
+  "titulos_alternativos": [
+    "Linha Monofilamento Marine Sports Action Power Plus para Molinete Carretilha 600m",
+    "Linha Pesca Nylon Marine Sports Action Power Plus Alta Abrasão Tração P/ Peixes Grandes"
+  ],
+  "marca": "Marine Sports",
+  "modelo": "Action Power Plus",
+  "categoria_sugerida": "Esportes e Lazer > Pesca > Linhas de Pesca",
+  "descricao": "Linha de Pesca Marine Sports Action Power Plus Monofilamento – 0.28mm 6.3kg 600m\n\nA Linha de Pesca Marine Sports Action Power Plus é a escolha perfeita para pescadores que buscam desempenho e confiança em cada arremesso e fisgada. Fabricada com nylon monofilamento de alta qualidade, esta linha proporciona resistência, durabilidade e sensibilidade excepcionais, garantindo uma experiência de pesca superior em qualquer modalidade. Seu tratamento especial contra abrasão e alta tenacidade a tornam ideal para enfrentar os desafios dos mais variados ambientes de pesca, desde águas doces a salgadas.\n\nPor que escolher este produto:\n- Nylon Monofilamento Premium: Oferece alta resistência à tração e ao nó, garantindo segurança ao combater peixes de grande porte.\n- Resistência Superior à Abrasão: Suporta o atrito com estruturas submersas, pedras e galhos, prolongando a vida útil da linha e evitando perdas.\n- Baixa Memória e Alta Maciez: Facilita os arremessos longos e precisos, além de proporcionar um manuseio suave no molinete ou carretilha.\n- Sensibilidade Aprimorada: Permite detectar até os toques mais sutis do peixe, aumentando suas chances de fisgar.\n- Versatilidade de Uso: Adequada para diversas modalidades de pesca, em rios, lagos, pesqueiros e no mar, com iscas naturais ou artificiais.\n\nIndicado para pescar:\nIdeal para a captura de peixes predadores como Tucunaré, Dourado, Traíra, Robalo, Black Bass, Anchova, Corvina, Pescada e outros. Excelente para modalidades de pesca de arremesso, costeira, de barranco ou embarcada.\n\nEspecificações:\n- Marca: Marine Sports\n- Modelo: Action Power Plus\n- Material: Nylon Monofilamento\n- Diâmetro: 0.28mm (Disponível em diversas medidas)\n- Resistência: 6.3kg (14lb) (Variável conforme o diâmetro)\n- Comprimento: 600m (Disponível em outras metragens)\n- Tipo: Monofilamento\n- Cor / Variação: Cinza / Azul Translúcido (Exemplo da Imagem, pode variar a cor)\n\nDicas de uso:\nPara otimizar o desempenho, enrole a linha no seu molinete ou carretilha de forma uniforme, evitando torções. Verifique regularmente a ponta da linha próximo à isca para identificar desgastes e refaça o nó de tempo em tempo, garantindo a máxima resistência. Utilize nós de pesca específicos para monofilamento que preservem sua capacidade de carga.",
+  "atributos": {
+    "pais_de_origem": "Índia",
+    "peso_do_produto": "100g",
+    "duracao_da_garantia": "1 Mês",
+    "material": "Nylon Monofilamento",
+    "condicao": "Novo",
+    "comprimento": "600 m",
+    "dimensoes_do_produto": "5 x 5 x 6 cm",
+    "quantidade_da_embalagem": "1",
+    "tamanho_do_pacote": "3 x 20 x 30 cm",
+    "produto_personalizado": "Não",
+    "quantidade_por_pacote": "1",
+    "tipo_linha": "Monofilamento",
+    "resistencia": "6.3 kg",
+    "diametro": "0.28 mm",
+    "cor": "Cinza / Azul Translúcido"
+  },
+  "variacoes": [
+    {
+      "sku": "ACTIONBIGGAMECINZA_480070",
+      "cod_sankhya": "54574",
+      "nome": "480070",
+      "preco_sem_promocao": 45.53,
+      "preco_com_promocao": null,
+      "preco_atual": 45.53,
+      "em_promocao": false,
+      "desconto_percentual": 0,
+      "imagens": [
+        "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\agent1-scraper\\downloads\\ACTIONBIGGAMECINZA\\480070\\01.jpg",
+        "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\agent1-scraper\\downloads\\ACTIONBIGGAMECINZA\\480070\\02.jpg"
+      ]
+    }
+  ],
+  "palavras_chave": [
+    "linha pesca",
+    "monofilamento",
+    "marine sports",
+    "action power plus",
+    "linha nylon",
+    "alta resistência",
+    "pesca esportiva",
+    "linha molinete",
+    "linha carretilha",
+    "0.28mm",
+    "6.3kg",
+    "600m",
+    "linha pesca resistente",
+    "linha tração",
+    "anti abrasão"
+  ],
+  "medidas": {
+    "altura_cm": 3,
+    "largura_cm": 20,
+    "comprimento_cm": 30,
+    "peso_kg": 0.25
+  },
+  "seo_score": 100,
+  "seo_checklist": [
+    {
+      "item": "Tamanho do Título",
+      "passed": true,
+      "score": 25,
+      "maxScore": 25,
+      "reason": "80/120 caracteres (faixa ideal: 60-120)"
+    },
+    {
+      "item": "Estrutura Persuasiva",
+      "passed": true,
+      "score": 25,
+      "maxScore": 25,
+      "reason": "25/25 pts (Intro: ✅, Benefícios: ✅, Indicado: ✅, Especificações: ✅, Dicas: ✅)"
+    },
+    {
+      "item": "Atributos Técnicos",
+      "passed": true,
+      "score": 20,
+      "maxScore": 20,
+      "reason": "15 atributos mapeados (meta: 3+)"
+    },
+    {
+      "item": "Palavras-chave SEO",
+      "passed": true,
+      "score": 15,
+      "maxScore": 15,
+      "reason": "15 palavras-chave identificadas (meta: 4+)"
+    },
+    {
+      "item": "Escaneabilidade & E-E-A-T",
+      "passed": true,
+      "score": 15,
+      "maxScore": 15,
+      "reason": "13 marcadores/bullet points com quebras de linha"
+    }
+  ],
+  "preco": {
+    "preco_sem_promocao": 45.53,
+    "preco_com_promocao": null,
+    "preco_atual": 45.53,
+    "em_promocao": false,
+    "desconto_percentual": 0
+  },
+  "parent_sku": "ACTIONBIGGAMECINZA",
+  "is_parent": true,
+  "cod_sankhya": "54574",
+  "imagens": [
+    "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\agent1-scraper\\downloads\\ACTIONBIGGAMECINZA\\480070\\01.jpg",
+    "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\agent1-scraper\\downloads\\ACTIONBIGGAMECINZA\\480070\\02.jpg"
+  ]
+}

@@ -1,0 +1,136 @@
+{
+  "sku": "CPT033",
+  "titulo_shopee": "Copo Térmico Inox Peacock Bass BRK 20oz Aço Inox",
+  "titulos_alternativos": [
+    "Copo Térmico Peacock Bass Born To Fish BRK Aço Inox",
+    "Copo Térmico Inox BRK Peacock Bass 20oz Para Pesca"
+  ],
+  "marca": "Peacock Bass",
+  "modelo": "BRK",
+  "categoria_sugerida": "Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Acessórios de Pesca",
+  "descricao": "Copo Térmico Peacock Bass BRK — Aço Inox\n\nO Copo Térmico Peacock Bass BRK é o companheiro ideal para o pescador que não abre mão de conforto e estilo. Com design exclusivo e acabamento premium, ele mantém suas bebidas na temperatura perfeita, seja no lago, no rio ou em casa.\n\nPor que escolher este produto:\n- Fabricado em aço inox de alta qualidade: durabilidade superior e resistência à corrosão\n- Tecnologia de parede dupla: mantém o frio por horas e o calor por muito mais tempo\n- Tampa com trava de segurança: evita vazamentos e permite beber sem abrir completamente\n- Design ergonômico e antideslizante: fácil de segurar mesmo com as mãos molhadas\n- Estampa exclusiva Peacock Bass: identidade visual forte para o pescador apaixonado\n\nIndicado para:\nPescadores e amantes da natureza que buscam praticidade e estilo em qualquer ambiente.\n\nEspecificações:\n- Marca: Peacock Bass\n- Modelo: BRK\n- Material: Aço Inox\n- Capacidade: 20oz (aprox. 590ml)\n- Tipo: Térmico\n- Cor: Azul Marinho\n\nDicas de uso:\nPara melhor desempenho, lave com água morna e sabão neutro. Evite o uso de palhetas metálicas para não riscar o interior. Perfeito para levar água gelada ou café quente para a pescaria.",
+  "atributos": {
+    "pais_de_origem": "Brasil",
+    "peso_do_produto": "350g",
+    "duracao_da_garantia": "1 Mês",
+    "material": "Aço Inox",
+    "estampa": "Peacock Bass",
+    "condicao": "Novo",
+    "comprimento": "15 cm",
+    "dimensoes_do_produto": "8 x 8 x 15 cm",
+    "quantidade_da_embalagem": "1",
+    "tamanho_do_pacote": "10 x 10 x 18 cm",
+    "produto_personalizado": "Não",
+    "quantidade_por_pacote": "1",
+    "tipo_isca": "Acessório",
+    "flutuabilidade": "N/A"
+  },
+  "variacoes": [
+    {
+      "sku": "CPT033",
+      "cod_sankhya": "69087",
+      "nome": "CPT033",
+      "preco_sem_promocao": 139.9,
+      "preco_com_promocao": 99,
+      "preco_atual": 99,
+      "em_promocao": true,
+      "desconto_percentual": 29,
+      "imagens": [
+        "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\agent1-scraper\\downloads\\CPT033\\01.jpg",
+        "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\agent1-scraper\\downloads\\CPT033\\02.jpg",
+        "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\agent1-scraper\\downloads\\CPT033\\03.jpg",
+        "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\agent1-scraper\\downloads\\CPT033\\04.jpg",
+        "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\agent1-scraper\\downloads\\CPT033\\05.jpg"
+      ]
+    },
+    {
+      "sku": "CPT033",
+      "cod_sankhya": "69087",
+      "nome": "CPT033",
+      "preco_sem_promocao": 139.9,
+      "preco_com_promocao": 99,
+      "preco_atual": 99,
+      "em_promocao": true,
+      "desconto_percentual": 29,
+      "imagens": [
+        "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\agent1-scraper\\downloads\\CPT033\\01.jpg",
+        "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\agent1-scraper\\downloads\\CPT033\\02.jpg",
+        "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\agent1-scraper\\downloads\\CPT033\\03.jpg",
+        "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\agent1-scraper\\downloads\\CPT033\\04.jpg",
+        "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\agent1-scraper\\downloads\\CPT033\\05.jpg"
+      ]
+    }
+  ],
+  "palavras_chave": [
+    "copo térmico",
+    "peacock bass",
+    "copo inox",
+    "acessório de pesca",
+    "copo para pescaria"
+  ],
+  "medidas": {
+    "altura_cm": 3,
+    "largura_cm": 20,
+    "comprimento_cm": 30,
+    "peso_kg": 0.25
+  },
+  "seo_score": 90,
+  "seo_checklist": [
+    {
+      "item": "Tamanho do Título",
+      "passed": false,
+      "score": 15,
+      "maxScore": 25,
+      "reason": "48/120 caracteres (muito curto, adicione termos)"
+    },
+    {
+      "item": "Estrutura Persuasiva",
+      "passed": true,
+      "score": 25,
+      "maxScore": 25,
+      "reason": "25/25 pts (Intro: ✅, Benefícios: ✅, Indicado: ✅, Especificações: ✅, Dicas: ✅)"
+    },
+    {
+      "item": "Atributos Técnicos",
+      "passed": true,
+      "score": 20,
+      "maxScore": 20,
+      "reason": "14 atributos mapeados (meta: 3+)"
+    },
+    {
+      "item": "Palavras-chave SEO",
+      "passed": true,
+      "score": 15,
+      "maxScore": 15,
+      "reason": "5 palavras-chave identificadas (meta: 4+)"
+    },
+    {
+      "item": "Escaneabilidade & E-E-A-T",
+      "passed": true,
+      "score": 15,
+      "maxScore": 15,
+      "reason": "11 marcadores/bullet points com quebras de linha"
+    }
+  ],
+  "ia_provedor": "Groq / LLaMA",
+  "ia_etiqueta": "🦙 Gerado com LLaMA / Groq",
+  "ia_modelo": "qwen/qwen3.8-27b (Groq)",
+  "ia_data": "2026-09-08T20:56:24.819Z",
+  "preco": {
+    "preco_sem_promocao": 139.9,
+    "preco_com_promocao": 99,
+    "preco_atual": 99,
+    "em_promocao": true,
+    "desconto_percentual": 29
+  },
+  "parent_sku": "CPT033",
+  "is_parent": true,
+  "cod_sankhya": "69087",
+  "imagens": [
+    "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\agent1-scraper\\downloads\\CPT033\\01.jpg",
+    "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\agent1-scraper\\downloads\\CPT033\\02.jpg",
+    "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\agent1-scraper\\downloads\\CPT033\\03.jpg",
+    "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\agent1-scraper\\downloads\\CPT033\\04.jpg",
+    "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\agent1-scraper\\downloads\\CPT033\\05.jpg"
+  ]
+}

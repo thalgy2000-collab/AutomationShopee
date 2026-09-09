@@ -1,0 +1,97 @@
+{
+  "sku": "7899675812338",
+  "titulo_shopee": "Alicate de Pesca Bico Curvo Albatroz QZ-603 Aço Carbono com Cortador de Linha",
+  "titulos_alternativos": [
+    "Alicate para Pesca Esportiva Albatroz QZ-603 Multiúso Bico Longo Curvo",
+    "Alicate Pescador Albatroz QZ-603 Desenganchador de Anzol e Corta Linhas"
+  ],
+  "marca": "Albatroz Fishing",
+  "modelo": "QZ-603",
+  "categoria_sugerida": "Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Acessórios de Pesca",
+  "descricao": "Alicate de Pesca Albatroz Bico Curvo Carbono QZ-603\n\nO Alicate de Pesca Albatroz QZ-603 é uma ferramenta indispensável na tralha de qualquer pescador. Fabricado em aço carbono de alta durabilidade com cabo emborrachado ergonômico e antiderrapante, oferece segurança e firmeza no manuseio para retirar anzóis, garateias, prensar luvas de empate e cortar linhas com máxima praticidade.\n\nPor que escolher este produto:\n- Construção em aço carbono reforçado: alta durabilidade e excelente resistência\n- Bico curvo longo multifuncional: facilita a remoção segura de anzóis e garateias profundas\n- Cabo ergonômico antiderrapante: empunhadura confortável e firme mesmo com as mãos molhadas\n- Mola de retorno central: permite abertura automática para uso prático com apenas uma mão\n- Função cortador e prensador: ideal para cortar linhas e prensar luvas de empate de aço\n\nIndicado para:\nManuseio seguro de peixes predadores (Tucunaré, Traíra, Robalo, Dourado), remoção de garateias, corte de linhas e confecção de líderes ou empates tanto em água doce quanto salgada.\n\nEspecificações:\n- Marca: Albatroz Fishing\n- Modelo: QZ-603 Bico Curvo\n- Material: Aço Carbono e cabo emborrachado (TPR/ABS)\n- Tamanho: 16 cm (6 polegadas)\n- Peso: 130g\n- Tipo / Ação: Alicate de bico curvo com cortador e prensador\n- Cor / Variação: Azul e Preto\n\nDicas de uso:\nMantenha o alicate sempre ao alcance das mãos durante a pescaria. Após o uso em água salgada, lave com água doce corrente e aplique algumas gotas de óleo lubrificante ou silicone na articulação para manter o funcionamento suave e prolongar a vida útil.",
+  "atributos": {
+    "pais_de_origem": "China",
+    "peso_do_produto": "130g",
+    "duracao_da_garantia": "1 Mês",
+    "material": "Aço Carbono e Borracha",
+    "estampa": "Anodizado / Emborrachado",
+    "condicao": "Novo",
+    "comprimento": "16 cm",
+    "dimensoes_do_produto": "16 x 6 x 2 cm",
+    "quantidade_da_embalagem": "1",
+    "tamanho_do_pacote": "5 x 12 x 22 cm",
+    "produto_personalizado": "Não",
+    "quantidade_por_pacote": "1",
+    "tipo_isca": "N/A (Acessório de Pesca)",
+    "flutuabilidade": "N/A"
+  },
+  "variacoes": [],
+  "palavras_chave": [
+    "alicate de pesca",
+    "alicate albatroz",
+    "alicate bico curvo",
+    "alicate tira anzol",
+    "alicate para pescador"
+  ],
+  "medidas": {
+    "altura_cm": 3,
+    "largura_cm": 20,
+    "comprimento_cm": 30,
+    "peso_kg": 0.25
+  },
+  "seo_score": 100,
+  "seo_checklist": [
+    {
+      "item": "Tamanho do Título",
+      "passed": true,
+      "score": 25,
+      "maxScore": 25,
+      "reason": "77/120 caracteres (faixa ideal: 60-120)"
+    },
+    {
+      "item": "Estrutura Persuasiva",
+      "passed": true,
+      "score": 25,
+      "maxScore": 25,
+      "reason": "25/25 pts (Intro: ✅, Benefícios: ✅, Indicado: ✅, Especificações: ✅, Dicas: ✅)"
+    },
+    {
+      "item": "Atributos Técnicos",
+      "passed": true,
+      "score": 20,
+      "maxScore": 20,
+      "reason": "14 atributos mapeados (meta: 3+)"
+    },
+    {
+      "item": "Palavras-chave SEO",
+      "passed": true,
+      "score": 15,
+      "maxScore": 15,
+      "reason": "5 palavras-chave identificadas (meta: 4+)"
+    },
+    {
+      "item": "Escaneabilidade & E-E-A-T",
+      "passed": true,
+      "score": 15,
+      "maxScore": 15,
+      "reason": "15 marcadores/bullet points com quebras de linha"
+    }
+  ],
+  "preco": {
+    "preco_sem_promocao": 65.75,
+    "preco_com_promocao": null,
+    "preco_atual": 65.75,
+    "em_promocao": false,
+    "desconto_percentual": 0
+  },
+  "parent_sku": "7899675812338",
+  "is_parent": false,
+  "cod_sankhya": "57187",
+  "imagens": [
+    "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\agent1-scraper\\downloads\\7899675812338\\01.jpg",
+    "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\agent1-scraper\\downloads\\7899675812338\\02.jpg",
+    "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\agent1-scraper\\downloads\\7899675812338\\03.jpg"
+  ],
+  "is_published": true,
+  "status": "concluido"
+}

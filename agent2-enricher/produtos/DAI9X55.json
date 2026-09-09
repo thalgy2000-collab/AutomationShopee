@@ -1,0 +1,108 @@
+{
+  "sku": "DAI9X55",
+  "titulo_shopee": "Linha Multifilamento Daisen 9X PE 150m Alta Resistência Verde para Pesca Esportiva",
+  "titulos_alternativos": [
+    "Linha de Pesca Multifilamento Daisen 9X PE 150m Ultra Sensível S/ Memória p/ Arremessos",
+    "Linha Daisen 9X PE Multifilamento 150m Verde Forte Durável p/ Tucunaré Robalo Traíra"
+  ],
+  "marca": "Daisen",
+  "modelo": "9X PE Multifilamento",
+  "categoria_sugerida": "Esportes e Lazer > Pesca > Linhas de Pesca",
+  "descricao": "Linha Multifilamento Daisen 9X PE — 150m\n\nEleve sua experiência de pesca a um novo patamar com a Linha Multifilamento Daisen 9X PE. Projetada para pescadores exigentes, esta linha oferece a combinação perfeita de força, sensibilidade e durabilidade. Seus 9 fios trançados garantem desempenho superior em qualquer modalidade, permitindo arremessos longos e precisos com a máxima confiança.\n\nPor que escolher esta linha:\n- Construção em 9 fios de PE: Extrema resistência à ruptura e abrasão, garantindo a captura de grandes peixes.\n- Alta sensibilidade: Transmite com clareza os toques mais sutis, otimizando suas fisgadas e percepção do fundo.\n- Zero memória: Evita o enrolamento e a formação de nós, facilitando o uso e prolongando a vida útil da linha.\n- Baixa elasticidade: Proporciona fisgadas rápidas e diretas, aumentando a taxa de sucesso na pesca.\n- Deslizamento suave: Revestimento especial que permite arremessos mais longos e sem esforço, ideal para iscas leves e pesadas.\n\nIndicado para pescar:\nTodas as espécies de peixes predadores de água doce e salgada, como Tucunaré, Robalo, Traíra, Dourado, Anchova, Olhete, Black Bass, entre outros. Perfeita para pesca com iscas artificiais, iscas naturais e para quem busca alta performance e segurança.\n\nEspecificações:\n- Marca: Daisen\n- Modelo: 9X PE Multifilamento\n- Material: Polietileno (PE) trançado em 9 fios\n- Tamanho (Comprimento): 150m\n- Tipo: Multifilamento / Linha de Pesca\n- Cor: Verde\n- Bitola / Resistência (exemplo da imagem): 0.37mm / 60lb\n\nDicas de uso:\nPara obter o melhor desempenho, utilize nós específicos para linhas multifilamento, como o Palomar ou o FG Knot, que garantem a máxima resistência. Preencha o carretel da sua carretilha ou molinete de forma uniforme para evitar embaraços e otimizar os arremessos. Verifique sempre o estado da linha após cada pescaria para identificar desgastes.",
+  "atributos": {
+    "pais_de_origem": "China",
+    "peso_do_produto": "80g",
+    "duracao_da_garantia": "1 Mês",
+    "material": "Multifilamento PE",
+    "estampa": "Não Aplicável",
+    "condicao": "Novo",
+    "comprimento": "150 m",
+    "dimensoes_do_produto": "7 x 7 x 2 cm",
+    "quantidade_da_embalagem": "1",
+    "tamanho_do_pacote": "3 x 20 x 30 cm",
+    "produto_personalizado": "Não",
+    "quantidade_por_pacote": "1",
+    "tipo_isca": "Linha de Pesca",
+    "flutuabilidade": "Flutuante/Neutro"
+  },
+  "variacoes": [],
+  "palavras_chave": [
+    "linha de pesca",
+    "multifilamento",
+    "daisen",
+    "9x",
+    "pe",
+    "linha 150m",
+    "pesca esportiva",
+    "linha resistente",
+    "linha sensível",
+    "carretilha",
+    "molinete",
+    "tucunaré",
+    "robalo",
+    "traíra",
+    "dourado"
+  ],
+  "medidas": {
+    "altura_cm": 3,
+    "largura_cm": 20,
+    "comprimento_cm": 30,
+    "peso_kg": 0.25
+  },
+  "seo_score": 100,
+  "seo_checklist": [
+    {
+      "item": "Tamanho do Título",
+      "passed": true,
+      "score": 25,
+      "maxScore": 25,
+      "reason": "82/120 caracteres (faixa ideal: 60-120)"
+    },
+    {
+      "item": "Estrutura Persuasiva",
+      "passed": true,
+      "score": 25,
+      "maxScore": 25,
+      "reason": "25/25 pts (Intro: ✅, Benefícios: ✅, Indicado: ✅, Especificações: ✅, Dicas: ✅)"
+    },
+    {
+      "item": "Atributos Técnicos",
+      "passed": true,
+      "score": 20,
+      "maxScore": 20,
+      "reason": "14 atributos mapeados (meta: 3+)"
+    },
+    {
+      "item": "Palavras-chave SEO",
+      "passed": true,
+      "score": 15,
+      "maxScore": 15,
+      "reason": "15 palavras-chave identificadas (meta: 4+)"
+    },
+    {
+      "item": "Escaneabilidade & E-E-A-T",
+      "passed": true,
+      "score": 15,
+      "maxScore": 15,
+      "reason": "12 marcadores/bullet points com quebras de linha"
+    }
+  ],
+  "preco": {
+    "preco_sem_promocao": 89.9,
+    "preco_com_promocao": null,
+    "preco_atual": 89.9,
+    "em_promocao": false,
+    "desconto_percentual": 0
+  },
+  "parent_sku": "DAI9X55",
+  "is_parent": false,
+  "cod_sankhya": "54624",
+  "imagens": [
+    "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\agent1-scraper\\downloads\\DAI9X55\\01.jpg",
+    "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\agent1-scraper\\downloads\\DAI9X55\\02.jpg",
+    "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\agent1-scraper\\downloads\\DAI9X55\\03.jpg",
+    "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\agent1-scraper\\downloads\\DAI9X55\\04.jpg",
+    "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\agent1-scraper\\downloads\\DAI9X55\\05.jpg",
+    "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\agent1-scraper\\downloads\\DAI9X55\\06.jpg"
+  ]
+}

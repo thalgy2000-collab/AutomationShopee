@@ -1,0 +1,102 @@
+{
+  "sku": "7797208813961",
+  "titulo_shopee": "Linha Pesca Fluorocarbono Deyu 10m Leader 100% Invisible - Alta Resistência e Sensibilidade",
+  "titulos_alternativos": [
+    "Linha Fluorocarbono Deyu 10m para Pesca Esportiva - Alta Abrasão e Memória Zero",
+    "Leader Fluorocarbono 100% Deyu 10 Metros - Invisível na Água, Sensibilidade Superior"
+  ],
+  "marca": "Deyu",
+  "modelo": "Fluorocarbon",
+  "categoria_sugerida": "Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Linhas de Pesca",
+  "descricao": "Linha de Pesca Fluorocarbono Deyu 10m - 100% Invisible\n\nA Linha de Pesca Fluorocarbono Deyu de 10 metros é a escolha perfeita para pescadores que buscam a máxima discrição e performance. Composta por 100% fluorocarbono, ela se torna praticamente invisível na água, garantindo que os peixes mais ariscos não percebam sua presença, aumentando suas chances de sucesso na pescaria.\n\nPor que escolher este produto:\n- 100% Fluorocarbono: Totalmente invisível na água, ideal para enganar peixes predadores cautelosos.\n- Alta Resistência à Abrasão: Suporta o contato com estruturas submersas e a boca dos peixes, prolongando a vida útil do leader.\n- Baixa Elasticidade e Memória Zero: Oferece sensibilidade excepcional para sentir cada toque e permite fisgadas mais rápidas e precisas.\n- Rápida Afundabilidade: Ajuda a manter sua isca ou montagem na profundidade desejada, otimizando a apresentação.\n- Resistência UV: Proteção contra os raios solares, mantendo a integridade e durabilidade da linha por mais tempo.\n\nIndicado para pescar:\nIdeal como leader para todos os tipos de peixes predadores de água doce e salgada, como Tucunaré, Robalo, Traíra, Dourado, Black Bass, Anchova, Badejo, entre outros. Perfeito para diversas modalidades de pesca esportiva.\n\nEspecificações:\n- Marca: Deyu\n- Modelo: Fluorocarbon (100% Fluorocarbon)\n- Material: 100% Fluorocarbono\n- Tamanho: 10 metros\n- Peso: Variável (dependendo da libragem)\n- Tipo: Leader / Linha Principal\n- Cor / Variação: Transparente (Cristal)\n\nDicas de uso:\nUtilize como leader para conectar à sua linha principal (multilinha ou monofilamento), garantindo maior invisibilidade e resistência à abrasão. Realize nós de conexão fortes e bem feitos para máxima segurança, como o nó FG ou Albright modificado. Escolha a libragem adequada ao tamanho e espécie do peixe que você pretende pescar.",
+  "atributos": {
+    "pais_de_origem": "China",
+    "peso_do_produto": "15g",
+    "duracao_da_garantia": "1 Mês",
+    "material": "Fluorocarbono",
+    "condicao": "Novo",
+    "comprimento_da_linha": "10 Metros",
+    "cor_da_linha": "Transparente",
+    "quantidade_da_embalagem": "1",
+    "tamanho_do_pacote": "3 x 20 x 30 cm",
+    "produto_personalizado": "Não",
+    "quantidade_por_pacote": "1",
+    "tipo_de_linha": "Leader / Fluorocarbono",
+    "tamanho_da_linha_diametro": "Variável (Escolha a Libragem)",
+    "tensao_maxima_libragem": "Variável (Escolha o Diâmetro)"
+  },
+  "variacoes": [],
+  "palavras_chave": [
+    "linha de pesca",
+    "fluorocarbono",
+    "leader",
+    "pesca esportiva",
+    "linha transparente",
+    "Deyu",
+    "pesca de tucunaré",
+    "pesca de robalo",
+    "alta resistência",
+    "invisível"
+  ],
+  "medidas": {
+    "altura_cm": 3,
+    "largura_cm": 20,
+    "comprimento_cm": 30,
+    "peso_kg": 0.25
+  },
+  "seo_score": 100,
+  "seo_checklist": [
+    {
+      "item": "Tamanho do Título",
+      "passed": true,
+      "score": 25,
+      "maxScore": 25,
+      "reason": "91/120 caracteres (faixa ideal: 60-120)"
+    },
+    {
+      "item": "Estrutura Persuasiva",
+      "passed": true,
+      "score": 25,
+      "maxScore": 25,
+      "reason": "25/25 pts (Intro: ✅, Benefícios: ✅, Indicado: ✅, Especificações: ✅, Dicas: ✅)"
+    },
+    {
+      "item": "Atributos Técnicos",
+      "passed": true,
+      "score": 20,
+      "maxScore": 20,
+      "reason": "14 atributos mapeados (meta: 3+)"
+    },
+    {
+      "item": "Palavras-chave SEO",
+      "passed": true,
+      "score": 15,
+      "maxScore": 15,
+      "reason": "10 palavras-chave identificadas (meta: 4+)"
+    },
+    {
+      "item": "Escaneabilidade & E-E-A-T",
+      "passed": true,
+      "score": 15,
+      "maxScore": 15,
+      "reason": "13 marcadores/bullet points com quebras de linha"
+    }
+  ],
+  "preco": {
+    "preco_sem_promocao": 17.9,
+    "preco_com_promocao": null,
+    "preco_atual": 17.9,
+    "em_promocao": false,
+    "desconto_percentual": 0
+  },
+  "parent_sku": "7797208813961",
+  "is_parent": false,
+  "cod_sankhya": "54572",
+  "imagens": [
+    "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\agent1-scraper\\downloads\\7797208813961\\01.jpg",
+    "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\agent1-scraper\\downloads\\7797208813961\\02.jpg",
+    "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\agent1-scraper\\downloads\\7797208813961\\03.jpg"
+  ],
+  "is_published": true,
+  "status": "concluido"
+}

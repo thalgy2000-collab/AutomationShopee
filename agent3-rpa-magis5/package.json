@@ -1,0 +1,19 @@
+{
+  "name": "agent3-rpa-magis5",
+  "version": "1.0.0",
+  "description": "Agente 3 — RPA para cadastro e publicação de anúncios na plataforma Magis5 (Shopee) via Playwright",
+  "type": "module",
+  "main": "src/runner.mjs",
+  "scripts": {
+    "start": "node src/runner.mjs",
+    "test:single": "node src/runner.mjs --limit 1 --headed --dry-run",
+    "checkpoint": "node -e \"import('./src/checkpoint.mjs').then(m => m.runCheckpointCli())\""
+  },
+  "dependencies": {
+    "csv-parse": "^5.5.0",
+    "csv-stringify": "^6.4.0",
+    "dotenv": "^16.4.0",
+    "playwright": "^1.49.0"
+  },
+  "devDependencies": {}
+}

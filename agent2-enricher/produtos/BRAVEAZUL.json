@@ -1,0 +1,117 @@
+{
+  "sku": "BRAVEAZUL",
+  "titulo_shopee": "Sandalia de Pesca Boaonda Brave Antiderrapante Croc Azul Marinho",
+  "titulos_alternativos": [
+    "Sapatênis de Pesca Boaonda Brave Croc Antiderrapante Confortável",
+    "Sandalia Boaonda Brave Croc para Pescaria Leve e Antiderrapante"
+  ],
+  "marca": "Boaonda",
+  "modelo": "Brave",
+  "categoria_sugerida": "Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Acessórios de Pesca",
+  "descricao": "Sandalia de Pesca Boaonda Brave Croc Antiderrapante\n\nA Sandália Boaonda Brave é a escolha ideal para pescadores que buscam conforto e segurança em qualquer ambiente. Com design inspirado nas crocs, oferece ventilação total e uma sola robusta que garante estabilidade em embarcações molhadas ou em margens escorregadias, permitindo que você se concentre na pescaria sem preocupações.\n\nPor que escolher este produto:\n- Sola antiderrapante de alta aderência: evita quedas em decks de barco e pedras molhadas\n- Design ventilado (Croc): permite a circulação de ar, mantendo os pés secos e frescos\n- Material leve e resistente: não pesa na caminhada e resiste à água salgada e doce\n- Fivela de ajuste traseira: permite alternar entre o uso como chinelo ou sandália fixa\n- Fácil de limpar: basta enxaguar com água doce após o uso para remover sal e lama\n\nIndicado para pescar:\nTodos os tipos de pesca esportiva e lazer, especialmente em embarcações, rios, lagos e áreas de mangue.\n\nEspecificações:\n- Marca: Boaonda\n- Modelo: Brave\n- Material: EVA / Borracha de alta densidade\n- Tamanho: 39/40\n- Tipo: Croc / Sandália de Pesca\n- Cor: Azul Marinho\n\nDicas de uso:\nUtilize a fivela traseira para fixar o calçado ao pé em dias de vento ou em embarcações em movimento. Após o uso em água salgada, lave com água doce para prolongar a vida útil do material.",
+  "atributos": {
+    "pais_de_origem": "Brasil",
+    "peso_do_produto": "300g",
+    "duracao_da_garantia": "1 Mês",
+    "material": "EVA / Borracha",
+    "estampa": "Liso",
+    "condicao": "Novo",
+    "comprimento": "26 cm",
+    "dimensoes_do_produto": "26 x 10 x 10 cm",
+    "quantidade_da_embalagem": "1",
+    "tamanho_do_pacote": "30 x 15 x 12 cm",
+    "produto_personalizado": "Não",
+    "quantidade_por_pacote": "1",
+    "tipo_isca": "Acessório de Pesca",
+    "flutuabilidade": "N/A"
+  },
+  "variacoes": [
+    {
+      "sku": "BRAVEAZUL_39_40",
+      "cod_sankhya": "70395",
+      "nome": "39/40",
+      "preco_sem_promocao": 129.9,
+      "preco_com_promocao": null,
+      "preco_atual": 129.9,
+      "em_promocao": false,
+      "desconto_percentual": 0,
+      "imagens": [
+        "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\agent1-scraper\\downloads\\BRAVEAZUL\\39\\40\\01.jpg",
+        "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\agent1-scraper\\downloads\\BRAVEAZUL\\39\\40\\02.jpg",
+        "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\agent1-scraper\\downloads\\BRAVEAZUL\\39\\40\\03.jpg",
+        "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\agent1-scraper\\downloads\\BRAVEAZUL\\39\\40\\04.jpg",
+        "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\agent1-scraper\\downloads\\BRAVEAZUL\\39\\40\\05.jpg",
+        "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\agent1-scraper\\downloads\\BRAVEAZUL\\39\\40\\06.jpg"
+      ]
+    }
+  ],
+  "palavras_chave": [
+    "sandalia de pesca",
+    "crocs de pesca",
+    "sapato de barco",
+    "boaonda brave",
+    "chinelo antiderrapante",
+    "sapatênis de pesca",
+    "calçado para pescaria"
+  ],
+  "medidas": {
+    "altura_cm": 3,
+    "largura_cm": 20,
+    "comprimento_cm": 30,
+    "peso_kg": 0.25
+  },
+  "seo_score": 100,
+  "seo_checklist": [
+    {
+      "item": "Tamanho do Título",
+      "passed": true,
+      "score": 25,
+      "maxScore": 25,
+      "reason": "64/120 caracteres (faixa ideal: 60-120)"
+    },
+    {
+      "item": "Estrutura Persuasiva",
+      "passed": true,
+      "score": 25,
+      "maxScore": 25,
+      "reason": "25/25 pts (Intro: ✅, Benefícios: ✅, Indicado: ✅, Especificações: ✅, Dicas: ✅)"
+    },
+    {
+      "item": "Atributos Técnicos",
+      "passed": true,
+      "score": 20,
+      "maxScore": 20,
+      "reason": "14 atributos mapeados (meta: 3+)"
+    },
+    {
+      "item": "Palavras-chave SEO",
+      "passed": true,
+      "score": 15,
+      "maxScore": 15,
+      "reason": "7 palavras-chave identificadas (meta: 4+)"
+    },
+    {
+      "item": "Escaneabilidade & E-E-A-T",
+      "passed": true,
+      "score": 15,
+      "maxScore": 15,
+      "reason": "11 marcadores/bullet points com quebras de linha"
+    }
+  ],
+  "ia_provedor": "Groq / LLaMA",
+  "ia_etiqueta": "🦙 Gerado com LLaMA / Groq",
+  "ia_modelo": "qwen/qwen3.8-27b (Groq)",
+  "ia_data": "2026-09-08T20:52:45.470Z",
+  "preco": null,
+  "parent_sku": "BRAVEAZUL",
+  "is_parent": true,
+  "cod_sankhya": "70395",
+  "imagens": [
+    "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\agent1-scraper\\downloads\\BRAVEAZUL\\39\\40\\01.jpg",
+    "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\agent1-scraper\\downloads\\BRAVEAZUL\\39\\40\\02.jpg",
+    "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\agent1-scraper\\downloads\\BRAVEAZUL\\39\\40\\03.jpg",
+    "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\agent1-scraper\\downloads\\BRAVEAZUL\\39\\40\\04.jpg",
+    "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\agent1-scraper\\downloads\\BRAVEAZUL\\39\\40\\05.jpg",
+    "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\agent1-scraper\\downloads\\BRAVEAZUL\\39\\40\\06.jpg"
+  ]
+}

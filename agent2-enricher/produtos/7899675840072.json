@@ -1,0 +1,89 @@
+{
+  "sku": "7899675840072",
+  "titulo_shopee": "Anzol Encastoado Albatroz Fishing 4330 Com Cabo De Aço E Girador Cartela Com 5 Peças",
+  "titulos_alternativos": [
+    "Anzol Com Cabo De Aço Albatroz 4330 Encastoado Para Pesca De Traíra E Piranha",
+    "Anzol Empatado Albatroz 4330 Com Empate De Aço E Girador Blister 5 Unidades"
+  ],
+  "marca": "Albatroz Fishing",
+  "modelo": "Anzol 4330 Encastoado",
+  "categoria_sugerida": "Esportes e Lazer > Pesca > Anzóis",
+  "descricao": "Anzol Encastoado Albatroz Fishing 4330 Com Cabo De Aço E Girador — Cartela Com 5 Peças\n\nO Anzol Encastoado Albatroz Fishing 4330 é a escolha perfeita para pescadores que buscam máxima segurança contra peixes que possuem dentes afiados ou que habitam estruturas de difícil acesso. Montado com cabo de aço de alta qualidade e girador reforçado, este conjunto garante que sua linha principal fique protegida contra mordidas e cortes, proporcionando máxima eficiência e tranquilidade nas suas pescarias.\n\nPor que escolher este produto:\n- Anzol Modelo 4330 Reforçado: Formato clássico com farpas na haste que ajudam a fixar melhor as iscas naturais\n- Cabo de Aço Flexível e Resistente: Proteção total contra a dentição afiada dos peixes predadores\n- Girador Integrado de Latão: Evita a torção da linha de pesca durante o recolhimento e o combate com o peixe\n- Acabamento Profissional: Luvas de empate de alta qualidade que não correm sob forte tração\n- Pronto para Pescar: Praticidade extrema, basta amarrar à sua linha principal e começar a pescaria\n\nIndicado para pescar:\nPeixes predadores de água doce ou salgada com dentes afiados, como Traíra, Piranha, Dourado, Peixe-Cachorro, Bicuda, Peixe-Espada, entre outros.\n\nEspecificações:\n- Marca: Albatroz Fishing\n- Modelo: Anzol Encastoado 4330\n- Material: Anzol em Aço Carbono, Cabo em Aço Inox e Girador em Latão\n- Tamanho: Cabo de 20cm\n- Peso: Aprox. 15g (cartela)\n- Tipo / Ação: Anzol Empatado com Cabo de Aço e Girador\n- Garateias / Anzóis: Anzol 4330 com duas farpas na haste\n- Cor / Variação: Prateado (Nickel)\n\nDicas de uso:\nUtilize com iscas naturais inteiras ou em pedaços (como filés de peixes, coração de boi ou minhocuçu). Prenda o girador do empate diretamente à sua linha principal utilizando um nó de pesca resistente (como o nó Único ou Clinch) para garantir que toda a estrutura suporte a força do peixe.",
+  "atributos": {
+    "material": "Aço Carbono, Cabo de Aço Inox e Girador de Latão",
+    "cor": "Prateado",
+    "tamanho": "Cabo de 20cm",
+    "quantidade": "5 unidades por embalagem",
+    "peso_produto": "Aprox. 15g"
+  },
+  "variacoes": [],
+  "palavras_chave": [
+    "anzol encastoado",
+    "anzol com cabo de aco",
+    "anzol albatroz 4330",
+    "empate de aco pesca",
+    "anzol para traira"
+  ],
+  "medidas": {
+    "altura_cm": 3,
+    "largura_cm": 20,
+    "comprimento_cm": 30,
+    "peso_kg": 0.25
+  },
+  "seo_score": 100,
+  "seo_checklist": [
+    {
+      "item": "Tamanho do Título",
+      "passed": true,
+      "score": 25,
+      "maxScore": 25,
+      "reason": "84/120 caracteres (faixa ideal: 60-120)"
+    },
+    {
+      "item": "Estrutura Persuasiva",
+      "passed": true,
+      "score": 25,
+      "maxScore": 25,
+      "reason": "25/25 pts (Intro: ✅, Benefícios: ✅, Indicado: ✅, Especificações: ✅, Dicas: ✅)"
+    },
+    {
+      "item": "Atributos Técnicos",
+      "passed": true,
+      "score": 20,
+      "maxScore": 20,
+      "reason": "5 atributos mapeados (meta: 3+)"
+    },
+    {
+      "item": "Palavras-chave SEO",
+      "passed": true,
+      "score": 15,
+      "maxScore": 15,
+      "reason": "5 palavras-chave identificadas (meta: 4+)"
+    },
+    {
+      "item": "Escaneabilidade & E-E-A-T",
+      "passed": true,
+      "score": 15,
+      "maxScore": 15,
+      "reason": "15 marcadores/bullet points com quebras de linha"
+    }
+  ],
+  "parent_sku": "7899675840072",
+  "is_parent": false,
+  "imagens": [
+    "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\agent1-scraper\\downloads\\7899675840072\\01.jpg",
+    "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\agent1-scraper\\downloads\\7899675840072\\02.jpg",
+    "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\agent1-scraper\\downloads\\7899675840072\\03.jpg",
+    "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\agent1-scraper\\downloads\\7899675840072\\04.jpg"
+  ],
+  "preco": {
+    "preco_sem_promocao": 20.9,
+    "preco_com_promocao": null,
+    "preco_atual": 20.9,
+    "em_promocao": false,
+    "desconto_percentual": 0
+  },
+  "cod_sankhya": "53571",
+  "is_published": true,
+  "status": "concluido"
+}

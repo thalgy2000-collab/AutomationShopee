@@ -1,0 +1,33 @@
+# Dependências
+node_modules/
+**/node_modules/
+
+# Variáveis de Ambiente e Segredos (NUNCA SUBIR)
+.env
+*.env
+**/.env
+**/.env.*
+!**/.env.example
+**/session.json
+
+# Imagens locais pesadas e capturas de tela
+**/downloads/
+**/screenshots/
+screenshots/
+uploads/*
+!uploads/.gitkeep
+
+# Logs e arquivos de sistema
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.DS_Store
+Thumbs.db
+desktop.ini
+**/temp_extracted*
+*.zip
+
+# IDE / Antigravity Agent local
+.agents/
+.system_generated/

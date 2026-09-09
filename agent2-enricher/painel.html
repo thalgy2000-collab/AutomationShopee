@@ -1,0 +1,1825 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Central de Automação Shopee — BRK Fishing</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #090B10;
+      --bg-card: rgba(18, 22, 33, 0.75);
+      --bg-card-hover: rgba(26, 32, 48, 0.85);
+      --bg-card-border: rgba(255, 255, 255, 0.08);
+      --primary: #3B82F6;
+      --primary-glow: rgba(59, 130, 246, 0.35);
+      --accent-green: #10B981;
+      --accent-emerald: #059669;
+      --accent-amber: #F59E0B;
+      --accent-purple: #8B5CF6;
+      --accent-rose: #F43F5E;
+      --text-main: #F3F4F6;
+      --text-muted: #9CA3AF;
+      --text-dim: #6B7280;
+      --font-heading: 'Outfit', sans-serif;
+      --font-body: 'Inter', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --radius-lg: 16px;
+      --radius-md: 12px;
+      --radius-sm: 8px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      background-image: 
+        radial-gradient(at 0% 0%, rgba(59, 130, 246, 0.12) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(139, 92, 246, 0.1) 0px, transparent 50%);
+      background-attachment: fixed;
+      color: var(--text-main);
+      font-family: var(--font-body);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+    }
+
+    /* ── Header ────────────────────────────────────────── */
+    header {
+      backdrop-filter: blur(16px);
+      background: rgba(9, 11, 16, 0.8);
+      border-bottom: 1px solid var(--bg-card-border);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .brand-group {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .brand-logo {
+      width: 42px;
+      height: 42px;
+      background: linear-gradient(135deg, #2563EB, #7C3AED);
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      box-shadow: 0 0 20px var(--primary-glow);
+    }
+
+    .brand-text h1 {
+      font-family: var(--font-heading);
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      background: linear-gradient(to right, #FFFFFF, #93C5FD);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .brand-text p {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.4rem 0.9rem;
+      border-radius: 9999px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      background: rgba(16, 185, 129, 0.1);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      color: #34D399;
+    }
+
+    .status-pill.busy {
+      background: rgba(245, 158, 11, 0.15);
+      border-color: rgba(245, 158, 11, 0.4);
+      color: #FBBF24;
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: currentColor;
+      box-shadow: 0 0 10px currentColor;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.85); }
+    }
+
+    .btn-nav {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--bg-card-border);
+      color: var(--text-main);
+      padding: 0.5rem 1rem;
+      border-radius: var(--radius-sm);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 500;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .btn-nav:hover {
+      background: rgba(255, 255, 255, 0.12);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    /* ── Main Container ────────────────────────────────── */
+    main {
+      flex: 1;
+      max-width: 1400px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    /* ── Stats Row ─────────────────────────────────────── */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .stat-card {
+      background: var(--bg-card);
+      border: 1px solid var(--bg-card-border);
+      border-radius: var(--radius-lg);
+      padding: 1.25rem 1.5rem;
+      backdrop-filter: blur(12px);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(255, 255, 255, 0.15);
+    }
+
+    .stat-info span {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .stat-info h2 {
+      font-family: var(--font-heading);
+      font-size: 2rem;
+      font-weight: 700;
+      color: #FFF;
+      margin-top: 0.25rem;
+    }
+
+    .stat-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+    }
+
+    .stat-card:nth-child(1) .stat-icon { background: rgba(59, 130, 246, 0.15); color: #60A5FA; }
+    .stat-card:nth-child(2) .stat-icon { background: rgba(139, 92, 246, 0.15); color: #A78BFA; }
+    .stat-card:nth-child(3) .stat-icon { background: rgba(16, 185, 129, 0.15); color: #34D399; }
+    .stat-card:nth-child(4) .stat-icon { background: rgba(245, 158, 11, 0.15); color: #FBBF24; }
+
+    /* ── Agents Grid ───────────────────────────────────── */
+    .section-title {
+      font-family: var(--font-heading);
+      font-size: 1.35rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .agents-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .agent-card {
+      background: var(--bg-card);
+      border: 1px solid var(--bg-card-border);
+      border-radius: var(--radius-lg);
+      padding: 1.75rem;
+      backdrop-filter: blur(12px);
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.25s ease;
+    }
+
+    .agent-card:hover {
+      border-color: rgba(59, 130, 246, 0.4);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    }
+
+    .agent-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+
+    .agent-badge {
+      display: inline-block;
+      padding: 0.25rem 0.6rem;
+      border-radius: 6px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .agent-badge.b1 { background: rgba(59, 130, 246, 0.2); color: #93C5FD; }
+    .agent-badge.b2 { background: rgba(139, 92, 246, 0.2); color: #C4B5FD; }
+    .agent-badge.b3 { background: rgba(16, 185, 129, 0.2); color: #6EE7B7; }
+
+    .agent-card h3 {
+      font-family: var(--font-heading);
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-top: 0.5rem;
+    }
+
+    .agent-card p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    /* Controles dos Agentes */
+    .control-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .control-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      letter-spacing: 0.05em;
+    }
+
+    .control-input, .control-select {
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--text-main);
+      padding: 0.65rem 0.85rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.85rem;
+      font-family: inherit;
+      outline: none;
+      transition: border-color 0.2s ease;
+      width: 100%;
+    }
+
+    .control-input:focus, .control-select:focus {
+      border-color: var(--primary);
+    }
+
+    .control-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+    }
+
+    /* Botões de Ação */
+    .btn-action {
+      background: linear-gradient(135deg, #2563EB, #1D4ED8);
+      color: #FFF;
+      border: none;
+      padding: 0.85rem 1.25rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-top: auto;
+      box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3);
+    }
+
+    .btn-action:hover:not(:disabled) {
+      background: linear-gradient(135deg, #3B82F6, #2563EB);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(37, 99, 235, 0.45);
+    }
+
+    .btn-action:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      filter: grayscale(0.6);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--bg-card-border);
+      color: var(--text-main);
+      padding: 0.6rem 1rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+    }
+
+    .btn-secondary:hover:not(:disabled) {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .btn-danger {
+      background: linear-gradient(135deg, #E11D48, #BE123C);
+      color: #FFF;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .btn-danger:hover {
+      background: #F43F5E;
+    }
+
+    /* ── Terminal Console ──────────────────────────────── */
+    .terminal-container {
+      background: #06080C;
+      border: 1px solid var(--bg-card-border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+    }
+
+    .terminal-header {
+      background: #0E121A;
+      padding: 0.75rem 1.25rem;
+      border-bottom: 1px solid var(--bg-card-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .terminal-title {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .terminal-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .terminal-body {
+      background: #06080C;
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      padding: 1.25rem;
+      height: 360px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      line-height: 1.45;
+    }
+
+    .log-line {
+      display: flex;
+      gap: 0.75rem;
+      word-break: break-word;
+      white-space: pre-wrap;
+    }
+
+    .log-time {
+      color: var(--text-dim);
+      flex-shrink: 0;
+      user-select: none;
+    }
+
+    .log-msg { color: #E5E7EB; }
+    .log-msg.error { color: #F87171; }
+    .log-msg.success { color: #34D399; }
+    .log-msg.warn { color: #FBBF24; }
+    .log-msg.highlight { color: #60A5FA; }
+
+    /* Checkbox styling */
+    .toggle-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      cursor: pointer;
+      user-select: none;
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 8px; height: 8px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.15); border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.25); }
+
+    /* File Upload & Input controls */
+    .file-input-section {
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: var(--radius-md);
+      padding: 0.85rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      margin-top: 0.25rem;
+      transition: border-color 0.2s ease;
+    }
+
+    .file-input-section:hover {
+      border-color: rgba(255, 255, 255, 0.15);
+    }
+
+    .file-section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .file-upload-zone {
+      border: 1.5px dashed rgba(255, 255, 255, 0.18);
+      border-radius: var(--radius-sm);
+      padding: 0.65rem 0.85rem;
+      text-align: center;
+      background: rgba(255, 255, 255, 0.02);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      user-select: none;
+    }
+
+    .file-upload-zone:hover {
+      border-color: var(--primary);
+      background: rgba(59, 130, 246, 0.08);
+      color: #93C5FD;
+    }
+
+    .file-upload-zone.dragover {
+      border-color: var(--accent-green);
+      background: rgba(16, 185, 129, 0.15);
+      color: #6EE7B7;
+    }
+
+    .file-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.3rem 0.65rem;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(16, 185, 129, 0.25);
+      color: #6EE7B7;
+      word-break: break-all;
+    }
+
+    .file-badge.warn {
+      background: rgba(245, 158, 11, 0.12);
+      border-color: rgba(245, 158, 11, 0.25);
+      color: #FBBF24;
+    }
+
+    /* Batch Preview in Agent 3 Card */
+    .batch-preview-box {
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: var(--radius-sm);
+      padding: 0.75rem 0.85rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-top: -0.25rem;
+    }
+
+    .batch-preview-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .batch-preview-title {
+      font-size: 0.73rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #93C5FD;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .btn-inspect-batch {
+      background: rgba(59, 130, 246, 0.15);
+      border: 1px solid rgba(59, 130, 246, 0.35);
+      color: #93C5FD;
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 0.25rem 0.6rem;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    .btn-inspect-batch:hover {
+      background: rgba(59, 130, 246, 0.3);
+      border-color: rgba(59, 130, 246, 0.6);
+      color: #FFF;
+    }
+
+    .batch-queue-summary {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .batch-chips-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+      max-height: 90px;
+      overflow-y: auto;
+      padding-right: 0.25rem;
+    }
+
+    .sku-mini-chip {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 6px;
+      padding: 0.25rem 0.5rem;
+      font-size: 0.72rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      font-family: var(--font-mono);
+      color: var(--text-main);
+    }
+
+    .sku-mini-chip:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .sku-mini-chip.in-queue {
+      background: rgba(16, 185, 129, 0.12);
+      border-color: rgba(16, 185, 129, 0.35);
+      color: #A7F3D0;
+    }
+
+    .sku-mini-chip .pos-tag {
+      font-size: 0.65rem;
+      font-weight: 700;
+      background: rgba(16, 185, 129, 0.3);
+      padding: 0.05rem 0.3rem;
+      border-radius: 3px;
+      color: #FFF;
+    }
+
+    /* Batch Modal */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(8px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 2000;
+      padding: 1.5rem;
+    }
+
+    .modal-backdrop.open {
+      display: flex;
+    }
+
+    .modal-card {
+      background: #0D111A;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: var(--radius-lg);
+      width: 100%;
+      max-width: 920px;
+      max-height: 88vh;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
+      overflow: hidden;
+      animation: modalFadeIn 0.2s ease-out;
+    }
+
+    @keyframes modalFadeIn {
+      from { opacity: 0; transform: scale(0.96); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .modal-header {
+      padding: 1.25rem 1.5rem;
+      background: rgba(255, 255, 255, 0.02);
+      border-bottom: 1px solid var(--bg-card-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .modal-header h3 {
+      font-family: var(--font-heading);
+      font-size: 1.15rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .modal-close-btn {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--bg-card-border);
+      color: var(--text-muted);
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: all 0.2s;
+    }
+
+    .modal-close-btn:hover {
+      background: rgba(255, 255, 255, 0.15);
+      color: #FFF;
+    }
+
+    .modal-toolbar {
+      padding: 0.85rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      border-bottom: 1px solid var(--bg-card-border);
+      background: rgba(0, 0, 0, 0.2);
+    }
+
+    .modal-search-input {
+      flex: 1;
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--text-main);
+      padding: 0.5rem 0.85rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.85rem;
+      outline: none;
+    }
+
+    .modal-search-input:focus {
+      border-color: var(--primary);
+    }
+
+    .modal-tabs {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .modal-tab-btn {
+      background: transparent;
+      border: 1px solid transparent;
+      color: var(--text-muted);
+      padding: 0.4rem 0.8rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .modal-tab-btn.active {
+      background: rgba(59, 130, 246, 0.15);
+      border-color: rgba(59, 130, 246, 0.4);
+      color: #93C5FD;
+    }
+
+    .modal-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 1.25rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .modal-sku-card {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--bg-card-border);
+      border-radius: var(--radius-sm);
+      padding: 0.85rem 1.1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      transition: all 0.15s ease;
+    }
+
+    .modal-sku-card:hover {
+      border-color: rgba(255, 255, 255, 0.15);
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .modal-sku-card.will-publish {
+      border-color: rgba(16, 185, 129, 0.4);
+      background: rgba(16, 185, 129, 0.05);
+    }
+
+    .modal-sku-left {
+      display: flex;
+      align-items: center;
+      gap: 0.9rem;
+      flex: 1;
+      min-width: 0;
+    }
+
+    .queue-num-badge {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .modal-sku-card.will-publish .queue-num-badge {
+      background: #10B981;
+      color: #064E3B;
+    }
+
+    .modal-sku-info h4 {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--text-main);
+      margin-bottom: 0.2rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 540px;
+    }
+
+    .modal-sku-meta {
+      font-size: 0.75rem;
+      color: var(--text-dim);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+    }
+
+    .modal-sku-right {
+      text-align: right;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 0.25rem;
+    }
+
+    .publish-flag-pill {
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      background: rgba(16, 185, 129, 0.2);
+      color: #34D399;
+      border: 1px solid rgba(16, 185, 129, 0.35);
+    }
+
+    .modal-footer {
+      padding: 1rem 1.5rem;
+      background: rgba(0, 0, 0, 0.3);
+      border-top: 1px solid var(--bg-card-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    /* Toast Notification */
+    #toast {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: #1E293B;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 0.9rem 1.4rem;
+      border-radius: var(--radius-md);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+      font-size: 0.85rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      transform: translateY(150%);
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 1000;
+    }
+    #toast.show { transform: translateY(0); }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="brand-group">
+      <div class="brand-logo">🎣</div>
+      <div class="brand-text">
+        <h1>Central de Automação Shopee</h1>
+        <p>BRK Fishing Pipeline Control Center</p>
+      </div>
+    </div>
+    <div class="header-actions">
+      <div class="status-pill" id="system-status">
+        <span class="status-dot"></span>
+        <span id="system-status-text">Sistema Pronto</span>
+      </div>
+      <a href="/relatorio.html" class="btn-nav" target="_blank">
+        📊 Abrir Auditoria de Produtos
+      </a>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main>
+
+    <!-- Stats Hero -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-info">
+          <span>Linhas na Planilha</span>
+          <h2 id="stat-total-csv">-</h2>
+        </div>
+        <div class="stat-icon">📄</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-info">
+          <span>Anúncios Pai (IA)</span>
+          <h2 id="stat-total-pais">-</h2>
+        </div>
+        <div class="stat-icon">🧠</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-info">
+          <span>Concluídos / Publicados</span>
+          <h2 id="stat-publicados">-</h2>
+        </div>
+        <div class="stat-icon">🚀</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-info">
+          <span>Pendentes de Publicação</span>
+          <h2 id="stat-pendentes">-</h2>
+        </div>
+        <div class="stat-icon">⏳</div>
+      </div>
+    </div>
+
+    <!-- Agents Grid -->
+    <div class="section-title">
+      <span>🤖</span> Agentes de Automação
+    </div>
+
+    <div class="agents-grid">
+
+      <!-- Agente 1: Scraper & Downloads -->
+      <div class="agent-card">
+        <div class="agent-header">
+          <div>
+            <span class="agent-badge b1">Agente 1 — Coletor</span>
+            <h3>Imagens & Catálogo</h3>
+          </div>
+          <span style="font-size:1.8rem;">📥</span>
+        </div>
+        <p>
+          Lê planilhas de fornecedores (.xls, .xlsx, .csv), baixa fotos limpas da Shopify e restaura pastas locais.
+        </p>
+
+        <!-- Input de Fonte de Dados / Planilha -->
+        <div class="file-input-section">
+          <div class="file-section-header">
+            <span class="control-label">📁 Planilha / Fonte de Dados</span>
+            <span style="font-size: 0.7rem; color: var(--text-dim);" id="agent1-file-count">0 disponíveis</span>
+          </div>
+
+          <select id="agent1-file-select" class="control-select" onchange="onFileSelectionChanged('agent1')">
+            <option value="">Carregando arquivos...</option>
+          </select>
+
+          <div class="file-upload-zone" id="agent1-upload-zone" onclick="document.getElementById('agent1-file-input').click()">
+            <span>📤 Arraste ou clique para enviar (.xls, .xlsx, .csv)</span>
+            <input type="file" id="agent1-file-input" accept=".xls,.xlsx,.csv" style="display:none" onchange="handleFileUpload('agent1', this)">
+          </div>
+
+          <div id="agent1-file-badge" class="file-badge" style="display:none;"></div>
+        </div>
+
+        <div class="control-group" id="agent1-color-group">
+          <span class="control-label">Filtro de Cor na Planilha</span>
+          <select id="agent1-color" class="control-select">
+            <option value="#D1FAE5" selected>🟢 #D1FAE5 (Verde Claro — Novos / Cadastrar)</option>
+            <option value="#47D359">🟢 #47D359 (Verde Escuro — Concluídos)</option>
+            <option value="#83E28E">🟢 #83E28E (Verde Médio — Concluídos)</option>
+            <option value="#FEF9C3">🟡 #FEF9C3 (Amarelo)</option>
+            <option value="TODAS">⚪ Todas as Cores / Sem Filtro</option>
+          </select>
+        </div>
+
+        <div class="control-group">
+          <span class="control-label">Ação a Executar</span>
+          <select id="agent1-action" class="control-select">
+            <option value="auto" selected>⚡ Automático (Detectar pela Planilha)</option>
+            <option value="extract">1. Extrair Lote da Planilha (.xls/.xlsx)</option>
+            <option value="restore">2. Restaurar Imagens Originais do CDN</option>
+            <option value="scraper">3. Executar Scraper Completo (Shopify)</option>
+            <option value="restore-all">4. Organizar Todas as Pastas Físicas</option>
+          </select>
+        </div>
+
+        <button class="btn-action" id="btn-run-agent1" onclick="runAgent1()">
+          <span>▶️</span> Executar Agente 1
+        </button>
+      </div>
+
+      <!-- Agente 2: Enriquecedor com IA -->
+      <div class="agent-card">
+        <div class="agent-header">
+          <div>
+            <span class="agent-badge b2">Agente 2 — IA Vision</span>
+            <h3>Enriquecedor Shopee</h3>
+          </div>
+          <span style="font-size:1.8rem;">🧠</span>
+        </div>
+        <p>
+          Gera títulos SEO, descrições persuasivas, ficha técnica, dimensões e mapeia preços promocionais.
+        </p>
+
+        <!-- Input de Fonte de Dados / CSV -->
+        <div class="file-input-section">
+          <div class="file-section-header">
+            <span class="control-label">📁 Lote de Produtos (CSV)</span>
+            <span style="font-size: 0.7rem; color: var(--text-dim);" id="agent2-file-count">0 disponíveis</span>
+          </div>
+
+          <select id="agent2-file-select" class="control-select" onchange="onFileSelectionChanged('agent2')">
+            <option value="">Carregando arquivos...</option>
+          </select>
+
+          <div class="file-upload-zone" id="agent2-upload-zone" onclick="document.getElementById('agent2-file-input').click()">
+            <span>📤 Arraste ou clique para enviar CSV</span>
+            <input type="file" id="agent2-file-input" accept=".csv" style="display:none" onchange="handleFileUpload('agent2', this)">
+          </div>
+
+          <div id="agent2-file-badge" class="file-badge" style="display:none;"></div>
+        </div>
+
+        <div class="control-row">
+          <div class="control-group">
+            <span class="control-label">Modelo Principal</span>
+            <select id="agent2-model" class="control-select">
+              <option value="gemini-3.8-flash" selected>Gemini 3.8 Flash (Padrão)</option>
+              <option value="gemini-3.7-flash">Gemini 3.7 Flash</option>
+              <option value="gemini-3.6-flash">Gemini 3.6 Flash</option>
+              <option value="groq">Groq (LLaMA / Qwen)</option>
+            </select>
+          </div>
+          <div class="control-group">
+            <span class="control-label">Qtd. Limite</span>
+            <input type="number" id="agent2-limit" class="control-input" placeholder="Todos (ou ex: 10)" min="1">
+          </div>
+        </div>
+
+        <button class="btn-action" id="btn-run-agent2" onclick="runAgent2()">
+          <span>⚡</span> Iniciar Enriquecimento IA
+        </button>
+      </div>
+
+      <!-- Agente 3: RPA Magis5 -->
+      <div class="agent-card">
+        <div class="agent-header">
+          <div>
+            <span class="agent-badge b3">Agente 3 — RPA Robô</span>
+            <h3>Publicador Magis5</h3>
+          </div>
+          <span style="font-size:1.8rem;">🚀</span>
+        </div>
+        <p>
+          Preenche o formulário da Shopee na Magis5 com variações, fotos HD e código ERP Sankhya.
+        </p>
+
+        <!-- Input de Fonte de Dados / CSV -->
+        <div class="file-input-section">
+          <div class="file-section-header">
+            <span class="control-label">📁 Lote de Produtos (CSV)</span>
+            <span style="font-size: 0.7rem; color: var(--text-dim);" id="agent3-file-count">0 disponíveis</span>
+          </div>
+
+          <select id="agent3-file-select" class="control-select" onchange="onFileSelectionChanged('agent3')">
+            <option value="">Carregando arquivos...</option>
+          </select>
+
+          <div class="file-upload-zone" id="agent3-upload-zone" onclick="document.getElementById('agent3-file-input').click()">
+            <span>📤 Arraste ou clique para enviar CSV</span>
+            <input type="file" id="agent3-file-input" accept=".csv" style="display:none" onchange="handleFileUpload('agent3', this)">
+          </div>
+
+          <div id="agent3-file-badge" class="file-badge" style="display:none;"></div>
+        </div>
+
+        <!-- Pré-visualização dos SKUs do Lote (Agente 3) -->
+        <div class="batch-preview-box">
+          <div class="batch-preview-header">
+            <div class="batch-preview-title">
+              <span>👁️</span>
+              <span>SKUs na Fila deste Lote</span>
+            </div>
+            <button type="button" class="btn-inspect-batch" onclick="openBatchModal()">
+              <span>🔍</span> Ver Lista Completa
+            </button>
+          </div>
+
+          <div class="batch-queue-summary">
+            <span id="agent3-queue-summary">Carregando SKUs da fila...</span>
+            <span id="agent3-queue-flag" style="color: #34D399; font-weight:600;"></span>
+          </div>
+
+          <!-- Mini Chips com os próximos SKUs a publicar -->
+          <div class="batch-chips-container" id="agent3-chips-container"></div>
+        </div>
+
+        <div class="control-row">
+          <div class="control-group">
+            <span class="control-label">Quantidade de SKUs</span>
+            <input type="number" id="agent3-limit" class="control-input" value="10" min="1" max="100">
+          </div>
+          <div class="control-group">
+            <span class="control-label">Modo de Envio</span>
+            <select id="agent3-mode" class="control-select">
+              <option value="publish" selected>🚀 Publicação Real</option>
+              <option value="dry-run">🧪 Modo Teste (Dry Run)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="control-row">
+          <label class="toggle-label" style="grid-column: span 2;">
+            <input type="checkbox" id="agent3-headed"> Abrir janela visível do navegador (Headed)
+          </label>
+        </div>
+
+        <button class="btn-action" id="btn-run-agent3" onclick="runAgent3()" style="background: linear-gradient(135deg, #059669, #10B981);">
+          <span>🚀</span> Publicar Anúncios na Magis5
+        </button>
+      </div>
+
+    </div>
+
+    <!-- Terminal de Logs ao Vivo -->
+    <div class="terminal-container">
+      <div class="terminal-header">
+        <div class="terminal-title">
+          <span>💻</span>
+          <span id="terminal-agent-tag">CONSOLE DE LOGS DO AGENTE</span>
+        </div>
+        <div class="terminal-actions">
+          <label class="toggle-label">
+            <input type="checkbox" id="autoscroll-toggle" checked> Auto-scroll
+          </label>
+          <button class="btn-secondary" onclick="clearLogs()">
+            <span>🗑️</span> Limpar
+          </button>
+          <button class="btn-danger" id="btn-stop-agent" onclick="stopAgent()" disabled>
+            <span>⏹️</span> Parar Execução
+          </button>
+        </div>
+      </div>
+      <div class="terminal-body" id="terminal-body">
+        <div class="log-line">
+          <span class="log-time">[--:--:--]</span>
+          <span class="log-msg highlight">Aguardando ativação de um agente...</span>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let isRunning = false;
+    let pollInterval = null;
+
+    function showToast(msg, isError = false) {
+      const toast = document.getElementById('toast');
+      toast.textContent = msg;
+      toast.style.borderColor = isError ? '#F43F5E' : '#10B981';
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 3500);
+    }
+
+    async function fetchStats() {
+      try {
+        const res = await fetch('/api/stats');
+        const data = await res.json();
+        const s = data.stats;
+
+        document.getElementById('stat-total-csv').textContent = s.totalCsv || 0;
+        document.getElementById('stat-total-pais').textContent = s.totalJsons || 0;
+        document.getElementById('stat-publicados').textContent = s.publishedJsons || 0;
+        document.getElementById('stat-pendentes').textContent = s.pendingJsons || 0;
+
+        updateRunningState(data.agentRunning, data.currentAgent, data.agentStatus);
+      } catch (e) {
+        console.error('Erro ao buscar stats:', e);
+      }
+    }
+
+    function updateRunningState(running, currentAgent, agentStatus) {
+      isRunning = running;
+      const statusPill = document.getElementById('system-status');
+      const statusText = document.getElementById('system-status-text');
+      const stopBtn = document.getElementById('btn-stop-agent');
+      const tag = document.getElementById('terminal-agent-tag');
+
+      const allRunBtns = [
+        document.getElementById('btn-run-agent1'),
+        document.getElementById('btn-run-agent2'),
+        document.getElementById('btn-run-agent3')
+      ];
+
+      if (running) {
+        statusPill.classList.add('busy');
+        statusText.textContent = `Executando: ${currentAgent.toUpperCase()}...`;
+        stopBtn.disabled = false;
+        allRunBtns.forEach(b => b.disabled = true);
+        tag.textContent = `CONSOLE [${currentAgent.toUpperCase()} EM EXECUÇÃO]`;
+      } else {
+        statusPill.classList.remove('busy');
+        statusText.textContent = agentStatus === 'error' ? 'Última Tarefa com Erro' : 'Sistema Pronto';
+        stopBtn.disabled = true;
+        allRunBtns.forEach(b => b.disabled = false);
+        tag.textContent = 'CONSOLE DE LOGS';
+      }
+    }
+
+    async function fetchLogs() {
+      try {
+        const res = await fetch('/api/agents/logs');
+        const data = await res.json();
+        renderLogs(data.logs);
+        updateRunningState(data.running, data.currentAgent, data.agentStatus);
+      } catch (e) {
+        console.error('Erro ao buscar logs:', e);
+      }
+    }
+
+    function renderLogs(logs) {
+      const body = document.getElementById('terminal-body');
+      if (!logs || logs.length === 0) return;
+
+      body.innerHTML = '';
+      logs.forEach(entry => {
+        const line = document.createElement('div');
+        line.className = 'log-line';
+
+        let msgClass = 'log-msg';
+        const txt = entry.message;
+        if (entry.stream === 'stderr' || txt.includes('❌') || txt.includes('Error') || txt.includes('Falha')) {
+          msgClass += ' error';
+        } else if (txt.includes('✅') || txt.includes('Sucesso') || txt.includes('finalizou com código')) {
+          msgClass += ' success';
+        } else if (txt.includes('⚠️') || txt.includes('Aviso')) {
+          msgClass += ' warn';
+        } else if (txt.includes('🚀') || txt.includes('Iniciando')) {
+          msgClass += ' highlight';
+        }
+
+        line.innerHTML = `
+          <span class="log-time">[${entry.time}]</span>
+          <span class="${msgClass}">${escapeHtml(entry.message)}</span>
+        `;
+        body.appendChild(line);
+      });
+
+      if (document.getElementById('autoscroll-toggle').checked) {
+        body.scrollTop = body.scrollHeight;
+      }
+    }
+
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
+    function clearLogs() {
+      document.getElementById('terminal-body').innerHTML = `
+        <div class="log-line">
+          <span class="log-time">[--:--:--]</span>
+          <span class="log-msg highlight">Console limpo.</span>
+        </div>
+      `;
+    }
+
+    async function startAgentRequest(agent, options) {
+      try {
+        const res = await fetch('/api/agents/start', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ agent, options })
+        });
+        const data = await res.json();
+        if (data.error) {
+          showToast(`Erro: ${data.error}`, true);
+          return;
+        }
+        showToast(`Agente ${agent.toUpperCase()} iniciado com sucesso!`);
+        fetchLogs();
+      } catch (err) {
+        showToast(`Falha na requisição: ${err.message}`, true);
+      }
+    }
+
+    // ── Gerenciamento de Arquivos / Fontes de Dados ──────────────────────────
+    let cachedFiles = [];
+
+    function formatBytes(bytes) {
+      if (!bytes || bytes === 0) return '0 B';
+      const k = 1024;
+      const sizes = ['B', 'KB', 'MB', 'GB'];
+      const i = Math.floor(Math.log(bytes) / Math.log(k));
+      return (bytes / Math.pow(k, i)).toFixed(1) + ' ' + sizes[i];
+    }
+
+    async function fetchFiles(selectNewPath = null, targetAgent = null) {
+      try {
+        const res = await fetch('/api/files');
+        const data = await res.json();
+        cachedFiles = data.files || [];
+
+        updateFileSelect('agent1', cachedFiles, selectNewPath, targetAgent === 'agent1');
+        updateFileSelect('agent2', cachedFiles, selectNewPath, targetAgent === 'agent2');
+        updateFileSelect('agent3', cachedFiles, selectNewPath, targetAgent === 'agent3');
+
+        onFileSelectionChanged('agent1');
+        onFileSelectionChanged('agent2');
+        onFileSelectionChanged('agent3');
+      } catch (err) {
+        console.error('Erro ao listar arquivos:', err);
+      }
+    }
+
+    function updateFileSelect(agentId, files, selectNewPath, isTarget) {
+      const select = document.getElementById(`${agentId}-file-select`);
+      const countSpan = document.getElementById(`${agentId}-file-count`);
+      if (!select) return;
+
+      const currentVal = select.value;
+      select.innerHTML = '';
+
+      // Filtra arquivos relevantes para o agente se necessário
+      let filtered = files;
+      if (agentId === 'agent2' || agentId === 'agent3') {
+        // Agentes 2 e 3 trabalham primariamente com CSV
+        filtered = files.filter(f => f.isCsv || f.source === 'Uploads');
+      }
+
+      countSpan.textContent = `${filtered.length} disponíveis`;
+
+      if (filtered.length === 0) {
+        select.innerHTML = '<option value="">Nenhum arquivo encontrado</option>';
+        return;
+      }
+
+      // Adiciona opção Padrão Recomendada
+      filtered.forEach(f => {
+        const opt = document.createElement('option');
+        opt.value = f.path;
+
+        let icon = f.isExcel ? '📊 [Excel]' : '📄 [CSV]';
+        let badge = f.source ? ` (${f.source})` : '';
+        opt.textContent = `${icon} ${f.name} — ${formatBytes(f.size)}${badge}`;
+        select.appendChild(opt);
+      });
+
+      // Seleção prioritária
+      if (isTarget && selectNewPath) {
+        select.value = selectNewPath;
+      } else if (currentVal && Array.from(select.options).some(o => o.value === currentVal)) {
+        select.value = currentVal;
+      } else {
+        // Seleção padrão inteligente
+        if (agentId === 'agent1') {
+          const douglas = filtered.find(f => f.name.includes('Estoque Douglas') && f.isExcel);
+          if (douglas) select.value = douglas.path;
+        } else {
+          const lote = filtered.find(f => f.name.includes('lote_d1fae5.csv'));
+          if (lote) select.value = lote.path;
+        }
+      }
+    }
+
+    function onFileSelectionChanged(agentId) {
+      const select = document.getElementById(`${agentId}-file-select`);
+      const badge = document.getElementById(`${agentId}-file-badge`);
+      const selectedPath = select ? select.value : '';
+
+      if (!selectedPath) {
+        if (badge) badge.style.display = 'none';
+        return;
+      }
+
+      const fileObj = cachedFiles.find(f => f.path === selectedPath);
+      const fileName = fileObj ? fileObj.name : selectedPath.split(/[\\/]/).pop();
+      const fileSize = fileObj ? formatBytes(fileObj.size) : '';
+
+      if (badge) {
+        badge.style.display = 'inline-flex';
+        badge.innerHTML = `<span>✓</span> <strong>${escapeHtml(fileName)}</strong> <span style="opacity:0.7">(${fileSize})</span>`;
+      }
+
+      // No Agente 1: se for Excel (.xls, .xlsx), mostra opções de extração e cores
+      if (agentId === 'agent1') {
+        const isExcel = /\.(xlsx?)$/i.test(selectedPath);
+        const colorGroup = document.getElementById('agent1-color-group');
+        const actionSelect = document.getElementById('agent1-action');
+
+        if (colorGroup) {
+          colorGroup.style.display = isExcel ? 'flex' : 'none';
+        }
+
+        if (actionSelect && isExcel && actionSelect.value === 'auto') {
+          // Mantém 'auto' que ativará 'create_lote.mjs'
+        }
+      } else if (agentId === 'agent3') {
+        updateBatchPreview();
+      }
+    }
+
+    // Upload de Arquivo via Base64 para a API
+    async function handleFileUpload(agentId, inputElement) {
+      if (!inputElement.files || inputElement.files.length === 0) return;
+      const file = inputElement.files[0];
+
+      showToast(`Carregando ${file.name}...`);
+
+      const reader = new FileReader();
+      reader.onload = async () => {
+        try {
+          const base64 = reader.result.split(',')[1];
+          const res = await fetch('/api/upload', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              filename: file.name,
+              base64,
+              agent: agentId
+            })
+          });
+
+          const data = await res.json();
+          if (data.error) {
+            showToast(`Erro no upload: ${data.error}`, true);
+            return;
+          }
+
+          showToast(`✅ Arquivo "${file.name}" anexado com sucesso!`);
+          await fetchFiles(data.filePath, agentId);
+        } catch (err) {
+          showToast(`Falha no upload: ${err.message}`, true);
+        } finally {
+          inputElement.value = '';
+        }
+      };
+      reader.readAsDataURL(file);
+    }
+
+    // Configura zonas de Drag & Drop para cada agente
+    function setupDragAndDrop(agentId) {
+      const zone = document.getElementById(`${agentId}-upload-zone`);
+      const input = document.getElementById(`${agentId}-file-input`);
+      if (!zone || !input) return;
+
+      zone.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        zone.classList.add('dragover');
+      });
+
+      zone.addEventListener('dragleave', () => {
+        zone.classList.remove('dragover');
+      });
+
+      zone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        zone.classList.remove('dragover');
+        if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+          input.files = e.dataTransfer.files;
+          handleFileUpload(agentId, input);
+        }
+      });
+    }
+
+    // ── Execução dos Agentes com Arquivos ────────────────────────────────────
+
+    function runAgent1() {
+      const action = document.getElementById('agent1-action').value;
+      const inputFile = document.getElementById('agent1-file-select').value;
+      const color = document.getElementById('agent1-color').value;
+
+      startAgentRequest('agent1', {
+        action,
+        inputFile,
+        color
+      });
+    }
+
+    function runAgent2() {
+      const model = document.getElementById('agent2-model').value;
+      const limit = document.getElementById('agent2-limit').value;
+      const inputFile = document.getElementById('agent2-file-select').value;
+
+      startAgentRequest('agent2', {
+        model,
+        limit,
+        inputFile
+      });
+    }
+
+    function runAgent3() {
+      const limit = document.getElementById('agent3-limit').value || 10;
+      const mode = document.getElementById('agent3-mode').value;
+      const headed = document.getElementById('agent3-headed').checked;
+      const inputFile = document.getElementById('agent3-file-select').value;
+
+      startAgentRequest('agent3', {
+        limit,
+        dryRun: mode === 'dry-run',
+        headed,
+        inputFile
+      });
+    }
+
+    async function stopAgent() {
+      try {
+        const res = await fetch('/api/agents/stop', { method: 'POST' });
+        const data = await res.json();
+        showToast('Comando de interrupção enviado!');
+        fetchLogs();
+      } catch (err) {
+        showToast('Erro ao parar processo: ' + err.message, true);
+      }
+    }
+
+    // ── Visualizador de SKUs do Lote (Agente 3) ──────────────────────────────
+    let batchData = null;
+    let modalCurrentTab = 'queue';
+    let modalSearchQuery = '';
+
+    async function updateBatchPreview() {
+      const fileSelect = document.getElementById('agent3-file-select');
+      const limitInput = document.getElementById('agent3-limit');
+      const filePath = fileSelect ? fileSelect.value : '';
+      const limit = limitInput ? limitInput.value || 10 : 10;
+
+      const summaryEl = document.getElementById('agent3-queue-summary');
+      const flagEl = document.getElementById('agent3-queue-flag');
+      const chipsEl = document.getElementById('agent3-chips-container');
+
+      if (!filePath) {
+        if (summaryEl) summaryEl.textContent = 'Selecione um arquivo CSV acima';
+        if (chipsEl) chipsEl.innerHTML = '';
+        return;
+      }
+
+      try {
+        const res = await fetch(`/api/batch/preview?file=${encodeURIComponent(filePath)}&limit=${limit}`);
+        const data = await res.json();
+        batchData = data;
+
+        renderBatchChips();
+        if (document.getElementById('batch-modal').classList.contains('open')) {
+          renderModalList();
+        }
+      } catch (err) {
+        console.error('Erro ao carregar preview do lote:', err);
+        if (summaryEl) summaryEl.textContent = 'Falha ao ler lote de produtos';
+      }
+    }
+
+    function renderBatchChips() {
+      const summaryEl = document.getElementById('agent3-queue-summary');
+      const flagEl = document.getElementById('agent3-queue-flag');
+      const chipsEl = document.getElementById('agent3-chips-container');
+      const limitInput = document.getElementById('agent3-limit');
+      const currentLimit = parseInt(limitInput ? limitInput.value || 10 : 10, 10);
+
+      if (!batchData || !batchData.queue) {
+        if (summaryEl) summaryEl.textContent = 'Nenhum SKU encontrado no lote';
+        return;
+      }
+
+      const totalPending = batchData.totalPending || 0;
+      const willPublishCount = Math.min(currentLimit, totalPending);
+
+      summaryEl.textContent = `${willPublishCount} de ${totalPending} SKUs pendentes selecionados`;
+      flagEl.textContent = willPublishCount > 0 ? `🚀 ${willPublishCount} nesta rodada` : 'Nenhum pendente';
+
+      chipsEl.innerHTML = '';
+
+      if (totalPending === 0) {
+        chipsEl.innerHTML = '<div style="font-size:0.75rem; color:#34D399;">🎉 Todos os produtos deste lote já foram publicados!</div>';
+        return;
+      }
+
+      // Mostra até 12 chips no card
+      const displayItems = batchData.queue.slice(0, 12);
+      displayItems.forEach((item, idx) => {
+        const chip = document.createElement('div');
+        const inQueue = idx < currentLimit;
+        chip.className = `sku-mini-chip ${inQueue ? 'in-queue' : ''}`;
+        chip.title = `${item.sku}: ${item.titulo} (${item.preco})${item.variacoesCount > 0 ? ` - ${item.variacoesCount} vars` : ''}`;
+        chip.onclick = () => openBatchModal();
+
+        chip.innerHTML = `
+          <span class="pos-tag">#${idx + 1}</span>
+          <strong>${item.sku}</strong>
+          ${item.variacoesCount > 0 ? `<span style="opacity:0.6">(${item.variacoesCount}v)</span>` : ''}
+        `;
+        chipsEl.appendChild(chip);
+      });
+
+      if (totalPending > 12) {
+        const moreChip = document.createElement('div');
+        moreChip.className = 'sku-mini-chip';
+        moreChip.style.opacity = '0.8';
+        moreChip.textContent = `+${totalPending - 12} outros...`;
+        moreChip.onclick = () => openBatchModal();
+        chipsEl.appendChild(moreChip);
+      }
+    }
+
+    // Modal de Inspeção
+    function openBatchModal() {
+      const modal = document.getElementById('batch-modal');
+      modal.classList.add('open');
+      modalSearchQuery = '';
+      const searchInput = document.getElementById('modal-search-input');
+      if (searchInput) searchInput.value = '';
+
+      if (batchData) {
+        document.getElementById('modal-batch-subtitle').textContent = `Lote: ${batchData.csvFile} — ${batchData.totalPending} pendentes de publicação, ${batchData.totalPublished} já concluídos`;
+        document.getElementById('modal-count-queue').textContent = batchData.totalPending;
+        document.getElementById('modal-count-published').textContent = batchData.totalPublished;
+      }
+      renderModalList();
+    }
+
+    function closeBatchModal() {
+      document.getElementById('batch-modal').classList.remove('open');
+    }
+
+    function switchBatchTab(tab) {
+      modalCurrentTab = tab;
+      document.getElementById('tab-btn-queue').classList.toggle('active', tab === 'queue');
+      document.getElementById('tab-btn-published').classList.toggle('active', tab === 'published');
+      renderModalList();
+    }
+
+    function onSearchBatch(query) {
+      modalSearchQuery = query.toLowerCase().trim();
+      renderModalList();
+    }
+
+    function renderModalList() {
+      const container = document.getElementById('modal-sku-list');
+      const footerStats = document.getElementById('modal-footer-stats');
+      if (!container || !batchData) return;
+
+      const limitInput = document.getElementById('agent3-limit');
+      const currentLimit = parseInt(limitInput ? limitInput.value || 10 : 10, 10);
+
+      const sourceList = modalCurrentTab === 'queue' ? batchData.queue : batchData.published;
+      
+      const filtered = sourceList.filter(item => {
+        if (!modalSearchQuery) return true;
+        const q = modalSearchQuery;
+        return (
+          item.sku.toLowerCase().includes(q) ||
+          item.titulo.toLowerCase().includes(q) ||
+          item.marca.toLowerCase().includes(q) ||
+          item.cod_sankhya.toLowerCase().includes(q)
+        );
+      });
+
+      container.innerHTML = '';
+
+      if (filtered.length === 0) {
+        container.innerHTML = `
+          <div style="text-align:center; padding: 2rem; color: var(--text-dim);">
+            Nenhum produto encontrado com os filtros atuais.
+          </div>
+        `;
+        footerStats.textContent = `0 produtos exibidos`;
+        return;
+      }
+
+      footerStats.textContent = `${filtered.length} produto(s) exibidos | ${modalCurrentTab === 'queue' ? `${Math.min(currentLimit, batchData.totalPending)} serão publicados nesta rodada` : 'Itens arquivados'}`;
+
+      filtered.forEach((item, idx) => {
+        const card = document.createElement('div');
+        const willPublish = modalCurrentTab === 'queue' && item.queueIndex <= currentLimit;
+        card.className = `modal-sku-card ${willPublish ? 'will-publish' : ''}`;
+
+        const varLabel = item.variacoesCount > 0 
+          ? `🧩 ${item.variacoesCount} Variações: ${item.variacoesNomes.join(', ')}` 
+          : '📦 Produto Simples';
+
+        card.innerHTML = `
+          <div class="modal-sku-left">
+            <div class="queue-num-badge">
+              ${modalCurrentTab === 'queue' ? `#${item.queueIndex}` : '✓'}
+            </div>
+            <div class="modal-sku-info">
+              <h4>${escapeHtml(item.titulo)}</h4>
+              <div class="modal-sku-meta">
+                <span>🏷️ SKU: <strong style="color:#FFF;">${item.sku}</strong></span>
+                <span>🔢 ERP Sankhya: <strong>${item.cod_sankhya || 'N/A'}</strong></span>
+                <span>🏢 Marca: ${item.marca}</span>
+                <span>${varLabel}</span>
+              </div>
+            </div>
+          </div>
+          <div class="modal-sku-right">
+            <div style="font-weight:700; color:#FFF; font-size:0.95rem;">${item.preco}</div>
+            ${item.precoPromocional ? `<div style="font-size:0.75rem; color:#F59E0B;">Promo: ${item.precoPromocional}</div>` : ''}
+            ${willPublish ? `<span class="publish-flag-pill">🚀 Publicará nesta rodada</span>` : ''}
+            ${modalCurrentTab === 'published' ? `<span style="font-size:0.7rem; color:#34D399; font-weight:600;">✓ Publicado / Concluído</span>` : ''}
+          </div>
+        `;
+
+        container.appendChild(card);
+      });
+    }
+
+    // Inicialização e Polling
+    setupDragAndDrop('agent1');
+    setupDragAndDrop('agent2');
+    setupDragAndDrop('agent3');
+
+    // Listener para reagir a mudanças no limit do Agente 3
+    const limitField = document.getElementById('agent3-limit');
+    if (limitField) {
+      limitField.addEventListener('input', () => {
+        renderBatchChips();
+        if (document.getElementById('batch-modal').classList.contains('open')) {
+          renderModalList();
+        }
+      });
+    }
+
+    fetchFiles().then(() => {
+      updateBatchPreview();
+    });
+    fetchStats();
+    fetchLogs();
+
+    setInterval(() => {
+      fetchStats();
+      if (isRunning) {
+        fetchLogs();
+      }
+    }, 1500);
+  </script>
+
+  <!-- Modal de Inspeção da Fila de SKUs -->
+  <div class="modal-backdrop" id="batch-modal" onclick="if(event.target === this) closeBatchModal()">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div>
+          <h3 id="modal-batch-title">📦 Fila de Publicação do Lote</h3>
+          <p style="font-size: 0.78rem; color: var(--text-muted);" id="modal-batch-subtitle">
+            Anúncios gerados pela IA prontos para envio à Shopee / Magis5
+          </p>
+        </div>
+        <button class="modal-close-btn" onclick="closeBatchModal()">✕</button>
+      </div>
+
+      <div class="modal-toolbar">
+        <input type="text" id="modal-search-input" class="modal-search-input" placeholder="🔍 Buscar por SKU, título ou marca..." oninput="onSearchBatch(this.value)">
+        <div class="modal-tabs">
+          <button class="modal-tab-btn active" id="tab-btn-queue" onclick="switchBatchTab('queue')">
+            ⏳ Fila (<span id="modal-count-queue">0</span>)
+          </button>
+          <button class="modal-tab-btn" id="tab-btn-published" onclick="switchBatchTab('published')">
+            ✅ Publicados (<span id="modal-count-published">0</span>)
+          </button>
+        </div>
+      </div>
+
+      <div class="modal-body" id="modal-sku-list">
+        <!-- Renderizado dinamicamente -->
+      </div>
+
+      <div class="modal-footer">
+        <div style="font-size: 0.8rem; color: var(--text-muted);" id="modal-footer-stats">
+          Total de itens carregados
+        </div>
+        <div style="display:flex; gap:0.6rem;">
+          <button class="btn-secondary" onclick="closeBatchModal()">Fechar</button>
+          <button class="btn-action" style="margin-top:0; padding: 0.5rem 1.2rem; font-size: 0.85rem;" onclick="closeBatchModal(); runAgent3();">
+            <span>🚀</span> Iniciar Envio dos SKUs
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

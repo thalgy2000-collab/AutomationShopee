@@ -1,0 +1,106 @@
+{
+  "sku": "COLTAZUL",
+  "titulo_shopee": "Chinelo Boaonda Colt Masculino Ortopédico Macio Antiderrapante",
+  "titulos_alternativos": [
+    "Chinelo Slide Masculino Boaonda Colt Conforto Ortopédico Pés Sensíveis",
+    "Sandália Masculina Boaonda Colt Antiderrapante Macia Ortopédica"
+  ],
+  "marca": "Boaonda",
+  "modelo": "Colt",
+  "categoria_sugerida": "Moda Masculina > Calçados > Chinelos",
+  "descricao": "Chinelo Masculino Boaonda Colt Ortopédico Conforto — Macio e Antiderrapante\n\nO Chinelo Masculino Boaonda Colt é a escolha perfeita para quem busca o máximo de conforto e cuidado com a saúde dos pés. Com design anatômico e tecnologia de amortecimento, ele reduz o impacto ao caminhar, sendo ideal para uso diário, momentos de lazer ou até mesmo para relaxar após atividades físicas intensas.\n\nPor que escolher este produto:\n- Tecnologia de Amortecimento Superior: palmilha anatômica que absorve impactos e protege as articulações ao caminhar\n- Material Termoplástico Flexível (TR): durabilidade extrema, maciez incomparável e totalmente livre de odores\n- Solado Antiderrapante de Alta Aderência: máxima segurança em pisos molhados, decks de barcos ou superfícies lisas\n- Design Ergonômico para Pés Sensíveis: alivia pontos de pressão, ideal para quem sofre com esporão ou fascite plantar\n- Fácil de Limpar e Secagem Rápida: prático para o dia a dia e perfeito para uso em ambientes úmidos\n\nIndicado para:\nPessoas com pés sensíveis, dores de esporão, fascite plantar, uso diário, lazer, praia, piscina e pescadores que precisam de um calçado firme e confortável para o barco.\n\nEspecificações:\n- Marca: Boaonda\n- Modelo: Colt (COLTAZUL)\n- Material: Borracha Termoplástica (TR) / EVA soft\n- Tamanho: 37/38\n- Peso: Aprox. 250g (por pé)\n- Tipo / Ação: Ortopédico / Amortecimento de impacto\n- Cor / Variação: Azul Marinho\n\nDicas de uso:\nLave seu chinelo Boaonda com água e sabão neutro para manter a higiene. Evite secar diretamente ao sol forte por períodos prolongados para conservar a flexibilidade original do material.",
+  "atributos": {
+    "pais_de_origem": "Brasil",
+    "peso_do_produto": "500g",
+    "duracao_da_garantia": "1 Mês",
+    "material": "Borracha Termoplástica (TR)",
+    "estampa": "Texturizada / Lisa",
+    "condicao": "Novo",
+    "dimensoes_do_produto": "11 x 10 x 28 cm",
+    "quantidade_da_embalagem": "1 Par",
+    "tamanho_do_pacote": "12 x 15 x 30 cm",
+    "produto_personalizado": "Não",
+    "quantidade_por_pacote": "1"
+  },
+  "variacoes": [
+    {
+      "sku": "COLTAZUL_37_38",
+      "cod_sankhya": "67343",
+      "nome": "37/38",
+      "preco_sem_promocao": 149.9,
+      "preco_com_promocao": 112.42,
+      "preco_atual": 112.42,
+      "em_promocao": true,
+      "desconto_percentual": 25,
+      "imagens": [
+        "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\agent1-scraper\\downloads\\COLTAZUL\\37\\38\\01.jpg",
+        "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\agent1-scraper\\downloads\\COLTAZUL\\37\\38\\02.jpg",
+        "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\agent1-scraper\\downloads\\COLTAZUL\\37\\38\\03.jpg",
+        "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\agent1-scraper\\downloads\\COLTAZUL\\37\\38\\04.jpg",
+        "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\agent1-scraper\\downloads\\COLTAZUL\\37\\38\\05.jpg"
+      ]
+    }
+  ],
+  "palavras_chave": [
+    "chinelo boaonda",
+    "chinelo ortopedico",
+    "chinelo masculino macio",
+    "sandalia antiderrapante",
+    "chinelo pes sensiveis"
+  ],
+  "medidas": {
+    "altura_cm": 3,
+    "largura_cm": 20,
+    "comprimento_cm": 30,
+    "peso_kg": 0.25
+  },
+  "seo_score": 100,
+  "seo_checklist": [
+    {
+      "item": "Tamanho do Título",
+      "passed": true,
+      "score": 25,
+      "maxScore": 25,
+      "reason": "62/120 caracteres (faixa ideal: 60-120)"
+    },
+    {
+      "item": "Estrutura Persuasiva",
+      "passed": true,
+      "score": 25,
+      "maxScore": 25,
+      "reason": "25/25 pts (Intro: ✅, Benefícios: ✅, Indicado: ✅, Especificações: ✅, Dicas: ✅)"
+    },
+    {
+      "item": "Atributos Técnicos",
+      "passed": true,
+      "score": 20,
+      "maxScore": 20,
+      "reason": "11 atributos mapeados (meta: 3+)"
+    },
+    {
+      "item": "Palavras-chave SEO",
+      "passed": true,
+      "score": 15,
+      "maxScore": 15,
+      "reason": "5 palavras-chave identificadas (meta: 4+)"
+    },
+    {
+      "item": "Escaneabilidade & E-E-A-T",
+      "passed": true,
+      "score": 15,
+      "maxScore": 15,
+      "reason": "12 marcadores/bullet points com quebras de linha"
+    }
+  ],
+  "preco": null,
+  "parent_sku": "COLTAZUL",
+  "is_parent": true,
+  "cod_sankhya": "67343",
+  "imagens": [
+    "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\agent1-scraper\\downloads\\COLTAZUL\\37\\38\\01.jpg",
+    "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\agent1-scraper\\downloads\\COLTAZUL\\37\\38\\02.jpg",
+    "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\agent1-scraper\\downloads\\COLTAZUL\\37\\38\\03.jpg",
+    "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\agent1-scraper\\downloads\\COLTAZUL\\37\\38\\04.jpg",
+    "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\agent1-scraper\\downloads\\COLTAZUL\\37\\38\\05.jpg"
+  ]
+}

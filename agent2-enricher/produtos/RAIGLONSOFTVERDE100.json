@@ -1,0 +1,110 @@
+{
+  "sku": "RAIGLONSOFTVERDE100",
+  "titulo_shopee": "Linha de Pesca Monofilamento Super Raiglon Soft 100m Nylon Japonesa Alta Resistencia",
+  "titulos_alternativos": [
+    "Linha Monofilamento Super Raiglon Soft Toa Strings 100 Metros Nylon Importado Japao",
+    "Linha Pesca Nylon Monofilamento Super Raiglon Soft Marine Sports Alta Resistencia Abrasao"
+  ],
+  "marca": "Raiglon",
+  "modelo": "Super Raiglon Soft",
+  "categoria_sugerida": "Esportes e Lazer > Pesca > Linhas de Pesca",
+  "descricao": "Linha de Pesca Monofilamento Super Raiglon Soft — 100m Nylon\n\nA Linha de Pesca Monofilamento Super Raiglon Soft é uma das preferidas dos pescadores mais exigentes do mundo. Produzida no Japão pela Toa-Strings, ela combina alta tecnologia, maciez extrema e uma resistência incomparável à abrasão. Seu revestimento especial de flúor garante arremessos incrivelmente suaves, livres de memória, ideal para diversas modalidades de pesca esportiva.\n\nPor que escolher este produto:\n- Alta resistência à abrasão: ideal para pescarias em estruturas e locais com galhadas e pedras\n- Revestimento especial de Fluorocarbon: proporciona maior durabilidade e menor atrito com os passadores\n- Baixa memória física: reduz drasticamente as chances de cabeleiras no seu molinete ou carretilha\n- Maciez extrema (Soft): facilita nós firmes e garante arremessos muito mais longos e precisos\n- Qualidade Toa Strings (Made in Japan): fabricada sob rigorosos padrões japoneses de qualidade\n\nIndicado para pescar:\nPeixes de água doce ou salgada que exigem arremessos precisos e alta resistência a nós (Tucunaré, Traíra, Robalo, Black Bass, Carpas, Pacu, Tambacus, etc.).\n\nEspecificações:\n- Marca: Raiglon (Distribuída por Marine Sports)\n- Modelo: Super Raiglon Soft\n- Material: Nylon Monofilamento com revestimento de flúor\n- Tamanho: 100 metros\n- Peso: Aprox. 50g (com carretel)\n- Tipo / Ação: Monofilamento de Alta Maciez\n- Cor / Variação: Verde Menta (Soft Green)\n\nDicas de uso:\nAo abastecer sua carretilha ou molinete, certifique-se de manter a linha sob leve tensão constante para acomodá-la perfeitamente no carretel. Utilize nós apropriados para monofilamento (como o nó único ou nó palomar) para garantir o aproveitamento máximo da resistência da linha.",
+  "atributos": {
+    "pais_de_origem": "Japão",
+    "peso_do_produto": "50g",
+    "duracao_da_garantia": "1 Mês",
+    "material": "Nylon Monofilamento",
+    "condicao": "Novo",
+    "comprimento": "100 m",
+    "dimensoes_do_produto": "2 x 10 x 10 cm",
+    "quantidade_da_embalagem": "1",
+    "tamanho_do_pacote": "3 x 15 x 15 cm",
+    "produto_personalizado": "Não",
+    "quantidade_por_pacote": "1"
+  },
+  "variacoes": [
+    {
+      "sku": "RAIGLONSOFTVERDE100_18330",
+      "cod_sankhya": "65709",
+      "nome": "18330",
+      "preco_sem_promocao": 18.9,
+      "preco_com_promocao": null,
+      "preco_atual": 18.9,
+      "em_promocao": false,
+      "desconto_percentual": 0,
+      "imagens": [
+        "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\agent1-scraper\\downloads\\RAIGLONSOFTVERDE100\\18330\\01.jpg",
+        "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\agent1-scraper\\downloads\\RAIGLONSOFTVERDE100\\18330\\02.jpg",
+        "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\agent1-scraper\\downloads\\RAIGLONSOFTVERDE100\\18330\\03.jpg",
+        "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\agent1-scraper\\downloads\\RAIGLONSOFTVERDE100\\18330\\04.jpg"
+      ]
+    }
+  ],
+  "palavras_chave": [
+    "linha monofilamento",
+    "linha raiglon",
+    "linha de pesca",
+    "linha nylon pesca",
+    "marine sports raiglon"
+  ],
+  "medidas": {
+    "altura_cm": 3,
+    "largura_cm": 20,
+    "comprimento_cm": 30,
+    "peso_kg": 0.25
+  },
+  "seo_score": 100,
+  "seo_checklist": [
+    {
+      "item": "Tamanho do Título",
+      "passed": true,
+      "score": 25,
+      "maxScore": 25,
+      "reason": "84/120 caracteres (faixa ideal: 60-120)"
+    },
+    {
+      "item": "Estrutura Persuasiva",
+      "passed": true,
+      "score": 25,
+      "maxScore": 25,
+      "reason": "25/25 pts (Intro: ✅, Benefícios: ✅, Indicado: ✅, Especificações: ✅, Dicas: ✅)"
+    },
+    {
+      "item": "Atributos Técnicos",
+      "passed": true,
+      "score": 20,
+      "maxScore": 20,
+      "reason": "11 atributos mapeados (meta: 3+)"
+    },
+    {
+      "item": "Palavras-chave SEO",
+      "passed": true,
+      "score": 15,
+      "maxScore": 15,
+      "reason": "5 palavras-chave identificadas (meta: 4+)"
+    },
+    {
+      "item": "Escaneabilidade & E-E-A-T",
+      "passed": true,
+      "score": 15,
+      "maxScore": 15,
+      "reason": "15 marcadores/bullet points com quebras de linha"
+    }
+  ],
+  "preco": {
+    "preco_sem_promocao": 18.9,
+    "preco_com_promocao": null,
+    "preco_atual": 18.9,
+    "em_promocao": false,
+    "desconto_percentual": 0
+  },
+  "parent_sku": "RAIGLONSOFTVERDE100",
+  "is_parent": true,
+  "cod_sankhya": "65709",
+  "imagens": [
+    "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\agent1-scraper\\downloads\\RAIGLONSOFTVERDE100\\18330\\01.jpg",
+    "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\agent1-scraper\\downloads\\RAIGLONSOFTVERDE100\\18330\\02.jpg",
+    "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\agent1-scraper\\downloads\\RAIGLONSOFTVERDE100\\18330\\03.jpg",
+    "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\agent1-scraper\\downloads\\RAIGLONSOFTVERDE100\\18330\\04.jpg"
+  ]
+}

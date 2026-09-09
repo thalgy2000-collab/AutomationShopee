@@ -1,0 +1,111 @@
+{
+  "sku": "VISIONX4",
+  "titulo_shopee": "Linha De Pesca Multifilamento Vision 4X 150m Albatroz Fishing Alta Resistencia Zero Elasticidade",
+  "titulos_alternativos": [
+    "Linha Multifilamento Vision X4 150 Metros Albatroz Para Carretilha E Molinete Pesca Esportiva",
+    "Linha De Pesca Albatroz Vision 4 Fios 150m Multifilamento Resistente Sensivel Arremesso Longo"
+  ],
+  "marca": "Albatroz Fishing",
+  "modelo": "Vision 4X 150m",
+  "categoria_sugerida": "Esportes e Lazer > Pesca > Linhas de Pesca",
+  "descricao": "Linha de Pesca Multifilamento Albatroz Vision 4X — Carretel com 150m\n\nA Linha Multifilamento Albatroz Vision 4X é desenvolvida para oferecer o máximo em desempenho, sensibilidade e durabilidade na pesca esportiva. Confeccionada com fibras trançadas de alta densidade, proporciona arremessos mais longos e suaves, além de garantir fisgadas firmes e precisas em qualquer modalidade.\n\nPor que escolher este produto:\n- 4 fios trançados em polietileno de alta qualidade: superfície macia que desliza facilmente pelos passadores aumentando a distância dos arremessos\n- Elasticidade próxima de zero: sensibilidade extrema para sentir as menores batidas e transmitir a força imediata da fisgada\n- Alta resistência à abrasão e tensão: aguenta brigas intensas e atritos em estruturas com máxima segurança\n- Memória nula: evita torções indesejadas e formação de cabeleiras na carretilha ou molinete\n- Baixa absorção de água: linha leve do início ao fim da pescaria sem perder rendimento\n\nIndicado para pescar:\nTucunaré, Traíra, Robalo, Black Bass, Dourado, Matrinxã e peixes de pesqueiro como Tambaqui e Pacu, tanto em água doce quanto salgada.\n\nEspecificações:\n- Marca: Albatroz Fishing\n- Modelo: Vision 4X\n- Material: 100% Polietileno (PE Multifilamento)\n- Metragem: 150 Metros\n- Quantidade de fios: 4 Fios\n- Memória: Nula\n- Elasticidade: Zero\n- Cor / Variação: Amarelo\n\nDicas de uso:\nPara melhor rendimento e durabilidade, utilize sempre um líder de fluorocarbono unido à linha por nós de conexão confiáveis (como Nó SF, Albright ou FG). Isso protege a linha multifilamento de pedras, troncos e dentes afiados dos predadores.",
+  "atributos": {
+    "pais_de_origem": "China",
+    "peso_do_produto": "80g",
+    "duracao_da_garantia": "1 Mês",
+    "material": "Polietileno (PE Multifilamento)",
+    "estampa": "Liso",
+    "condicao": "Novo",
+    "comprimento": "150 m",
+    "dimensoes_do_produto": "2.5 x 10 x 10 cm",
+    "quantidade_da_embalagem": "1",
+    "tamanho_do_pacote": "3 x 12 x 15 cm",
+    "produto_personalizado": "Não",
+    "quantidade_por_pacote": "1",
+    "tipo_linha": "Multifilamento 4X"
+  },
+  "variacoes": [
+    {
+      "sku": "VISIONX4_A37",
+      "cod_sankhya": "54798",
+      "nome": "A37",
+      "preco_sem_promocao": 46.9,
+      "preco_com_promocao": null,
+      "preco_atual": 46.9,
+      "em_promocao": false,
+      "desconto_percentual": 0,
+      "imagens": [
+        "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\agent1-scraper\\downloads\\VISIONX4\\A37\\01.jpg",
+        "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\agent1-scraper\\downloads\\VISIONX4\\A37\\02.jpg"
+      ]
+    }
+  ],
+  "palavras_chave": [
+    "linha multifilamento",
+    "linha de pesca",
+    "linha vision 4x",
+    "linha albatroz",
+    "linha 150m",
+    "linha para carretilha",
+    "pesca esportiva",
+    "linha multifilamento amarelo"
+  ],
+  "medidas": {
+    "altura_cm": 3,
+    "largura_cm": 20,
+    "comprimento_cm": 30,
+    "peso_kg": 0.25
+  },
+  "seo_score": 100,
+  "seo_checklist": [
+    {
+      "item": "Tamanho do Título",
+      "passed": true,
+      "score": 25,
+      "maxScore": 25,
+      "reason": "96/120 caracteres (faixa ideal: 60-120)"
+    },
+    {
+      "item": "Estrutura Persuasiva",
+      "passed": true,
+      "score": 25,
+      "maxScore": 25,
+      "reason": "25/25 pts (Intro: ✅, Benefícios: ✅, Indicado: ✅, Especificações: ✅, Dicas: ✅)"
+    },
+    {
+      "item": "Atributos Técnicos",
+      "passed": true,
+      "score": 20,
+      "maxScore": 20,
+      "reason": "13 atributos mapeados (meta: 3+)"
+    },
+    {
+      "item": "Palavras-chave SEO",
+      "passed": true,
+      "score": 15,
+      "maxScore": 15,
+      "reason": "8 palavras-chave identificadas (meta: 4+)"
+    },
+    {
+      "item": "Escaneabilidade & E-E-A-T",
+      "passed": true,
+      "score": 15,
+      "maxScore": 15,
+      "reason": "13 marcadores/bullet points com quebras de linha"
+    }
+  ],
+  "preco": {
+    "preco_sem_promocao": 46.9,
+    "preco_com_promocao": null,
+    "preco_atual": 46.9,
+    "em_promocao": false,
+    "desconto_percentual": 0
+  },
+  "parent_sku": "VISIONX4",
+  "is_parent": true,
+  "cod_sankhya": "54798",
+  "imagens": [
+    "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\agent1-scraper\\downloads\\VISIONX4\\A37\\01.jpg",
+    "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\agent1-scraper\\downloads\\VISIONX4\\A37\\02.jpg"
+  ]
+}

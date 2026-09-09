@@ -1,0 +1,98 @@
+{
+  "sku": "COLGUIAREFLETIVOVERDEAZ",
+  "titulo_shopee": "Coleira Peitoral Ergonômica Cães e Gatos Refletiva Ajustável EzyDog",
+  "titulos_alternativos": [
+    "Peitoral Guia Refletiva Para Pets Cães e Gatos Passeio Seguro Ajustável",
+    "Coleira Peitoral Confortável Passeio Cães e Gatos Refletivo EzyDog"
+  ],
+  "marca": "EzyDog",
+  "modelo": "Peitoral Refletivo Ergonômico",
+  "categoria_sugerida": "Animais Domésticos > Cães > Coleiras, Guias e Peitorais",
+  "descricao": "Coleira Peitoral Ergonômica para Cães e Gatos com Detalhes Refletivos EzyDog\n\nA Coleira Peitoral Ergonômica EzyDog oferece o máximo de conforto, segurança e estilo para os passeios com seu pet. Projetada com formato anatômico que distribui a pressão uniformemente pelo peito, evitando incômodos no pescoço e proporcionando total liberdade de movimentos.\n\nPor que escolher este produto:\n- Design ergonômico e acolchoado: maior conforto durante caminhadas curtas ou longas\n- Fitas reflexivas de alta visibilidade: garante segurança extra em passeios noturnos ou de pouca luz\n- Fechos de engate rápido e travas resistentes: praticidade para vestir e despir seu pet com total firmeza\n- Argolas em D de alta durabilidade: ponto de fixação seguro para a guia sem risco de rompimento\n- Ajuste total multi-pontos: adapta-se perfeitamente ao corpo do animal sem machucar\n\nIndicado para:\nCães e gatos de portes variados, ideal para passeios diários, adestramento, caminhadas ao ar livre e viagens.\n\nEspecificações:\n- Marca: EzyDog\n- Modelo: Peitoral Ergonômico Refletivo\n- Material: Nylon, Neoprene e Argolas de Aço Inoxidável\n- Tamanho: M (Ajustável)\n- Peso: Aprox. 180g\n- Tipo: Peitoral Acolchoado Ajustável\n- Cor / Variação: Verde com detalhes pretos e cinza\n\nDicas de uso:\nAjuste as tiras laterais de modo que fiquem firmes, mantendo uma folga de cerca de dois dedos entre a fita e o corpo do pet para garantir máximo conforto e segurança.",
+  "atributos": {
+    "material": "Nylon e Neoprene",
+    "cor": "Verde",
+    "tamanho": "M",
+    "quantidade": "1 unidade",
+    "peso_produto": "180g"
+  },
+  "variacoes": [
+    {
+      "sku": "COLGUIAREFLETIVOVERDEAZ_M",
+      "nome": "M",
+      "imagens": [
+        "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\agent1-scraper\\downloads\\COLGUIAREFLETIVOVERDEAZ\\M\\01.jpg"
+      ],
+      "preco_sem_promocao": 29.9,
+      "preco_com_promocao": null,
+      "preco_atual": 29.9,
+      "em_promocao": false,
+      "desconto_percentual": 0,
+      "cod_sankhya": "53865"
+    }
+  ],
+  "palavras_chave": [
+    "coleira peitoral",
+    "peitoral caes",
+    "peitoral refletivo",
+    "guia para caes",
+    "ezydog peitoral"
+  ],
+  "medidas": {
+    "altura_cm": 3,
+    "largura_cm": 20,
+    "comprimento_cm": 30,
+    "peso_kg": 0.25
+  },
+  "seo_score": 100,
+  "seo_checklist": [
+    {
+      "item": "Tamanho do Título",
+      "passed": true,
+      "score": 25,
+      "maxScore": 25,
+      "reason": "67/120 caracteres (faixa ideal: 60-120)"
+    },
+    {
+      "item": "Estrutura Persuasiva",
+      "passed": true,
+      "score": 25,
+      "maxScore": 25,
+      "reason": "25/25 pts (Intro: ✅, Benefícios: ✅, Indicado: ✅, Especificações: ✅, Dicas: ✅)"
+    },
+    {
+      "item": "Atributos Técnicos",
+      "passed": true,
+      "score": 20,
+      "maxScore": 20,
+      "reason": "5 atributos mapeados (meta: 3+)"
+    },
+    {
+      "item": "Palavras-chave SEO",
+      "passed": true,
+      "score": 15,
+      "maxScore": 15,
+      "reason": "5 palavras-chave identificadas (meta: 4+)"
+    },
+    {
+      "item": "Escaneabilidade & E-E-A-T",
+      "passed": true,
+      "score": 15,
+      "maxScore": 15,
+      "reason": "14 marcadores/bullet points com quebras de linha"
+    }
+  ],
+  "parent_sku": "COLGUIAREFLETIVOVERDEAZ",
+  "is_parent": true,
+  "imagens": [
+    "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\agent1-scraper\\downloads\\COLGUIAREFLETIVOVERDEAZ\\M\\01.jpg"
+  ],
+  "preco": {
+    "preco_sem_promocao": 29.9,
+    "preco_com_promocao": null,
+    "preco_atual": 29.9,
+    "em_promocao": false,
+    "desconto_percentual": 0
+  },
+  "cod_sankhya": "53865"
+}

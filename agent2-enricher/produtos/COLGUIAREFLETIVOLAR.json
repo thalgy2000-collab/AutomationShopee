@@ -1,0 +1,112 @@
+{
+  "sku": "COLGUIAREFLETIVOLAR",
+  "titulo_shopee": "Coleira Peitoral Para Cães EzyDog Ajustável Refletiva Acolchoada Passeio Seguro",
+  "titulos_alternativos": [
+    "Peitoral Ergonomico Para Cachorro EzyDog Refletivo Confortável Passeio Cães",
+    "Peitoral Para Cães EzyDog Com Engate Rápido Costura Refletiva Ajustável"
+  ],
+  "marca": "EzyDog",
+  "modelo": "Peitoral Refletivo Acolchoado",
+  "categoria_sugerida": "Animais de Estimação > Artigos para Cães > Coleiras, Guias e Peitorais",
+  "descricao": "Coleira Peitoral Para Cães EzyDog Ajustável Refletiva Acolchoada\n\nO Peitoral EzyDog foi desenvolvido para proporcionar máximo conforto, controle e segurança durante os passeios com seu pet. Com design ergonômico e acolchoamento interno, ele distribui a pressão do puxão de forma uniforme pelo peito do cão, evitando lesões no pescoço e garantindo passeios tranquilos e agradáveis.\n\nPor que escolher este produto:\n- Design ergonômico acolchoado: proporciona extremo conforto e evita atritos na pele do cão\n- Costuras refletivas de alta visibilidade: garantem segurança máxima durante passeios noturnos ou de pouca luz\n- Fivelas de engate rápido e ajustes múltiplos: facilita o vestir e garante o encaixe perfeito no corpo do pet\n- Argolas D-ring reforçadas em metal: ponto de fixação duplo e altamente resistente para a guia\n- Materiais de altíssima durabilidade: nylon e tecidos reforçados ideais para cães de todos os portes\n\nIndicado para:\nCães de médio e grande porte em caminhadas, adestramento, passeios diários e atividades ao ar livre.\n\nEspecificações:\n- Marca: EzyDog\n- Modelo: Peitoral Ergonomico Refletivo\n- Material: Nylon reforçado, revestimento acolchoado e argolas de aço inoxidável\n- Tamanho: Conforme variação selecionada (M, GG)\n- Peso: Aprox. 200g\n- Tipo / Ação: Peitoral anti-puxão acolchoado com fivelas de segurança\n- Argolas / Engates: Argolas duplas D-Ring em liga metálica resistente\n- Cor / Variação: Verde com detalhes pretos e cinza\n\nDicas de uso:\nAjuste as tiras laterais para que fiquem firmes, mas permitindo a folga de dois dedos entre o peitoral e o corpo do cão. Conecte a guia na argola D-ring superior ou peitoral conforme a necessidade de controle do passeio.",
+  "atributos": {
+    "material": "Nylon, tecido acolchoado e argolas metálicas",
+    "cor": "Verde / Preto / Cinza",
+    "tamanho": "M, GG",
+    "quantidade": "1 peitoral",
+    "peso_produto": "200g"
+  },
+  "variacoes": [
+    {
+      "sku": "COLGUIAREFLETIVOLAR_M",
+      "nome": "M",
+      "imagens": [
+        "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\agent1-scraper\\downloads\\COLGUIAREFLETIVOLAR\\M\\01.jpg"
+      ],
+      "preco_sem_promocao": 29.9,
+      "preco_com_promocao": null,
+      "preco_atual": 29.9,
+      "em_promocao": false,
+      "desconto_percentual": 0,
+      "cod_sankhya": "53863"
+    },
+    {
+      "sku": "COLGUIAREFLETIVOLAR_GG",
+      "nome": "GG",
+      "imagens": [
+        "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\agent1-scraper\\downloads\\COLGUIAREFLETIVOLAR\\GG\\01.jpg"
+      ],
+      "preco_sem_promocao": 29.9,
+      "preco_com_promocao": null,
+      "preco_atual": 29.9,
+      "em_promocao": false,
+      "desconto_percentual": 0,
+      "cod_sankhya": "65646"
+    }
+  ],
+  "palavras_chave": [
+    "peitoral para caes",
+    "coleira peitoral ezydog",
+    "peitoral refletivo cachorro",
+    "coleira cachorro passeio",
+    "guias e peitorais pet"
+  ],
+  "medidas": {
+    "altura_cm": 3,
+    "largura_cm": 20,
+    "comprimento_cm": 30,
+    "peso_kg": 0.25
+  },
+  "seo_score": 100,
+  "seo_checklist": [
+    {
+      "item": "Tamanho do Título",
+      "passed": true,
+      "score": 25,
+      "maxScore": 25,
+      "reason": "79/120 caracteres (faixa ideal: 60-120)"
+    },
+    {
+      "item": "Estrutura Persuasiva",
+      "passed": true,
+      "score": 25,
+      "maxScore": 25,
+      "reason": "25/25 pts (Intro: ✅, Benefícios: ✅, Indicado: ✅, Especificações: ✅, Dicas: ✅)"
+    },
+    {
+      "item": "Atributos Técnicos",
+      "passed": true,
+      "score": 20,
+      "maxScore": 20,
+      "reason": "5 atributos mapeados (meta: 3+)"
+    },
+    {
+      "item": "Palavras-chave SEO",
+      "passed": true,
+      "score": 15,
+      "maxScore": 15,
+      "reason": "5 palavras-chave identificadas (meta: 4+)"
+    },
+    {
+      "item": "Escaneabilidade & E-E-A-T",
+      "passed": true,
+      "score": 15,
+      "maxScore": 15,
+      "reason": "17 marcadores/bullet points com quebras de linha"
+    }
+  ],
+  "parent_sku": "COLGUIAREFLETIVOLAR",
+  "is_parent": true,
+  "imagens": [
+    "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\agent1-scraper\\downloads\\COLGUIAREFLETIVOLAR\\M\\01.jpg",
+    "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\agent1-scraper\\downloads\\COLGUIAREFLETIVOLAR\\GG\\01.jpg"
+  ],
+  "preco": {
+    "preco_sem_promocao": 29.9,
+    "preco_com_promocao": null,
+    "preco_atual": 29.9,
+    "em_promocao": false,
+    "desconto_percentual": 0
+  },
+  "cod_sankhya": "53863, 65646"
+}
