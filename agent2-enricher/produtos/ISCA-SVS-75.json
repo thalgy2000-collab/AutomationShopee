@@ -126,5 +126,9 @@
     "em_promocao": true,
     "desconto_percentual": 10
   },
-  "cod_sankhya": "54520"
+  "cod_sankhya": "54520",
+  "is_published": true,
+  "status": "publicado",
+  "shopee_product_id": "58205408461",
+  "shopee_titulo_ativo": "Isca Pesca Artificial Sumax Vision Shad 75"
 }

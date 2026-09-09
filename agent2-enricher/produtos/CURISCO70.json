@@ -146,5 +146,7 @@
   },
   "cod_sankhya": "54321",
   "is_published": true,
-  "status": "concluido"
+  "status": "publicado",
+  "shopee_product_id": "50367597270",
+  "shopee_titulo_ativo": "Isca Artificial Lucky by Nelson Nakamura"
 }

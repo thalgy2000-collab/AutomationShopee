@@ -166,5 +166,9 @@
     "em_promocao": true,
     "desconto_percentual": 10
   },
-  "cod_sankhya": "54510, 54512"
+  "cod_sankhya": "54510, 54512",
+  "is_published": true,
+  "status": "publicado",
+  "shopee_product_id": "58211122431",
+  "shopee_titulo_ativo": "Isca de Pesca Artificial Sumax Shad Crank Ssc"
 }

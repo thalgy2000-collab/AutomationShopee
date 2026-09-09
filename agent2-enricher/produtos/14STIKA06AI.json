@@ -99,5 +99,8 @@
     "desconto_percentual": 10
   },
   "cod_sankhya": "54498",
-  "is_published": true
+  "is_published": true,
+  "status": "publicado",
+  "shopee_product_id": "44967648263",
+  "shopee_titulo_ativo": "Isca Artificial Para Lula Storm Ika Fundo 6cm"
 }
