@@ -254,13 +254,25 @@ export async function publishProductToMagis5(page, product, options = {}) {
     console.log(`  • Descrição rica preenchida (${product.descricao.length} caracteres)`);
   }
 
-  // 6. Seleção de Categorias Encadeadas (1 por vez com matching inteligente)
+  // 6. Seleção de Categorias Encadeadas (com mapeamento de sinônimos e resolução automática)
   if (product.categoria_sugerida) {
-    console.log(`📂 Configurando Categoria Shopee: ${product.categoria_sugerida}`);
-    const catParts = product.categoria_sugerida
-      .split(">")
-      .map(p => p.trim())
-      .filter(Boolean);
+    let catPath = product.categoria_sugerida
+      .replace(/Animais de Estimação/gi, "Animais Domésticos")
+      .replace(/Esportes e Lazer/gi, "Esportes e Atividades ao Ar Livre")
+      .replace(/Artigos para Cães/gi, "Cães")
+      .replace(/Cachorros/gi, "Cães");
+
+    // Para produtos de pesca, garante a árvore oficial da Shopee
+    const isFishing = /pesca|isca|linha|anzol|vara|carretilha|molinete|snap|chumbada/i.test(
+      `${product.titulo_shopee || ""} ${product.modelo || ""} ${product.categoria_sugerida || ""}`
+    );
+    if (isFishing && !catPath.includes("Pescaria")) {
+      catPath = "Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > " +
+        (catPath.split(">").pop().trim() || "Acessórios de Pesca");
+    }
+
+    console.log(`📂 Configurando Categoria Shopee: ${catPath}`);
+    const catParts = catPath.split(">").map(p => p.trim()).filter(Boolean);
 
     const normalizeText = (t) =>
       (t || "")
@@ -273,23 +285,26 @@ export async function publishProductToMagis5(page, product, options = {}) {
       const part = catParts[c];
       const normPart = normalizeText(part);
 
-      // Sempre busca o select visível mais recente
-      const curSelect = page.locator('.card:has-text("Categorias") select:visible, #select-category-Shopee').last();
+      // Aguarda até o select do nível atual carregar opções
+      let curSelect = page.locator('.card:has-text("Categorias") select:visible').last();
       if (!(await curSelect.isVisible().catch(() => false))) break;
 
-      const options = await curSelect.locator("option").evaluateAll((nodes) =>
-        nodes.map((n) => ({
-          value: n.value,
-          text: n.innerText.trim(),
-        }))
-      ).catch(() => []);
+      // Aguarda opções chegarem via AJAX se ainda estiver vazio
+      let validOptions = [];
+      for (let w = 0; w < 6; w++) {
+        const options = await curSelect.locator("option").evaluateAll((nodes) =>
+          nodes.map((n) => ({ value: n.value, text: n.innerText.trim() }))
+        ).catch(() => []);
+        validOptions = options.filter(
+          (o) => o.value && !o.text.toLowerCase().includes("selecione")
+        );
+        if (validOptions.length > 0) break;
+        await page.waitForTimeout(400);
+      }
 
-      const validOptions = options.filter(
-        (o) => o.value && !o.text.toLowerCase().includes("selecione")
-      );
+      if (validOptions.length === 0) break;
 
       let matched = null;
-
       // 1. Match exato
       matched = validOptions.find((o) => normalizeText(o.text) === normPart);
 
@@ -316,28 +331,45 @@ export async function publishProductToMagis5(page, product, options = {}) {
       if (matched) {
         await curSelect.selectOption({ value: matched.value });
         console.log(`  • Nível ${c + 1} (${matched.text}): selecionado`);
-        await page.waitForTimeout(1500);
+        await page.waitForTimeout(1200);
       } else {
-        console.warn(`  ⚠️ Não foi possível encontrar a subcategoria "${part}" no seletor.`);
+        console.warn(`  ⚠️ Subcategoria "${part}" não encontrada diretamente no nível ${c + 1}, tentando próximo...`);
       }
     }
 
-    // Se ainda restar um select com opções pendentes (ex: subcategoria folha), seleciona o primeiro item válido
-    const pendingSelect = page.locator('.card:has-text("Categorias") select:visible').last();
-    if (await pendingSelect.isVisible().catch(() => false)) {
+    // Se ainda restar um select com opções pendentes (ex: subcategoria folha não finalizada), seleciona a melhor opção
+    for (let r = 0; r < 3; r++) {
+      const pendingSelect = page.locator('.card:has-text("Categorias") select:visible').last();
+      if (!(await pendingSelect.isVisible().catch(() => false))) break;
+
       const currentSelectedText = await pendingSelect.evaluate(
         (el) => el.options[el.selectedIndex]?.text || ""
       ).catch(() => "");
+
       if (currentSelectedText.toLowerCase().includes("selecione")) {
-        const leafOpts = await pendingSelect.locator("option").evaluateAll((nodes) =>
-          nodes.map((n) => ({ value: n.value, text: n.innerText.trim() }))
-        ).catch(() => []);
-        const validLeaf = leafOpts.filter((o) => o.value && !o.text.toLowerCase().includes("selecione"));
-        if (validLeaf.length > 0) {
-          console.log(`  • Selecionando subcategoria final: ${validLeaf[0].text}`);
-          await pendingSelect.selectOption({ value: validLeaf[0].value });
-          await page.waitForTimeout(1500);
+        // Aguarda opções carregarem
+        let validLeaf = [];
+        for (let w = 0; w < 5; w++) {
+          const leafOpts = await pendingSelect.locator("option").evaluateAll((nodes) =>
+            nodes.map((n) => ({ value: n.value, text: n.innerText.trim() }))
+          ).catch(() => []);
+          validLeaf = leafOpts.filter((o) => o.value && !o.text.toLowerCase().includes("selecione"));
+          if (validLeaf.length > 0) break;
+          await page.waitForTimeout(400);
         }
+
+        if (validLeaf.length > 0) {
+          // Tenta achar alguma opção com palavra-chave do título ou pega a primeira
+          const normTitle = normalizeText(product.titulo_shopee || "");
+          const bestLeaf = validLeaf.find(o => normTitle.includes(normalizeText(o.text))) || validLeaf[0];
+          console.log(`  • Selecionando subcategoria final necessária: ${bestLeaf.text}`);
+          await pendingSelect.selectOption({ value: bestLeaf.value });
+          await page.waitForTimeout(1200);
+        } else {
+          break;
+        }
+      } else {
+        break;
       }
     }
 
