@@ -31,6 +31,8 @@ function parseCliArgs() {
   let headed = !HEADLESS;
   let publish = false;
   let inputFile = null;
+  let onlyVaras = false;
+  let force = false;
 
   for (let i = 0; i < args.length; i++) {
     if (args[i] === "--sku" && args[i + 1]) {
@@ -50,6 +52,11 @@ function parseCliArgs() {
       publish = true;
     } else if (args[i] === "--dry-run") {
       publish = false;
+    } else if (args[i] === "--varas") {
+      onlyVaras = true;
+      force = true;
+    } else if (args[i] === "--force") {
+      force = true;
     }
   }
 
@@ -59,11 +66,13 @@ function parseCliArgs() {
     headed,
     dryRun: !publish,
     inputFile,
+    onlyVaras,
+    force,
   };
 }
 
 async function main() {
-  const { targetSku, limit, headed, dryRun, inputFile } = parseCliArgs();
+  const { targetSku, limit, headed, dryRun, inputFile, onlyVaras, force } = parseCliArgs();
 
   console.log("═══════════════════════════════════════════════════════════");
   console.log("  🤖 Agente 3 — RPA de Publicação Magis5 / Shopee");
@@ -110,7 +119,7 @@ async function main() {
       csvRow.cor === COLOR_PUBLISHED ||
       csvRow.cor === "#47D359";
 
-    if (isPublished) {
+    if (isPublished && !force && !targetSku) {
       jaPublicadosCount++;
     } else {
       toProcess.push(item);
@@ -122,10 +131,23 @@ async function main() {
   }
 
   let finalCandidates = toProcess;
+  if (onlyVaras) {
+    finalCandidates = finalCandidates.filter((i) => {
+      const p = i.product;
+      const full = `${p.titulo_shopee || ""} ${p.modelo || ""} ${p.categoria_sugerida || ""} ${i.sku}`.toLowerCase();
+      const isSuporte = /suporte|salva\s*vara|porta\s*vara/i.test(full);
+      return !isSuporte && (
+        (p.categoria_sugerida && p.categoria_sugerida.includes("Varas e Molinetes de Pesca")) ||
+        (/\bvara\b|blank|\bvaras\b/i.test(full) || /^VP/i.test(i.sku))
+      );
+    });
+    console.log(`🎣 Filtro ativo de Varas: ${finalCandidates.length} varas selecionadas para atualização.`);
+  }
+
   if (targetSku) {
     finalCandidates = toProcess.filter((i) => i.sku === targetSku);
     if (finalCandidates.length === 0) {
-      console.error(`❌ O SKU '${targetSku}' não está pendente de publicação ou já foi publicado.`);
+      console.error(`❌ O SKU '${targetSku}' não encontrado.`);
       process.exit(1);
     }
   }
