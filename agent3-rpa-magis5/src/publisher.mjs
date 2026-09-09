@@ -622,9 +622,10 @@ export async function publishProductToMagis5(page, product, options = {}) {
     // Preenche código do Sankhya no campo SKU
     const skuInput = page.locator(`#variationSKU-${i}`);
     if (await skuInput.isVisible().catch(() => false)) {
-      if (v.cod_sankhya) {
-        await skuInput.fill(v.cod_sankhya);
-        console.log(`  • Variação ${i} (${v.nome}): SKU preenchido com código Sankhya "${v.cod_sankhya}"`);
+      const skuVal = v.cod_sankhya || product.cod_sankhya || v.sku || product.sku;
+      if (skuVal) {
+        await skuInput.fill(skuVal);
+        console.log(`  • Variação ${i} (${v.nome}): SKU preenchido com código: "${skuVal}"`);
         // Aguarda sincronização automática do Sankhya na Magis5 (EAN, estoque e fotos da variação)
         await page.waitForTimeout(1500);
       }
@@ -647,28 +648,31 @@ export async function publishProductToMagis5(page, product, options = {}) {
     }
   }
 
-  // 10. Imagens das Variações: sempre 1 foto por variação correspondente ao site
+  // 10. Imagens das Variações: Shopee exige estritamente no máximo 1 foto por variação (1/1)
   console.log(`🖼️ Configurando fotos das variações (1 foto oficial por modelo, igual ao site)...`);
   await page.waitForTimeout(2000);
 
-  const varImagesContainer = page.locator('#parent_images_variation');
-
-  // Remove fotos pré-carregadas pelo ERP exclusivamente dentro da variação para não estourar o limite de 1 foto da Shopee
-  let deleteBtns = varImagesContainer.locator('i.flaticon-delete, button, a, .btn');
-  let btnCount = await deleteBtns.count();
-  if (btnCount > 0) {
-    console.log(`  • Removendo ${btnCount} fotos automáticas da Magis5/ERP dentro da variação...`);
-    while (btnCount > 0) {
-      const btn = varImagesContainer.locator('i.flaticon-delete, button, a, .btn').first();
-      if (await btn.isVisible().catch(() => false)) {
-        await btn.click();
-        await page.waitForTimeout(500);
-      } else {
-        break;
+  const varImagesCard = page.locator('.card:has-text("Imagens das variações"), [id*="VariationImages"], [id*="collapseVariationImages"]');
+  if (await varImagesCard.count() > 0) {
+    // Remove fotos pré-carregadas pelo ERP dentro da variação para não estourar o limite de 1 foto da Shopee
+    const delBtns = varImagesCard.locator('.btn-light-danger, .btn-danger, [data-action="remove"], button:has(i), a:has(i)');
+    let btnCount = await delBtns.count();
+    if (btnCount > 0) {
+      console.log(`  • Removendo ${btnCount} foto(s) pré-carregadas pelo ERP dentro da variação...`);
+      for (let d = 0; d < btnCount; d++) {
+        const btn = varImagesCard.locator('.btn-light-danger, .btn-danger, [data-action="remove"], button:has(i), a:has(i)').first();
+        if (await btn.isVisible().catch(() => false)) {
+          await btn.click({ force: true }).catch(() => {});
+          await page.waitForTimeout(400);
+          const swalConfirm = page.locator('.swal2-confirm');
+          if (await swalConfirm.isVisible().catch(() => false)) {
+            await swalConfirm.click().catch(() => {});
+            await page.waitForTimeout(300);
+          }
+        }
       }
-      btnCount = await varImagesContainer.locator('i.flaticon-delete, button, a, .btn').count();
+      console.log("  • Limpeza de fotos pré-carregadas da variação concluída.");
     }
-    console.log("  • Fotos pré-carregadas da variação removidas com sucesso.");
   }
 
   // Faz o upload da foto individual oficial para cada variação
@@ -678,6 +682,16 @@ export async function publishProductToMagis5(page, product, options = {}) {
   for (let i = 0; i < variationsToCreate.length; i++) {
     const v = variationsToCreate[i];
     const targetFileInput = fileInputs.nth(i + 1); // index 0 é fotos gerais, index 1+ são variações
+
+    // Verifica se a variação já possui 1 foto (Shopee: 1/1)
+    const varBadges = page.locator('span:has-text("/1 imagens de variação")');
+    if (await varBadges.nth(i).isVisible().catch(() => false)) {
+      const badgeText = await varBadges.nth(i).innerText().catch(() => "");
+      if (badgeText.includes("1/1")) {
+        console.log(`  • Variação ${i} (${v.nome}): Já possui 1/1 foto (respeitando limite da Shopee).`);
+        continue;
+      }
+    }
 
     if (await targetFileInput.count() > 0) {
       const varPhoto = await resolveVariationImage(product, v);
@@ -726,19 +740,39 @@ export async function publishProductToMagis5(page, product, options = {}) {
   await saveBtn.scrollIntoViewIfNeeded();
   await saveBtn.click();
 
-  // Aguarda confirmação ou redirecionamento da Magis5
-  await page.waitForTimeout(5000);
+  // Aguarda confirmação ou redirecionamento da Magis5 (até 10 segundos)
+  let isSaved = false;
+  for (let w = 0; w < 10; w++) {
+    await page.waitForTimeout(1000);
+    const currUrl = page.url();
+    if (currUrl.includes("index.php") || !currUrl.includes("variation.php")) {
+      isSaved = true;
+      break;
+    }
+  }
+
   const screenshotPath = join(SCREENSHOTS_DIR, `published-${sku}-${timestamp}.png`);
   await page.screenshot({ path: screenshotPath, fullPage: true });
 
   // Captura mensagens de alerta ou toast na tela
-  const toastTexts = await page.locator('.toast, .alert, .notification, [class*="alert"], [class*="toast"], .swal2-title')
+  const toastTexts = await page.locator('.toast, .alert, .notification, [class*="alert"], [class*="toast"], .swal2-title, .invalid-feedback, span:has-text("/1 imagens de variação")')
     .evaluateAll(els => els.map(e => e.innerText.trim()).filter(Boolean))
     .catch(() => []);
-  if (toastTexts.length > 0) {
-    console.log(`📢 Notificações da Magis5: ${toastTexts.join(" | ")}`);
+
+  if (!isSaved) {
+    const errorMsg = toastTexts
+      .filter(t => !t.includes("algumas contas não permitem definir preços diferentes"))
+      .join(" | ") || "Magis5 não redirecionou (erro de validação na tela)";
+    console.error(`❌ [FALHA NO SALVAMENTO] O Magis5 recusou salvar o SKU ${sku}: ${errorMsg}`);
+    return {
+      success: false,
+      error: errorMsg,
+      screenshot: screenshotPath,
+      sku,
+    };
   }
-  console.log(`✅ [PRODUÇÃO] Ação de salvar concluída! Screenshot: ${screenshotPath}`);
+
+  console.log(`✅ [PRODUÇÃO] Anúncio salvo com sucesso no Magis5! Redirecionado para a lista de produtos. Screenshot: ${screenshotPath}`);
 
   return {
     success: true,

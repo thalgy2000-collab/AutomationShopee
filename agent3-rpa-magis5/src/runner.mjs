@@ -165,6 +165,9 @@ async function main() {
 
       try {
         const res = await publishProductToMagis5(page, item.product, { dryRun });
+        if (!res.success) {
+          throw new Error(res.error || "Magis5 recusou salvar o anúncio");
+        }
         results.sucesso.push(res);
 
         // Se foi publicação real, atualiza na planilha com a cor #83E28E e status 'publicado'
