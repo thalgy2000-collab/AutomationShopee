@@ -9,30 +9,40 @@ function sleep(ms) {
   return new Promise((r) => setTimeout(r, ms));
 }
 
+const SHOPIFY_DOMAINS = [
+  "https://brkfishing.com.br",
+  "https://www.brkagro.com.br",
+  "https://www.brkmotors.com.br",
+];
+
 async function fetchShopifyProduct(query) {
   const clean = String(query).trim().replace(/[_\s-]+/g, " ");
-  // Tenta busca exata
-  const suggestUrl = `https://brkfishing.com.br/search/suggest.json?q=${encodeURIComponent(clean)}&resources[type]=product`;
-  try {
-    const res = await fetch(suggestUrl, {
-      headers: { "User-Agent": USER_AGENT },
-      signal: AbortSignal.timeout(6000),
-    });
-    if (!res.ok) return null;
-    const data = await res.json();
-    const products = data?.resources?.results?.products || [];
-    if (products.length === 0) return null;
+  
+  for (const domain of SHOPIFY_DOMAINS) {
+    try {
+      const suggestUrl = `${domain}/search/suggest.json?q=${encodeURIComponent(clean)}&resources[type]=product`;
+      const res = await fetch(suggestUrl, {
+        headers: { "User-Agent": USER_AGENT },
+        signal: AbortSignal.timeout(6000),
+      });
+      if (!res.ok) continue;
+      const data = await res.json();
+      const products = data?.resources?.results?.products || [];
+      if (products.length === 0) continue;
 
-    const handle = products[0].handle;
-    const pRes = await fetch(`https://brkfishing.com.br/products/${handle}.js`, {
-      headers: { "User-Agent": USER_AGENT },
-      signal: AbortSignal.timeout(6000),
-    });
-    if (!pRes.ok) return null;
-    return await pRes.json();
-  } catch {
-    return null;
+      const handle = products[0].handle;
+      const pRes = await fetch(`${domain}/products/${handle}.js`, {
+        headers: { "User-Agent": USER_AGENT },
+        signal: AbortSignal.timeout(6000),
+      });
+      if (!pRes.ok) continue;
+      return await pRes.json();
+    } catch {
+      // Tenta próximo
+    }
   }
+
+  return null;
 }
 
 async function downloadOriginal(url, destPath) {

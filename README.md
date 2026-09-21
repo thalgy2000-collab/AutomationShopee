@@ -162,12 +162,11 @@ O servidor `server.mjs` expõe as seguintes rotas REST:
 | `GET` | `/api/files` | Lista as planilhas disponíveis para processamento |
 | `GET` | `/api/batch/preview` | Retorna a fila ordenada de produtos pendentes e concluídos do lote |
 | `POST` | `/api/upload` | Recebe upload de novas planilhas codificadas em base64 |
-| `POST` | `/api/agents/start` | Inicia a execução de um agente (`agent1`, `agent2`, `agent3`, `agent4`) com parâmetros opcionais |
-| `POST` | `/api/agents/stop` | Interrompe imediatamente o processo em execução |
-| `POST` | `/api/status` | Atualiza manualmente o status de um SKU (`publicado` ou `pendente`) no CSV e no JSON |
-| `GET` | `/api/diagnostics` | Executa o Agente 4 e retorna os diagnósticos de rejeições e soluções |
-| `POST` | `/api/diagnostics/apply` | Aplica a solução automática em um produto específico |
-| `POST` | `/api/diagnostics/apply-all` | Aplica a correção de categoria/marca para todos os produtos do grupo |
+| `POST` | `/api/agents/create-kit` | Cria Kit/Combo unindo 2 ou mais SKUs com título Shopee, descrição e ficha técnica com IA |
+| `POST` | `/api/open-folder` | Abre a pasta de downloads de fotos localmente no Windows Explorer com 1 clique |
+| `GET` | `/api/downloads/info` | Retorna informações estruturadas da pasta de fotos (caminho local, contagem de fotos e subpastas) |
+| `GET` | `/downloads/` | Visualização e navegação web das fotos baixadas pelo Agente 1 (compatível com ngrok) |
+| `GET` | `/api/agents/history` | Histórico detalhado de ações executadas por cada agente |
 
 ---
 

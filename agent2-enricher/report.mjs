@@ -283,6 +283,9 @@ function buildHtml(products) {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Relatório de Validação — Agente 2 | BRK Fishing</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="alternate icon" type="image/png" href="/favicon.png">
+  <link rel="shortcut icon" href="/favicon.ico">
   <style>
     :root {
       --bg-primary: #0f1117;

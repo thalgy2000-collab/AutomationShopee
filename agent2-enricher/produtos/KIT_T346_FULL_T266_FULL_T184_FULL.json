@@ -1,0 +1,142 @@
+{
+  "sku": "KIT_T346_FULL_T266_FULL_T184_FULL",
+  "parent_sku": "KIT_T346_FULL_T266_FULL_T184_FULL",
+  "is_kit": true,
+  "skus_componentes": [
+    "T346_FULL",
+    "T266_FULL",
+    "T184_FULL"
+  ],
+  "titulo_shopee": "Kit 3 Peças Bandanas Tubeneck BRK | Proteção UV50+ Pesca e Sol | Conforto Térmico",
+  "titulos_alternativos": [
+    "Combo 3 Bandanas BRK Multifuncionais | Proteção Solar UV50+ | Pesca e Agro",
+    "Kit 3 Unidades Bandana Tubeneck BRK | Alta Proteção e Conforto Térmico"
+  ],
+  "marca": "BRK",
+  "modelo": "Kit Promocional",
+  "categoria_sugerida": "Acessórios de Moda > Bonés, Chapéus e Toucas",
+  "descricao": "Kit 3 Peças Bandanas Tubeneck BRK: Máxima Proteção Solar UV50+ e Conforto\n\nEleve a sua proteção e conforto térmico com o Kit 3 Peças de Bandanas Tubeneck BRK, composto por três modelos exclusivos com a temática Bandeira do Brasil. Desenvolvidas com tecnologia de ponta, essas bandanas multifuncionais tubulares são ideais para pescaria, ciclismo, motociclismo, corrida, trabalho no campo (agro) e aventuras ao ar livre.\n\nO QUE VEM NESTE KIT:\n- Item 1: Bandana Tubeneck BRK Verde Bandeira do Brasil – Tecido leve, respirável e com proteção solar UV50+ para rosto e pescoço.\n- Item 2: Bandana Balaclava Tubeneck BRK Bandeira do Brasil 3 – Estampa patriótica vibrante, proteção contra vento, sol e poeira.\n- Item 3: Bandana Balaclava Tubeneck BRK Multifuncional Bandeira do Brasil – Máxima elasticidade e ajuste ergonômico perfeito.\n\nPOR QUE ESCOLHER ESTE KIT:\n- Economia Inteligente: Leve 3 bandanas de alta qualidade em uma única embalagem com excelente custo-benefício.\n- Proteção Solar UV50+: Bloqueia os raios UVA e UVB nocivos durante longas exposições ao sol na pesca ou fazenda.\n- Multiuso (Mais de 10 Formas de Usar): Use como máscara, touca, pescoceira, bandana, balaclava, testeira ou lenço.\n- Tecido Respirável e Secagem Rápida: Mantém a pele seca e fresca, evitando o superaquecimento.\n\nESPECIFICAÇÕES TÉCNICAS DOS PRODUTOS:\n- Marca: BRK\n- Gênero: Unissex\n- Material: 100% Poliéster / Microfibra Térmica com Proteção Solar UV50+\n- Estampa: Bandeira do Brasil / Patriótica\n- Estilo de Chapéu: Bandana / Tubeneck Tubular\n- Condição: Novo\n- Quantidade: 3 Peças\n- Indicação: Pesca, Agro, Motociclismo, Ciclismo, Esportes e Lazer.\n\nCOMO USAR:\n- Produto de tamanho único elástico, com ajuste universal confortável para qualquer formato de rosto ou cabeça.\n\nDICAS DE CUIDADO E CONSERVAÇÃO:\n- Lavar à mão com água fria e sabão neutro.\n- Secar à sombra para prolongar a vida útil das cores e do fator de proteção UV.\n- Não usar alvejantes e não passar ferro.",
+  "atributos": {
+    "genero": "Unissex",
+    "pais_de_origem": "Brasil",
+    "material": "Poliéster",
+    "estampa": "Bandeira do Brasil",
+    "estilo_de_chapeu": "Bandana",
+    "tipo_de_couro": "",
+    "condicao": "Novo",
+    "numero_de_registro_da_fda": "",
+    "quantidade_da_embalagem": 3,
+    "tamanho_do_pacote": "",
+    "produto_personalizado": "Não",
+    "quantidade_por_pacote": 3
+  },
+  "preco": {
+    "preco_sem_promocao": 94.69999999999999,
+    "preco_com_promocao": null,
+    "preco_atual": 94.7,
+    "em_promocao": false,
+    "desconto_percentual": 0
+  },
+  "itens_inclusos": [
+    {
+      "sku": "T346_FULL",
+      "titulo": "Bandana Tubeneck Brk Verde Com Bandeira do Brasil com UV50+",
+      "marca": "BRK",
+      "preco_unitario": 34.9,
+      "fotos_count": 6
+    },
+    {
+      "sku": "T266_FULL",
+      "titulo": "Bandana Balaclava Tubeneck Brk Multifuncional Bandeira do Brasil 3 com Proteção UV50+",
+      "marca": "BRK",
+      "preco_unitario": 29.9,
+      "fotos_count": 6
+    },
+    {
+      "sku": "T184_FULL",
+      "titulo": "Bandana Balaclava Tubeneck Brk Multifuncional Bandeira do Brasil com Proteção UV50+",
+      "marca": "BRK",
+      "preco_unitario": 29.9,
+      "fotos_count": 6
+    }
+  ],
+  "variacoes": [],
+  "palavras_chave": [
+    "kit 3 bandanas brk",
+    "bandana tubeneck uv50",
+    "combo bandana pesca",
+    "bandana protecao solar",
+    "mascara bandana tubular",
+    "bandana bandeira brasil",
+    "brk fishing",
+    "brk agro"
+  ],
+  "imagens": [
+    "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\agent1-scraper\\downloads\\T346\\foto_01.jpg",
+    "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\agent1-scraper\\downloads\\T346\\foto_02.jpg",
+    "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\agent1-scraper\\downloads\\T346\\foto_03.jpg",
+    "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\agent1-scraper\\downloads\\T346\\foto_04.jpg",
+    "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\agent1-scraper\\downloads\\T346\\foto_05.jpg",
+    "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\agent1-scraper\\downloads\\T346\\foto_06.jpg",
+    "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\agent1-scraper\\downloads\\T266\\foto_01.jpg",
+    "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\agent1-scraper\\downloads\\T266\\foto_02.jpg",
+    "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\agent1-scraper\\downloads\\T266\\foto_03.jpg",
+    "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\agent1-scraper\\downloads\\T266\\foto_04.jpg",
+    "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\agent1-scraper\\downloads\\T266\\foto_05.jpg",
+    "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\agent1-scraper\\downloads\\T266\\foto_06.jpg",
+    "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\agent1-scraper\\downloads\\T184\\foto_01.jpg",
+    "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\agent1-scraper\\downloads\\T184\\foto_02.jpg",
+    "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\agent1-scraper\\downloads\\T184\\foto_03.jpg",
+    "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\agent1-scraper\\downloads\\T184\\foto_04.jpg",
+    "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\agent1-scraper\\downloads\\T184\\foto_05.jpg",
+    "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\agent1-scraper\\downloads\\T184\\foto_06.jpg"
+  ],
+  "modelo_ia": "groq/qwen/qwen3.8-27b",
+  "data_criacao": "2026-09-15T12:15:35.860Z",
+  "medidas": {
+    "altura_cm": 3,
+    "largura_cm": 20,
+    "comprimento_cm": 30,
+    "peso_kg": 0.25
+  },
+  "seo_score": 90,
+  "seo_checklist": [
+    {
+      "item": "Tamanho do Título",
+      "passed": true,
+      "score": 25,
+      "maxScore": 25,
+      "reason": "81/120 caracteres (faixa ideal: 60-120)"
+    },
+    {
+      "item": "Estrutura Persuasiva",
+      "passed": false,
+      "score": 15,
+      "maxScore": 25,
+      "reason": "15/25 pts (Intro: ✅, Benefícios: ✅, Indicado: ❌, Especificações: ✅, Dicas: ❌)"
+    },
+    {
+      "item": "Atributos Técnicos",
+      "passed": true,
+      "score": 20,
+      "maxScore": 20,
+      "reason": "12 atributos mapeados (meta: 3+)"
+    },
+    {
+      "item": "Palavras-chave SEO",
+      "passed": true,
+      "score": 15,
+      "maxScore": 15,
+      "reason": "8 palavras-chave identificadas (meta: 4+)"
+    },
+    {
+      "item": "Escaneabilidade & E-E-A-T",
+      "passed": true,
+      "score": 15,
+      "maxScore": 15,
+      "reason": "20 marcadores/bullet points com quebras de linha"
+    }
+  ],
+  "is_published": true,
+  "status": "concluido"
+}

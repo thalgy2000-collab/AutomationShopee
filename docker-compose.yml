@@ -1,0 +1,17 @@
+services:
+  shopee-automation:
+    build: .
+    container_name: shopee-automation
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "3000:3000"
+    env_file:
+      - .env
+    volumes:
+      - ./agent2-enricher/produtos:/app/agent2-enricher/produtos
+      - ./agent1-scraper/downloads:/app/agent1-scraper/downloads
+      - ./agent3-rpa-magis5/screenshots:/app/agent3-rpa-magis5/screenshots
+      - ./uploads:/app/uploads
+    # Compartilhamento de memória para evitar crashes do Chromium headless no Playwright
+    ipc: host

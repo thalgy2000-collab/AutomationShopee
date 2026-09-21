@@ -1,0 +1,15 @@
+{
+  "name": "agent0-sankhya",
+  "version": "1.0.0",
+  "description": "Agente 0 - Gerador de Planilhas via Sankhya Web (RPA)",
+  "main": "src/runner.mjs",
+  "type": "module",
+  "scripts": {
+    "start": "node src/runner.mjs",
+    "login": "node src/runner.mjs --only-login"
+  },
+  "dependencies": {
+    "playwright": "^1.42.1",
+    "xlsx": "^0.18.5"
+  }
+}

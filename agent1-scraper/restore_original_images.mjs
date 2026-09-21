@@ -33,29 +33,43 @@ function parseArgs() {
   return { inputFile: resolve(inputFile), targetSku, limit };
 }
 
+const SHOPIFY_DOMAINS = [
+  "https://brkfishing.com.br",
+  "https://www.brkagro.com.br",
+  "https://www.brkmotors.com.br",
+];
+
 async function fetchProductFromShopify(sku) {
   const cleanSku = String(sku).trim();
   const searchSku = cleanSku.includes("_") ? cleanSku.split("_")[0] : cleanSku;
 
-  const suggestUrl = `https://brkfishing.com.br/search/suggest.json?q=${encodeURIComponent(searchSku)}&resources[type]=product`;
-  const res = await fetch(suggestUrl, {
-    headers: { "User-Agent": USER_AGENT },
-    signal: AbortSignal.timeout(6000),
-  });
+  for (const domain of SHOPIFY_DOMAINS) {
+    try {
+      const suggestUrl = `${domain}/search/suggest.json?q=${encodeURIComponent(searchSku)}&resources[type]=product`;
+      const res = await fetch(suggestUrl, {
+        headers: { "User-Agent": USER_AGENT },
+        signal: AbortSignal.timeout(6000),
+      });
 
-  if (!res.ok) return null;
-  const data = await res.json();
-  const products = data?.resources?.results?.products || [];
-  if (products.length === 0) return null;
+      if (!res.ok) continue;
+      const data = await res.json();
+      const products = data?.resources?.results?.products || [];
+      if (products.length === 0) continue;
 
-  const handle = products[0].handle;
-  const productRes = await fetch(`https://brkfishing.com.br/products/${handle}.js`, {
-    headers: { "User-Agent": USER_AGENT },
-    signal: AbortSignal.timeout(6000),
-  });
+      const handle = products[0].handle;
+      const productRes = await fetch(`${domain}/products/${handle}.js`, {
+        headers: { "User-Agent": USER_AGENT },
+        signal: AbortSignal.timeout(6000),
+      });
 
-  if (!productRes.ok) return null;
-  return await productRes.json();
+      if (!productRes.ok) continue;
+      return await productRes.json();
+    } catch {
+      // Tenta próximo
+    }
+  }
+
+  return null;
 }
 
 async function downloadRawOriginalImage(url, destPath) {

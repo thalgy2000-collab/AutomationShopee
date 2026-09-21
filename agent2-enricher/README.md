@@ -14,11 +14,13 @@ Módulo de processamento de linguagem natural e visão computacional multimodal 
    - **Ficha Técnica & Atributos:** Extração de material, comprimento, peso, garantia, país de origem e características específicas da categoria.
    - **Precificação:** Captura de preço de tabela e preço promocional (com cálculo de desconto percentual).
    - **Medidas Fixas de Envio:** Padrão Shopee de 3×20×30 cm e 0,250 kg.
-4. **Auditoria de Qualidade (SEO Score):** Avalia cada anúncio com base em checklists rígidos (tamanho do título, persuasão, atributos técnicos mapeados e escaneabilidade).
-5. **Servidor da Central de Controle (`server.mjs`):**
-   - Roda localmente na porta 3000.
+4. **Busca Direta nos 3 Sites Oficiais:** Busca produtos em tempo real na **BRK Fishing**, **BRK Agro** e **BRK Motors**, baixando fotos sob demanda caso o SKU não esteja em lote.
+5. **Criação de Kits & Combos (`código X + código Y`):** Ao informar dois ou mais SKUs (ex: `C02820 + C02820BL`), o Agente 2 compila as fotos de todas as peças, calcula o preço total e gera automaticamente título comercial de kit para Shopee, descrição detalhando cada item e ficha técnica consolidada.
+6. **Auditoria de Qualidade (SEO Score):** Avalia cada anúncio com base em checklists rígidos (tamanho do título, persuasão, atributos técnicos mapeados e escaneabilidade).
+7. **Servidor da Central de Controle (`server.mjs`):**
+   - Roda localmente na porta 3000 (e via túnel ngrok público).
    - Serve as interfaces web: **Painel de Controle (`painel.html`)**, **Central de Rejeições (`rejeitados.html`)** e **Relatório Visual (`relatorio.html`)**.
-   - Expõe endpoints REST para disparo e monitoramento dos agentes em tempo real.
+   - Expõe endpoints REST para disparo, criação de kits e monitoramento dos agentes em tempo real.
 
 ---
 

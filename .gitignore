@@ -9,6 +9,16 @@ node_modules/
 **/.env.*
 !**/.env.example
 **/session.json
+session_sankhya.json
+**/session_sankhya.json
+
+# Binários e executáveis
+bin/
+*.exe
+
+# Perfis e cache de navegador
+browser_profile/
+**/browser_profile/
 
 # Imagens locais pesadas e capturas de tela
 **/downloads/
@@ -16,6 +26,14 @@ node_modules/
 screenshots/
 uploads/*
 !uploads/.gitkeep
+*.png.bak
+
+# Arquivos temporários e scratch de desenvolvimento
+**/scratch/
+scratch/
+scratch_*
+**/scratch_*
+test_*.png
 
 # Logs e arquivos de sistema
 *.log

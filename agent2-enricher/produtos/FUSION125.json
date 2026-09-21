@@ -1,0 +1,100 @@
+{
+  "sku": "FUSION125",
+  "titulo_shopee": "Camisa BRK High Performance Fusion Digital Camuflada UV50+ Pesca Esportiva Manga Longa Masculina",
+  "titulos_alternativos": [
+    "Camisa Pesca BRK Fusion Camuflada Digital Preta Cinza Proteção Solar UV50+ Manga Longa",
+    "Camisa Térmica BRK High Performance UV50+ Masculina Pesca XTech Pro Secagem Rápida"
+  ],
+  "marca": "BRK",
+  "modelo": "FUSION CAMUFLADA DIGITAL",
+  "categoria_sugerida": "Acessórios de Moda > Bonés, Chapéus e Toucas",
+  "descricao": "Camisa BRK High Performance Fusion Digital Camuflada UV50+\n\nAlta performance em um só produto. Confeccionadas com o tecido exclusivo XTech Pro®, proporcionam conforto, proteção solar UV50+ e design exclusivo com capuz e balaclava integrada.\nVista-se com as vibrantes Camisas Brk, que não desbotam, não precisam ser passadas, possuem costura reforçada e secagem ultra rápida.\n\nCuidados para Conservação:\nAs Camisas Brk são uma inovação no segmento, unindo qualidade, estilo e performance em um só produto. Confeccionadas com o tecido exclusivo XTech Pro®, proporcionam conforto, proteção solar UV50+.\nPara preservar as propriedades do tecido e a eficácia da tecnologia utilizada, atente-se aos seguintes cuidados:\n- Lave em água fria com detergente líquido.\n- Após a lavagem, deixe secar na sombra.\n- Não utilize máquina de secar e nem lavagem a seco.\n- Não passe sua camisa com ferro elétrico.\n\nDiferenciais da Camisa Brk:\n- Costura reforçada com tecnologia.\n- Tecido XTech Pro® exclusivo.\n- Proteção solar UV50+ homologada.\n- Estampas exclusivas.\n- Garantia de 1 ano contra defeitos de fábrica.\n- Troca fácil.\n\nTabela de Medidas Oficial BRK Fishing (Masculino com Capuz e Máscara):\n- Tamanho PP: Tórax: 53cm | Altura: 67cm | Manga (Gola ao Punho): 82cm\n- Tamanho P: Tórax: 54cm | Altura: 69cm | Manga (Gola ao Punho): 83,5cm\n- Tamanho M: Tórax: 56cm | Altura: 71cm | Manga (Gola ao Punho): 85cm\n- Tamanho G: Tórax: 59cm | Altura: 73cm | Manga (Gola ao Punho): 86,5cm\n- Tamanho GG: Tórax: 62cm | Altura: 75cm | Manga (Gola ao Punho): 88cm\n- Tamanho G1: Tórax: 65cm | Altura: 77cm | Manga (Gola ao Punho): 88cm\n- Tamanho G2: Tórax: 68cm | Altura: 79cm | Manga (Gola ao Punho): 88cm\n\nNossa Estampa é protegida pela Lei de Direitos Autorais (Lei 9.610/98) e Reprodução não autorizada está sujeita às penalidades legais. Copiar é crime!",
+  "atributos": {
+    "pais_de_origem": "Brasil",
+    "material": "XTech-Pro",
+    "ocasiao": "Pesca",
+    "estampa": "Digital Camuflada",
+    "estilo": "Esportivo",
+    "condicao": "Novo",
+    "quantidade_da_embalagem": 1,
+    "quantidade_por_pacote": 1,
+    "produto_personalizado": "Não",
+    "modelo": "FUSION CAMUFLADA DIGITAL",
+    "genero": "Unissex",
+    "estilo_de_chapeu": "Bandana",
+    "tipo_de_couro": "",
+    "numero_de_registro_da_fda": "",
+    "tamanho_do_pacote": ""
+  },
+  "variacoes": [],
+  "palavras_chave": [
+    "camisa pesca",
+    "camisa brk",
+    "camisa uv50",
+    "camisa manga longa",
+    "camisa camuflada",
+    "roupa pesca",
+    "proteção solar",
+    "brk performance",
+    "camisa esportiva",
+    "brk fusion",
+    "camisa com capuz",
+    "camisa balaclava"
+  ],
+  "medidas": {
+    "altura_cm": 3,
+    "largura_cm": 20,
+    "comprimento_cm": 30,
+    "peso_kg": 0.25
+  },
+  "seo_score": 80,
+  "seo_checklist": [
+    {
+      "item": "Tamanho do Título",
+      "passed": true,
+      "score": 25,
+      "maxScore": 25,
+      "reason": "96/120 caracteres (faixa ideal: 60-120)"
+    },
+    {
+      "item": "Estrutura Persuasiva",
+      "passed": false,
+      "score": 5,
+      "maxScore": 25,
+      "reason": "5/25 pts (Intro: ✅, Benefícios: ❌, Indicado: ❌, Especificações: ❌, Dicas: ❌)"
+    },
+    {
+      "item": "Atributos Técnicos",
+      "passed": true,
+      "score": 20,
+      "maxScore": 20,
+      "reason": "15 atributos mapeados (meta: 3+)"
+    },
+    {
+      "item": "Palavras-chave SEO",
+      "passed": true,
+      "score": 15,
+      "maxScore": 15,
+      "reason": "12 palavras-chave identificadas (meta: 4+)"
+    },
+    {
+      "item": "Escaneabilidade & E-E-A-T",
+      "passed": true,
+      "score": 15,
+      "maxScore": 15,
+      "reason": "54 marcadores/bullet points com quebras de linha"
+    }
+  ],
+  "preco": null,
+  "parent_sku": "FUSION125",
+  "is_parent": false,
+  "cod_sankhya": "",
+  "imagens": [
+    "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\agent1-scraper\\downloads\\Planilha\\FUSION125\\01.jpg",
+    "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\agent1-scraper\\downloads\\Planilha\\FUSION125\\02.jpg",
+    "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\agent1-scraper\\downloads\\Planilha\\FUSION125\\03.jpg",
+    "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\agent1-scraper\\downloads\\Planilha\\FUSION125\\04.jpg"
+  ],
+  "is_published": true,
+  "status": "concluido"
+}

@@ -1,4 +1,5 @@
 import { extractProductsFromXls, normalizeHexColor } from "./colorFilter.mjs";
+import { getCollectionNameFromFilename } from "./scraper.mjs";
 import { writeFile } from "node:fs/promises";
 import { resolve, join } from "node:path";
 import { stringify } from "csv-stringify/sync";
@@ -12,16 +13,26 @@ function parseArgs() {
   let color = DEFAULT_COLOR;
   let outPath = "lote_d1fae5.csv";
   let limit = null;
+  let collection = null;
 
   for (let i = 0; i < args.length; i++) {
-    if (args[i] === "--input" && args[i + 1]) {
-      xlsPath = args[i + 1];
+    if (args[i] === "--input") {
+      const parts = [];
       i++;
+      while (i < args.length && !args[i].startsWith("--")) {
+        parts.push(args[i]);
+        i++;
+      }
+      xlsPath = parts.join(" ").replace(/^["']|["']$/g, "");
+      i--;
     } else if (args[i] === "--color" && args[i + 1]) {
-      color = args[i + 1];
+      color = args[i + 1].replace(/^["']|["']$/g, "");
       i++;
     } else if (args[i] === "--output" && args[i + 1]) {
-      outPath = args[i + 1];
+      outPath = args[i + 1].replace(/^["']|["']$/g, "");
+      i++;
+    } else if (args[i] === "--collection" && args[i + 1]) {
+      collection = args[i + 1].replace(/^["']|["']$/g, "").trim();
       i++;
     } else if (args[i] === "--limit" && args[i + 1]) {
       limit = parseInt(args[i + 1], 10);
@@ -33,25 +44,40 @@ function parseArgs() {
     ? normalizeHexColor(color)
     : null;
 
+  if (!collection && xlsPath) {
+    collection = getCollectionNameFromFilename(xlsPath);
+  }
+
   return {
     xlsPath: resolve(xlsPath),
     color: colorFilter,
     outPath: resolve(outPath),
     limit,
+    collection,
   };
 }
 
 async function main() {
-  const { xlsPath, color, outPath, limit } = parseArgs();
+  const { xlsPath, color, outPath, limit, collection } = parseArgs();
 
   console.log("═══════════════════════════════════════════════════");
   console.log("  Extração de Produtos por Cor");
   console.log(`  Planilha: ${xlsPath}`);
   console.log(`  Filtro de cor: ${color}`);
+  if (collection) console.log(`  Coleção: ${collection}`);
   console.log("═══════════════════════════════════════════════════");
 
-  const items = extractProductsFromXls(xlsPath, color);
+  let items = extractProductsFromXls(xlsPath, color);
   console.log(`\nEncontrados ${items.length} produtos com a cor ${color}`);
+
+  if (items.length === 0 && color) {
+    const allItems = extractProductsFromXls(xlsPath, null);
+    if (allItems.length > 0) {
+      console.log(`💡 A planilha não possui células com a cor ${color}.`);
+      console.log(`👉 Carregando automaticamente todos os ${allItems.length} produtos encontrados na planilha.`);
+      items = allItems;
+    }
+  }
 
   const selected = limit && limit > 0 ? items.slice(0, limit) : items;
   if (limit) {
@@ -66,6 +92,7 @@ async function main() {
     status: "pendente",
     cor: item.cor,
     classificacao: item.classificacao,
+    colecao: collection || "",
   }));
 
   const csvContent = stringify(records, { header: true });
@@ -80,7 +107,12 @@ async function main() {
   });
 }
 
-main().catch((err) => {
-  console.error("❌ Erro ao extrair lote:", err);
-  process.exit(1);
-});
+import { fileURLToPath } from "node:url";
+
+const isDirectRun = process.argv[1] && resolve(process.argv[1]) === resolve(fileURLToPath(import.meta.url));
+if (isDirectRun) {
+  main().catch((err) => {
+    console.error("❌ Erro ao extrair lote:", err);
+    process.exit(1);
+  });
+}

@@ -1,0 +1,75 @@
+{
+  "sku": "KIT_C02820_C02820BL",
+  "parent_sku": "KIT_C02820_C02820BL",
+  "is_kit": true,
+  "skus_componentes": [
+    "C02820",
+    "C02820BL"
+  ],
+  "titulo_shopee": "Kit Casal 2 Camisas BRK São Bento Masculina e Feminina | Proteção UV50+ Tecido XTech-Pro",
+  "titulos_alternativos": [
+    "Combo Presente Casal BRK Camisas São Bento | Estilo Agro e Pesca | UV50+",
+    "Kit 2 Peças Camisas BRK São Bento | Masculino e Feminino | Alta Durabilidade e Conforto"
+  ],
+  "marca": "BRK",
+  "modelo": "Kit Promocional",
+  "categoria_sugerida": "Roupas Masculinas > Blusas > Camisas",
+  "descricao": "👕✨ Kit Casal Camisas BRK São Bento: Estilo, Proteção e Conforto para o Dia a Dia\n\nEleve o visual do casal com o exclusivo Kit BRK São Bento. Perfeito para quem vive a rotina do agro, da pesca ou do esporte, este conjunto une a elegância da estampa São Bento com a tecnologia de ponta dos tecidos BRK. Ideal para presentear ou renovar o guarda-roupa de ambos com peças que garantem proteção contra o sol e máximo conforto térmico.\n\n📦 O QUE VEM NESTE KIT:\n- Item 1: Camisa BRK São Bento Masculina - Estampa exclusiva, corte ajustado, tecido tecnológico XTech-Pro com proteção UV50+.\n- Item 2: Camisa BRK São Bento Feminina - Estampa exclusiva, corte feminino, tecido tecnológico XTech-Pro com proteção UV50+.\n\n✨ POR QUE ESCOLHER ESTE KIT:\n- Economia Inteligente: Compre o conjunto completo com preço promocional, mais barato que adquirir as peças separadamente.\n- Combinação Perfeita: Estampas coordenadas que unem o casal em estilo e identidade, ideal para fotos e momentos juntos.\n- Tecnologia BRK: Tecido XTech-Pro que oferece respirabilidade, secagem rápida e proteção UV50+ contra raios solares nocivos.\n- Qualidade Premium: Acabamento impecável, costuras reforçadas e durabilidade garantida para uso intenso em campo ou cidade.\n\n📋 ESPECIFICAÇÕES TÉCNICAS DOS PRODUTOS:\nItem 1 (Masculino):\n- Marca: BRK\n- Modelo: São Bento\n- Tecido: XTech-Pro (Poliéster de alta performance)\n- Gola: Polo\n- Manga: Curta\n- Proteção: UV50+\n\nItem 2 (Feminino):\n- Marca: BRK\n- Modelo: São Bento\n- Tecido: XTech-Pro (Poliéster de alta performance)\n- Gola: Polo\n- Manga: Curta\n- Proteção: UV50+\n\n📏 GUIA DE TAMANHOS & ESCOLHA:\nAo finalizar a compra, selecione a variação correspondente para cada peça. Exemplo: \"Masc. P + Fem. M\" ou \"Masc. G + Fem. G\". Consulte a tabela de medidas na galeria de imagens para escolher o tamanho ideal para cada membro do casal.\n\n💡 DICAS DE CUIDADO E CONSERVAÇÃO:\n- Lavar à mão ou em ciclo delicado na máquina.\n- Não usar alvejante ou cloro.\n- Secar à sombra, evitando sol direto para preservar a proteção UV.\n- Não passar ferro diretamente sobre a estampa.\n- Guardar em local seco e arejado.",
+  "atributos": {
+    "pais_de_origem": "Brasil",
+    "quantidade_por_pacote": 2,
+    "quantidade_da_embalagem": 2,
+    "produto_personalizado": "Não",
+    "condicao": "Novo",
+    "material": "XTech-Pro",
+    "estilo": "Agro / Esportivo / Pesca",
+    "ocasiao": "Fazenda / Pesca"
+  },
+  "preco": {
+    "preco_sem_promocao": 339.8,
+    "preco_com_promocao": null,
+    "preco_atual": 339.8,
+    "em_promocao": false,
+    "desconto_percentual": 0
+  },
+  "itens_inclusos": [
+    {
+      "sku": "C02820",
+      "titulo": "Camisa Agro BRK São Bento Preta Dourada Proteção UV50+ Manga Longa",
+      "marca": "BRK",
+      "preco_unitario": 169.9,
+      "fotos_count": 3
+    },
+    {
+      "sku": "C02820BL",
+      "titulo": "Camisa Agro Feminina Brk São Bento Preta Dourada Proteção UV50+",
+      "marca": "Brk",
+      "preco_unitario": 169.9,
+      "fotos_count": 4
+    }
+  ],
+  "variacoes": [],
+  "palavras_chave": [
+    "kit casal",
+    "kit camisas",
+    "combo brk",
+    "camisa uv50",
+    "camisa sao bento",
+    "roupa agro casal",
+    "camisa polo uv",
+    "presente casal"
+  ],
+  "imagens": [
+    "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\agent1-scraper\\downloads\\C02820\\foto_01.jpg",
+    "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\agent1-scraper\\downloads\\C02820\\foto_02.jpg",
+    "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\agent1-scraper\\downloads\\C02820\\foto_03.jpg",
+    "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\agent1-scraper\\downloads\\C02820BL\\foto_01.jpg",
+    "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\agent1-scraper\\downloads\\C02820BL\\foto_02.jpg",
+    "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\agent1-scraper\\downloads\\C02820BL\\foto_03.jpg",
+    "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\agent1-scraper\\downloads\\C02820BL\\foto_04.jpg"
+  ],
+  "modelo_ia": "groq/qwen/qwen3.8-27b",
+  "data_criacao": "2026-09-14T19:47:49.222Z",
+  "is_published": true,
+  "status": "concluido"
+}

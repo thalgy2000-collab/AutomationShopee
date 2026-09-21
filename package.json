@@ -1,0 +1,23 @@
+{
+  "name": "shopee-automation-suite",
+  "version": "1.0.0",
+  "description": "Central de Automação Shopee — BRK Fishing (Scraper, Enriquecedor Gemini e RPA Magis5)",
+  "type": "module",
+  "scripts": {
+    "postinstall": "cd agent1-scraper && npm install && cd ../agent2-enricher && npm install && cd ../agent3-rpa-magis5 && npm install",
+    "start": "node agent2-enricher/server.mjs",
+    "serve": "node agent2-enricher/server.mjs",
+    "tunnel": "node ngrok_tunnel.mjs",
+    "tunnel:ngrok": "node ngrok_tunnel.mjs",
+    "tunnel:cf": "node cloudflare_tunnel.mjs",
+    "all": "node ngrok_tunnel.mjs",
+    "dev": "node ngrok_tunnel.mjs",
+    "agent1": "node agent1-scraper/pipeline_agent1.mjs",
+    "agent2": "node agent2-enricher/enricher.mjs",
+    "agent3": "node agent3-rpa-magis5/src/runner.mjs",
+    "agent3:fix": "node agent3-rpa-magis5/fix_drafts_runner.mjs",
+    "agent3:fix:fusion": "node agent3-rpa-magis5/fix_drafts_runner.mjs --only-fusion --publish",
+    "agent3:fix:dry": "node agent3-rpa-magis5/fix_drafts_runner.mjs --only-fusion --dry-run",
+    "agent4": "node agent4-diagnostician/diagnose.mjs"
+  }
+}

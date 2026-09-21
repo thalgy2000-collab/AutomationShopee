@@ -1,0 +1,3571 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Central de Automação Shopee — BRK Fishing</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="alternate icon" type="image/png" href="/favicon.png">
+  <link rel="shortcut icon" href="/favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #090B10;
+      --bg-card: rgba(18, 22, 33, 0.75);
+      --bg-card-hover: rgba(26, 32, 48, 0.85);
+      --bg-card-border: rgba(255, 255, 255, 0.08);
+      --primary: #3B82F6;
+      --primary-glow: rgba(59, 130, 246, 0.35);
+      --accent-green: #10B981;
+      --accent-emerald: #059669;
+      --accent-amber: #F59E0B;
+      --accent-purple: #8B5CF6;
+      --accent-rose: #F43F5E;
+      --text-main: #F3F4F6;
+      --text-muted: #9CA3AF;
+      --text-dim: #6B7280;
+      --font-heading: 'Outfit', sans-serif;
+      --font-body: 'Inter', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --radius-lg: 16px;
+      --radius-md: 12px;
+      --radius-sm: 8px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      background-image: 
+        radial-gradient(at 0% 0%, rgba(59, 130, 246, 0.12) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(139, 92, 246, 0.1) 0px, transparent 50%);
+      background-attachment: fixed;
+      color: var(--text-main);
+      font-family: var(--font-body);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+    }
+
+    /* ── Header ────────────────────────────────────────── */
+    header {
+      backdrop-filter: blur(16px);
+      background: rgba(9, 11, 16, 0.8);
+      border-bottom: 1px solid var(--bg-card-border);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .brand-group {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .brand-logo {
+      width: 42px;
+      height: 42px;
+      background: linear-gradient(135deg, #2563EB, #7C3AED);
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      box-shadow: 0 0 20px var(--primary-glow);
+    }
+
+    .brand-text h1 {
+      font-family: var(--font-heading);
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      background: linear-gradient(to right, #FFFFFF, #93C5FD);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .brand-text p {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    /* Tabs de Navegação Global */
+    .nav-tabs {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(0, 0, 0, 0.35);
+      padding: 4px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .nav-tab {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 14px;
+      border-radius: 8px;
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 600;
+      transition: all 0.2s ease;
+    }
+
+    .nav-tab:hover {
+      color: #FFF;
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .nav-tab.active {
+      color: #FFF;
+      background: rgba(59, 130, 246, 0.18);
+      border: 1px solid rgba(59, 130, 246, 0.35);
+      box-shadow: 0 2px 8px rgba(59, 130, 246, 0.2);
+    }
+
+    .nav-badge-count {
+      background: #EF4444;
+      color: #FFF;
+      font-size: 11px;
+      padding: 1px 6px;
+      border-radius: 10px;
+      font-weight: 700;
+    }
+
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.4rem 0.9rem;
+      border-radius: 9999px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      background: rgba(16, 185, 129, 0.1);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      color: #34D399;
+    }
+
+    .status-pill.busy {
+      background: rgba(245, 158, 11, 0.15);
+      border-color: rgba(245, 158, 11, 0.4);
+      color: #FBBF24;
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: currentColor;
+      box-shadow: 0 0 10px currentColor;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.85); }
+    }
+
+    .btn-nav {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--bg-card-border);
+      color: var(--text-main);
+      padding: 0.5rem 1rem;
+      border-radius: var(--radius-sm);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 500;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .btn-nav:hover {
+      background: rgba(255, 255, 255, 0.12);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    /* ── Main Container ────────────────────────────────── */
+    main {
+      flex: 1;
+      max-width: 1400px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    /* ── Stats Row ─────────────────────────────────────── */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .stat-card {
+      background: var(--bg-card);
+      border: 1px solid var(--bg-card-border);
+      border-radius: var(--radius-lg);
+      padding: 1.25rem 1.5rem;
+      backdrop-filter: blur(12px);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(255, 255, 255, 0.15);
+    }
+
+    .stat-info span {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .stat-info h2 {
+      font-family: var(--font-heading);
+      font-size: 2rem;
+      font-weight: 700;
+      color: #FFF;
+      margin-top: 0.25rem;
+    }
+
+    .stat-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+    }
+
+    .stat-card:nth-child(1) .stat-icon { background: rgba(59, 130, 246, 0.15); color: #60A5FA; }
+    .stat-card:nth-child(2) .stat-icon { background: rgba(139, 92, 246, 0.15); color: #A78BFA; }
+    .stat-card:nth-child(3) .stat-icon { background: rgba(16, 185, 129, 0.15); color: #34D399; }
+    .stat-card:nth-child(4) .stat-icon { background: rgba(245, 158, 11, 0.15); color: #FBBF24; }
+    .stat-card:nth-child(5) .stat-icon { background: rgba(239, 68, 68, 0.15); color: #F87171; }
+
+    /* ── Pipeline Stepper ───────────────────────────────── */
+    .pipeline-stepper {
+      background: var(--bg-card);
+      border: 1px solid var(--bg-card-border);
+      border-radius: var(--radius-lg);
+      padding: 1.25rem 1.5rem;
+      backdrop-filter: blur(12px);
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .stepper-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .stepper-title {
+      font-family: var(--font-heading);
+      font-size: 1rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: #FFF;
+    }
+
+    .stepper-subtitle {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      font-weight: 400;
+    }
+
+    .stepper-track {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr auto 1fr auto 1fr auto 1fr;
+      gap: 0.75rem;
+      align-items: center;
+    }
+
+    @media (max-width: 900px) {
+      .stepper-track {
+        grid-template-columns: 1fr;
+        gap: 0.5rem;
+      }
+      .step-arrow { display: none; }
+    }
+
+    .step-card {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: var(--radius-md);
+      padding: 0.85rem 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      position: relative;
+    }
+
+    .step-card:hover {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: rgba(255, 255, 255, 0.15);
+      transform: translateY(-2px);
+    }
+
+    .step-card.active-step {
+      border-color: #3B82F6;
+      background: rgba(59, 130, 246, 0.12);
+      box-shadow: 0 0 15px rgba(59, 130, 246, 0.25);
+    }
+
+    .step-num {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text-muted);
+      font-weight: 700;
+      font-size: 0.8rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .step-card.active-step .step-num {
+      background: #3B82F6;
+      color: #FFF;
+      box-shadow: 0 0 8px #3B82F6;
+    }
+
+    .step-card-info h4 {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #FFF;
+    }
+
+    .step-card-info span {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+    }
+
+    .step-arrow {
+      color: var(--text-dim);
+      font-size: 1.1rem;
+      user-select: none;
+      text-align: center;
+    }
+
+    /* ── Log Filters in Terminal ────────────────────────── */
+    .log-filters {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      background: rgba(255, 255, 255, 0.04);
+      padding: 2px 4px;
+      border-radius: 6px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .log-filter-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .log-filter-btn:hover {
+      color: #FFF;
+      background: rgba(255, 255, 255, 0.08);
+    }
+    .log-filter-btn.active {
+      background: rgba(59, 130, 246, 0.25);
+      color: #93C5FD;
+    }
+
+    /* ── Floating Mini Dock ─────────────────────────────── */
+    .mini-dock {
+      position: fixed;
+      bottom: 1.5rem;
+      left: 50%;
+      transform: translateX(-50%) translateY(150%);
+      background: rgba(13, 17, 23, 0.92);
+      border: 1px solid rgba(59, 130, 246, 0.4);
+      border-radius: 9999px;
+      padding: 0.5rem 1.25rem 0.5rem 1rem;
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.7), 0 0 20px rgba(59, 130, 246, 0.2);
+      backdrop-filter: blur(16px);
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      z-index: 1000;
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      max-width: 90vw;
+    }
+
+    .mini-dock.visible {
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .dock-status {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: #60A5FA;
+      white-space: nowrap;
+    }
+
+    .dock-log-preview {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: #E2E8F0;
+      max-width: 380px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .btn-dock-expand {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #FFF;
+      padding: 0.25rem 0.65rem;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .btn-dock-expand:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    /* ── Agents Grid ───────────────────────────────────── */
+    .section-title {
+      font-family: var(--font-heading);
+      font-size: 1.35rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .agents-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .agent-card {
+      background: var(--bg-card);
+      border: 1px solid var(--bg-card-border);
+      border-radius: var(--radius-lg);
+      padding: 1.75rem;
+      backdrop-filter: blur(12px);
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.25s ease;
+    }
+
+    .agent-card:hover {
+      border-color: rgba(59, 130, 246, 0.4);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    }
+
+    .agent-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+
+    .agent-badge {
+      display: inline-block;
+      padding: 0.25rem 0.6rem;
+      border-radius: 6px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .agent-badge.b0 { background: rgba(14, 165, 233, 0.2); color: #7DD3FC; }
+    .agent-badge.b1 { background: rgba(59, 130, 246, 0.2); color: #93C5FD; }
+    .agent-badge.b2 { background: rgba(139, 92, 246, 0.2); color: #C4B5FD; }
+    .agent-badge.b3 { background: rgba(16, 185, 129, 0.2); color: #6EE7B7; }
+    .agent-badge.b4 { background: rgba(239, 68, 68, 0.2); color: #FCA5A5; }
+
+    .agent-card h3 {
+      font-family: var(--font-heading);
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-top: 0.5rem;
+    }
+
+    .agent-card p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    /* Controles dos Agentes */
+    .control-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .control-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      letter-spacing: 0.05em;
+    }
+
+    .control-input, .control-select {
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--text-main);
+      padding: 0.65rem 0.85rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.85rem;
+      font-family: inherit;
+      outline: none;
+      transition: border-color 0.2s ease;
+      width: 100%;
+    }
+
+    .control-input:focus, .control-select:focus {
+      border-color: var(--primary);
+    }
+
+    .control-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+    }
+
+    /* Botões de Ação */
+    .btn-action {
+      background: linear-gradient(135deg, #2563EB, #1D4ED8);
+      color: #FFF;
+      border: none;
+      padding: 0.85rem 1.25rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-top: auto;
+      box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3);
+    }
+
+    .btn-action:hover:not(:disabled) {
+      background: linear-gradient(135deg, #3B82F6, #2563EB);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(37, 99, 235, 0.45);
+    }
+
+    .btn-action:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      filter: grayscale(0.6);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--bg-card-border);
+      color: var(--text-main);
+      padding: 0.6rem 1rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+    }
+
+    .btn-secondary:hover:not(:disabled) {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .btn-danger {
+      background: linear-gradient(135deg, #E11D48, #BE123C);
+      color: #FFF;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .btn-danger:hover {
+      background: #F43F5E;
+    }
+
+    /* ── Terminal Console ──────────────────────────────── */
+    .terminal-container {
+      background: #06080C;
+      border: 1px solid var(--bg-card-border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+    }
+
+    .terminal-header {
+      background: #0E121A;
+      padding: 0.75rem 1.25rem;
+      border-bottom: 1px solid var(--bg-card-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .terminal-title {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .terminal-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .terminal-body {
+      background: #06080C;
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      padding: 1.25rem;
+      height: 360px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      line-height: 1.45;
+    }
+
+    .log-line {
+      display: flex;
+      gap: 0.75rem;
+      word-break: break-word;
+      white-space: pre-wrap;
+    }
+
+    .log-time {
+      color: var(--text-dim);
+      flex-shrink: 0;
+      user-select: none;
+    }
+
+    .log-msg { color: #E5E7EB; }
+    .log-msg.error { color: #F87171; }
+    .log-msg.success { color: #34D399; }
+    .log-msg.warn { color: #FBBF24; }
+    .log-msg.highlight { color: #60A5FA; }
+
+    /* Checkbox styling */
+    .toggle-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      cursor: pointer;
+      user-select: none;
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 8px; height: 8px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.15); border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.25); }
+
+    /* File Upload & Input controls */
+    .file-input-section {
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: var(--radius-md);
+      padding: 0.85rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      margin-top: 0.25rem;
+      transition: border-color 0.2s ease;
+    }
+
+    .file-input-section:hover {
+      border-color: rgba(255, 255, 255, 0.15);
+    }
+
+    .file-section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .file-upload-zone {
+      border: 1.5px dashed rgba(255, 255, 255, 0.18);
+      border-radius: var(--radius-sm);
+      padding: 0.65rem 0.85rem;
+      text-align: center;
+      background: rgba(255, 255, 255, 0.02);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      user-select: none;
+    }
+
+    .file-upload-zone:hover {
+      border-color: var(--primary);
+      background: rgba(59, 130, 246, 0.08);
+      color: #93C5FD;
+    }
+
+    .file-upload-zone.dragover {
+      border-color: var(--accent-green);
+      background: rgba(16, 185, 129, 0.15);
+      color: #6EE7B7;
+    }
+
+    .file-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.3rem 0.65rem;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(16, 185, 129, 0.25);
+      color: #6EE7B7;
+      word-break: break-all;
+    }
+
+    .file-badge.warn {
+      background: rgba(245, 158, 11, 0.12);
+      border-color: rgba(245, 158, 11, 0.25);
+      color: #FBBF24;
+    }
+
+    /* Batch Preview in Agent 3 Card */
+    .batch-preview-box {
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: var(--radius-sm);
+      padding: 0.75rem 0.85rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-top: -0.25rem;
+    }
+
+    .batch-preview-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .batch-preview-title {
+      font-size: 0.73rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #93C5FD;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .btn-inspect-batch {
+      background: rgba(59, 130, 246, 0.15);
+      border: 1px solid rgba(59, 130, 246, 0.35);
+      color: #93C5FD;
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 0.25rem 0.6rem;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    .btn-inspect-batch:hover {
+      background: rgba(59, 130, 246, 0.3);
+      border-color: rgba(59, 130, 246, 0.6);
+      color: #FFF;
+    }
+
+    .batch-queue-summary {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .batch-chips-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+      max-height: 90px;
+      overflow-y: auto;
+      padding-right: 0.25rem;
+    }
+
+    .sku-mini-chip {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 6px;
+      padding: 0.25rem 0.5rem;
+      font-size: 0.72rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      font-family: var(--font-mono);
+      color: var(--text-main);
+    }
+
+    .sku-mini-chip:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .sku-mini-chip.in-queue {
+      background: rgba(16, 185, 129, 0.12);
+      border-color: rgba(16, 185, 129, 0.35);
+      color: #A7F3D0;
+    }
+
+    .sku-mini-chip .pos-tag {
+      font-size: 0.65rem;
+      font-weight: 700;
+      background: rgba(16, 185, 129, 0.3);
+      padding: 0.05rem 0.3rem;
+      border-radius: 3px;
+      color: #FFF;
+    }
+
+    /* Batch Modal */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(8px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 2000;
+      padding: 1.5rem;
+    }
+
+    .modal-backdrop.open {
+      display: flex;
+    }
+
+    .modal-card {
+      background: #0D111A;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: var(--radius-lg);
+      width: 100%;
+      max-width: 920px;
+      max-height: 88vh;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
+      overflow: hidden;
+      animation: modalFadeIn 0.2s ease-out;
+    }
+
+    @keyframes modalFadeIn {
+      from { opacity: 0; transform: scale(0.96); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .modal-header {
+      padding: 1.25rem 1.5rem;
+      background: rgba(255, 255, 255, 0.02);
+      border-bottom: 1px solid var(--bg-card-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .modal-header h3 {
+      font-family: var(--font-heading);
+      font-size: 1.15rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .modal-close-btn {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--bg-card-border);
+      color: var(--text-muted);
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: all 0.2s;
+    }
+
+    .modal-close-btn:hover {
+      background: rgba(255, 255, 255, 0.15);
+      color: #FFF;
+    }
+
+    .modal-toolbar {
+      padding: 0.85rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      border-bottom: 1px solid var(--bg-card-border);
+      background: rgba(0, 0, 0, 0.2);
+    }
+
+    .modal-search-input {
+      flex: 1;
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--text-main);
+      padding: 0.5rem 0.85rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.85rem;
+      outline: none;
+    }
+
+    .modal-search-input:focus {
+      border-color: var(--primary);
+    }
+
+    .modal-tabs {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .modal-tab-btn {
+      background: transparent;
+      border: 1px solid transparent;
+      color: var(--text-muted);
+      padding: 0.4rem 0.8rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .modal-tab-btn.active {
+      background: rgba(59, 130, 246, 0.15);
+      border-color: rgba(59, 130, 246, 0.4);
+      color: #93C5FD;
+    }
+
+    .modal-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 1.25rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .modal-sku-card {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--bg-card-border);
+      border-radius: var(--radius-sm);
+      padding: 0.85rem 1.1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      transition: all 0.15s ease;
+    }
+
+    .modal-sku-card:hover {
+      border-color: rgba(255, 255, 255, 0.15);
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .modal-sku-card.will-publish {
+      border-color: rgba(16, 185, 129, 0.4);
+      background: rgba(16, 185, 129, 0.05);
+    }
+
+    .modal-sku-left {
+      display: flex;
+      align-items: center;
+      gap: 0.9rem;
+      flex: 1;
+      min-width: 0;
+    }
+
+    .queue-num-badge {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .modal-sku-card.will-publish .queue-num-badge {
+      background: #10B981;
+      color: #064E3B;
+    }
+
+    .modal-sku-info h4 {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--text-main);
+      margin-bottom: 0.2rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 540px;
+    }
+
+    .modal-sku-meta {
+      font-size: 0.75rem;
+      color: var(--text-dim);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+    }
+
+    .modal-sku-right {
+      text-align: right;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 0.25rem;
+    }
+
+    .publish-flag-pill {
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      background: rgba(16, 185, 129, 0.2);
+      color: #34D399;
+      border: 1px solid rgba(16, 185, 129, 0.35);
+    }
+
+    .modal-footer {
+      padding: 1rem 1.5rem;
+      background: rgba(0, 0, 0, 0.3);
+      border-top: 1px solid var(--bg-card-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    /* Toast Notification */
+    #toast {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: #1E293B;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 0.9rem 1.4rem;
+      border-radius: var(--radius-md);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+      font-size: 0.85rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      transform: translateY(150%);
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 1000;
+    }
+    #toast.show { transform: translateY(0); }
+
+    /* ── Mission Control Visual Telemetry Hero ────────── */
+    .mission-control-hero {
+      background: rgba(13, 17, 28, 0.85);
+      border: 1px solid rgba(59, 130, 246, 0.25);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem 1.75rem;
+      backdrop-filter: blur(16px);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .mission-control-hero.theme-agent1 {
+      border-color: rgba(59, 130, 246, 0.6);
+      box-shadow: 0 0 35px rgba(59, 130, 246, 0.25), inset 0 1px 0 rgba(147, 197, 253, 0.2);
+    }
+    .mission-control-hero.theme-agent2 {
+      border-color: rgba(139, 92, 246, 0.6);
+      box-shadow: 0 0 35px rgba(139, 92, 246, 0.25), inset 0 1px 0 rgba(196, 181, 253, 0.2);
+    }
+    .mission-control-hero.theme-agent3 {
+      border-color: rgba(16, 185, 129, 0.6);
+      box-shadow: 0 0 35px rgba(16, 185, 129, 0.25), inset 0 1px 0 rgba(110, 231, 183, 0.2);
+    }
+    .mission-control-hero.theme-agent4 {
+      border-color: rgba(239, 68, 68, 0.6);
+      box-shadow: 0 0 35px rgba(239, 68, 68, 0.25), inset 0 1px 0 rgba(252, 165, 165, 0.2);
+    }
+
+    .hero-top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.25rem;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    .hero-header-left {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+    }
+
+    .radar-beacon {
+      position: relative;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: #10B981;
+      box-shadow: 0 0 12px #10B981;
+      display: inline-block;
+    }
+
+    .radar-beacon::after {
+      content: '';
+      position: absolute;
+      top: -6px;
+      left: -6px;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      border: 2px solid #10B981;
+      animation: radarPulse 2s infinite cubic-bezier(0.1, 0, 0.3, 1);
+      opacity: 0.8;
+    }
+
+    .radar-beacon.busy {
+      background: #3B82F6;
+      box-shadow: 0 0 12px #3B82F6;
+    }
+    .radar-beacon.busy::after {
+      border-color: #3B82F6;
+    }
+
+    @keyframes radarPulse {
+      0% { transform: scale(0.6); opacity: 0.9; }
+      100% { transform: scale(2.2); opacity: 0; }
+    }
+
+    .hero-title-group h2 {
+      font-family: var(--font-heading);
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #FFF;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .hero-title-group p {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .hero-active-grid {
+      display: grid;
+      grid-template-columns: 1.35fr 1fr;
+      gap: 1.5rem;
+      align-items: start;
+    }
+
+    @media (max-width: 992px) {
+      .hero-active-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .hero-action-card {
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: var(--radius-md);
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .hero-current-step {
+      font-size: 1.15rem;
+      font-weight: 700;
+      font-family: var(--font-heading);
+      color: #FFF;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .hero-step-detail {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      color: #93C5FD;
+      background: rgba(59, 130, 246, 0.1);
+      border: 1px solid rgba(59, 130, 246, 0.2);
+      padding: 0.5rem 0.85rem;
+      border-radius: var(--radius-sm);
+      word-break: break-word;
+    }
+
+    .hero-progress-bar-container {
+      width: 100%;
+      height: 8px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 9999px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .hero-progress-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #3B82F6, #10B981, #8B5CF6);
+      border-radius: 9999px;
+      transition: width 0.4s ease;
+      position: relative;
+    }
+
+    .hero-progress-bar-fill::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+      animation: progressShimmer 2s infinite linear;
+    }
+
+    @keyframes progressShimmer {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
+
+    .micro-steps-track {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 0.5rem;
+      margin-top: 0.25rem;
+    }
+
+    .micro-step-item {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 6px;
+      padding: 0.45rem 0.6rem;
+      font-size: 0.72rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      color: var(--text-dim);
+      transition: all 0.2s;
+    }
+
+    .micro-step-item.done {
+      border-color: rgba(16, 185, 129, 0.3);
+      background: rgba(16, 185, 129, 0.1);
+      color: #34D399;
+    }
+
+    .micro-step-item.active {
+      border-color: rgba(59, 130, 246, 0.6);
+      background: rgba(59, 130, 246, 0.2);
+      color: #93C5FD;
+      font-weight: 700;
+      box-shadow: 0 0 10px rgba(59, 130, 246, 0.3);
+      animation: microStepPulse 1.5s infinite;
+    }
+
+    @keyframes microStepPulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.02); }
+    }
+
+    /* Tela / Visor do Robô Playwright */
+    .robot-screen-card {
+      background: #060910;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    }
+
+    .robot-screen-header {
+      background: #0E131F;
+      padding: 0.6rem 0.9rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.75rem;
+      font-family: var(--font-mono);
+      color: var(--text-muted);
+    }
+
+    .robot-screen-viewport {
+      position: relative;
+      height: 220px;
+      background: #05070C;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      overflow: hidden;
+    }
+
+    .robot-screen-viewport img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+      transition: transform 0.3s ease, filter 0.3s ease;
+    }
+
+    .robot-screen-viewport:hover img {
+      transform: scale(1.03);
+      filter: brightness(1.08);
+    }
+
+    .robot-screen-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+      color: #FFF;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    .robot-screen-viewport:hover .robot-screen-overlay {
+      opacity: 1;
+    }
+
+    /* Standby Layout (4 Agentes Prontos) */
+    .hero-standby-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1rem;
+    }
+
+    .standby-agent-card {
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: var(--radius-md);
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+
+    .standby-agent-card:hover {
+      background: rgba(255, 255, 255, 0.04);
+      border-color: rgba(255, 255, 255, 0.15);
+      transform: translateY(-2px);
+    }
+
+    .standby-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .standby-badge {
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 0.15rem 0.5rem;
+      border-radius: 4px;
+      text-transform: uppercase;
+    }
+
+    .standby-badge.ready {
+      background: rgba(16, 185, 129, 0.15);
+      color: #34D399;
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+
+    .standby-agent-card h4 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #FFF;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .standby-agent-card p {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+      flex: 1;
+    }
+
+    .standby-footer {
+      font-size: 0.72rem;
+      font-family: var(--font-mono);
+      color: #60A5FA;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    /* Live Status Badge inside each Agent Card */
+    .agent-live-badge-container {
+      background: rgba(0, 0, 0, 0.25);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      border-radius: 8px;
+      padding: 0.65rem 0.85rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+
+    .agent-live-badge-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    .agent-live-pulse-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      display: inline-block;
+      margin-right: 5px;
+    }
+
+    .agent-live-action-text {
+      font-size: 0.78rem;
+      color: #CBD5E1;
+      line-height: 1.35;
+      font-family: var(--font-mono);
+    }
+
+    /* Modal de Screenshot Zoom */
+    .screenshot-modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(12px);
+      z-index: 2000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+
+    .screenshot-modal-backdrop.open {
+      display: flex;
+    }
+
+    .screenshot-modal-container {
+      background: #0B0E17;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: var(--radius-lg);
+      max-width: 1200px;
+      width: 100%;
+      max-height: 92vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8);
+    }
+
+    .screenshot-modal-header {
+      padding: 1rem 1.5rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .screenshot-modal-body {
+      flex: 1;
+      overflow-y: auto;
+      background: #04060A;
+      display: flex;
+      justify-content: center;
+      padding: 1.5rem;
+    }
+
+    .screenshot-modal-body img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Unified Global Header -->
+  <header>
+    <div class="brand-group">
+      <div class="brand-logo">🎣</div>
+      <div class="brand-text">
+        <h1>Central de Automação Shopee</h1>
+        <p>BRK Fishing Pipeline Control Center</p>
+      </div>
+    </div>
+
+    <!-- Navigation Tabs -->
+    <nav class="nav-tabs">
+      <a href="/painel.html" class="nav-tab active">
+        <span>🎛️</span>
+        <span>Central de Agentes</span>
+      </a>
+      <a href="/rejeitados.html" class="nav-tab" id="nav-tab-rejeitados">
+        <span>🚨</span>
+        <span>Diagnósticos & Falhas</span>
+        <span class="nav-badge-count" id="header-rejected-count">0</span>
+      </a>
+      <a href="/relatorio.html" target="_blank" class="nav-tab">
+        <span>📊</span>
+        <span>Auditoria & Catálogo</span>
+      </a>
+    </nav>
+
+    <div class="header-actions">
+      <div class="status-pill" id="system-status">
+        <span class="status-dot"></span>
+        <span id="system-status-text">Sistema Pronto</span>
+      </div>
+      <button class="btn-nav" onclick="downloadLatestSpreadsheet()" id="btn-quick-download" title="Baixar última planilha gerada pelo Agente 0" style="color: #60A5FA; border-color: rgba(59, 130, 246, 0.4); background: rgba(59, 130, 246, 0.12);">
+        <span>📥</span>
+        <span>Baixar Planilha</span>
+      </button>
+      <button class="btn-nav" onclick="fetchStats()" title="Atualizar dados">
+        <span>🔄</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main>
+
+    <!-- Stats Hero (5 Cards) -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-info">
+          <span>Linhas na Planilha</span>
+          <h2 id="stat-total-csv">-</h2>
+        </div>
+        <div class="stat-icon">📄</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-info">
+          <span>Anúncios Pai (IA)</span>
+          <h2 id="stat-total-pais">-</h2>
+        </div>
+        <div class="stat-icon">🧠</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-info">
+          <span>Concluídos / Publicados</span>
+          <h2 id="stat-publicados">-</h2>
+        </div>
+        <div class="stat-icon">🚀</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-info">
+          <span>Pendentes de Publicação</span>
+          <h2 id="stat-pendentes">-</h2>
+        </div>
+        <div class="stat-icon">⏳</div>
+      </div>
+      <div class="stat-card" style="cursor: pointer; border-color: rgba(239, 68, 68, 0.35);" onclick="window.location.href='/rejeitados.html'" title="Clique para abrir o painel de diagnósticos">
+        <div class="stat-info">
+          <span style="color: #F87171;">Rejeições / Falhas</span>
+          <h2 id="stat-rejeitados" style="color: #FCA5A5;">-</h2>
+        </div>
+        <div class="stat-icon">🚨</div>
+      </div>
+    </div>
+
+    <!-- ⚡ Centro de Telemetria Visual em Tempo Real (O Que Cada Agente Está Fazendo) -->
+    <div class="mission-control-hero" id="mission-control-hero">
+      <div class="hero-top-bar">
+        <div class="hero-header-left">
+          <span class="radar-beacon" id="hero-radar-beacon"></span>
+          <div class="hero-title-group">
+            <h2 id="hero-main-title">
+              <span>🎛️ Centro de Operações dos Agentes</span>
+            </h2>
+            <p id="hero-sub-title">Monitoramento de status e ações ao vivo em tempo real</p>
+          </div>
+        </div>
+
+        <div style="display: flex; align-items: center; gap: 0.75rem;">
+          <div id="hero-timer-badge" style="display:none; font-family: var(--font-mono); font-size: 0.8rem; background: rgba(59, 130, 246, 0.15); border: 1px solid rgba(59, 130, 246, 0.3); padding: 0.35rem 0.75rem; border-radius: 9999px; color: #93C5FD;">
+            ⏱️ <span id="hero-elapsed-time">00:00</span>
+          </div>
+          <button id="hero-stop-btn" class="btn-danger" style="display:none; padding: 0.4rem 0.85rem;" onclick="stopAgent()">
+            🛑 Interromper Agente
+          </button>
+          <button class="btn-secondary" style="padding: 0.4rem 0.85rem;" onclick="scrollToTerminal()">
+            💻 Ver Terminal
+          </button>
+        </div>
+      </div>
+
+      <!-- Container Dinâmico: Alterna entre Modo Ativo e Modo Standby -->
+      <div id="hero-active-container" style="display:none;">
+        <div class="hero-active-grid">
+          
+          <!-- Lado Esquerdo: O Que Está Fazendo Passo a Passo -->
+          <div class="hero-action-card">
+            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem;">
+              <div class="hero-current-step">
+                <span id="hero-agent-icon">🤖</span>
+                <span id="hero-step-name">Processando...</span>
+              </div>
+              <div style="display:flex; gap:0.5rem; align-items:center;">
+                <span id="hero-sku-badge" style="display:none; font-size:0.75rem; font-weight:700; background:rgba(59,130,246,0.25); border:1px solid rgba(59,130,246,0.5); color:#FFF; padding:0.2rem 0.6rem; border-radius:6px; font-family:var(--font-mono);">
+                  SKU: <strong id="hero-sku-value">-</strong>
+                </span>
+                <span id="hero-progress-fraction" style="font-size:0.75rem; color:var(--text-muted); font-family:var(--font-mono);"></span>
+              </div>
+            </div>
+
+            <!-- Detalhe da micro-ação -->
+            <div class="hero-step-detail" id="hero-step-detail">
+              Conectando e inicializando ambiente...
+            </div>
+
+            <!-- Barra de Progresso com Shimmer -->
+            <div>
+              <div style="display:flex; justify-content:space-between; font-size:0.72rem; color:var(--text-muted); margin-bottom:0.35rem;">
+                <span id="hero-progress-label">Progresso da Execução</span>
+                <span id="hero-progress-percent" style="font-weight:700; color:#FFF;">0%</span>
+              </div>
+              <div class="hero-progress-bar-container">
+                <div class="hero-progress-bar-fill" id="hero-progress-fill" style="width: 5%;"></div>
+              </div>
+            </div>
+
+            <!-- Micro Steps Visual Timeline -->
+            <div class="micro-steps-track" id="hero-micro-steps">
+              <!-- Gerado dinamicamente para cada tipo de agente -->
+            </div>
+          </div>
+
+          <!-- Lado Direito: Visor do Robô (Captura em Tempo Real) -->
+          <div class="robot-screen-card" id="hero-robot-screen-card">
+            <div class="robot-screen-header">
+              <div style="display:flex; align-items:center; gap:0.4rem;">
+                <span style="color:#10B981;">●</span>
+                <span>Visor do Robô Playwright</span>
+              </div>
+              <span id="hero-robot-screen-time" style="font-size:0.7rem; opacity:0.8;">Ao vivo</span>
+            </div>
+            <div class="robot-screen-viewport" id="hero-robot-screen-viewport" onclick="openCurrentScreenshotModal()">
+              <img id="hero-robot-screen-img" src="" alt="Visão do Robô" onerror="this.style.display='none'" />
+              <div id="hero-robot-screen-placeholder" style="display:flex; flex-direction:column; align-items:center; gap:0.5rem; color:var(--text-dim); text-align:center; padding:1rem;">
+                <span style="font-size:2rem;">🌐</span>
+                <span style="font-size:0.8rem;">Robô navegando no Magis5...<br>A captura de tela aparecerá aqui após cada etapa.</span>
+              </div>
+              <div class="robot-screen-overlay">
+                <span>🔍 Clique para Expandir Tela Cheia</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Modo Standby (Quando nenhum agente está em execução) -->
+      <div id="hero-standby-container">
+        <div class="hero-standby-grid">
+          
+          <div class="standby-agent-card" onclick="focusAgent('agent0')">
+            <div class="standby-header">
+              <span style="font-size:1.4rem;">🏭</span>
+              <span class="standby-badge ready" id="standby-badge-agent0">Pronto</span>
+            </div>
+            <h4>Agente 0 — Sankhya Scout</h4>
+            <p id="standby-desc-agent0">Consulta produtos no Sankhya Web da BRK e gera a planilha (.xlsx) com títulos e códigos oficiais.</p>
+            <div class="standby-footer">
+              <span>⚡</span> <span id="standby-status-agent0">Aguardando SKUs</span>
+            </div>
+          </div>
+
+          <div class="standby-agent-card" onclick="focusAgent('agent1')">
+            <div class="standby-header">
+              <span style="font-size:1.4rem;">📥</span>
+              <span class="standby-badge ready" id="standby-badge-agent1">Pronto</span>
+            </div>
+            <h4>Agente 1 — Coletor</h4>
+            <p id="standby-desc-agent1">Extração da planilha de fornecedores, download de fotos do CDN e organização local.</p>
+            <div class="standby-footer">
+              <span>⚡</span> <span id="standby-status-agent1">Aguardando comando</span>
+            </div>
+          </div>
+
+          <div class="standby-agent-card" onclick="focusAgent('agent2')">
+            <div class="standby-header">
+              <span style="font-size:1.4rem;">🧠</span>
+              <span class="standby-badge ready" id="standby-badge-agent2">Pronto</span>
+            </div>
+            <h4>Agente 2 — IA Vision</h4>
+            <p id="standby-desc-agent2">Geração de títulos SEO (60 carac.), descrições ricas, ficha técnica e preços Sankhya.</p>
+            <div class="standby-footer">
+              <span>⚡</span> <span id="standby-status-agent2">17 JSONs enriquecidos</span>
+            </div>
+          </div>
+
+          <div class="standby-agent-card" onclick="focusAgent('agent3')">
+            <div class="standby-header">
+              <span style="font-size:1.4rem;">🚀</span>
+              <span class="standby-badge ready" id="standby-badge-agent3">Pronto</span>
+            </div>
+            <h4>Agente 3 — RPA Robô</h4>
+            <p id="standby-desc-agent3">Automação Web Playwright para publicação no Magis5 com fotos HD e variações.</p>
+            <div class="standby-footer">
+              <span>⚡</span> <span id="standby-status-agent3">11 anúncios publicados</span>
+            </div>
+          </div>
+
+          <div class="standby-agent-card" onclick="focusAgent('agent4')">
+            <div class="standby-header">
+              <span style="font-size:1.4rem;">🚨</span>
+              <span class="standby-badge ready" id="standby-badge-agent4">Pronto</span>
+            </div>
+            <h4>Agente 4 — Auditor</h4>
+            <p id="standby-desc-agent4">Auditoria e diagnóstico de falhas, classificação de causa-raiz e auto-fix em 1 clique.</p>
+            <div class="standby-footer">
+              <span>⚡</span> <span id="standby-status-agent4">Catálogo de regras ativo</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Pipeline Stepper -->
+    <div class="pipeline-stepper">
+      <div class="stepper-top">
+        <div class="stepper-title">
+          <span>⚡</span> Fluxo do Pipeline em Tempo Real
+          <span class="stepper-subtitle">— Acompanhe a progressão sequencial dos produtos</span>
+        </div>
+        <div style="font-size: 0.75rem; color: var(--text-muted);">
+          Clique em uma etapa para focar no agente
+        </div>
+      </div>
+
+      <div class="stepper-track">
+        <!-- Step 0 -->
+        <div class="step-card" id="step-card-agent0" onclick="focusAgent('agent0')">
+          <div class="step-num" style="background: rgba(14, 165, 233, 0.2); color: #7DD3FC;">0</div>
+          <div class="step-card-info">
+            <h4>Gerador Sankhya</h4>
+            <span id="step-metric-agent0">Agente 0 — Scout</span>
+          </div>
+        </div>
+
+        <div class="step-arrow">➔</div>
+
+        <!-- Step 1 -->
+        <div class="step-card" id="step-card-agent1" onclick="focusAgent('agent1')">
+          <div class="step-num">1</div>
+          <div class="step-card-info">
+            <h4>Coleta & Imagens</h4>
+            <span id="step-metric-agent1">Agente 1 — Coletor</span>
+          </div>
+        </div>
+
+        <div class="step-arrow">➔</div>
+
+        <!-- Step 2 -->
+        <div class="step-card" id="step-card-agent2" onclick="focusAgent('agent2')">
+          <div class="step-num">2</div>
+          <div class="step-card-info">
+            <h4>Enriquecimento IA</h4>
+            <span id="step-metric-agent2">Agente 2 — IA Vision</span>
+          </div>
+        </div>
+
+        <div class="step-arrow">➔</div>
+
+        <!-- Step 3 -->
+        <div class="step-card" id="step-card-agent3" onclick="focusAgent('agent3')">
+          <div class="step-num">3</div>
+          <div class="step-card-info">
+            <h4>Publicação Magis5</h4>
+            <span id="step-metric-agent3">Agente 3 — RPA Robô</span>
+          </div>
+        </div>
+
+        <div class="step-arrow">➔</div>
+
+        <!-- Step 4 -->
+        <div class="step-card" id="step-card-agent4" onclick="window.location.href='/rejeitados.html'" style="border-color: rgba(239, 68, 68, 0.3);">
+          <div class="step-num" style="background: rgba(239, 68, 68, 0.2); color: #FCA5A5;">4</div>
+          <div class="step-card-info">
+            <h4>Auditoria & Falhas</h4>
+            <span id="step-metric-agent4" style="color: #F87171;">Agente 4 — Auditor</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Agents Grid -->
+    <div class="section-title">
+      <span>🤖</span> Agentes de Automação
+    </div>
+
+    <div class="agents-grid">
+
+      <!-- Agente 0: Gerador de Planilhas Sankhya -->
+      <div class="agent-card">
+        <div class="agent-header">
+          <div>
+            <span class="agent-badge b0">Agente 0 — Sankhya Scout</span>
+            <h3>Gerador de Planilha ERP</h3>
+          </div>
+          <span style="font-size:1.8rem;">🏭</span>
+        </div>
+        <p>
+          Acessa o Sankhya Web da BRK via RPA, consulta os SKUs desejados e extrai títulos, códigos ERP e grades, gerando a planilha (.xlsx) formatada.
+        </p>
+
+        <!-- Live Status Box -->
+        <div class="agent-live-badge-container" id="card-live-box-agent0">
+          <div class="agent-live-badge-top">
+            <span><span class="agent-live-pulse-dot" style="background:#0EA5E9;"></span> Status em Tempo Real</span>
+            <span style="font-size:0.7rem; color:#7DD3FC;" id="card-live-tag-agent0">Pronto</span>
+          </div>
+          <div class="agent-live-action-text" id="card-live-text-agent0">Pronto para consultar SKUs no Sankhya Web e gerar planilhas (.xlsx).</div>
+        </div>
+
+        <!-- Entrada de SKUs -->
+        <div class="control-group">
+          <span class="control-label">📋 Códigos SKU a Consultar</span>
+          <textarea id="agent0-skus" class="control-input" rows="3" placeholder="Cole os SKUs aqui separados por vírgula ou linha&#10;Ex: C02821I, C02820, C02825BL" style="background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.15); color:#fff; border-radius:8px; padding:10px 12px; font-size:13px; resize:vertical; font-family:var(--font-mono);"></textarea>
+        </div>
+
+        <div style="display:flex; gap:0.5rem; margin-top:0.25rem;">
+          <button class="btn-action" style="flex:1; background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.15);" id="btn-login-agent0" onclick="loginSankhya()">
+            <span>🔐</span> Fazer Login
+          </button>
+          <button class="btn-action" style="flex:2;" id="btn-run-agent0" onclick="runAgent0()">
+            <span>⚡</span> Gerar Planilha
+          </button>
+        </div>
+
+        <div id="agent0-result-box" style="display:none; background:rgba(16,185,129,0.1); border:1px solid rgba(16,185,129,0.25); border-radius:8px; padding:12px; font-size:12px; color:#A7F3D0; margin-top:0.6rem;">
+          <div style="font-weight:700; margin-bottom:4px; display:flex; justify-content:space-between; align-items:center;">
+            <span>✅ Planilha Gerada com Sucesso!</span>
+          </div>
+          <div id="agent0-result-path" style="font-family:var(--font-mono); font-size:11px; word-break:break-all; color:#FFF; margin-bottom:8px; background:rgba(0,0,0,0.3); padding:6px 8px; border-radius:6px;"></div>
+          <div style="display:flex; gap:0.5rem;">
+            <a id="agent0-download-btn" href="#" download class="btn-action" style="flex:1.2; background:linear-gradient(135deg, #2563EB, #1D4ED8); color:#FFF; text-decoration:none; text-align:center; padding:8px 10px; font-size:11px; font-weight:600; display:inline-flex; align-items:center; justify-content:center; gap:6px; border-radius:8px; box-shadow:0 2px 8px rgba(37,99,235,0.35);">
+              <span>📥</span> Baixar Planilha (.xlsx)
+            </a>
+            <button class="btn-action" style="flex:1; background:#059669; padding:8px 10px; font-size:11px; border-radius:8px;" onclick="useGeneratedSpreadsheetInAgent1()">
+              <span>➡️</span> Usar no Agente 1
+            </button>
+          </div>
+        </div>
+
+        <!-- Seletor de Histórico e Download de Planilhas Geradas -->
+        <div id="agent0-downloads-area" style="margin-top:0.85rem; border-top:1px solid var(--bg-card-border); padding-top:0.75rem;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+            <span style="font-size:0.75rem; font-weight:600; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.05em;">📂 Planilhas Geradas no Servidor</span>
+            <span id="agent0-files-count" style="font-size:0.7rem; color:var(--text-dim); font-family:var(--font-mono);">0 disponíveis</span>
+          </div>
+          <div style="display:flex; gap:0.5rem;">
+            <select id="agent0-download-select" class="control-select" style="flex:1; font-size:12px; padding:6px 10px; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.15); border-radius:8px; color:#FFF;">
+              <option value="">Carregando planilhas...</option>
+            </select>
+            <button class="btn-action" style="padding:6px 14px; font-size:12px; background:rgba(37,99,235,0.25); border:1px solid rgba(59,130,246,0.4); color:#93C5FD;" onclick="downloadSelectedSankhyaFile()">
+              <span>📥 Baixar</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Agente 1: Scraper & Downloads -->
+      <div class="agent-card">
+        <div class="agent-header">
+          <div>
+            <span class="agent-badge b1">Agente 1 — Coletor</span>
+            <h3>Imagens & Catálogo</h3>
+          </div>
+          <span style="font-size:1.8rem;">📥</span>
+        </div>
+        <p>
+          Lê planilhas de fornecedores (.xls, .xlsx, .csv), baixa fotos limpas da Shopify e restaura pastas locais.
+        </p>
+
+        <!-- Live Status Box -->
+        <div class="agent-live-badge-container" id="card-live-box-agent1">
+          <div class="agent-live-badge-top">
+            <span><span class="agent-live-pulse-dot" style="background:#3B82F6;"></span> Status em Tempo Real</span>
+            <span style="font-size:0.7rem; color:#93C5FD;" id="card-live-tag-agent1">Pronto</span>
+          </div>
+          <div class="agent-live-action-text" id="card-live-text-agent1">Pronto para coletar fotos da Shopify e ler planilhas (.xls, .xlsx, .csv).</div>
+        </div>
+
+        <!-- Input de Fonte de Dados / Planilha -->
+        <div class="file-input-section">
+          <div class="file-section-header">
+            <span class="control-label">📁 Planilha / Fonte de Dados</span>
+            <span style="font-size: 0.7rem; color: var(--text-dim);" id="agent1-file-count">0 disponíveis</span>
+          </div>
+
+          <select id="agent1-file-select" class="control-select" onchange="onFileSelectionChanged('agent1')">
+            <option value="">Carregando arquivos...</option>
+          </select>
+
+          <div class="file-upload-zone" id="agent1-upload-zone" onclick="document.getElementById('agent1-file-input').click()">
+            <span>📤 Arraste ou clique para enviar (.xls, .xlsx, .csv)</span>
+            <input type="file" id="agent1-file-input" accept=".xls,.xlsx,.csv" style="display:none" onchange="handleFileUpload('agent1', this)">
+          </div>
+
+          <div id="agent1-file-badge" class="file-badge" style="display:none;"></div>
+        </div>
+
+        <div class="control-group" id="agent1-color-group">
+          <span class="control-label">Filtro de Cor na Planilha</span>
+          <select id="agent1-color" class="control-select">
+            <option value="TODAS" selected>⚪ Todas as Cores / Sem Filtro (Padrão para Sankhya e Geral)</option>
+            <option value="#D1FAE5">🟢 #D1FAE5 (Verde Claro — Novos Douglas)</option>
+            <option value="#47D359">🟢 #47D359 (Verde Escuro — Concluídos)</option>
+            <option value="#83E28E">🟢 #83E28E (Verde Médio — Concluídos)</option>
+            <option value="#FEF9C3">🟡 #FEF9C3 (Amarelo)</option>
+          </select>
+        <div class="control-group" id="agent1-collection-group">
+          <span class="control-label">📁 Pasta da Coleção em Downloads</span>
+          <input type="text" id="agent1-collection" class="control-input" placeholder="Ex: SaoBento (auto-detectado)" style="background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.15); color:#fff; border-radius:8px; padding:8px 12px; font-size:13px;" />
+        </div>
+
+        <div class="control-group">
+          <span class="control-label">Ação a Executar</span>
+          <select id="agent1-action" class="control-select">
+            <option value="auto" selected>⚡ Automático (Detectar pela Planilha)</option>
+            <option value="extract">1. Extrair Lote da Planilha (.xls/.xlsx)</option>
+            <option value="restore">2. Restaurar Imagens Originais do CDN</option>
+            <option value="scraper">3. Executar Scraper Completo (Shopify)</option>
+            <option value="restore-all">4. Organizar Todas as Pastas Físicas</option>
+          </select>
+        </div>
+
+        <button class="btn-action" id="btn-run-agent1" onclick="runAgent1()">
+          <span>▶️</span> Executar Agente 1
+        </button>
+      </div>
+
+      <!-- Agente 2: Enriquecedor com IA -->
+      <div class="agent-card">
+        <div class="agent-header">
+          <div>
+            <span class="agent-badge b2">Agente 2 — IA Vision</span>
+            <h3>Enriquecedor Shopee</h3>
+          </div>
+          <span style="font-size:1.8rem;">🧠</span>
+        </div>
+        <p>
+          Gera títulos SEO, descrições persuasivas, ficha técnica, dimensões e mapeia preços promocionais.
+        </p>
+
+        <!-- Live Status Box -->
+        <div class="agent-live-badge-container" id="card-live-box-agent2">
+          <div class="agent-live-badge-top">
+            <span><span class="agent-live-pulse-dot" style="background:#8B5CF6;"></span> Cérebro IA em Tempo Real</span>
+            <span style="font-size:0.7rem; color:#C4B5FD;" id="card-live-tag-agent2">Pronto</span>
+          </div>
+          <div class="agent-live-action-text" id="card-live-text-agent2">Gemini 3.6 Flash ativo. 17 anúncios enriquecidos prontos para envio.</div>
+        </div>
+
+        <!-- Input de Fonte de Dados / CSV -->
+        <div class="file-input-section">
+          <div class="file-section-header">
+            <span class="control-label">📁 Lote de Produtos (CSV)</span>
+            <span style="font-size: 0.7rem; color: var(--text-dim);" id="agent2-file-count">0 disponíveis</span>
+          </div>
+
+          <select id="agent2-file-select" class="control-select" onchange="onFileSelectionChanged('agent2')">
+            <option value="">Carregando arquivos...</option>
+          </select>
+
+          <div class="file-upload-zone" id="agent2-upload-zone" onclick="document.getElementById('agent2-file-input').click()">
+            <span>📤 Arraste ou clique para enviar CSV</span>
+            <input type="file" id="agent2-file-input" accept=".csv" style="display:none" onchange="handleFileUpload('agent2', this)">
+          </div>
+
+          <div id="agent2-file-badge" class="file-badge" style="display:none;"></div>
+        </div>
+
+        <div class="control-row">
+          <div class="control-group">
+            <span class="control-label">Modelo Principal</span>
+            <select id="agent2-model" class="control-select">
+              <option value="gemini-3.6-flash" selected>Gemini 3.6 Flash (Recomendado - Rápido)</option>
+              <option value="gemini-3.7-flash">Gemini 3.7 Flash</option>
+              <option value="gemini-3.8-flash">Gemini 3.8 Flash</option>
+              <option value="groq">Groq (LLaMA / Qwen)</option>
+            </select>
+            <div id="agent2-quota-notice" style="display:none; font-size:0.75rem; color:#f59e0b; margin-top:4px; line-height:1.2;"></div>
+          </div>
+          <div class="control-group">
+            <span class="control-label">Qtd. Limite</span>
+            <input type="number" id="agent2-limit" class="control-input" placeholder="Todos (ou ex: 10)" min="1">
+          </div>
+        </div>
+
+        <button class="btn-action" id="btn-run-agent2" onclick="runAgent2()">
+          <span>⚡</span> Iniciar Enriquecimento IA
+        </button>
+      </div>
+
+      <!-- Agente 3: RPA Magis5 -->
+      <div class="agent-card">
+        <div class="agent-header">
+          <div>
+            <span class="agent-badge b3">Agente 3 — RPA Robô</span>
+            <h3>Publicador Magis5</h3>
+          </div>
+          <span style="font-size:1.8rem;">🚀</span>
+        </div>
+        <p>
+          Preenche o formulário da Shopee na Magis5 com variações, fotos HD e código ERP Sankhya.
+        </p>
+
+        <!-- Live Status Box -->
+        <div class="agent-live-badge-container" id="card-live-box-agent3">
+          <div class="agent-live-badge-top">
+            <span><span class="agent-live-pulse-dot" style="background:#10B981;"></span> Robô RPA em Tempo Real</span>
+            <span style="font-size:0.7rem; color:#6EE7B7;" id="card-live-tag-agent3">Pronto</span>
+          </div>
+          <div class="agent-live-action-text" id="card-live-text-agent3">11 anúncios publicados. Automação Shopee configurada com categorias e ficha técnica.</div>
+          <div style="margin-top:0.4rem; display:flex; justify-content:space-between; align-items:center;">
+            <button type="button" class="btn-secondary" style="font-size:0.72rem; padding:0.25rem 0.65rem;" onclick="openLatestScreenshotModal()">
+              📸 Ver Última Captura do Robô
+            </button>
+            <span id="agent3-recent-shot-sku" style="font-size:0.7rem; color:var(--text-dim); font-family:var(--font-mono);"></span>
+          </div>
+        </div>
+
+        <!-- Input de Fonte de Dados / CSV -->
+        <div class="file-input-section">
+          <div class="file-section-header">
+            <span class="control-label">📁 Lote de Produtos (CSV)</span>
+            <span style="font-size: 0.7rem; color: var(--text-dim);" id="agent3-file-count">0 disponíveis</span>
+          </div>
+
+          <select id="agent3-file-select" class="control-select" onchange="onFileSelectionChanged('agent3')">
+            <option value="">Carregando arquivos...</option>
+          </select>
+
+          <div class="file-upload-zone" id="agent3-upload-zone" onclick="document.getElementById('agent3-file-input').click()">
+            <span>📤 Arraste ou clique para enviar CSV</span>
+            <input type="file" id="agent3-file-input" accept=".csv" style="display:none" onchange="handleFileUpload('agent3', this)">
+          </div>
+
+          <div id="agent3-file-badge" class="file-badge" style="display:none;"></div>
+        </div>
+
+        <!-- Pré-visualização dos SKUs do Lote (Agente 3) -->
+        <div class="batch-preview-box">
+          <div class="batch-preview-header">
+            <div class="batch-preview-title">
+              <span>👁️</span>
+              <span>SKUs na Fila deste Lote</span>
+            </div>
+            <button type="button" class="btn-inspect-batch" onclick="openBatchModal()">
+              <span>🔍</span> Ver Lista Completa
+            </button>
+          </div>
+
+          <div class="batch-queue-summary">
+            <span id="agent3-queue-summary">Carregando SKUs da fila...</span>
+            <span id="agent3-queue-flag" style="color: #34D399; font-weight:600;"></span>
+          </div>
+
+          <!-- Mini Chips com os próximos SKUs a publicar -->
+          <div class="batch-chips-container" id="agent3-chips-container"></div>
+        </div>
+
+        <div class="control-row">
+          <div class="control-group">
+            <span class="control-label">Quantidade de SKUs</span>
+            <input type="number" id="agent3-limit" class="control-input" value="10" min="1" max="100">
+          </div>
+          <div class="control-group">
+            <span class="control-label">Modo de Envio</span>
+            <select id="agent3-mode" class="control-select">
+              <option value="publish" selected>🚀 Publicação Real</option>
+              <option value="dry-run">🧪 Modo Teste (Dry Run)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="control-row">
+          <label class="toggle-label" style="grid-column: span 2;">
+            <input type="checkbox" id="agent3-headed"> Abrir janela visível do navegador (Headed)
+          </label>
+        </div>
+
+        <button class="btn-action" id="btn-run-agent3" onclick="runAgent3()" style="background: linear-gradient(135deg, #059669, #10B981);">
+          <span>🚀</span> Publicar Anúncios na Magis5
+        </button>
+      </div>
+
+      <!-- Agente 4: Auditor & Diagnóstico de Falhas -->
+      <div class="agent-card" style="border-color: rgba(239, 68, 68, 0.25);">
+        <div class="agent-header">
+          <div>
+            <span class="agent-badge b4">Agente 4 — Auditor</span>
+            <h3>Diagnóstico & Correção</h3>
+          </div>
+          <span style="font-size:1.8rem;">🚨</span>
+        </div>
+        <p>
+          Analisa produtos rejeitados no Magis5/Shopee, classifica a causa-raiz (categorias, duplicidades, variações), sugere a solução correta e aplica a correção automática.
+        </p>
+
+        <!-- Live Status Box -->
+        <div class="agent-live-badge-container" id="card-live-box-agent4">
+          <div class="agent-live-badge-top">
+            <span><span class="agent-live-pulse-dot" style="background:#EF4444;"></span> Auditor em Tempo Real</span>
+            <span style="font-size:0.7rem; color:#FCA5A5;" id="card-live-tag-agent4">Ativo</span>
+          </div>
+          <div class="agent-live-action-text" id="card-live-text-agent4">Monitor de rejeições pronto. Classificação e auto-correção de categorias ativas.</div>
+        </div>
+
+        <div style="background: rgba(239, 68, 68, 0.08); border: 1px solid rgba(239, 68, 68, 0.2); border-radius: var(--radius-sm); padding: 0.85rem; font-size: 0.8rem; color: #FCA5A5; display: flex; flex-direction: column; gap: 0.4rem;">
+          <div style="display: flex; align-items: center; justify-content: space-between;">
+            <strong>📋 Relatório Interativo de Rejeições</strong>
+            <span style="font-size: 0.7rem; background: rgba(239, 68, 68, 0.25); padding: 0.15rem 0.4rem; border-radius: 4px;">Ativo</span>
+          </div>
+          <p style="margin: 0; color: #FECACA; font-size: 0.75rem;">
+            Visualize prints de erros do Magis5, aprove soluções automáticas em 1 clique e re-envie anúncios.
+          </p>
+          <a href="/rejeitados.html" target="_blank" class="btn-secondary" style="margin-top: 0.4rem; text-align: center; justify-content: center; background: rgba(239, 68, 68, 0.2); border-color: rgba(239, 68, 68, 0.4); color: #FFF;">
+            <span>🔍</span> Abrir Painel de Rejeitados
+          </a>
+        </div>
+
+        <div class="control-group">
+          <span class="control-label">Ação de Auditoria</span>
+          <select id="agent4-action" class="control-select">
+            <option value="diagnose" selected>🔍 Executar Diagnóstico de Rejeitados</option>
+            <option value="auto-fix">⚡ Corrigir Categorias Incompatíveis Automaticamente</option>
+          </select>
+        </div>
+
+        <button class="btn-action" id="btn-run-agent4" onclick="runAgent4()" style="background: linear-gradient(135deg, #DC2626, #EF4444);">
+          <span>🩺</span> Executar Diagnóstico Agora
+        </button>
+      </div>
+
+    </div>
+
+    <!-- Terminal de Logs ao Vivo -->
+    <div class="terminal-container">
+      <div class="terminal-header">
+        <div class="terminal-title">
+          <span>💻</span>
+          <span id="terminal-agent-tag">CONSOLE DE LOGS DO AGENTE</span>
+        </div>
+        <div class="terminal-actions">
+          <div class="log-filters">
+            <button class="log-filter-btn active" onclick="filterLogs('all', this)">Todos</button>
+            <button class="log-filter-btn" onclick="filterLogs('success', this)">✅ Sucessos</button>
+            <button class="log-filter-btn" onclick="filterLogs('error', this)">❌ Erros</button>
+            <button class="log-filter-btn" onclick="filterLogs('warn', this)">⚠️ Avisos</button>
+          </div>
+          <label class="toggle-label">
+            <input type="checkbox" id="autoscroll-toggle" checked> Auto-scroll
+          </label>
+          <button class="btn-secondary" onclick="clearLogs()">
+            <span>🗑️</span> Limpar
+          </button>
+          <button class="btn-danger" id="btn-stop-agent" onclick="stopAgent()" disabled>
+            <span>⏹️</span> Parar Execução
+          </button>
+        </div>
+      </div>
+      <div class="terminal-body" id="terminal-body">
+        <div class="log-line">
+          <span class="log-time">[--:--:--]</span>
+          <span class="log-msg highlight">Aguardando ativação de um agente...</span>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Floating Mini Dock -->
+  <div class="mini-dock" id="mini-dock">
+    <div class="dock-status">
+      <span class="status-dot"></span>
+      <span id="dock-agent-name">AGENTE</span>
+    </div>
+    <div class="dock-log-preview" id="dock-log-preview">Aguardando logs...</div>
+    <button class="btn-dock-expand" onclick="scrollToTerminal()">🖥️ Ver Logs</button>
+  </div>
+
+  <div id="toast"></div>
+
+  <script>
+    let isRunning = false;
+    let pollInterval = null;
+    let cachedLogs = [];
+    let currentLogFilter = 'all';
+
+    function showToast(msg, isError = false) {
+      const toast = document.getElementById('toast');
+      toast.textContent = msg;
+      toast.style.borderColor = isError ? '#F43F5E' : '#10B981';
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 3500);
+    }
+
+    async function fetchStats() {
+      try {
+        const res = await fetch('/api/stats');
+        const data = await res.json();
+        const s = data.stats;
+
+        document.getElementById('stat-total-csv').textContent = s.totalCsv || 0;
+        document.getElementById('stat-total-pais').textContent = s.totalJsons || 0;
+        document.getElementById('stat-publicados').textContent = s.publishedJsons || 0;
+        document.getElementById('stat-pendentes').textContent = s.pendingJsons || 0;
+
+        // Atualiza métricas de rejeições do Agente 4
+        fetch('/api/diagnostics').then(r => r.json()).then(diag => {
+          const pendentes = diag.pendentesResolucao !== undefined ? diag.pendentesResolucao : (diag.diagnostics || diag.produtos || []).filter(d => !d.isCurrentlyPublished).length;
+          const statRej = document.getElementById('stat-rejeitados');
+          const badgeHeader = document.getElementById('header-rejected-count');
+          const stepRej = document.getElementById('step-metric-agent4');
+          if (statRej) statRej.textContent = pendentes;
+          if (badgeHeader) badgeHeader.textContent = pendentes;
+          if (stepRej) stepRej.textContent = `${pendentes} pendente(s)`;
+        }).catch(() => {});
+
+        updateRunningState(data.agentRunning, data.currentAgent, data.agentStatus);
+      } catch (e) {
+        console.error('Erro ao buscar stats:', e);
+      }
+    }
+
+    // ── Telemetria Visual em Tempo Real ─────────────────────────────────────
+    let latestScreenshotUrl = '';
+    let latestScreenshotSku = '';
+
+    const AGENT_CONFIGS = {
+      agent1: {
+        name: 'Agente 1 — Coletor',
+        icon: '📥',
+        theme: 'theme-agent1',
+        steps: [
+          'Leitura da Planilha',
+          'Filtro de Cores',
+          'Conexão CDN Shopify',
+          'Download de Imagens',
+          'Organização de Pastas'
+        ]
+      },
+      agent2: {
+        name: 'Agente 2 — IA Vision',
+        icon: '🧠',
+        theme: 'theme-agent2',
+        steps: [
+          'Carregamento do Lote',
+          'Prompt Vision',
+          'Título SEO (60 carac.)',
+          'Ficha Técnica Oficial',
+          'Preços Sankhya',
+          'Gravação JSON'
+        ]
+      },
+      agent3: {
+        name: 'Agente 3 — RPA Magis5',
+        icon: '🚀',
+        theme: 'theme-agent3',
+        steps: [
+          'Sessão Playwright',
+          'Navegação Magis5',
+          'Dados Gerais & SEO',
+          'Categoria Shopee',
+          'Ficha Técnica Oficial',
+          'Upload de Imagens HD',
+          'Variações & Preços',
+          'Publicação Final'
+        ]
+      },
+      agent4: {
+        name: 'Agente 4 — Auditor',
+        icon: '🚨',
+        theme: 'theme-agent4',
+        steps: [
+          'Leitura de Falhas',
+          'Classificação Causa-Raiz',
+          'Regras Shopee',
+          'Proposta de Solução',
+          'Auto-Fix 1 Clique'
+        ]
+      }
+    };
+
+    async function fetchTelemetry() {
+      try {
+        const res = await fetch('/api/telemetry');
+        if (!res.ok) return;
+        const data = await res.json();
+        renderTelemetry(data.telemetry, data.screenshots, data.stats);
+      } catch (err) {
+        console.error('Erro ao buscar telemetria:', err);
+      }
+    }
+
+    function renderTelemetry(telemetry, screenshots, stats) {
+      if (!telemetry) return;
+      const heroEl = document.getElementById('mission-control-hero');
+      const activeContainer = document.getElementById('hero-active-container');
+      const standbyContainer = document.getElementById('hero-standby-container');
+      const radarBeacon = document.getElementById('hero-radar-beacon');
+      const mainTitle = document.getElementById('hero-main-title');
+      const subTitle = document.getElementById('hero-sub-title');
+      const timerBadge = document.getElementById('hero-timer-badge');
+      const elapsedTime = document.getElementById('hero-elapsed-time');
+      const stopBtn = document.getElementById('hero-stop-btn');
+
+      // Atualiza screenshot do robô
+      if (screenshots && screenshots.length > 0) {
+        latestScreenshotUrl = screenshots[0].url;
+        latestScreenshotSku = screenshots[0].sku;
+        const shotImg = document.getElementById('hero-robot-screen-img');
+        const shotPlaceholder = document.getElementById('hero-robot-screen-placeholder');
+        const shotTime = document.getElementById('hero-robot-screen-time');
+        const shotBadgeSku = document.getElementById('agent3-recent-shot-sku');
+
+        if (shotImg) {
+          shotImg.src = screenshots[0].url;
+          shotImg.style.display = 'block';
+        }
+        if (shotPlaceholder) shotPlaceholder.style.display = 'none';
+        if (shotTime) shotTime.textContent = `Captura: ${screenshots[0].sku}`;
+        if (shotBadgeSku) shotBadgeSku.textContent = `Último: ${screenshots[0].sku}`;
+      }
+
+      const isRunning = telemetry.status === 'running' && telemetry.currentAgent;
+
+      heroEl.classList.remove('theme-agent1', 'theme-agent2', 'theme-agent3', 'theme-agent4');
+
+      if (isRunning) {
+        const agKey = telemetry.currentAgent;
+        const agCfg = AGENT_CONFIGS[agKey] || { name: agKey.toUpperCase(), icon: '🤖', theme: 'theme-agent3', steps: [] };
+
+        heroEl.classList.add(agCfg.theme);
+        activeContainer.style.display = 'block';
+        standbyContainer.style.display = 'none';
+        radarBeacon.classList.add('busy');
+        timerBadge.style.display = 'inline-flex';
+        stopBtn.style.display = 'inline-flex';
+
+        const secs = telemetry.elapsedSeconds || 0;
+        const mm = String(Math.floor(secs / 60)).padStart(2, '0');
+        const ss = String(secs % 60).padStart(2, '0');
+        elapsedTime.textContent = `${mm}:${ss}`;
+
+        mainTitle.innerHTML = `<span>${agCfg.icon} ${agCfg.name} EM EXECUÇÃO AO VIVO</span>`;
+        subTitle.textContent = `Operação em andamento no ambiente automatizado`;
+
+        document.getElementById('hero-agent-icon').textContent = agCfg.icon;
+        document.getElementById('hero-step-name').textContent = telemetry.currentStep || 'Executando etapa...';
+        document.getElementById('hero-step-detail').textContent = telemetry.stepDetail || telemetry.currentStep || 'Processando produto...';
+
+        const skuBadge = document.getElementById('hero-sku-badge');
+        const skuVal = document.getElementById('hero-sku-value');
+        if (telemetry.currentSku) {
+          skuBadge.style.display = 'inline-block';
+          skuVal.textContent = telemetry.currentSku;
+        } else {
+          skuBadge.style.display = 'none';
+        }
+
+        const prog = telemetry.progress || { current: 0, total: 0 };
+        const progFraction = document.getElementById('hero-progress-fraction');
+        const progLabel = document.getElementById('hero-progress-label');
+        const progPercent = document.getElementById('hero-progress-percent');
+        const progFill = document.getElementById('hero-progress-fill');
+
+        if (prog.total > 0) {
+          progFraction.textContent = `(${prog.current} de ${prog.total} produtos)`;
+          const pct = Math.min(100, Math.round((prog.current / prog.total) * 100));
+          progLabel.textContent = `Progresso do Lote de Produtos (${prog.current}/${prog.total})`;
+          progPercent.textContent = `${pct}%`;
+          progFill.style.width = `${Math.max(5, pct)}%`;
+        } else {
+          progFraction.textContent = '';
+          progLabel.textContent = `Executando etapa sequencial`;
+          progPercent.textContent = `Em andamento`;
+          progFill.style.width = `45%`;
+        }
+
+        renderMicroSteps(agCfg.steps, telemetry.currentStep);
+
+        const cardTag = document.getElementById(`card-live-tag-${agKey}`);
+        const cardText = document.getElementById(`card-live-text-${agKey}`);
+        if (cardTag) {
+          cardTag.textContent = '⚡ Em Ação Agora';
+          cardTag.style.color = '#F59E0B';
+        }
+        if (cardText) {
+          cardText.textContent = `${telemetry.currentStep || 'Trabalhando'}: ${telemetry.stepDetail || ''}`;
+        }
+      } else {
+        activeContainer.style.display = 'none';
+        standbyContainer.style.display = 'block';
+        radarBeacon.classList.remove('busy');
+        timerBadge.style.display = 'none';
+        stopBtn.style.display = 'none';
+
+        mainTitle.innerHTML = `<span>🎛️ Centro de Operações dos Agentes</span>`;
+        subTitle.textContent = `Todos os 4 agentes estão prontos para processar novos lotes`;
+
+        if (telemetry.history) {
+          ['agent1', 'agent2', 'agent3', 'agent4'].forEach(agKey => {
+            const h = telemetry.history[agKey] || {};
+            const standbyStatus = document.getElementById(`standby-status-${agKey}`);
+            const cardTag = document.getElementById(`card-live-tag-${agKey}`);
+            const cardText = document.getElementById(`card-live-text-${agKey}`);
+
+            if (standbyStatus && h.lastAction) standbyStatus.textContent = h.lastAction;
+            if (cardTag) {
+              cardTag.textContent = h.status === 'done' ? '✓ Concluído' : 'Pronto';
+              cardTag.style.color = '#34D399';
+            }
+            if (cardText && h.lastAction) {
+              cardText.textContent = h.lastAction;
+            }
+          });
+        }
+      }
+    }
+
+    function renderMicroSteps(stepList, currentStepText) {
+      const container = document.getElementById('hero-micro-steps');
+      if (!container || !stepList) return;
+      container.innerHTML = '';
+
+      const normCurr = (currentStepText || '').toLowerCase();
+      let foundActive = false;
+
+      stepList.forEach((stepName, idx) => {
+        const item = document.createElement('div');
+        const normStep = stepName.toLowerCase();
+        const isMatch = normCurr.includes(normStep) || normStep.includes(normCurr);
+
+        if (isMatch) {
+          item.className = 'micro-step-item active';
+          item.innerHTML = `<span>⚡</span> <span>${stepName}</span>`;
+          foundActive = true;
+        } else if (!foundActive) {
+          item.className = 'micro-step-item done';
+          item.innerHTML = `<span>✓</span> <span>${stepName}</span>`;
+        } else {
+          item.className = 'micro-step-item';
+          item.innerHTML = `<span>○</span> <span>${stepName}</span>`;
+        }
+        container.appendChild(item);
+      });
+    }
+
+    // Modal de Screenshots
+    function openCurrentScreenshotModal() {
+      if (!latestScreenshotUrl) return;
+      const modal = document.getElementById('screenshot-modal');
+      const img = document.getElementById('screenshot-modal-img');
+      const subtitle = document.getElementById('screenshot-modal-subtitle');
+      const btnOpen = document.getElementById('screenshot-modal-download-btn');
+
+      img.src = latestScreenshotUrl;
+      subtitle.textContent = `Produto: ${latestScreenshotSku} — Capturado pelo robô RPA Playwright`;
+      btnOpen.href = latestScreenshotUrl;
+      modal.classList.add('open');
+    }
+
+    function openLatestScreenshotModal() {
+      openCurrentScreenshotModal();
+    }
+
+    function closeScreenshotModal() {
+      const modal = document.getElementById('screenshot-modal');
+      if (modal) modal.classList.remove('open');
+    }
+
+    function updateRunningState(running, currentAgent, agentStatus) {
+      isRunning = running;
+      const statusPill = document.getElementById('system-status');
+      const statusText = document.getElementById('system-status-text');
+      const stopBtn = document.getElementById('btn-stop-agent');
+      const tag = document.getElementById('terminal-agent-tag');
+      const miniDock = document.getElementById('mini-dock');
+      const dockName = document.getElementById('dock-agent-name');
+
+      const allRunBtns = [
+        document.getElementById('btn-run-agent0'),
+        document.getElementById('btn-login-agent0'),
+        document.getElementById('btn-run-agent1'),
+        document.getElementById('btn-run-agent2'),
+        document.getElementById('btn-run-agent3'),
+        document.getElementById('btn-run-agent4')
+      ].filter(Boolean);
+
+      // Atualiza stepper
+      document.querySelectorAll('.step-card').forEach(c => c.classList.remove('active-step'));
+
+      if (running && currentAgent) {
+        statusPill.classList.add('busy');
+        statusText.textContent = `Executando: ${currentAgent.toUpperCase()}...`;
+        stopBtn.disabled = false;
+        allRunBtns.forEach(b => b.disabled = true);
+        tag.textContent = `CONSOLE [${currentAgent.toUpperCase()} EM EXECUÇÃO]`;
+
+        const activeStep = document.getElementById(`step-card-${currentAgent}`);
+        if (activeStep) activeStep.classList.add('active-step');
+
+        if (miniDock) {
+          miniDock.classList.add('visible');
+          if (dockName) dockName.textContent = currentAgent.toUpperCase();
+        }
+      } else {
+        statusPill.classList.remove('busy');
+        statusText.textContent = agentStatus === 'error' ? 'Última Tarefa com Erro' : 'Sistema Pronto';
+        stopBtn.disabled = true;
+        allRunBtns.forEach(b => b.disabled = false);
+        tag.textContent = 'CONSOLE DE LOGS';
+
+        if (miniDock) {
+          miniDock.classList.remove('visible');
+        }
+      }
+    }
+
+    function focusAgent(agentId) {
+      let cardSelector = '';
+      if (agentId === 'agent0') cardSelector = '#btn-run-agent0';
+      else if (agentId === 'agent1') cardSelector = '#btn-run-agent1';
+      else if (agentId === 'agent2') cardSelector = '#btn-run-agent2';
+      else if (agentId === 'agent3') cardSelector = '#btn-run-agent3';
+      else if (agentId === 'agent4') cardSelector = '#btn-run-agent4';
+
+      const btn = document.querySelector(cardSelector);
+      if (btn) {
+        const card = btn.closest('.agent-card');
+        if (card) {
+          card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          card.style.borderColor = '#3B82F6';
+          card.style.boxShadow = '0 0 25px rgba(59, 130, 246, 0.4)';
+          setTimeout(() => {
+            card.style.borderColor = '';
+            card.style.boxShadow = '';
+          }, 1500);
+        }
+      }
+    }
+
+    function scrollToTerminal() {
+      const term = document.getElementById('terminal-body');
+      if (term) {
+        term.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    }
+
+    function filterLogs(filterType, btn) {
+      currentLogFilter = filterType;
+      document.querySelectorAll('.log-filter-btn').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+      renderLogs(cachedLogs);
+    }
+
+    async function fetchLogs() {
+      try {
+        const res = await fetch('/api/agents/logs');
+        const data = await res.json();
+        cachedLogs = data.logs || [];
+        renderLogs(cachedLogs);
+        updateRunningState(data.running, data.currentAgent, data.agentStatus);
+      } catch (e) {
+        console.error('Erro ao buscar logs:', e);
+      }
+    }
+
+    function renderLogs(logs) {
+      const body = document.getElementById('terminal-body');
+      if (!logs) return;
+
+      // Atualiza preview no mini dock
+      if (logs.length > 0) {
+        const lastMsg = logs[logs.length - 1].message;
+        const dockPreview = document.getElementById('dock-log-preview');
+        if (dockPreview) dockPreview.textContent = lastMsg;
+      }
+
+      const filtered = logs.filter(entry => {
+        const txt = entry.message;
+        const isErr = entry.stream === 'stderr' || txt.includes('❌') || txt.includes('Error') || txt.includes('Falha');
+        const isSucc = txt.includes('✅') || txt.includes('Sucesso') || txt.includes('finalizou com código');
+        const isWarn = txt.includes('⚠️') || txt.includes('Aviso');
+
+        if (currentLogFilter === 'error') return isErr;
+        if (currentLogFilter === 'success') return isSucc;
+        if (currentLogFilter === 'warn') return isWarn;
+        return true;
+      });
+
+      body.innerHTML = '';
+      if (filtered.length === 0) {
+        body.innerHTML = `<div class="log-line"><span class="log-time">[--:--:--]</span><span class="log-msg highlight">Nenhum log encontrado para o filtro selecionado.</span></div>`;
+        return;
+      }
+
+      filtered.forEach(entry => {
+        const line = document.createElement('div');
+        line.className = 'log-line';
+
+        let msgClass = 'log-msg';
+        const txt = entry.message;
+        if (entry.stream === 'stderr' || txt.includes('❌') || txt.includes('Error') || txt.includes('Falha')) {
+          msgClass += ' error';
+        } else if (txt.includes('✅') || txt.includes('Sucesso') || txt.includes('finalizou com código')) {
+          msgClass += ' success';
+        } else if (txt.includes('⚠️') || txt.includes('Aviso')) {
+          msgClass += ' warn';
+        } else if (txt.includes('🚀') || txt.includes('Iniciando')) {
+          msgClass += ' highlight';
+        }
+
+        // Detecção de planilha gerada pelo Agente 0
+        if (txt.includes('Planilha gerada com sucesso') || txt.includes('Lote_Sankhya_') || txt.includes('planilha_sankhya_')) {
+          const match = txt.match(/([A-Za-z]:\\[^\s\r\n]+\.xlsx|\/[^\s\r\n]+\.xlsx)/i);
+          if (match) {
+            lastGeneratedSankhyaFile = match[1];
+            const resBox = document.getElementById('agent0-result-box');
+            const resPath = document.getElementById('agent0-result-path');
+            const dlBtn = document.getElementById('agent0-download-btn');
+            if (resBox && resPath) {
+              resPath.textContent = lastGeneratedSankhyaFile;
+              resBox.style.display = 'block';
+            }
+            if (dlBtn) {
+              const fName = lastGeneratedSankhyaFile.split(/[/\\]/).pop();
+              dlBtn.href = `/uploads/${encodeURIComponent(fName)}`;
+              dlBtn.setAttribute('download', fName);
+            }
+            // Recarrega arquivos para atualizar o seletor
+            if (typeof fetchFiles === 'function') {
+              fetchFiles();
+            }
+          }
+        }
+
+        line.innerHTML = `
+          <span class="log-time">[${entry.time}]</span>
+          <span class="${msgClass}">${escapeHtml(entry.message)}</span>
+        `;
+        body.appendChild(line);
+      });
+
+      if (document.getElementById('autoscroll-toggle').checked) {
+        body.scrollTop = body.scrollHeight;
+      }
+    }
+
+    // Atalhos de teclado
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        const modal = document.getElementById('batch-modal');
+        if (modal && modal.classList.contains('open')) closeBatchModal();
+      } else if (e.key.toLowerCase() === 'l' && !['INPUT', 'SELECT', 'TEXTAREA'].includes(e.target.tagName)) {
+        scrollToTerminal();
+      } else if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        openBatchModal();
+      }
+    });
+
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
+    function clearLogs() {
+      document.getElementById('terminal-body').innerHTML = `
+        <div class="log-line">
+          <span class="log-time">[--:--:--]</span>
+          <span class="log-msg highlight">Console limpo.</span>
+        </div>
+      `;
+    }
+
+    async function startAgentRequest(agent, options) {
+      try {
+        const res = await fetch('/api/agents/start', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ agent, options })
+        });
+        const data = await res.json();
+        if (data.error) {
+          showToast(`Erro: ${data.error}`, true);
+          return;
+        }
+        showToast(`Agente ${agent.toUpperCase()} iniciado com sucesso!`);
+        fetchLogs();
+      } catch (err) {
+        showToast(`Falha na requisição: ${err.message}`, true);
+      }
+    }
+
+    // ── Gerenciamento de Arquivos / Fontes de Dados ──────────────────────────
+    let cachedFiles = [];
+
+    function formatBytes(bytes) {
+      if (!bytes || bytes === 0) return '0 B';
+      const k = 1024;
+      const sizes = ['B', 'KB', 'MB', 'GB'];
+      const i = Math.floor(Math.log(bytes) / Math.log(k));
+      return (bytes / Math.pow(k, i)).toFixed(1) + ' ' + sizes[i];
+    }
+
+    async function fetchFiles(selectNewPath = null, targetAgent = null) {
+      try {
+        const res = await fetch('/api/files');
+        const data = await res.json();
+        cachedFiles = data.files || [];
+
+        updateAgent0Downloads(cachedFiles);
+        updateFileSelect('agent1', cachedFiles, selectNewPath, targetAgent === 'agent1');
+        updateFileSelect('agent2', cachedFiles, selectNewPath, targetAgent === 'agent2');
+        updateFileSelect('agent3', cachedFiles, selectNewPath, targetAgent === 'agent3');
+
+        onFileSelectionChanged('agent1');
+        onFileSelectionChanged('agent2');
+        onFileSelectionChanged('agent3');
+      } catch (err) {
+        console.error('Erro ao listar arquivos:', err);
+      }
+    }
+
+    function updateFileSelect(agentId, files, selectNewPath, isTarget) {
+      const select = document.getElementById(`${agentId}-file-select`);
+      const countSpan = document.getElementById(`${agentId}-file-count`);
+      if (!select) return;
+
+      const currentVal = select.value;
+      select.innerHTML = '';
+
+      // Filtra arquivos relevantes para o agente se necessário
+      let filtered = files;
+      if (agentId === 'agent2' || agentId === 'agent3') {
+        // Agentes 2 e 3 trabalham com CSV de produtos
+        filtered = files.filter(f => f.isCsv);
+      }
+
+      countSpan.textContent = `${filtered.length} disponíveis`;
+
+      if (filtered.length === 0) {
+        select.innerHTML = '<option value="">Nenhum arquivo encontrado</option>';
+        return;
+      }
+
+      // Adiciona opções
+      filtered.forEach(f => {
+        const opt = document.createElement('option');
+        opt.value = f.path;
+
+        let icon = f.isExcel ? '📊 [Excel]' : '📄 [CSV]';
+        let badge = f.source ? ` (${f.source})` : '';
+        opt.textContent = `${icon} ${f.name} — ${formatBytes(f.size)}${badge}`;
+        select.appendChild(opt);
+      });
+
+      // Seleção prioritária
+      if (isTarget && selectNewPath && (agentId === 'agent1' || !selectNewPath.match(/\.(xlsx?)$/i))) {
+        select.value = selectNewPath;
+      } else if (currentVal && Array.from(select.options).some(o => o.value === currentVal)) {
+        select.value = currentVal;
+      } else {
+        // Seleção padrão inteligente
+        if (agentId === 'agent1') {
+          const uploadsFile = filtered.find(f => f.source === 'Uploads' && f.isExcel);
+          if (uploadsFile) {
+            select.value = uploadsFile.path;
+          } else {
+            const douglas = filtered.find(f => f.name.includes('Estoque Douglas') && f.isExcel);
+            if (douglas) select.value = douglas.path;
+          }
+        } else {
+          const lote = filtered.find(f => f.name.includes('lote_d1fae5.csv'));
+          if (lote) select.value = lote.path;
+          else if (filtered.length > 0) select.value = filtered[0].path;
+        }
+      }
+    }
+
+    function onFileSelectionChanged(agentId) {
+      const select = document.getElementById(`${agentId}-file-select`);
+      const badge = document.getElementById(`${agentId}-file-badge`);
+      const selectedPath = select ? select.value : '';
+
+      if (!selectedPath) {
+        if (badge) badge.style.display = 'none';
+        return;
+      }
+
+      const fileObj = cachedFiles.find(f => f.path === selectedPath);
+      const fileName = fileObj ? fileObj.name : selectedPath.split(/[\\/]/).pop();
+      const fileSize = fileObj ? formatBytes(fileObj.size) : '';
+
+      if (badge) {
+        badge.style.display = 'inline-flex';
+        badge.innerHTML = `<span>✓</span> <strong>${escapeHtml(fileName)}</strong> <span style="opacity:0.7">(${fileSize})</span>`;
+      }
+
+      // No Agente 1: se for Excel (.xls, .xlsx), mostra opções de extração e cores
+      if (agentId === 'agent1') {
+        const isExcel = /\.(xlsx?)$/i.test(selectedPath);
+        const colorGroup = document.getElementById('agent1-color-group');
+        const actionSelect = document.getElementById('agent1-action');
+
+        if (colorGroup) {
+          colorGroup.style.display = isExcel ? 'flex' : 'none';
+        }
+
+        const colorSelect = document.getElementById('agent1-color');
+        if (colorSelect && isExcel) {
+          if (selectedPath.toLowerCase().includes('douglas')) {
+            colorSelect.value = '#D1FAE5';
+          } else {
+            colorSelect.value = 'TODAS';
+          }
+        }
+
+        const collectionInput = document.getElementById('agent1-collection');
+        if (collectionInput && selectedPath) {
+          let base = selectedPath.split(/[\\/]/).pop().replace(/\.[^/.]+$/, "");
+          base = base.replace(/_\d{10,}$/, "");
+          base = base.replace(/_+sankhya(_+.*)?$/i, "");
+          base = base.replace(/_\d{10,}$/, "");
+          const words = base.split(/[_\s-]+/).filter(Boolean);
+          if (words.length > 0 && !base.toLowerCase().startsWith('lote_')) {
+            collectionInput.value = words.map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase()).join('');
+          }
+        }
+      } else if (agentId === 'agent3') {
+        updateBatchPreview();
+      }
+    }
+
+    // Upload de Arquivo via Base64 para a API
+    async function handleFileUpload(agentId, inputElement) {
+      if (!inputElement.files || inputElement.files.length === 0) return;
+      const file = inputElement.files[0];
+
+      showToast(`Carregando ${file.name}...`);
+
+      const reader = new FileReader();
+      reader.onload = async () => {
+        try {
+          const base64 = reader.result.split(',')[1];
+          const res = await fetch('/api/upload', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              filename: file.name,
+              base64,
+              agent: agentId
+            })
+          });
+
+          const data = await res.json();
+          if (data.error) {
+            showToast(`Erro no upload: ${data.error}`, true);
+            return;
+          }
+
+          showToast(`✅ Arquivo "${file.name}" anexado com sucesso!`);
+          await fetchFiles(data.filePath, agentId);
+        } catch (err) {
+          showToast(`Falha no upload: ${err.message}`, true);
+        } finally {
+          inputElement.value = '';
+        }
+      };
+      reader.readAsDataURL(file);
+    }
+
+    // Configura zonas de Drag & Drop para cada agente
+    function setupDragAndDrop(agentId) {
+      const zone = document.getElementById(`${agentId}-upload-zone`);
+      const input = document.getElementById(`${agentId}-file-input`);
+      if (!zone || !input) return;
+
+      zone.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        zone.classList.add('dragover');
+      });
+
+      zone.addEventListener('dragleave', () => {
+        zone.classList.remove('dragover');
+      });
+
+      zone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        zone.classList.remove('dragover');
+        if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+          input.files = e.dataTransfer.files;
+          handleFileUpload(agentId, input);
+        }
+      });
+    }
+
+    // ── Execução dos Agentes com Arquivos ────────────────────────────────────
+
+    let lastGeneratedSankhyaFile = null;
+
+    function loginSankhya() {
+      showToast('Abrindo navegador para login no Sankhya Web...');
+      startAgentRequest('agent0', { action: 'login' });
+    }
+
+    function runAgent0() {
+      const textarea = document.getElementById('agent0-skus');
+      const raw = textarea ? textarea.value.trim() : '';
+      if (!raw) {
+        showToast('Por favor, informe ao menos 1 código SKU ou nome de coleção para buscar no Sankhya.', true);
+        return;
+      }
+
+      const isCollectionExplicit = /^(cole[çc][ãa]o|linha|familia|família)\s+/i.test(raw);
+      let cleaned = raw.replace(/^(cole[çc][ãa]o|linha|familia|família)\s+/i, '').trim();
+
+      let filterFull = 'all';
+      if (/\b(full|pronta\s*entrega)\b/i.test(cleaned)) {
+        filterFull = 'full';
+        cleaned = cleaned.replace(/\b(full|pronta\s*entrega)\b/gi, '').trim();
+      } else if (/\b(sem\s*full|padrao|padrão|fabrica[çc][ãa]o)\b/i.test(cleaned)) {
+        filterFull = 'standard';
+        cleaned = cleaned.replace(/\b(sem\s*full|padrao|padrão|fabrica[çc][ãa]o)\b/gi, '').trim();
+      }
+
+      const parts = cleaned.split(/[\s,\n\r]+/).map(s => s.trim()).filter(Boolean);
+      const isSingleWordCollection = parts.length === 1 && !/^(C\d{4,}|BA\d+|BORAPLUS|FUSION\d+|BT\d+|[A-Z]\d{5})/i.test(parts[0]);
+      const allLookLikeSkus = parts.length > 0 && parts.every(p => /^(C\d{4,}[A-Za-z0-9_-]*|BA\d+[A-Za-z0-9_-]*|FUSION\d+[A-Za-z0-9_-]*|BT\d+[A-Za-z0-9_-]*)$/i.test(p));
+
+      if (isCollectionExplicit || isSingleWordCollection || !allLookLikeSkus) {
+        showToast(`Buscando coleção(ões) "${cleaned}" no Sankhya...`);
+        startAgentRequest('agent0', { collection: cleaned, filterFull });
+      } else if (parts.length > 0) {
+        showToast(`Iniciando Agente 0 para ${parts.length} SKU(s)...`);
+        startAgentRequest('agent0', { skus: parts, filterFull });
+      }
+    }
+
+    async function useGeneratedSpreadsheetInAgent1() {
+      if (!lastGeneratedSankhyaFile) {
+        showToast('Nenhuma planilha recente encontrada.', true);
+        return;
+      }
+      await fetchFiles(lastGeneratedSankhyaFile, 'agent1');
+      focusAgent('agent1');
+      showToast('✅ Planilha do Sankhya selecionada no Agente 1!');
+    }
+
+    function updateAgent0Downloads(files) {
+      const select = document.getElementById('agent0-download-select');
+      const countSpan = document.getElementById('agent0-files-count');
+      const dlBtn = document.getElementById('agent0-download-btn');
+      if (!select) return;
+
+      const sankhyaFiles = files.filter(f => f.source === 'Uploads' && (f.isExcel || f.name.toLowerCase().includes('sankhya')));
+      if (countSpan) countSpan.textContent = `${sankhyaFiles.length} disponível(is)`;
+
+      select.innerHTML = '';
+      if (sankhyaFiles.length === 0) {
+        select.innerHTML = '<option value="">Nenhuma planilha gerada ainda</option>';
+        return;
+      }
+
+      sankhyaFiles.forEach((f, idx) => {
+        const opt = document.createElement('option');
+        const fUrl = f.downloadUrl || `/uploads/${encodeURIComponent(f.name)}`;
+        opt.value = fUrl;
+        opt.dataset.path = f.path;
+        opt.textContent = `📊 ${f.name} — ${formatBytes(f.size)}`;
+        select.appendChild(opt);
+
+        // Se for o primeiro (mais recente) e o box ainda não estiver com download configurado
+        if (idx === 0) {
+          lastGeneratedSankhyaFile = f.path;
+          const resBox = document.getElementById('agent0-result-box');
+          const resPath = document.getElementById('agent0-result-path');
+          if (resBox && resPath) {
+            resPath.textContent = f.path;
+            if (dlBtn) {
+              dlBtn.href = fUrl;
+              dlBtn.setAttribute('download', f.name);
+            }
+            resBox.style.display = 'block';
+          }
+        }
+      });
+    }
+
+    function downloadSelectedSankhyaFile() {
+      const select = document.getElementById('agent0-download-select');
+      if (!select || !select.value) {
+        showToast('Nenhuma planilha selecionada para download.', true);
+        return;
+      }
+      const link = document.createElement('a');
+      link.href = select.value;
+      const optText = select.options[select.selectedIndex]?.textContent || '';
+      const matchName = optText.match(/planilha_[^\s—]+/i);
+      link.download = matchName ? matchName[0] : 'planilha_sankhya.xlsx';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      showToast('📥 Download da planilha iniciado!');
+    }
+
+    function downloadLatestSpreadsheet() {
+      const select = document.getElementById('agent0-download-select');
+      if (select && select.value) {
+        downloadSelectedSankhyaFile();
+      } else if (lastGeneratedSankhyaFile) {
+        const fName = lastGeneratedSankhyaFile.split(/[/\\]/).pop();
+        const link = document.createElement('a');
+        link.href = `/uploads/${encodeURIComponent(fName)}`;
+        link.download = fName;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        showToast('📥 Download da planilha iniciado!');
+      } else {
+        showToast('Nenhuma planilha disponível para download no momento.', true);
+      }
+    }
+
+    function runAgent1() {
+      const action = document.getElementById('agent1-action').value;
+      const inputFile = document.getElementById('agent1-file-select').value;
+      const color = document.getElementById('agent1-color').value;
+      const collection = document.getElementById('agent1-collection') ? document.getElementById('agent1-collection').value.trim() : '';
+
+      startAgentRequest('agent1', {
+        action,
+        inputFile,
+        color,
+        collection
+      });
+    }
+
+    function runAgent2() {
+      const model = document.getElementById('agent2-model').value;
+      const limit = document.getElementById('agent2-limit').value;
+      const inputFile = document.getElementById('agent2-file-select').value;
+
+      startAgentRequest('agent2', {
+        model,
+        limit,
+        inputFile
+      });
+    }
+
+    function runAgent3() {
+      const limit = document.getElementById('agent3-limit').value || 10;
+      const mode = document.getElementById('agent3-mode').value;
+      const headed = document.getElementById('agent3-headed').checked;
+      const inputFile = document.getElementById('agent3-file-select').value;
+
+      startAgentRequest('agent3', {
+        limit,
+        dryRun: mode === 'dry-run',
+        headed,
+        inputFile
+      });
+    }
+
+    function runAgent4() {
+      const action = document.getElementById('agent4-action').value;
+      startAgentRequest('agent4', { action });
+    }
+
+    async function stopAgent() {
+      try {
+        const res = await fetch('/api/agents/stop', { method: 'POST' });
+        const data = await res.json();
+        showToast('Comando de interrupção enviado!');
+        fetchLogs();
+      } catch (err) {
+        showToast('Erro ao parar processo: ' + err.message, true);
+      }
+    }
+
+    // ── Visualizador de SKUs do Lote (Agente 3) ──────────────────────────────
+    let batchData = null;
+    let modalCurrentTab = 'queue';
+    let modalSearchQuery = '';
+
+    async function updateBatchPreview() {
+      const fileSelect = document.getElementById('agent3-file-select');
+      const limitInput = document.getElementById('agent3-limit');
+      const filePath = fileSelect ? fileSelect.value : '';
+      const limit = limitInput ? limitInput.value || 10 : 10;
+
+      const summaryEl = document.getElementById('agent3-queue-summary');
+      const flagEl = document.getElementById('agent3-queue-flag');
+      const chipsEl = document.getElementById('agent3-chips-container');
+
+      if (!filePath) {
+        if (summaryEl) summaryEl.textContent = 'Selecione um arquivo CSV acima';
+        if (chipsEl) chipsEl.innerHTML = '';
+        return;
+      }
+
+      try {
+        const res = await fetch(`/api/batch/preview?file=${encodeURIComponent(filePath)}&limit=${limit}`);
+        const data = await res.json();
+        batchData = data;
+
+        renderBatchChips();
+        if (document.getElementById('batch-modal').classList.contains('open')) {
+          renderModalList();
+        }
+      } catch (err) {
+        console.error('Erro ao carregar preview do lote:', err);
+        if (summaryEl) summaryEl.textContent = 'Falha ao ler lote de produtos';
+      }
+    }
+
+    function renderBatchChips() {
+      const summaryEl = document.getElementById('agent3-queue-summary');
+      const flagEl = document.getElementById('agent3-queue-flag');
+      const chipsEl = document.getElementById('agent3-chips-container');
+      const limitInput = document.getElementById('agent3-limit');
+      const currentLimit = parseInt(limitInput ? limitInput.value || 10 : 10, 10);
+
+      if (!batchData || !batchData.queue) {
+        if (summaryEl) summaryEl.textContent = 'Nenhum SKU encontrado no lote';
+        return;
+      }
+
+      const totalPending = batchData.totalPending || 0;
+      const willPublishCount = Math.min(currentLimit, totalPending);
+
+      summaryEl.textContent = `${willPublishCount} de ${totalPending} SKUs pendentes selecionados`;
+      flagEl.textContent = willPublishCount > 0 ? `🚀 ${willPublishCount} nesta rodada` : 'Nenhum pendente';
+
+      chipsEl.innerHTML = '';
+
+      if (totalPending === 0) {
+        chipsEl.innerHTML = '<div style="font-size:0.75rem; color:#34D399;">🎉 Todos os produtos deste lote já foram publicados!</div>';
+        return;
+      }
+
+      // Mostra até 12 chips no card
+      const displayItems = batchData.queue.slice(0, 12);
+      displayItems.forEach((item, idx) => {
+        const chip = document.createElement('div');
+        const inQueue = idx < currentLimit;
+        chip.className = `sku-mini-chip ${inQueue ? 'in-queue' : ''}`;
+        chip.title = `${item.sku}: ${item.titulo} (${item.preco})${item.variacoesCount > 0 ? ` - ${item.variacoesCount} vars` : ''}`;
+        chip.onclick = () => openBatchModal();
+
+        chip.innerHTML = `
+          <span class="pos-tag">#${idx + 1}</span>
+          <strong>${item.sku}</strong>
+          ${item.variacoesCount > 0 ? `<span style="opacity:0.6">(${item.variacoesCount}v)</span>` : ''}
+        `;
+        chipsEl.appendChild(chip);
+      });
+
+      if (totalPending > 12) {
+        const moreChip = document.createElement('div');
+        moreChip.className = 'sku-mini-chip';
+        moreChip.style.opacity = '0.8';
+        moreChip.textContent = `+${totalPending - 12} outros...`;
+        moreChip.onclick = () => openBatchModal();
+        chipsEl.appendChild(moreChip);
+      }
+    }
+
+    // Modal de Inspeção
+    function openBatchModal() {
+      const modal = document.getElementById('batch-modal');
+      modal.classList.add('open');
+      modalSearchQuery = '';
+      const searchInput = document.getElementById('modal-search-input');
+      if (searchInput) searchInput.value = '';
+
+      if (batchData) {
+        document.getElementById('modal-batch-subtitle').textContent = `Lote: ${batchData.csvFile} — ${batchData.totalPending} pendentes de publicação, ${batchData.totalPublished} já concluídos`;
+        document.getElementById('modal-count-queue').textContent = batchData.totalPending;
+        document.getElementById('modal-count-published').textContent = batchData.totalPublished;
+      }
+      renderModalList();
+    }
+
+    function closeBatchModal() {
+      document.getElementById('batch-modal').classList.remove('open');
+    }
+
+    function switchBatchTab(tab) {
+      modalCurrentTab = tab;
+      document.getElementById('tab-btn-queue').classList.toggle('active', tab === 'queue');
+      document.getElementById('tab-btn-published').classList.toggle('active', tab === 'published');
+      renderModalList();
+    }
+
+    function onSearchBatch(query) {
+      modalSearchQuery = query.toLowerCase().trim();
+      renderModalList();
+    }
+
+    function renderModalList() {
+      const container = document.getElementById('modal-sku-list');
+      const footerStats = document.getElementById('modal-footer-stats');
+      if (!container || !batchData) return;
+
+      const limitInput = document.getElementById('agent3-limit');
+      const currentLimit = parseInt(limitInput ? limitInput.value || 10 : 10, 10);
+
+      const sourceList = modalCurrentTab === 'queue' ? batchData.queue : batchData.published;
+      
+      const filtered = sourceList.filter(item => {
+        if (!modalSearchQuery) return true;
+        const q = modalSearchQuery;
+        return (
+          item.sku.toLowerCase().includes(q) ||
+          item.titulo.toLowerCase().includes(q) ||
+          item.marca.toLowerCase().includes(q) ||
+          item.cod_sankhya.toLowerCase().includes(q)
+        );
+      });
+
+      container.innerHTML = '';
+
+      if (filtered.length === 0) {
+        container.innerHTML = `
+          <div style="text-align:center; padding: 2rem; color: var(--text-dim);">
+            Nenhum produto encontrado com os filtros atuais.
+          </div>
+        `;
+        footerStats.textContent = `0 produtos exibidos`;
+        return;
+      }
+
+      footerStats.textContent = `${filtered.length} produto(s) exibidos | ${modalCurrentTab === 'queue' ? `${Math.min(currentLimit, batchData.totalPending)} serão publicados nesta rodada` : 'Itens arquivados'}`;
+
+      filtered.forEach((item, idx) => {
+        const card = document.createElement('div');
+        const willPublish = modalCurrentTab === 'queue' && item.queueIndex <= currentLimit;
+        card.className = `modal-sku-card ${willPublish ? 'will-publish' : ''}`;
+
+        const varLabel = item.variacoesCount > 0 
+          ? `🧩 ${item.variacoesCount} Variações: ${item.variacoesNomes.join(', ')}` 
+          : '📦 Produto Simples';
+
+        card.innerHTML = `
+          <div class="modal-sku-left">
+            <div class="queue-num-badge">
+              ${modalCurrentTab === 'queue' ? `#${item.queueIndex}` : '✓'}
+            </div>
+            <div class="modal-sku-info">
+              <h4>${escapeHtml(item.titulo)}</h4>
+              <div class="modal-sku-meta">
+                <span>🏷️ SKU: <strong style="color:#FFF;">${item.sku}</strong></span>
+                <span>🔢 ERP Sankhya: <strong>${item.cod_sankhya || 'N/A'}</strong></span>
+                <span>🏢 Marca: ${item.marca}</span>
+                <span>${varLabel}</span>
+              </div>
+            </div>
+          </div>
+          <div class="modal-sku-right">
+            <div style="font-weight:700; color:#FFF; font-size:0.95rem;">${item.preco}</div>
+            ${item.precoPromocional ? `<div style="font-size:0.75rem; color:#F59E0B;">Promo: ${item.precoPromocional}</div>` : ''}
+            ${willPublish ? `<span class="publish-flag-pill">🚀 Publicará nesta rodada</span>` : ''}
+            ${modalCurrentTab === 'published' ? `<span style="font-size:0.7rem; color:#34D399; font-weight:600;">✓ Publicado / Concluído</span>` : ''}
+          </div>
+        `;
+
+        container.appendChild(card);
+      });
+    }
+
+    // Inicialização e Polling
+    setupDragAndDrop('agent1');
+    setupDragAndDrop('agent2');
+    setupDragAndDrop('agent3');
+
+    // Listener para reagir a mudanças no limit do Agente 3
+    const limitField = document.getElementById('agent3-limit');
+    if (limitField) {
+      limitField.addEventListener('input', () => {
+        renderBatchChips();
+        if (document.getElementById('batch-modal').classList.contains('open')) {
+          renderModalList();
+        }
+      });
+    }
+
+    async function checkQuotas() {
+      try {
+        const res = await fetch('/api/quotas');
+        if (!res.ok) return;
+        const data = await res.json();
+        const quotas = data.quotas || {};
+
+        const select = document.getElementById('agent2-model');
+        const notice = document.getElementById('agent2-quota-notice');
+        if (!select) return;
+
+        let hasBlocked = false;
+        let blockedNames = [];
+
+        Array.from(select.options).forEach(opt => {
+          const val = opt.value;
+          const originalText = opt.getAttribute('data-original-text') || opt.textContent.replace(/ 🚫.*/, '');
+          if (!opt.getAttribute('data-original-text')) {
+            opt.setAttribute('data-original-text', originalText);
+          }
+
+          if (quotas[val]) {
+            hasBlocked = true;
+            blockedNames.push(val);
+            opt.disabled = true;
+            opt.textContent = `${originalText} 🚫 (Cota esgotada até amanhã)`;
+            if (select.value === val) {
+              select.value = 'gemini-3.6-flash';
+            }
+          } else {
+            opt.disabled = false;
+            opt.textContent = originalText;
+          }
+        });
+
+        if (notice) {
+          if (hasBlocked) {
+            notice.style.display = 'block';
+            notice.innerHTML = `⚠️ Modelo (${blockedNames.join(', ')}) atingiu a cota diária e volta amanhã. Usando modelo alternativo. <a href="javascript:void(0)" onclick="resetQuotas(event)" style="color:#60a5fa; text-decoration:underline;">[Resetar cota]</a>`;
+          } else {
+            notice.style.display = 'none';
+          }
+        }
+      } catch (err) {
+        console.error('Erro ao verificar quotas:', err);
+      }
+    }
+
+    async function resetQuotas(e) {
+      if (e) e.preventDefault();
+      try {
+        const res = await fetch('/api/quotas/reset', { method: 'POST' });
+        const data = await res.json();
+        if (data.success) {
+          showToast('Limites de IA resetados com sucesso!');
+          await checkQuotas();
+        }
+      } catch (err) {
+        showToast(`Erro ao resetar: ${err.message}`, true);
+      }
+    }
+
+    fetchFiles().then(() => {
+      updateBatchPreview();
+    });
+    fetchStats();
+    fetchLogs();
+    fetchTelemetry();
+    checkQuotas();
+
+    setInterval(() => {
+      fetchStats();
+      fetchTelemetry();
+      if (isRunning) {
+        fetchLogs();
+      }
+    }, 1000);
+
+    setInterval(() => {
+      checkQuotas();
+    }, 10000);
+  </script>
+
+  <!-- Modal de Inspeção da Fila de SKUs -->
+  <div class="modal-backdrop" id="batch-modal" onclick="if(event.target === this) closeBatchModal()">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div>
+          <h3 id="modal-batch-title">📦 Fila de Publicação do Lote</h3>
+          <p style="font-size: 0.78rem; color: var(--text-muted);" id="modal-batch-subtitle">
+            Anúncios gerados pela IA prontos para envio à Shopee / Magis5
+          </p>
+        </div>
+        <button class="modal-close-btn" onclick="closeBatchModal()">✕</button>
+      </div>
+
+      <div class="modal-toolbar">
+        <input type="text" id="modal-search-input" class="modal-search-input" placeholder="🔍 Buscar por SKU, título ou marca..." oninput="onSearchBatch(this.value)">
+        <div class="modal-tabs">
+          <button class="modal-tab-btn active" id="tab-btn-queue" onclick="switchBatchTab('queue')">
+            ⏳ Fila (<span id="modal-count-queue">0</span>)
+          </button>
+          <button class="modal-tab-btn" id="tab-btn-published" onclick="switchBatchTab('published')">
+            ✅ Publicados (<span id="modal-count-published">0</span>)
+          </button>
+        </div>
+      </div>
+
+      <div class="modal-body" id="modal-sku-list">
+        <!-- Renderizado dinamicamente -->
+      </div>
+
+      <div class="modal-footer">
+        <div style="font-size: 0.8rem; color: var(--text-muted);" id="modal-footer-stats">
+          Total de itens carregados
+        </div>
+        <div style="display:flex; gap:0.6rem;">
+          <button class="btn-secondary" onclick="closeBatchModal()">Fechar</button>
+          <button class="btn-action" style="margin-top:0; padding: 0.5rem 1.2rem; font-size: 0.85rem;" onclick="closeBatchModal(); runAgent3();">
+            <span>🚀</span> Iniciar Envio dos SKUs
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal de Zoom de Screenshot do Robô (RPA Inspector) -->
+  <div class="screenshot-modal-backdrop" id="screenshot-modal" onclick="if(event.target === this) closeScreenshotModal()">
+    <div class="screenshot-modal-container">
+      <div class="screenshot-modal-header">
+        <div>
+          <h3 id="screenshot-modal-title" style="font-family:var(--font-heading); color:#FFF; font-size:1.1rem; display:flex; align-items:center; gap:0.5rem;">
+            <span>📸</span> Captura da Tela do Robô RPA Magis5
+          </h3>
+          <p id="screenshot-modal-subtitle" style="font-size:0.75rem; color:var(--text-muted); font-family:var(--font-mono); margin-top:2px;">
+            Carregando captura...
+          </p>
+        </div>
+        <div style="display:flex; gap:0.6rem; align-items:center;">
+          <a id="screenshot-modal-download-btn" href="#" target="_blank" class="btn-secondary" style="font-size:0.75rem; padding:0.35rem 0.75rem;">
+            ↗️ Abrir Imagem Completa
+          </a>
+          <button class="modal-close-btn" onclick="closeScreenshotModal()">✕</button>
+        </div>
+      </div>
+      <div class="screenshot-modal-body">
+        <img id="screenshot-modal-img" src="" alt="Captura de Tela do Robô" />
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

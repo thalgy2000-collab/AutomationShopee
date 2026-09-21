@@ -43,6 +43,10 @@ export const FIXED_DIMENSIONS = {
 
 export const SHOPEE_MAX_TITLE_LENGTH = 120;
 
+// URLs de consulta e edição de produtos
+export const MAGIS5_CONSULT_URL = `${MAGIS5_BASE_URL}/v2/admin/product/variations/consult.php`;
+export const MAGIS5_EDIT_URL_TPL = `${MAGIS5_BASE_URL}/v2/admin/product/variations/variation.php?id=`;
+
 // Gestão de Status por Cores na Planilha Excel
 export const COLOR_TO_PUBLISH = "#D1FAE5"; // Verde claro: Anúncios à publicar (ativo c/ estoque)
 export const COLOR_PUBLISHED = "#83E28E";  // Verde escuro: Anúncios já publicados na Magis5

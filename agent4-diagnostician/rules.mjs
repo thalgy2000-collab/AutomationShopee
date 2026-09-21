@@ -13,6 +13,10 @@ export const SHOPEE_OFFICIAL_CATEGORIES = {
   pet_geral: "Animais Domésticos > Cães > Acessórios para Cães",
   copos_termicos: "Esportes e Atividades ao Ar Livre > Acessórios Esportivos e Atividades ao Ar Livre > Garrafas e Copos Térmicos",
   sandalias_masculinas: "Sapatos Masculinos > Sandalia e Chinelos > Chinelos",
+  bandanas: "Acessórios de Moda > Bonés, Chapéus e Toucas",
+  camisas: "Roupas Masculinas > Blusas > Camisas",
+  camisas_femininas: "Roupas Femininas > Blusas > Camisas e Blusas",
+  camisas_infantis: "Moda Infantil > Roupas Infantis > Blusas",
 };
 
 /**
@@ -20,6 +24,32 @@ export const SHOPEE_OFFICIAL_CATEGORIES = {
  */
 export function resolveCorrectShopeeCategory(product) {
   const fullText = `${product.titulo_shopee || ""} ${product.modelo || ""} ${product.descricao || ""} ${product.marca || ""} ${product.sku || ""}`.toLowerCase();
+
+  // -2. Bandanas, Tubeneck, Balaclavas e Toucas
+  const isBandana =
+    /bandana|tubeneck|tube\s*neck|balaclava|pescoceira|faixa\s*de\s*pesco[çc]o|len[çc]o|\bbuff\b/i.test(fullText) ||
+    /^[Tt]\d{2,4}/i.test(product.sku || "") ||
+    /^BM\d+/i.test(product.sku || "") ||
+    /^(CAMU_T|LISAS_T)/i.test(product.sku || "") ||
+    (Array.isArray(product.skus_componentes) &&
+      product.skus_componentes.some((s) => /^[Tt]\d{2,4}|^BM|^(CAMU_T|LISAS_T)/i.test(s)));
+  if (isBandana) {
+    return SHOPEE_OFFICIAL_CATEGORIES.bandanas;
+  }
+
+  // -1. Camisas e Vestuário
+  const isCamisa = /camisa|camiseta|baby\s*look|vestu[aá]rio|agro/i.test(fullText) || /^c0/i.test(product.sku || "");
+  if (isCamisa) {
+    const isInfantil = /infantil|infantis|crian[çc]a|kids|juvenil/i.test(fullText) || /i$/i.test(product.sku || "");
+    if (isInfantil) {
+      return SHOPEE_OFFICIAL_CATEGORIES.camisas_infantis;
+    }
+    const isFem = /feminin|mulher|starfem|flowf|baby\s*look|babylook|\bbl\b/i.test(fullText) || /bl/i.test(product.sku || "");
+    if (isFem) {
+      return SHOPEE_OFFICIAL_CATEGORIES.camisas_femininas;
+    }
+    return SHOPEE_OFFICIAL_CATEGORIES.camisas;
+  }
 
   // 0. Sandálias e Chinelos Masculinos
   const isFootwear = /sand[aá]lia|chinelo|babuche|croc|clog|tamanco|\bslides?\b/i.test(fullText) || /colt|brave|adventure|flow|star/i.test(product.sku || "");

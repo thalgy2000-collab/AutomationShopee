@@ -1,27 +1,616 @@
 {
-  "totalAuditados": 14,
-  "pendentesResolucao": 0,
-  "jaResolvidos": 14,
+  "totalAuditados": 49,
+  "pendentesResolucao": 19,
+  "jaResolvidos": 30,
   "porTipoErro": {
     "categoriaIncompativel": 3,
     "skuDuplicado": 1,
     "limiteFotos": 6,
     "eanOuSankhya": 1,
-    "outros": 3
+    "outros": 38
   },
-  "timestamp": "2026-09-09T18:24:40.881Z",
+  "timestamp": "2026-09-21T12:39:37.568Z",
   "diagnostics": [
+    {
+      "sku": "CAX014",
+      "titulo": "Camisa de Pesca Proteção Solar UV50+ Manga Longa Brk Degradê Bege",
+      "marca": "BRK Fishing",
+      "modelo": "Armorx Degradê Bege",
+      "preco": 0,
+      "cod_sankhya": "68338",
+      "categoria_atual": "Roupas Masculinas > Blusas > Camisas",
+      "categoria_sugerida_correta": "Roupas Masculinas > Blusas > Camisas",
+      "erro_bruto": "Falha na validação do formulário da Magis5",
+      "status_planilha": "pendente",
+      "cor_planilha": "#D1FAE5",
+      "isCurrentlyPublished": false,
+      "screenshot": "/screenshots/erro-CAX014-1789993960305.png",
+      "screenshotFile": "erro-CAX014-1789993960305.png",
+      "diagnostico": "O formulário da Magis5 não concluiu o salvamento devido à validação pendente na página. Detalhe capturado: \"Falha na validação do formulário da Magis5\"",
+      "proposta": {
+        "acao": "Re-processar com Modo Visível (Headed)",
+        "explicacao": "Executar o Agente 3 com a opção \"Modo Visível\" ativa no painel para inspecionar visualmente qual campo específico está exigindo preenchimento.",
+        "autoFixAvailable": false,
+        "fixType": "MANUAL_INSPECTION"
+      },
+      "classificacao": {
+        "codigo": "VALIDACAO_FORMULARIO",
+        "tipo": "Validação Pendente no Formulário",
+        "gravidade": "MEDIA",
+        "badgeClass": "badge-info",
+        "icone": "📋"
+      },
+      "dataAuditoria": "2026-09-21T12:39:37.566Z"
+    },
+    {
+      "sku": "CAX013",
+      "titulo": "Camisa Proteção Solar UV50+ Manga Longa Brk Fishing Degradê Verde",
+      "marca": "BRK Fishing",
+      "modelo": "Degradê Verde Esmeralda",
+      "preco": 0,
+      "cod_sankhya": "68324",
+      "categoria_atual": "Roupas Masculinas > Blusas > Camisas",
+      "categoria_sugerida_correta": "Roupas Masculinas > Blusas > Camisas",
+      "erro_bruto": "Falha na validação do formulário da Magis5",
+      "status_planilha": "pendente",
+      "cor_planilha": "#D1FAE5",
+      "isCurrentlyPublished": false,
+      "screenshot": "/screenshots/erro-CAX013-1789993744242.png",
+      "screenshotFile": "erro-CAX013-1789993744242.png",
+      "diagnostico": "O formulário da Magis5 não concluiu o salvamento devido à validação pendente na página. Detalhe capturado: \"Falha na validação do formulário da Magis5\"",
+      "proposta": {
+        "acao": "Re-processar com Modo Visível (Headed)",
+        "explicacao": "Executar o Agente 3 com a opção \"Modo Visível\" ativa no painel para inspecionar visualmente qual campo específico está exigindo preenchimento.",
+        "autoFixAvailable": false,
+        "fixType": "MANUAL_INSPECTION"
+      },
+      "classificacao": {
+        "codigo": "VALIDACAO_FORMULARIO",
+        "tipo": "Validação Pendente no Formulário",
+        "gravidade": "MEDIA",
+        "badgeClass": "badge-info",
+        "icone": "📋"
+      },
+      "dataAuditoria": "2026-09-21T12:39:37.566Z"
+    },
+    {
+      "sku": "CAX004",
+      "titulo": "Camisa BRK Fishing Armorx Lisa Lilás Proteção Solar UV50+ Pesca Manga Longa Masculina",
+      "marca": "BRK Fishing",
+      "modelo": "ARMORX LISA",
+      "preco": 0,
+      "cod_sankhya": "68198",
+      "categoria_atual": "Roupas Masculinas > Blusas > Camisas",
+      "categoria_sugerida_correta": "Roupas Masculinas > Blusas > Camisas",
+      "erro_bruto": "Falha na validação do formulário da Magis5",
+      "status_planilha": "pendente",
+      "cor_planilha": "#D1FAE5",
+      "isCurrentlyPublished": false,
+      "screenshot": "/screenshots/erro-CAX004-1789761247267.png",
+      "screenshotFile": "erro-CAX004-1789761247267.png",
+      "diagnostico": "O formulário da Magis5 não concluiu o salvamento devido à validação pendente na página. Detalhe capturado: \"Falha na validação do formulário da Magis5\"",
+      "proposta": {
+        "acao": "Re-processar com Modo Visível (Headed)",
+        "explicacao": "Executar o Agente 3 com a opção \"Modo Visível\" ativa no painel para inspecionar visualmente qual campo específico está exigindo preenchimento.",
+        "autoFixAvailable": false,
+        "fixType": "MANUAL_INSPECTION"
+      },
+      "classificacao": {
+        "codigo": "VALIDACAO_FORMULARIO",
+        "tipo": "Validação Pendente no Formulário",
+        "gravidade": "MEDIA",
+        "badgeClass": "badge-info",
+        "icone": "📋"
+      },
+      "dataAuditoria": "2026-09-21T12:39:37.566Z"
+    },
+    {
+      "sku": "CAX008",
+      "titulo": "Camisa Pesca BRK ArmorX Fishing Camuflada UV50+ Gola Alta Zíper Esportiva Secagem Rápida",
+      "marca": "BRK",
+      "modelo": "ARMORX Camuflada",
+      "preco": 0,
+      "cod_sankhya": "68254",
+      "categoria_atual": "Roupas Masculinas > Blusas > Camisas",
+      "categoria_sugerida_correta": "Roupas Masculinas > Blusas > Camisas",
+      "erro_bruto": "Falha na validação do formulário da Magis5",
+      "status_planilha": "pendente",
+      "cor_planilha": "#D1FAE5",
+      "isCurrentlyPublished": false,
+      "screenshot": "/screenshots/erro-CAX008-1789756636632.png",
+      "screenshotFile": "erro-CAX008-1789756636632.png",
+      "diagnostico": "O formulário da Magis5 não concluiu o salvamento devido à validação pendente na página. Detalhe capturado: \"Falha na validação do formulário da Magis5\"",
+      "proposta": {
+        "acao": "Re-processar com Modo Visível (Headed)",
+        "explicacao": "Executar o Agente 3 com a opção \"Modo Visível\" ativa no painel para inspecionar visualmente qual campo específico está exigindo preenchimento.",
+        "autoFixAvailable": false,
+        "fixType": "MANUAL_INSPECTION"
+      },
+      "classificacao": {
+        "codigo": "VALIDACAO_FORMULARIO",
+        "tipo": "Validação Pendente no Formulário",
+        "gravidade": "MEDIA",
+        "badgeClass": "badge-info",
+        "icone": "📋"
+      },
+      "dataAuditoria": "2026-09-21T12:39:37.566Z"
+    },
+    {
+      "sku": "CAX007BL",
+      "titulo": "Camisa BRK Fishing Feminina ArmorX Cinza Camuflada Proteção Solar UV50+ Pesca Esportiva Outdoor",
+      "marca": "BRK Fishing",
+      "modelo": "ArmorX Feminina",
+      "preco": 0,
+      "cod_sankhya": "68247",
+      "categoria_atual": "Roupas Femininas > Blusas > Camisas e Blusas",
+      "categoria_sugerida_correta": "Roupas Femininas > Blusas > Camisas e Blusas",
+      "erro_bruto": "Falha na validação do formulário da Magis5",
+      "status_planilha": "pendente",
+      "cor_planilha": "#D1FAE5",
+      "isCurrentlyPublished": false,
+      "screenshot": "/screenshots/erro-CAX007BL-1789756542796.png",
+      "screenshotFile": "erro-CAX007BL-1789756542796.png",
+      "diagnostico": "O formulário da Magis5 não concluiu o salvamento devido à validação pendente na página. Detalhe capturado: \"Falha na validação do formulário da Magis5\"",
+      "proposta": {
+        "acao": "Re-processar com Modo Visível (Headed)",
+        "explicacao": "Executar o Agente 3 com a opção \"Modo Visível\" ativa no painel para inspecionar visualmente qual campo específico está exigindo preenchimento.",
+        "autoFixAvailable": false,
+        "fixType": "MANUAL_INSPECTION"
+      },
+      "classificacao": {
+        "codigo": "VALIDACAO_FORMULARIO",
+        "tipo": "Validação Pendente no Formulário",
+        "gravidade": "MEDIA",
+        "badgeClass": "badge-info",
+        "icone": "📋"
+      },
+      "dataAuditoria": "2026-09-21T12:39:37.566Z"
+    },
+    {
+      "sku": "CAX007",
+      "titulo": "Camisa Brk ArmorX Pesca Proteção UV50+ Masculina Manga Longa Cinza Camuflada XTech Pro Pescador",
+      "marca": "BRK Fishing",
+      "modelo": "ArmorX Cinza Camuflada",
+      "preco": 0,
+      "cod_sankhya": "68240",
+      "categoria_atual": "Roupas Masculinas > Blusas > Camisas",
+      "categoria_sugerida_correta": "Roupas Masculinas > Blusas > Camisas",
+      "erro_bruto": "Falha na validação do formulário da Magis5",
+      "status_planilha": "pendente",
+      "cor_planilha": "#D1FAE5",
+      "isCurrentlyPublished": false,
+      "screenshot": "/screenshots/erro-CAX007-1789756421008.png",
+      "screenshotFile": "erro-CAX007-1789756421008.png",
+      "diagnostico": "O formulário da Magis5 não concluiu o salvamento devido à validação pendente na página. Detalhe capturado: \"Falha na validação do formulário da Magis5\"",
+      "proposta": {
+        "acao": "Re-processar com Modo Visível (Headed)",
+        "explicacao": "Executar o Agente 3 com a opção \"Modo Visível\" ativa no painel para inspecionar visualmente qual campo específico está exigindo preenchimento.",
+        "autoFixAvailable": false,
+        "fixType": "MANUAL_INSPECTION"
+      },
+      "classificacao": {
+        "codigo": "VALIDACAO_FORMULARIO",
+        "tipo": "Validação Pendente no Formulário",
+        "gravidade": "MEDIA",
+        "badgeClass": "badge-info",
+        "icone": "📋"
+      },
+      "dataAuditoria": "2026-09-21T12:39:37.566Z"
+    },
+    {
+      "sku": "CAX006BL",
+      "titulo": "Camisa Feminina BRK Fishing Armorx Baby Look Proteção Solar UV50+ Manga Longa Preta Rosa",
+      "marca": "BRK",
+      "modelo": "Armorx Feminina Preta Rosa",
+      "preco": 0,
+      "cod_sankhya": "68233",
+      "categoria_atual": "Roupas Femininas > Blusas > Camisas e Blusas",
+      "categoria_sugerida_correta": "Roupas Femininas > Blusas > Camisas e Blusas",
+      "erro_bruto": "Falha na validação do formulário da Magis5",
+      "status_planilha": "pendente",
+      "cor_planilha": "#D1FAE5",
+      "isCurrentlyPublished": false,
+      "screenshot": "/screenshots/erro-CAX006BL-1789756299650.png",
+      "screenshotFile": "erro-CAX006BL-1789756299650.png",
+      "diagnostico": "O formulário da Magis5 não concluiu o salvamento devido à validação pendente na página. Detalhe capturado: \"Falha na validação do formulário da Magis5\"",
+      "proposta": {
+        "acao": "Re-processar com Modo Visível (Headed)",
+        "explicacao": "Executar o Agente 3 com a opção \"Modo Visível\" ativa no painel para inspecionar visualmente qual campo específico está exigindo preenchimento.",
+        "autoFixAvailable": false,
+        "fixType": "MANUAL_INSPECTION"
+      },
+      "classificacao": {
+        "codigo": "VALIDACAO_FORMULARIO",
+        "tipo": "Validação Pendente no Formulário",
+        "gravidade": "MEDIA",
+        "badgeClass": "badge-info",
+        "icone": "📋"
+      },
+      "dataAuditoria": "2026-09-21T12:39:37.566Z"
+    },
+    {
+      "sku": "CAX006",
+      "titulo": "Camisa de Pesca UV50+ Armorx Brk Fishing Preta Com Rosa",
+      "marca": "BRK Fishing",
+      "modelo": "Armorx Preta com Rosa",
+      "preco": 0,
+      "cod_sankhya": "68230",
+      "categoria_atual": "Roupas Masculinas > Blusas > Camisas",
+      "categoria_sugerida_correta": "Roupas Masculinas > Blusas > Camisas",
+      "erro_bruto": "Falha na validação do formulário da Magis5",
+      "status_planilha": "pendente",
+      "cor_planilha": "#D1FAE5",
+      "isCurrentlyPublished": false,
+      "screenshot": "/screenshots/erro-CAX006-1789756177200.png",
+      "screenshotFile": "erro-CAX006-1789756177200.png",
+      "diagnostico": "O formulário da Magis5 não concluiu o salvamento devido à validação pendente na página. Detalhe capturado: \"Falha na validação do formulário da Magis5\"",
+      "proposta": {
+        "acao": "Re-processar com Modo Visível (Headed)",
+        "explicacao": "Executar o Agente 3 com a opção \"Modo Visível\" ativa no painel para inspecionar visualmente qual campo específico está exigindo preenchimento.",
+        "autoFixAvailable": false,
+        "fixType": "MANUAL_INSPECTION"
+      },
+      "classificacao": {
+        "codigo": "VALIDACAO_FORMULARIO",
+        "tipo": "Validação Pendente no Formulário",
+        "gravidade": "MEDIA",
+        "badgeClass": "badge-info",
+        "icone": "📋"
+      },
+      "dataAuditoria": "2026-09-21T12:39:37.566Z"
+    },
+    {
+      "sku": "CAX005BL",
+      "titulo": "Camisa Armorx Feminina BRK Fishing Rosa Lisa Com Protecao Solar UV50",
+      "marca": "BRK Fishing",
+      "modelo": "ARMORX ROSA LISA",
+      "preco": 0,
+      "cod_sankhya": "68219",
+      "categoria_atual": "Roupas Femininas > Blusas > Camisas e Blusas",
+      "categoria_sugerida_correta": "Roupas Femininas > Blusas > Camisas e Blusas",
+      "erro_bruto": "Falha na validação do formulário da Magis5",
+      "status_planilha": "pendente",
+      "cor_planilha": "#D1FAE5",
+      "isCurrentlyPublished": false,
+      "screenshot": "/screenshots/erro-CAX005BL-1789756055891.png",
+      "screenshotFile": "erro-CAX005BL-1789756055891.png",
+      "diagnostico": "O formulário da Magis5 não concluiu o salvamento devido à validação pendente na página. Detalhe capturado: \"Falha na validação do formulário da Magis5\"",
+      "proposta": {
+        "acao": "Re-processar com Modo Visível (Headed)",
+        "explicacao": "Executar o Agente 3 com a opção \"Modo Visível\" ativa no painel para inspecionar visualmente qual campo específico está exigindo preenchimento.",
+        "autoFixAvailable": false,
+        "fixType": "MANUAL_INSPECTION"
+      },
+      "classificacao": {
+        "codigo": "VALIDACAO_FORMULARIO",
+        "tipo": "Validação Pendente no Formulário",
+        "gravidade": "MEDIA",
+        "badgeClass": "badge-info",
+        "icone": "📋"
+      },
+      "dataAuditoria": "2026-09-21T12:39:37.566Z"
+    },
+    {
+      "sku": "CAX005",
+      "titulo": "Camisa de Pesca BRK Fishing ArmorX Rosa Lisa Protecao Solar UV50 Manga Longa Passa Dedo Gola Alta com Ziper",
+      "marca": "BRK Fishing",
+      "modelo": "ARMORX ROSA LISA",
+      "preco": 0,
+      "cod_sankhya": "68212",
+      "categoria_atual": "Roupas Masculinas > Blusas > Camisas",
+      "categoria_sugerida_correta": "Roupas Masculinas > Blusas > Camisas",
+      "erro_bruto": "Falha na validação do formulário da Magis5",
+      "status_planilha": "pendente",
+      "cor_planilha": "#D1FAE5",
+      "isCurrentlyPublished": false,
+      "screenshot": "/screenshots/erro-CAX005-1789755936004.png",
+      "screenshotFile": "erro-CAX005-1789755936004.png",
+      "diagnostico": "O formulário da Magis5 não concluiu o salvamento devido à validação pendente na página. Detalhe capturado: \"Falha na validação do formulário da Magis5\"",
+      "proposta": {
+        "acao": "Re-processar com Modo Visível (Headed)",
+        "explicacao": "Executar o Agente 3 com a opção \"Modo Visível\" ativa no painel para inspecionar visualmente qual campo específico está exigindo preenchimento.",
+        "autoFixAvailable": false,
+        "fixType": "MANUAL_INSPECTION"
+      },
+      "classificacao": {
+        "codigo": "VALIDACAO_FORMULARIO",
+        "tipo": "Validação Pendente no Formulário",
+        "gravidade": "MEDIA",
+        "badgeClass": "badge-info",
+        "icone": "📋"
+      },
+      "dataAuditoria": "2026-09-21T12:39:37.566Z"
+    },
+    {
+      "sku": "CAX004BL",
+      "titulo": "Camisa de Pesca Feminina Brk Armorx Lilás Manga Longa UV50+",
+      "marca": "BRK Fishing",
+      "modelo": "Armorx Lilás",
+      "preco": 0,
+      "cod_sankhya": "68205",
+      "categoria_atual": "Roupas Femininas > Blusas > Camisas e Blusas",
+      "categoria_sugerida_correta": "Roupas Femininas > Blusas > Camisas e Blusas",
+      "erro_bruto": "Falha na validação do formulário da Magis5",
+      "status_planilha": "pendente",
+      "cor_planilha": "#D1FAE5",
+      "isCurrentlyPublished": false,
+      "screenshot": "/screenshots/erro-CAX004BL-1789755817107.png",
+      "screenshotFile": "erro-CAX004BL-1789755817107.png",
+      "diagnostico": "O formulário da Magis5 não concluiu o salvamento devido à validação pendente na página. Detalhe capturado: \"Falha na validação do formulário da Magis5\"",
+      "proposta": {
+        "acao": "Re-processar com Modo Visível (Headed)",
+        "explicacao": "Executar o Agente 3 com a opção \"Modo Visível\" ativa no painel para inspecionar visualmente qual campo específico está exigindo preenchimento.",
+        "autoFixAvailable": false,
+        "fixType": "MANUAL_INSPECTION"
+      },
+      "classificacao": {
+        "codigo": "VALIDACAO_FORMULARIO",
+        "tipo": "Validação Pendente no Formulário",
+        "gravidade": "MEDIA",
+        "badgeClass": "badge-info",
+        "icone": "📋"
+      },
+      "dataAuditoria": "2026-09-21T12:39:37.566Z"
+    },
+    {
+      "sku": "C02849BL",
+      "titulo": "Camisa Feminina BRK Apache Proteção UV50+ Manga Longa Agro Pesca Esportiva",
+      "marca": "BRK",
+      "modelo": "BRK AGRO MANGA LONGA",
+      "preco": 169.9,
+      "cod_sankhya": "80301",
+      "categoria_atual": "Roupas Femininas > Blusas > Camisas e Blusas",
+      "categoria_sugerida_correta": "Roupas Femininas > Blusas > Camisas e Blusas",
+      "erro_bruto": "Falha na validação do formulário da Magis5",
+      "status_planilha": "pendente",
+      "cor_planilha": "#D1FAE5",
+      "isCurrentlyPublished": false,
+      "screenshot": "/screenshots/erro-C02849BL-1789747364718.png",
+      "screenshotFile": "erro-C02849BL-1789747364718.png",
+      "diagnostico": "O formulário da Magis5 não concluiu o salvamento devido à validação pendente na página. Detalhe capturado: \"Falha na validação do formulário da Magis5\"",
+      "proposta": {
+        "acao": "Re-processar com Modo Visível (Headed)",
+        "explicacao": "Executar o Agente 3 com a opção \"Modo Visível\" ativa no painel para inspecionar visualmente qual campo específico está exigindo preenchimento.",
+        "autoFixAvailable": false,
+        "fixType": "MANUAL_INSPECTION"
+      },
+      "classificacao": {
+        "codigo": "VALIDACAO_FORMULARIO",
+        "tipo": "Validação Pendente no Formulário",
+        "gravidade": "MEDIA",
+        "badgeClass": "badge-info",
+        "icone": "📋"
+      },
+      "dataAuditoria": "2026-09-21T12:39:37.566Z"
+    },
+    {
+      "sku": "C02846BL",
+      "titulo": "Camisa Feminina BRK Apache Cavalos UV50+ Manga Longa Agro Country Proteção Solar Original",
+      "marca": "BRK",
+      "modelo": "BRK AGRO APACHE CAVALOS",
+      "preco": 169.9,
+      "cod_sankhya": "80286",
+      "categoria_atual": "Roupas Femininas > Blusas > Camisas e Blusas",
+      "categoria_sugerida_correta": "Roupas Femininas > Blusas > Camisas e Blusas",
+      "erro_bruto": "Falha na validação do formulário da Magis5",
+      "status_planilha": "pendente",
+      "cor_planilha": "#D1FAE5",
+      "isCurrentlyPublished": false,
+      "screenshot": "/screenshots/erro-C02846BL-1789733189437.png",
+      "screenshotFile": "erro-C02846BL-1789733189437.png",
+      "diagnostico": "O formulário da Magis5 não concluiu o salvamento devido à validação pendente na página. Detalhe capturado: \"Falha na validação do formulário da Magis5\"",
+      "proposta": {
+        "acao": "Re-processar com Modo Visível (Headed)",
+        "explicacao": "Executar o Agente 3 com a opção \"Modo Visível\" ativa no painel para inspecionar visualmente qual campo específico está exigindo preenchimento.",
+        "autoFixAvailable": false,
+        "fixType": "MANUAL_INSPECTION"
+      },
+      "classificacao": {
+        "codigo": "VALIDACAO_FORMULARIO",
+        "tipo": "Validação Pendente no Formulário",
+        "gravidade": "MEDIA",
+        "badgeClass": "badge-info",
+        "icone": "📋"
+      },
+      "dataAuditoria": "2026-09-21T12:39:37.566Z"
+    },
+    {
+      "sku": "C02829",
+      "titulo": "Camisa Agro BRK São Bento Preto e Cinza Manga Longa Proteção UV50+ Tecido XTech-Pro",
+      "marca": "BRK",
+      "modelo": "BRK AGRO SÃO BENTO",
+      "preco": 169.9,
+      "cod_sankhya": "80325",
+      "categoria_atual": "Roupas Masculinas > Blusas > Camisas",
+      "categoria_sugerida_correta": "Roupas Masculinas > Blusas > Camisas",
+      "erro_bruto": "Falha na validação do formulário da Magis5",
+      "status_planilha": "pendente",
+      "cor_planilha": "#D1FAE5",
+      "isCurrentlyPublished": false,
+      "screenshot": "/screenshots/erro-C02829-1789731717770.png",
+      "screenshotFile": "erro-C02829-1789731717770.png",
+      "diagnostico": "O formulário da Magis5 não concluiu o salvamento devido à validação pendente na página. Detalhe capturado: \"Falha na validação do formulário da Magis5\"",
+      "proposta": {
+        "acao": "Re-processar com Modo Visível (Headed)",
+        "explicacao": "Executar o Agente 3 com a opção \"Modo Visível\" ativa no painel para inspecionar visualmente qual campo específico está exigindo preenchimento.",
+        "autoFixAvailable": false,
+        "fixType": "MANUAL_INSPECTION"
+      },
+      "classificacao": {
+        "codigo": "VALIDACAO_FORMULARIO",
+        "tipo": "Validação Pendente no Formulário",
+        "gravidade": "MEDIA",
+        "badgeClass": "badge-info",
+        "icone": "📋"
+      },
+      "dataAuditoria": "2026-09-21T12:39:37.566Z"
+    },
+    {
+      "sku": "C02830BL",
+      "titulo": "Camisa Agro Feminina BRK São Bento Medalhão Preto Proteção UV50+ Manga Longa",
+      "marca": "BRK",
+      "modelo": "BRK AGRO SÃO BENTO",
+      "preco": 169.9,
+      "cod_sankhya": "80313",
+      "categoria_atual": "Roupas Femininas > Blusas > Camisas e Blusas",
+      "categoria_sugerida_correta": "Roupas Femininas > Blusas > Camisas e Blusas",
+      "erro_bruto": "Falha na validação do formulário da Magis5",
+      "status_planilha": "pendente",
+      "cor_planilha": "#D1FAE5",
+      "isCurrentlyPublished": false,
+      "screenshot": "/screenshots/erro-C02830BL-1789576997693.png",
+      "screenshotFile": "erro-C02830BL-1789576997693.png",
+      "diagnostico": "O formulário da Magis5 não concluiu o salvamento devido à validação pendente na página. Detalhe capturado: \"Falha na validação do formulário da Magis5\"",
+      "proposta": {
+        "acao": "Re-processar com Modo Visível (Headed)",
+        "explicacao": "Executar o Agente 3 com a opção \"Modo Visível\" ativa no painel para inspecionar visualmente qual campo específico está exigindo preenchimento.",
+        "autoFixAvailable": false,
+        "fixType": "MANUAL_INSPECTION"
+      },
+      "classificacao": {
+        "codigo": "VALIDACAO_FORMULARIO",
+        "tipo": "Validação Pendente no Formulário",
+        "gravidade": "MEDIA",
+        "badgeClass": "badge-info",
+        "icone": "📋"
+      },
+      "dataAuditoria": "2026-09-21T12:39:37.566Z"
+    },
+    {
+      "sku": "C02830",
+      "titulo": "Camisa Agro BRK São Bento Medalhão Masculina Proteção UV50+ Manga Longa Cowboys Fazenda",
+      "marca": "BRK",
+      "modelo": "BRK AGRO SÃO BENTO",
+      "preco": 169.9,
+      "cod_sankhya": "80307",
+      "categoria_atual": "Roupas Masculinas > Blusas > Camisas",
+      "categoria_sugerida_correta": "Roupas Masculinas > Blusas > Camisas",
+      "erro_bruto": "Falha na validação do formulário da Magis5",
+      "status_planilha": "pendente",
+      "cor_planilha": "#D1FAE5",
+      "isCurrentlyPublished": false,
+      "screenshot": "/screenshots/erro-C02830-1789576918193.png",
+      "screenshotFile": "erro-C02830-1789576918193.png",
+      "diagnostico": "O formulário da Magis5 não concluiu o salvamento devido à validação pendente na página. Detalhe capturado: \"Falha na validação do formulário da Magis5\"",
+      "proposta": {
+        "acao": "Re-processar com Modo Visível (Headed)",
+        "explicacao": "Executar o Agente 3 com a opção \"Modo Visível\" ativa no painel para inspecionar visualmente qual campo específico está exigindo preenchimento.",
+        "autoFixAvailable": false,
+        "fixType": "MANUAL_INSPECTION"
+      },
+      "classificacao": {
+        "codigo": "VALIDACAO_FORMULARIO",
+        "tipo": "Validação Pendente no Formulário",
+        "gravidade": "MEDIA",
+        "badgeClass": "badge-info",
+        "icone": "📋"
+      },
+      "dataAuditoria": "2026-09-21T12:39:37.566Z"
+    },
+    {
+      "sku": "C02824",
+      "titulo": "Camisa Brk São Bento Anjos Preta Masculina Proteção UV50+ Pesca Agro Manga Longa Esportiva",
+      "marca": "BRK",
+      "modelo": "São Bento Anjos",
+      "preco": 169.9,
+      "cod_sankhya": "80319",
+      "categoria_atual": "Moda Infantil > Roupas Infantis > Blusas",
+      "categoria_sugerida_correta": "Moda Infantil > Roupas Infantis > Blusas",
+      "erro_bruto": "Falha na validação do formulário da Magis5",
+      "status_planilha": "pendente",
+      "cor_planilha": "#D1FAE5",
+      "isCurrentlyPublished": false,
+      "screenshot": "/screenshots/erro-C02824-1789576758200.png",
+      "screenshotFile": "erro-C02824-1789576758200.png",
+      "diagnostico": "O formulário da Magis5 não concluiu o salvamento devido à validação pendente na página. Detalhe capturado: \"Falha na validação do formulário da Magis5\"",
+      "proposta": {
+        "acao": "Re-processar com Modo Visível (Headed)",
+        "explicacao": "Executar o Agente 3 com a opção \"Modo Visível\" ativa no painel para inspecionar visualmente qual campo específico está exigindo preenchimento.",
+        "autoFixAvailable": false,
+        "fixType": "MANUAL_INSPECTION"
+      },
+      "classificacao": {
+        "codigo": "VALIDACAO_FORMULARIO",
+        "tipo": "Validação Pendente no Formulário",
+        "gravidade": "MEDIA",
+        "badgeClass": "badge-info",
+        "icone": "📋"
+      },
+      "dataAuditoria": "2026-09-21T12:39:37.566Z"
+    },
+    {
+      "sku": "C02820",
+      "titulo": "Camisa Agro BRK São Bento Preta Dourada Proteção UV50+ Manga Longa",
+      "marca": "BRK",
+      "modelo": "BRK AGRO SÃO BENTO",
+      "preco": 169.9,
+      "cod_sankhya": "76722",
+      "categoria_atual": "Roupas Masculinas > Blusas > Camisas",
+      "categoria_sugerida_correta": "Roupas Masculinas > Blusas > Camisas",
+      "erro_bruto": "Falha na validação do formulário da Magis5",
+      "status_planilha": "pendente",
+      "cor_planilha": "#D1FAE5",
+      "isCurrentlyPublished": false,
+      "screenshot": "/screenshots/erro-C02820-1789564144087.png",
+      "screenshotFile": "erro-C02820-1789564144087.png",
+      "diagnostico": "O formulário da Magis5 não concluiu o salvamento devido à validação pendente na página. Detalhe capturado: \"Falha na validação do formulário da Magis5\"",
+      "proposta": {
+        "acao": "Re-processar com Modo Visível (Headed)",
+        "explicacao": "Executar o Agente 3 com a opção \"Modo Visível\" ativa no painel para inspecionar visualmente qual campo específico está exigindo preenchimento.",
+        "autoFixAvailable": false,
+        "fixType": "MANUAL_INSPECTION"
+      },
+      "classificacao": {
+        "codigo": "VALIDACAO_FORMULARIO",
+        "tipo": "Validação Pendente no Formulário",
+        "gravidade": "MEDIA",
+        "badgeClass": "badge-info",
+        "icone": "📋"
+      },
+      "dataAuditoria": "2026-09-21T12:39:37.567Z"
+    },
+    {
+      "sku": "ALL_PERU",
+      "titulo": "Camisa Baby Look Feminina Proteção Solar UV50+ Térmica Várias Estampas BRK Agro",
+      "marca": "BRK",
+      "modelo": "Multi-Modelos",
+      "preco": 139.9,
+      "cod_sankhya": "ALL_PERU",
+      "categoria_atual": "Roupas Femininas > Blusas > Camisas e Blusas",
+      "categoria_sugerida_correta": "Moda Infantil > Roupas Infantis > Blusas",
+      "erro_bruto": "Falha na validação do formulário da Magis5",
+      "status_planilha": "pendente",
+      "cor_planilha": "#D1FAE5",
+      "isCurrentlyPublished": false,
+      "screenshot": "/screenshots/erro-ALL_PERU-1789564013270.png",
+      "screenshotFile": "erro-ALL_PERU-1789564013270.png",
+      "diagnostico": "O formulário da Magis5 não concluiu o salvamento devido à validação pendente na página. Detalhe capturado: \"Falha na validação do formulário da Magis5\"",
+      "proposta": {
+        "acao": "Re-processar com Modo Visível (Headed)",
+        "explicacao": "Executar o Agente 3 com a opção \"Modo Visível\" ativa no painel para inspecionar visualmente qual campo específico está exigindo preenchimento.",
+        "autoFixAvailable": false,
+        "fixType": "MANUAL_INSPECTION"
+      },
+      "classificacao": {
+        "codigo": "VALIDACAO_FORMULARIO",
+        "tipo": "Validação Pendente no Formulário",
+        "gravidade": "MEDIA",
+        "badgeClass": "badge-info",
+        "icone": "📋"
+      },
+      "dataAuditoria": "2026-09-21T12:39:37.567Z"
+    },
     {
       "sku": "7908788613401",
       "titulo": "Canivete Tatico Dobravel Deyu Cabo Madeira Aco Inox Camping Pesca",
       "marca": "Deyu",
-      "modelo": "DY018355",
+      "modelo": "MADEIRA NATURAL",
       "preco": 48.9,
       "cod_sankhya": "65613",
       "categoria_atual": "Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Acessórios de Pesca",
       "categoria_sugerida_correta": "Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Linhas de Pesca",
       "erro_bruto": "Shopee: 2/1 imagens de variação (Limite excedido)",
-      "status_planilha": "enriched",
+      "status_planilha": "pendente",
       "cor_planilha": "#D1FAE5",
       "isCurrentlyPublished": true,
       "screenshot": "/screenshots/published-7908788613401-1788960127741.png",
@@ -40,7 +629,7 @@
         "badgeClass": "badge-danger",
         "icone": "📸"
       },
-      "dataAuditoria": "2026-09-09T18:24:40.881Z"
+      "dataAuditoria": "2026-09-21T12:39:37.566Z"
     },
     {
       "sku": "7908456417386",
@@ -52,7 +641,7 @@
       "categoria_atual": "Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Acessórios de Pesca",
       "categoria_sugerida_correta": "Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Linhas de Pesca",
       "erro_bruto": "Shopee: 2/1 imagens de variação (Limite excedido)",
-      "status_planilha": "enriched",
+      "status_planilha": "pendente",
       "cor_planilha": "#D1FAE5",
       "isCurrentlyPublished": true,
       "screenshot": "/screenshots/published-7908456417386-1788960071988.png",
@@ -71,7 +660,7 @@
         "badgeClass": "badge-danger",
         "icone": "📸"
       },
-      "dataAuditoria": "2026-09-09T18:24:40.881Z"
+      "dataAuditoria": "2026-09-21T12:39:37.566Z"
     },
     {
       "sku": "7899675830165",
@@ -83,7 +672,7 @@
       "categoria_atual": "Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Acessórios de Pesca",
       "categoria_sugerida_correta": "Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Linhas de Pesca",
       "erro_bruto": "Shopee: 2/1 imagens de variação (Limite excedido)",
-      "status_planilha": "enriched",
+      "status_planilha": "pendente",
       "cor_planilha": "#D1FAE5",
       "isCurrentlyPublished": true,
       "screenshot": "/screenshots/published-7899675830165-1788960014840.png",
@@ -102,7 +691,7 @@
         "badgeClass": "badge-danger",
         "icone": "📸"
       },
-      "dataAuditoria": "2026-09-09T18:24:40.881Z"
+      "dataAuditoria": "2026-09-21T12:39:37.566Z"
     },
     {
       "sku": "7899675812338",
@@ -114,7 +703,7 @@
       "categoria_atual": "Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Acessórios de Pesca",
       "categoria_sugerida_correta": "Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Linhas de Pesca",
       "erro_bruto": "Shopee: 2/1 imagens de variação (Limite excedido)",
-      "status_planilha": "enriched",
+      "status_planilha": "pendente",
       "cor_planilha": "#D1FAE5",
       "isCurrentlyPublished": true,
       "screenshot": "/screenshots/published-7899675812338-1788959959290.png",
@@ -133,7 +722,7 @@
         "badgeClass": "badge-danger",
         "icone": "📸"
       },
-      "dataAuditoria": "2026-09-09T18:24:40.881Z"
+      "dataAuditoria": "2026-09-21T12:39:37.566Z"
     },
     {
       "sku": "7792959130510",
@@ -145,7 +734,7 @@
       "categoria_atual": "Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Iscas",
       "categoria_sugerida_correta": "Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Iscas",
       "erro_bruto": "Shopee: 2/1 imagens de variação (Limite excedido)",
-      "status_planilha": "enriched",
+      "status_planilha": "pendente",
       "cor_planilha": "#D1FAE5",
       "isCurrentlyPublished": true,
       "screenshot": "/screenshots/published-7792959130510-1788959732163.png",
@@ -164,19 +753,19 @@
         "badgeClass": "badge-danger",
         "icone": "📸"
       },
-      "dataAuditoria": "2026-09-09T18:24:40.881Z"
+      "dataAuditoria": "2026-09-21T12:39:37.566Z"
     },
     {
       "sku": "7794688569241",
       "titulo": "Alicate de Bico Deyu Azul 12cm DFM0401 Ferramenta de Pesca Esportiva",
       "marca": "Deyu",
-      "modelo": "DFM0401",
+      "modelo": "ALICATE DE BICO",
       "preco": 33.9,
       "cod_sankhya": "70373",
       "categoria_atual": "Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Acessórios de Pesca",
       "categoria_sugerida_correta": "Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Linhas de Pesca",
       "erro_bruto": "O EAN desse produto é inválido. O limite permitido são de 16 caracteres. (Código Sankhya ausente)",
-      "status_planilha": "enriched",
+      "status_planilha": "pendente",
       "cor_planilha": "#D1FAE5",
       "isCurrentlyPublished": true,
       "screenshot": "/screenshots/published-7794688569241-1788959789477.png",
@@ -195,23 +784,23 @@
         "badgeClass": "badge-danger",
         "icone": "🔢"
       },
-      "dataAuditoria": "2026-09-09T18:24:40.881Z"
+      "dataAuditoria": "2026-09-21T12:39:37.566Z"
     },
     {
       "sku": "11RACON58CHP",
       "titulo": "Vara Carretilha Rapala Concept 5'8\" 1,76m 17-25lb Inteiriça para Pesca de Tucunaré e Traíra",
       "marca": "Rapala",
-      "modelo": "Concept 11RACON58CHP",
+      "modelo": "VARA CARRETILHA RAPALA",
       "preco": 259.9,
       "cod_sankhya": "65825",
-      "categoria_atual": "Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Varas de Pesca",
+      "categoria_atual": "Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Varas e Molinetes de Pesca",
       "categoria_sugerida_correta": "Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Linhas de Pesca",
       "erro_bruto": "Shopee: 12/1 imagens de variação (Limite excedido)",
-      "status_planilha": "enriched",
+      "status_planilha": "pendente",
       "cor_planilha": "#D1FAE5",
       "isCurrentlyPublished": true,
-      "screenshot": "/screenshots/published-11RACON58CHP-1788959601403.png",
-      "screenshotFile": "published-11RACON58CHP-1788959601403.png",
+      "screenshot": "/screenshots/published-11RACON58CHP-1788981995493.png",
+      "screenshotFile": "published-11RACON58CHP-1788981995493.png",
       "diagnostico": "A Shopee impõe um limite estrito de exatamente 1 foto por variação (1/1). Ao puxar fotos automáticas do ERP Sankhya, a variação acumulou mais de 1 foto e a Magis5 rejeitou o envio.",
       "proposta": {
         "acao": "Executar Limpeza Prévia de Fotos na Variação",
@@ -226,7 +815,7 @@
         "badgeClass": "badge-danger",
         "icone": "📸"
       },
-      "dataAuditoria": "2026-09-09T18:24:40.881Z"
+      "dataAuditoria": "2026-09-21T12:39:37.565Z"
     },
     {
       "sku": "COLGUIAREFLETIVOVERDEAZ",
@@ -258,7 +847,7 @@
         "badgeClass": "badge-danger",
         "icone": "📂"
       },
-      "dataAuditoria": "2026-09-09T18:24:40.881Z"
+      "dataAuditoria": "2026-09-21T12:39:37.565Z"
     },
     {
       "sku": "COLGUIAREFLETIVOLAR",
@@ -290,7 +879,7 @@
         "badgeClass": "badge-danger",
         "icone": "📂"
       },
-      "dataAuditoria": "2026-09-09T18:24:40.881Z"
+      "dataAuditoria": "2026-09-21T12:39:37.565Z"
     },
     {
       "sku": "ACTIONBIGGAMECINZA",
@@ -322,7 +911,7 @@
         "badgeClass": "badge-danger",
         "icone": "📂"
       },
-      "dataAuditoria": "2026-09-09T18:24:40.877Z"
+      "dataAuditoria": "2026-09-21T12:39:37.565Z"
     },
     {
       "sku": "BIGGAMENYLONCINZA100",
@@ -353,7 +942,503 @@
         "badgeClass": "badge-warning",
         "icone": "⚠️"
       },
-      "dataAuditoria": "2026-09-09T18:24:40.880Z"
+      "dataAuditoria": "2026-09-21T12:39:37.565Z"
+    },
+    {
+      "sku": "C02820I",
+      "titulo": "Camisa De Pesca UV50+ BRK Infantil São Bento Preta E Dourada Proteção Solar Zíper XTech Pro",
+      "marca": "BRK",
+      "modelo": "SÃO BENTO SUBLIMADA",
+      "preco": 169.9,
+      "cod_sankhya": "76736",
+      "categoria_atual": "Moda Infantil > Roupas Infantis > Blusas",
+      "categoria_sugerida_correta": "Moda Infantil > Roupas Infantis > Blusas",
+      "erro_bruto": "Falha na validação do formulário da Magis5",
+      "status_planilha": "pendente",
+      "cor_planilha": "#D1FAE5",
+      "isCurrentlyPublished": true,
+      "screenshot": "/screenshots/erro-C02820I-1789564377259.png",
+      "screenshotFile": "erro-C02820I-1789564377259.png",
+      "diagnostico": "O formulário da Magis5 não concluiu o salvamento devido à validação pendente na página. Detalhe capturado: \"Falha na validação do formulário da Magis5\"",
+      "proposta": {
+        "acao": "Re-processar com Modo Visível (Headed)",
+        "explicacao": "Executar o Agente 3 com a opção \"Modo Visível\" ativa no painel para inspecionar visualmente qual campo específico está exigindo preenchimento.",
+        "autoFixAvailable": false,
+        "fixType": "MANUAL_INSPECTION"
+      },
+      "classificacao": {
+        "codigo": "VALIDACAO_FORMULARIO",
+        "tipo": "Validação Pendente no Formulário",
+        "gravidade": "MEDIA",
+        "badgeClass": "badge-info",
+        "icone": "📋"
+      },
+      "dataAuditoria": "2026-09-21T12:39:37.566Z"
+    },
+    {
+      "sku": "C02820BL",
+      "titulo": "Camisa Agro Feminina Brk São Bento Preta Dourada Proteção UV50+",
+      "marca": "Brk",
+      "modelo": "BRK AGRO SÃO BENTO",
+      "preco": 169.9,
+      "cod_sankhya": "76729",
+      "categoria_atual": "Roupas Femininas > Blusas > Camisas e Blusas",
+      "categoria_sugerida_correta": "Roupas Femininas > Blusas > Camisas e Blusas",
+      "erro_bruto": "Falha na validação do formulário da Magis5",
+      "status_planilha": "pendente",
+      "cor_planilha": "#D1FAE5",
+      "isCurrentlyPublished": true,
+      "screenshot": "/screenshots/erro-C02820BL-1789564266739.png",
+      "screenshotFile": "erro-C02820BL-1789564266739.png",
+      "diagnostico": "O formulário da Magis5 não concluiu o salvamento devido à validação pendente na página. Detalhe capturado: \"Falha na validação do formulário da Magis5\"",
+      "proposta": {
+        "acao": "Re-processar com Modo Visível (Headed)",
+        "explicacao": "Executar o Agente 3 com a opção \"Modo Visível\" ativa no painel para inspecionar visualmente qual campo específico está exigindo preenchimento.",
+        "autoFixAvailable": false,
+        "fixType": "MANUAL_INSPECTION"
+      },
+      "classificacao": {
+        "codigo": "VALIDACAO_FORMULARIO",
+        "tipo": "Validação Pendente no Formulário",
+        "gravidade": "MEDIA",
+        "badgeClass": "badge-info",
+        "icone": "📋"
+      },
+      "dataAuditoria": "2026-09-21T12:39:37.567Z"
+    },
+    {
+      "sku": "ADV256_257_341BL",
+      "titulo": "Camisa Baby Look Feminina Proteção Solar UV50+ Térmica Várias Estampas BRK Agro",
+      "marca": "BRK",
+      "modelo": "Multi-Modelos",
+      "preco": 139.9,
+      "cod_sankhya": "ADV256_257_341BL",
+      "categoria_atual": "Roupas Femininas > Blusas > Camisas e Blusas",
+      "categoria_sugerida_correta": "Roupas Femininas > Blusas > Camisas e Blusas",
+      "erro_bruto": "Falha na validação do formulário da Magis5",
+      "status_planilha": "pendente",
+      "cor_planilha": "#D1FAE5",
+      "isCurrentlyPublished": true,
+      "screenshot": "/screenshots/erro-ADV256_257_341BL-1789563648559.png",
+      "screenshotFile": "erro-ADV256_257_341BL-1789563648559.png",
+      "diagnostico": "O formulário da Magis5 não concluiu o salvamento devido à validação pendente na página. Detalhe capturado: \"Falha na validação do formulário da Magis5\"",
+      "proposta": {
+        "acao": "Re-processar com Modo Visível (Headed)",
+        "explicacao": "Executar o Agente 3 com a opção \"Modo Visível\" ativa no painel para inspecionar visualmente qual campo específico está exigindo preenchimento.",
+        "autoFixAvailable": false,
+        "fixType": "MANUAL_INSPECTION"
+      },
+      "classificacao": {
+        "codigo": "VALIDACAO_FORMULARIO",
+        "tipo": "Validação Pendente no Formulário",
+        "gravidade": "MEDIA",
+        "badgeClass": "badge-info",
+        "icone": "📋"
+      },
+      "dataAuditoria": "2026-09-21T12:39:37.567Z"
+    },
+    {
+      "sku": "VPZFOXCARBONC581MH",
+      "titulo": "Vara de Pesca para Carretilha Zest Fox Carbon FXC-C581MH 25lbs 1,73m Inteiriça Tucunaré Traíra",
+      "marca": "Zest",
+      "modelo": "Fox Carbon FXC-C581MH",
+      "preco": 199.9,
+      "cod_sankhya": "54887",
+      "categoria_atual": "Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Varas e Molinetes de Pesca",
+      "categoria_sugerida_correta": "Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Linhas de Pesca",
+      "erro_bruto": "Falha na validação do formulário da Magis5",
+      "status_planilha": "pendente",
+      "cor_planilha": "#D1FAE5",
+      "isCurrentlyPublished": true,
+      "screenshot": "/screenshots/erro-VPZFOXCARBONC581MH-1788983120914.png",
+      "screenshotFile": "erro-VPZFOXCARBONC581MH-1788983120914.png",
+      "diagnostico": "O formulário da Magis5 não concluiu o salvamento devido à validação pendente na página. Detalhe capturado: \"Falha na validação do formulário da Magis5\"",
+      "proposta": {
+        "acao": "Re-processar com Modo Visível (Headed)",
+        "explicacao": "Executar o Agente 3 com a opção \"Modo Visível\" ativa no painel para inspecionar visualmente qual campo específico está exigindo preenchimento.",
+        "autoFixAvailable": false,
+        "fixType": "MANUAL_INSPECTION"
+      },
+      "classificacao": {
+        "codigo": "VALIDACAO_FORMULARIO",
+        "tipo": "Validação Pendente no Formulário",
+        "gravidade": "MEDIA",
+        "badgeClass": "badge-info",
+        "icone": "📋"
+      },
+      "dataAuditoria": "2026-09-21T12:39:37.567Z"
+    },
+    {
+      "sku": "VPRSKIPPER63",
+      "titulo": "Vara de Pesca Rapala Skipper SK163 Molinete 1,91m 3lbs Inteiriça Ultralight Vermelha",
+      "marca": "Rapala",
+      "modelo": "Skipper SK163 (11RASKI63)",
+      "preco": 499.9,
+      "cod_sankhya": "54876",
+      "categoria_atual": "Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Varas e Molinetes de Pesca",
+      "categoria_sugerida_correta": "Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Linhas de Pesca",
+      "erro_bruto": "Falha na validação do formulário da Magis5",
+      "status_planilha": "pendente",
+      "cor_planilha": "#D1FAE5",
+      "isCurrentlyPublished": true,
+      "screenshot": "/screenshots/erro-VPRSKIPPER63-1788983034880.png",
+      "screenshotFile": "erro-VPRSKIPPER63-1788983034880.png",
+      "diagnostico": "O formulário da Magis5 não concluiu o salvamento devido à validação pendente na página. Detalhe capturado: \"Falha na validação do formulário da Magis5\"",
+      "proposta": {
+        "acao": "Re-processar com Modo Visível (Headed)",
+        "explicacao": "Executar o Agente 3 com a opção \"Modo Visível\" ativa no painel para inspecionar visualmente qual campo específico está exigindo preenchimento.",
+        "autoFixAvailable": false,
+        "fixType": "MANUAL_INSPECTION"
+      },
+      "classificacao": {
+        "codigo": "VALIDACAO_FORMULARIO",
+        "tipo": "Validação Pendente no Formulário",
+        "gravidade": "MEDIA",
+        "badgeClass": "badge-info",
+        "icone": "📋"
+      },
+      "dataAuditoria": "2026-09-21T12:39:37.567Z"
+    },
+    {
+      "sku": "VPRCYCLOW56CMH",
+      "titulo": "Vara De Pesca Para Carretilha Rapala Cyclow CYK56CMH 20lbs 1,68m Inteiriça Carbono Maciço",
+      "marca": "Rapala",
+      "modelo": "Cyclow CYK56CMH",
+      "preco": 309.9,
+      "cod_sankhya": "54868",
+      "categoria_atual": "Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Varas e Molinetes de Pesca",
+      "categoria_sugerida_correta": "Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Linhas de Pesca",
+      "erro_bruto": "Falha na validação do formulário da Magis5",
+      "status_planilha": "pendente",
+      "cor_planilha": "#D1FAE5",
+      "isCurrentlyPublished": true,
+      "screenshot": "/screenshots/erro-VPRCYCLOW56CMH-1788982949402.png",
+      "screenshotFile": "erro-VPRCYCLOW56CMH-1788982949402.png",
+      "diagnostico": "O formulário da Magis5 não concluiu o salvamento devido à validação pendente na página. Detalhe capturado: \"Falha na validação do formulário da Magis5\"",
+      "proposta": {
+        "acao": "Re-processar com Modo Visível (Headed)",
+        "explicacao": "Executar o Agente 3 com a opção \"Modo Visível\" ativa no painel para inspecionar visualmente qual campo específico está exigindo preenchimento.",
+        "autoFixAvailable": false,
+        "fixType": "MANUAL_INSPECTION"
+      },
+      "classificacao": {
+        "codigo": "VALIDACAO_FORMULARIO",
+        "tipo": "Validação Pendente no Formulário",
+        "gravidade": "MEDIA",
+        "badgeClass": "badge-info",
+        "icone": "📋"
+      },
+      "dataAuditoria": "2026-09-21T12:39:37.567Z"
+    },
+    {
+      "sku": "VPMSSUPERCASTS3903",
+      "titulo": "Vara de Pesca Marine Sports Super Cast 3,90m 44lbs SC-S3903 Para Molinete 3 Partes Praia Surfcasting",
+      "marca": "Marine Sports",
+      "modelo": "Super Cast SC-S3903",
+      "preco": 299.9,
+      "cod_sankhya": "54849",
+      "categoria_atual": "Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Varas e Molinetes de Pesca",
+      "categoria_sugerida_correta": "Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Linhas de Pesca",
+      "erro_bruto": "Falha na validação do formulário da Magis5",
+      "status_planilha": "pendente",
+      "cor_planilha": "#D1FAE5",
+      "isCurrentlyPublished": true,
+      "screenshot": "/screenshots/erro-VPMSSUPERCASTS3903-1788982865888.png",
+      "screenshotFile": "erro-VPMSSUPERCASTS3903-1788982865888.png",
+      "diagnostico": "O formulário da Magis5 não concluiu o salvamento devido à validação pendente na página. Detalhe capturado: \"Falha na validação do formulário da Magis5\"",
+      "proposta": {
+        "acao": "Re-processar com Modo Visível (Headed)",
+        "explicacao": "Executar o Agente 3 com a opção \"Modo Visível\" ativa no painel para inspecionar visualmente qual campo específico está exigindo preenchimento.",
+        "autoFixAvailable": false,
+        "fixType": "MANUAL_INSPECTION"
+      },
+      "classificacao": {
+        "codigo": "VALIDACAO_FORMULARIO",
+        "tipo": "Validação Pendente no Formulário",
+        "gravidade": "MEDIA",
+        "badgeClass": "badge-info",
+        "icone": "📋"
+      },
+      "dataAuditoria": "2026-09-21T12:39:37.567Z"
+    },
+    {
+      "sku": "VPMSGLADIUSC601MLF",
+      "titulo": "Vara de Pesca para Carretilha Marine Gladius 1,83m 14lbs Inteiriça Carbono IMX GLC601MLF",
+      "marca": "Marine",
+      "modelo": "Gladius GL-C601MLF",
+      "preco": 539.9,
+      "cod_sankhya": "54844",
+      "categoria_atual": "Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Varas e Molinetes de Pesca",
+      "categoria_sugerida_correta": "Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Linhas de Pesca",
+      "erro_bruto": "Falha na validação do formulário da Magis5",
+      "status_planilha": "pendente",
+      "cor_planilha": "#D1FAE5",
+      "isCurrentlyPublished": true,
+      "screenshot": "/screenshots/erro-VPMSGLADIUSC601MLF-1788982781824.png",
+      "screenshotFile": "erro-VPMSGLADIUSC601MLF-1788982781824.png",
+      "diagnostico": "O formulário da Magis5 não concluiu o salvamento devido à validação pendente na página. Detalhe capturado: \"Falha na validação do formulário da Magis5\"",
+      "proposta": {
+        "acao": "Re-processar com Modo Visível (Headed)",
+        "explicacao": "Executar o Agente 3 com a opção \"Modo Visível\" ativa no painel para inspecionar visualmente qual campo específico está exigindo preenchimento.",
+        "autoFixAvailable": false,
+        "fixType": "MANUAL_INSPECTION"
+      },
+      "classificacao": {
+        "codigo": "VALIDACAO_FORMULARIO",
+        "tipo": "Validação Pendente no Formulário",
+        "gravidade": "MEDIA",
+        "badgeClass": "badge-info",
+        "icone": "📋"
+      },
+      "dataAuditoria": "2026-09-21T12:39:37.567Z"
+    },
+    {
+      "sku": "VPMSGLADIUSC601MHM",
+      "titulo": "Vara de Pesca Carretilha Marine Sports Gladius 25lbs 1,83m GLC601MHM Inteiriça Carbono IMX Passadores Fuji",
+      "marca": "Marine Sports",
+      "modelo": "Gladius GL-C601MHM",
+      "preco": 599.9,
+      "cod_sankhya": "54845",
+      "categoria_atual": "Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Varas e Molinetes de Pesca",
+      "categoria_sugerida_correta": "Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Linhas de Pesca",
+      "erro_bruto": "Falha na validação do formulário da Magis5",
+      "status_planilha": "pendente",
+      "cor_planilha": "#D1FAE5",
+      "isCurrentlyPublished": true,
+      "screenshot": "/screenshots/erro-VPMSGLADIUSC601MHM-1788982696392.png",
+      "screenshotFile": "erro-VPMSGLADIUSC601MHM-1788982696392.png",
+      "diagnostico": "O formulário da Magis5 não concluiu o salvamento devido à validação pendente na página. Detalhe capturado: \"Falha na validação do formulário da Magis5\"",
+      "proposta": {
+        "acao": "Re-processar com Modo Visível (Headed)",
+        "explicacao": "Executar o Agente 3 com a opção \"Modo Visível\" ativa no painel para inspecionar visualmente qual campo específico está exigindo preenchimento.",
+        "autoFixAvailable": false,
+        "fixType": "MANUAL_INSPECTION"
+      },
+      "classificacao": {
+        "codigo": "VALIDACAO_FORMULARIO",
+        "tipo": "Validação Pendente no Formulário",
+        "gravidade": "MEDIA",
+        "badgeClass": "badge-info",
+        "icone": "📋"
+      },
+      "dataAuditoria": "2026-09-21T12:39:37.567Z"
+    },
+    {
+      "sku": "VPMSGLADIUSC581MLM",
+      "titulo": "Vara para Carretilha Marine Gladius GL-C581MLM 14lbs 1,73m Inteiriça Carbono IMX Fuji",
+      "marca": "Marine Sports",
+      "modelo": "Gladius GL-C581MLM",
+      "preco": 519.9,
+      "cod_sankhya": "54842",
+      "categoria_atual": "Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Varas e Molinetes de Pesca",
+      "categoria_sugerida_correta": "Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Linhas de Pesca",
+      "erro_bruto": "Falha na validação do formulário da Magis5",
+      "status_planilha": "pendente",
+      "cor_planilha": "#D1FAE5",
+      "isCurrentlyPublished": true,
+      "screenshot": "/screenshots/erro-VPMSGLADIUSC581MLM-1788982611571.png",
+      "screenshotFile": "erro-VPMSGLADIUSC581MLM-1788982611571.png",
+      "diagnostico": "O formulário da Magis5 não concluiu o salvamento devido à validação pendente na página. Detalhe capturado: \"Falha na validação do formulário da Magis5\"",
+      "proposta": {
+        "acao": "Re-processar com Modo Visível (Headed)",
+        "explicacao": "Executar o Agente 3 com a opção \"Modo Visível\" ativa no painel para inspecionar visualmente qual campo específico está exigindo preenchimento.",
+        "autoFixAvailable": false,
+        "fixType": "MANUAL_INSPECTION"
+      },
+      "classificacao": {
+        "codigo": "VALIDACAO_FORMULARIO",
+        "tipo": "Validação Pendente no Formulário",
+        "gravidade": "MEDIA",
+        "badgeClass": "badge-info",
+        "icone": "📋"
+      },
+      "dataAuditoria": "2026-09-21T12:39:37.567Z"
+    },
+    {
+      "sku": "VPMSGLADIUSC581MHM",
+      "titulo": "Vara Para Carretilha Marine Sports Gladius 1,73m 25lbs Inteiriça Carbono IMX Passadores Fuji GL-C581MHM",
+      "marca": "Marine Sports",
+      "modelo": "Gladius GL-C581MHM",
+      "preco": 559.9,
+      "cod_sankhya": "54843",
+      "categoria_atual": "Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Varas e Molinetes de Pesca",
+      "categoria_sugerida_correta": "Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Linhas de Pesca",
+      "erro_bruto": "Falha na validação do formulário da Magis5",
+      "status_planilha": "pendente",
+      "cor_planilha": "#D1FAE5",
+      "isCurrentlyPublished": true,
+      "screenshot": "/screenshots/erro-VPMSGLADIUSC581MHM-1788982527052.png",
+      "screenshotFile": "erro-VPMSGLADIUSC581MHM-1788982527052.png",
+      "diagnostico": "O formulário da Magis5 não concluiu o salvamento devido à validação pendente na página. Detalhe capturado: \"Falha na validação do formulário da Magis5\"",
+      "proposta": {
+        "acao": "Re-processar com Modo Visível (Headed)",
+        "explicacao": "Executar o Agente 3 com a opção \"Modo Visível\" ativa no painel para inspecionar visualmente qual campo específico está exigindo preenchimento.",
+        "autoFixAvailable": false,
+        "fixType": "MANUAL_INSPECTION"
+      },
+      "classificacao": {
+        "codigo": "VALIDACAO_FORMULARIO",
+        "tipo": "Validação Pendente no Formulário",
+        "gravidade": "MEDIA",
+        "badgeClass": "badge-info",
+        "icone": "📋"
+      },
+      "dataAuditoria": "2026-09-21T12:39:37.567Z"
+    },
+    {
+      "sku": "VPDSFS1352M",
+      "titulo": "Vara de Pesca Para Molinete Deyu Max Bull MB-SFS1352M 1,35m 17lbs 2 Partes Fibra Maciça",
+      "marca": "Deyu",
+      "modelo": "Max Bull MB-SFS1352M",
+      "preco": 48.9,
+      "cod_sankhya": "54824",
+      "categoria_atual": "Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Varas e Molinetes de Pesca",
+      "categoria_sugerida_correta": "Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Linhas de Pesca",
+      "erro_bruto": "Falha na validação do formulário da Magis5",
+      "status_planilha": "pendente",
+      "cor_planilha": "#D1FAE5",
+      "isCurrentlyPublished": true,
+      "screenshot": "/screenshots/erro-VPDSFS1352M-1788982437555.png",
+      "screenshotFile": "erro-VPDSFS1352M-1788982437555.png",
+      "diagnostico": "O formulário da Magis5 não concluiu o salvamento devido à validação pendente na página. Detalhe capturado: \"Falha na validação do formulário da Magis5\"",
+      "proposta": {
+        "acao": "Re-processar com Modo Visível (Headed)",
+        "explicacao": "Executar o Agente 3 com a opção \"Modo Visível\" ativa no painel para inspecionar visualmente qual campo específico está exigindo preenchimento.",
+        "autoFixAvailable": false,
+        "fixType": "MANUAL_INSPECTION"
+      },
+      "classificacao": {
+        "codigo": "VALIDACAO_FORMULARIO",
+        "tipo": "Validação Pendente no Formulário",
+        "gravidade": "MEDIA",
+        "badgeClass": "badge-info",
+        "icone": "📋"
+      },
+      "dataAuditoria": "2026-09-21T12:39:37.567Z"
+    },
+    {
+      "sku": "VPDSERIED1180",
+      "titulo": "Vara de Pesca para Molinete Deyu Série D1 1,80m 30lbs em 2 Partes",
+      "marca": "Deyu",
+      "modelo": "PINTURA BRILHANTE",
+      "preco": 55.9,
+      "cod_sankhya": "65822",
+      "categoria_atual": "Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Varas e Molinetes de Pesca",
+      "categoria_sugerida_correta": "Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Linhas de Pesca",
+      "erro_bruto": "Falha na validação do formulário da Magis5",
+      "status_planilha": "pendente",
+      "cor_planilha": "#D1FAE5",
+      "isCurrentlyPublished": true,
+      "screenshot": "/screenshots/erro-VPDSERIED1180-1788982344408.png",
+      "screenshotFile": "erro-VPDSERIED1180-1788982344408.png",
+      "diagnostico": "O formulário da Magis5 não concluiu o salvamento devido à validação pendente na página. Detalhe capturado: \"Falha na validação do formulário da Magis5\"",
+      "proposta": {
+        "acao": "Re-processar com Modo Visível (Headed)",
+        "explicacao": "Executar o Agente 3 com a opção \"Modo Visível\" ativa no painel para inspecionar visualmente qual campo específico está exigindo preenchimento.",
+        "autoFixAvailable": false,
+        "fixType": "MANUAL_INSPECTION"
+      },
+      "classificacao": {
+        "codigo": "VALIDACAO_FORMULARIO",
+        "tipo": "Validação Pendente no Formulário",
+        "gravidade": "MEDIA",
+        "badgeClass": "badge-info",
+        "icone": "📋"
+      },
+      "dataAuditoria": "2026-09-21T12:39:37.567Z"
+    },
+    {
+      "sku": "VPDSERIED1150",
+      "titulo": "Vara de Pesca Deyu Série D1 1,50m 25lbs para Molinete 2 Partes",
+      "marca": "Deyu",
+      "modelo": "Série D1 1,50m 25lbs",
+      "preco": 39.9,
+      "cod_sankhya": "54827",
+      "categoria_atual": "Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Varas e Molinetes de Pesca",
+      "categoria_sugerida_correta": "Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Linhas de Pesca",
+      "erro_bruto": "Falha na validação do formulário da Magis5",
+      "status_planilha": "pendente",
+      "cor_planilha": "#D1FAE5",
+      "isCurrentlyPublished": true,
+      "screenshot": "/screenshots/erro-VPDSERIED1150-1788982258991.png",
+      "screenshotFile": "erro-VPDSERIED1150-1788982258991.png",
+      "diagnostico": "O formulário da Magis5 não concluiu o salvamento devido à validação pendente na página. Detalhe capturado: \"Falha na validação do formulário da Magis5\"",
+      "proposta": {
+        "acao": "Re-processar com Modo Visível (Headed)",
+        "explicacao": "Executar o Agente 3 com a opção \"Modo Visível\" ativa no painel para inspecionar visualmente qual campo específico está exigindo preenchimento.",
+        "autoFixAvailable": false,
+        "fixType": "MANUAL_INSPECTION"
+      },
+      "classificacao": {
+        "codigo": "VALIDACAO_FORMULARIO",
+        "tipo": "Validação Pendente no Formulário",
+        "gravidade": "MEDIA",
+        "badgeClass": "badge-info",
+        "icone": "📋"
+      },
+      "dataAuditoria": "2026-09-21T12:39:37.567Z"
+    },
+    {
+      "sku": "VPDMAXBULLCFS1651",
+      "titulo": "Vara De Pesca Deyu Max Bull 1,65m 10-20lbs Para Carretilha Inteiriça Ação Média",
+      "marca": "Deyu",
+      "modelo": "Max Bull MBCFS1651M",
+      "preco": 129.9,
+      "cod_sankhya": "54821",
+      "categoria_atual": "Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Varas e Molinetes de Pesca",
+      "categoria_sugerida_correta": "Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Linhas de Pesca",
+      "erro_bruto": "Falha na validação do formulário da Magis5",
+      "status_planilha": "pendente",
+      "cor_planilha": "#D1FAE5",
+      "isCurrentlyPublished": true,
+      "screenshot": "/screenshots/erro-VPDMAXBULLCFS1651-1788982177399.png",
+      "screenshotFile": "erro-VPDMAXBULLCFS1651-1788982177399.png",
+      "diagnostico": "O formulário da Magis5 não concluiu o salvamento devido à validação pendente na página. Detalhe capturado: \"Falha na validação do formulário da Magis5\"",
+      "proposta": {
+        "acao": "Re-processar com Modo Visível (Headed)",
+        "explicacao": "Executar o Agente 3 com a opção \"Modo Visível\" ativa no painel para inspecionar visualmente qual campo específico está exigindo preenchimento.",
+        "autoFixAvailable": false,
+        "fixType": "MANUAL_INSPECTION"
+      },
+      "classificacao": {
+        "codigo": "VALIDACAO_FORMULARIO",
+        "tipo": "Validação Pendente no Formulário",
+        "gravidade": "MEDIA",
+        "badgeClass": "badge-info",
+        "icone": "📋"
+      },
+      "dataAuditoria": "2026-09-21T12:39:37.567Z"
+    },
+    {
+      "sku": "VPDATLASSFS1502M",
+      "titulo": "Vara Deyu Atlas 1,50m 17lbs Para Molinete 2 Partes Maciça Azul Pesca Em Pesqueiro Rio e Barco",
+      "marca": "Deyu",
+      "modelo": "Atlas A-SFS1502M",
+      "preco": 49.9,
+      "cod_sankhya": "54820",
+      "categoria_atual": "Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Varas e Molinetes de Pesca",
+      "categoria_sugerida_correta": "Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Linhas de Pesca",
+      "erro_bruto": "Falha na validação do formulário da Magis5",
+      "status_planilha": "pendente",
+      "cor_planilha": "#D1FAE5",
+      "isCurrentlyPublished": true,
+      "screenshot": "/screenshots/erro-VPDATLASSFS1502M-1788982083608.png",
+      "screenshotFile": "erro-VPDATLASSFS1502M-1788982083608.png",
+      "diagnostico": "O formulário da Magis5 não concluiu o salvamento devido à validação pendente na página. Detalhe capturado: \"Falha na validação do formulário da Magis5\"",
+      "proposta": {
+        "acao": "Re-processar com Modo Visível (Headed)",
+        "explicacao": "Executar o Agente 3 com a opção \"Modo Visível\" ativa no painel para inspecionar visualmente qual campo específico está exigindo preenchimento.",
+        "autoFixAvailable": false,
+        "fixType": "MANUAL_INSPECTION"
+      },
+      "classificacao": {
+        "codigo": "VALIDACAO_FORMULARIO",
+        "tipo": "Validação Pendente no Formulário",
+        "gravidade": "MEDIA",
+        "badgeClass": "badge-info",
+        "icone": "📋"
+      },
+      "dataAuditoria": "2026-09-21T12:39:37.567Z"
     },
     {
       "sku": "7797208814135",
@@ -365,8 +1450,8 @@
       "categoria_atual": "Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Linhas de Pesca",
       "categoria_sugerida_correta": "Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Linhas de Pesca",
       "erro_bruto": "Rejeição detectada",
-      "status_planilha": "publicado",
-      "cor_planilha": "#83E28E",
+      "status_planilha": "pendente",
+      "cor_planilha": "#D1FAE5",
       "isCurrentlyPublished": true,
       "screenshot": "/screenshots/published-7797208814135-1788959900184.png",
       "screenshotFile": "published-7797208814135-1788959900184.png",
@@ -384,7 +1469,7 @@
         "badgeClass": "badge-info",
         "icone": "📋"
       },
-      "dataAuditoria": "2026-09-09T18:24:40.881Z"
+      "dataAuditoria": "2026-09-21T12:39:37.567Z"
     },
     {
       "sku": "7797208813961",
@@ -396,8 +1481,8 @@
       "categoria_atual": "Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Linhas de Pesca",
       "categoria_sugerida_correta": "Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Linhas de Pesca",
       "erro_bruto": "Rejeição detectada",
-      "status_planilha": "publicado",
-      "cor_planilha": "#83E28E",
+      "status_planilha": "pendente",
+      "cor_planilha": "#D1FAE5",
       "isCurrentlyPublished": true,
       "screenshot": "/screenshots/published-7797208813961-1788959844479.png",
       "screenshotFile": "published-7797208813961-1788959844479.png",
@@ -415,13 +1500,13 @@
         "badgeClass": "badge-info",
         "icone": "📋"
       },
-      "dataAuditoria": "2026-09-09T18:24:40.881Z"
+      "dataAuditoria": "2026-09-21T12:39:37.567Z"
     },
     {
       "sku": "4330",
       "titulo": "Kit Anzol Encastoado Albatroz Cabo de Aço Reforçado | Anti-Corte para Pesca de Predadores",
       "marca": "Albatroz",
-      "modelo": "4330 (Kit Anzol Encastoado)",
+      "modelo": "METÁLICO LISO",
       "preco": 21.9,
       "cod_sankhya": "54561",
       "categoria_atual": "Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Anzóis",
@@ -446,7 +1531,7 @@
         "badgeClass": "badge-info",
         "icone": "📋"
       },
-      "dataAuditoria": "2026-09-09T18:24:40.881Z"
+      "dataAuditoria": "2026-09-21T12:39:37.567Z"
     }
   ]
 }

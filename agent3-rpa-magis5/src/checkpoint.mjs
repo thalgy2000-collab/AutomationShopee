@@ -2,6 +2,7 @@ import { readdir, readFile } from "node:fs/promises";
 import { existsSync } from "node:fs";
 import { join } from "node:path";
 import { PRODUTOS_DIR, DOWNLOADS_DIR, SHOPEE_MAX_TITLE_LENGTH } from "./config.mjs";
+import { resolveAllProductImages } from "./image_resolver.mjs";
 
 /**
  * Valida o contrato de dados de um produto enriquecido antes do envio ao Magis5.
@@ -66,6 +67,35 @@ export function validateProduct(product) {
     }
   }
 
+  // Fallback padrão conforme regra de negócio (FUSION: 219.90 | C0: 169.90)
+  if (pSem === null || pSem === undefined || pSem <= 0) {
+    const fullText = `${product.sku || ""} ${product.titulo_shopee || ""} ${product.modelo || ""}`.toLowerCase();
+    const skuClean = (product.sku || "").toUpperCase();
+    
+    let defaultPrice = null;
+    if (/^FUSION/i.test(skuClean)) {
+      defaultPrice = 219.90;
+    } else if (/^C0/i.test(skuClean) || /camisa|camiseta|baby\s*look|vestu[aá]rio/i.test(fullText)) {
+      defaultPrice = 169.90;
+    }
+
+    if (defaultPrice !== null) {
+      pSem = defaultPrice;
+      if (!product.preco) {
+        product.preco = {
+          preco_sem_promocao: defaultPrice,
+          preco_com_promocao: null,
+          preco_atual: defaultPrice,
+          em_promocao: false,
+          desconto_percentual: 0,
+        };
+      } else {
+        product.preco.preco_sem_promocao = defaultPrice;
+        product.preco.preco_atual = defaultPrice;
+      }
+    }
+  }
+
   if (pSem === null || pSem === undefined) {
     errors.push("Preço regular não definido");
   } else if (typeof pSem !== "number" || pSem <= 0) {
@@ -74,19 +104,8 @@ export function validateProduct(product) {
 
 
   // 6. Imagens
-  const images = Array.isArray(product.imagens) ? product.imagens : [];
-  const existingImgs = images.filter((p) => existsSync(p));
-
-  // Fallback se não há imagens diretas: verifica pasta downloads/{sku}
-  let totalImgs = existingImgs.length;
-  if (totalImgs === 0 && product.sku) {
-    const fallbackDir = join(DOWNLOADS_DIR, product.sku);
-    if (existsSync(fallbackDir)) {
-      totalImgs = 1; // Pasta existe
-    }
-  }
-
-  if (totalImgs === 0) {
+  const availableImgs = resolveAllProductImages(product);
+  if (availableImgs.length === 0) {
     errors.push("Nenhuma imagem física encontrada para o produto");
   }
 

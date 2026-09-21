@@ -14,7 +14,8 @@
 
 import { readFile, writeFile, mkdir, readdir } from "node:fs/promises";
 import { existsSync } from "node:fs";
-import { join, resolve } from "node:path";
+import { join, resolve, basename, dirname } from "node:path";
+import { fileURLToPath } from "node:url";
 import { parse } from "csv-parse/sync";
 import { stringify } from "csv-stringify/sync";
 import sharp from "sharp";
@@ -29,29 +30,40 @@ import {
   extractBaseTitle,
 } from "./grouping.mjs";
 import { fetchAndCacheShopifyPrices, getProductPrices } from "./shopify_prices.mjs";
+import { fetchProductFromAnyStore, downloadProductImages } from "./shopify_fetcher.mjs";
 import { resolveCorrectShopeeCategory } from "../agent4-diagnostician/rules.mjs";
+import {
+  isModelBlocked,
+  blockModelUntilNextDay,
+  resetAllQuotas,
+  getQuotaData,
+  formatResetTime,
+} from "./quota_manager.mjs";
 
-// Carrega variáveis de ambiente
+const SCRIPT_DIR = dirname(fileURLToPath(import.meta.url));
+
+// Carrega variáveis de ambiente (prioriza agent2-enricher/.env e depois raiz)
+dotenv.config({ path: resolve(SCRIPT_DIR, ".env") });
 dotenv.config();
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Configuração
 // ─────────────────────────────────────────────────────────────────────────────
 
-const DOWNLOADS_DIR = resolve("../agent1-scraper/downloads");
-const PRODUTOS_DIR = resolve("./produtos");
+const DOWNLOADS_DIR = resolve(SCRIPT_DIR, "../agent1-scraper/downloads");
+const PRODUTOS_DIR = resolve(SCRIPT_DIR, "./produtos");
 const MAX_IMAGES_PER_REQUEST = 4; // Imagens enviadas ao Gemini por produto
 const IMAGE_RESIZE_PX = 512; // Redimensiona para economia de tokens
 const REQUEST_DELAY_MS = 1500; // Delay entre requests (respeita rate limits)
 const MAX_RETRIES = 2; // Retries por SKU antes de desistir
 
-// Cadeia de fallback de modelos Gemini (prioriza 3.8, 3.7, 3.6, 3.5, 2.5)
+// Cadeia de fallback de modelos Gemini (prioriza modelos estáveis e testados)
 const MODEL_CHAIN = [
-  "gemini-3.8-flash",
-  "gemini-3.7-flash",
-  "gemini-3.6-flash",
-  "gemini-3.5-flash",
   "gemini-2.5-flash",
+  "gemini-flash-latest",
+  "gemini-3.5-flash",
+  "gemini-flash-lite-latest",
+  "gemini-3.5-flash-lite",
 ];
 
 // Cache em memória de modelos Gemini com cota diária esgotada
@@ -123,6 +135,9 @@ function parseArgs() {
       i++;
     } else if (args[i] === "--groq" || args[i] === "--llama") {
       model = "groq";
+    } else if (args[i] === "--reset-quota" || args[i] === "--reset-quotas") {
+      resetAllQuotas();
+      log("🔄 Limites de quota diária resetados com sucesso.");
     } else if (args[i] === "--force") {
       force = true;
     }
@@ -131,9 +146,9 @@ function parseArgs() {
   // Fallback inteligente para o CSV do Agente 1
   if (!inputFile) {
     const candidates = [
-      resolve("../agent1-scraper/lote_d1fae5.csv"),
-      resolve("../agent1-scraper/lote_teste.csv"),
-      resolve("../agent1-scraper/sample_input.csv"),
+      resolve(SCRIPT_DIR, "../agent1-scraper/lote_d1fae5.csv"),
+      resolve(SCRIPT_DIR, "../agent1-scraper/lote_teste.csv"),
+      resolve(SCRIPT_DIR, "../agent1-scraper/sample_input.csv"),
     ];
     for (const candidate of candidates) {
       if (existsSync(candidate)) {
@@ -141,6 +156,27 @@ function parseArgs() {
         break;
       }
     }
+  } else if (!existsSync(inputFile)) {
+    const candidates = [
+      resolve(SCRIPT_DIR, inputFile),
+      resolve(SCRIPT_DIR, "..", inputFile),
+      resolve(process.cwd(), inputFile),
+    ];
+    for (const c of candidates) {
+      if (existsSync(c)) {
+        inputFile = c;
+        break;
+      }
+    }
+  }
+
+  let preferredModel = model || process.env.GEMINI_MODEL || MODEL_CHAIN[0];
+  const qCheck = isModelBlocked(preferredModel);
+  if (qCheck.blocked) {
+    const fallback = MODEL_CHAIN.find((m) => !isModelBlocked(m).blocked) || "groq";
+    log(`⚠️ O modelo solicitado '${preferredModel}' atingiu o limite de cota diária até ${formatResetTime(qCheck.resetAt)}.`);
+    log(`🔄 Redirecionando automaticamente para '${fallback}' para não desperdiçar requisições.`);
+    preferredModel = fallback;
   }
 
   return {
@@ -152,7 +188,7 @@ function parseArgs() {
     offset,
     batchSize,
     batchPause,
-    preferredModel: model || process.env.GEMINI_MODEL || MODEL_CHAIN[0],
+    preferredModel,
   };
 }
 
@@ -191,70 +227,83 @@ async function getVariationImages(sku, parentSku = null, variationName = null) {
   const pSku = parentSku || extractParentSku(sku);
   const suffix = variationName || extractVariationSuffix(sku);
 
-  let targetDir = null;
-
-  // 1. Hierarquia organizada: downloads/{parentSku}/{variationSuffix}
-  if (suffix && pSku) {
-    const hierarchicalDir = join(DOWNLOADS_DIR, pSku, suffix);
-    if (existsSync(hierarchicalDir)) {
-      targetDir = hierarchicalDir;
-    }
-  }
-
-  // 1b. Hierarquia com subpastas divididas por underscore (ex: SANDALIASTARFEM_ROSA_35 -> downloads/SANDALIASTARFEM/ROSA/35)
-  if (!targetDir && sku && sku.includes("_")) {
-    const parts = sku.split("_");
-    const nestedDir = join(DOWNLOADS_DIR, ...parts);
-    if (existsSync(nestedDir)) {
-      targetDir = nestedDir;
-    }
-  }
-
-  // 1c. Hierarquia se parentSku tiver underscore: downloads/{...parts(pSku)}/{suffix}
-  if (!targetDir && pSku && pSku.includes("_") && suffix) {
-    const parts = pSku.split("_");
-    const nestedDir = join(DOWNLOADS_DIR, ...parts, suffix);
-    if (existsSync(nestedDir)) {
-      targetDir = nestedDir;
-    }
-  }
-
-  // 2. Pasta direta: downloads/{sku}
-  if (!targetDir) {
-    const directDir = join(DOWNLOADS_DIR, sku);
-    if (existsSync(directDir)) {
-      targetDir = directDir;
-    }
-  }
-
-  // 3. Pasta do pai direto (se produto simples): downloads/{pSku}
-  if (!targetDir && pSku) {
-    const parentDir = join(DOWNLOADS_DIR, pSku);
-    if (existsSync(parentDir)) {
-      targetDir = parentDir;
-    }
-  }
-
-  // 3b. Pasta do pai se tiver underscore: downloads/{parts[0]}
-  if (!targetDir && pSku && pSku.includes("_")) {
-    const parts = pSku.split("_");
-    const parentDir = join(DOWNLOADS_DIR, ...parts);
-    if (existsSync(parentDir)) {
-      targetDir = parentDir;
-    }
-  }
-
-  if (!targetDir) return [];
-
+  // Lista diretórios raiz para busca: DOWNLOADS_DIR e suas subpastas (coleções como SaoBento)
+  const searchRoots = [DOWNLOADS_DIR];
   try {
-    const files = (await readdir(targetDir))
-      .filter((f) => f.toLowerCase().endsWith(".jpg"))
-      .sort()
-      .map((f) => join(targetDir, f));
-    return files;
-  } catch {
-    return [];
+    const entries = await readdir(DOWNLOADS_DIR, { withFileTypes: true });
+    for (const entry of entries) {
+      if (entry.isDirectory()) {
+        searchRoots.push(join(DOWNLOADS_DIR, entry.name));
+      }
+    }
+  } catch {}
+
+  for (const root of searchRoots) {
+    let targetDir = null;
+
+    // 1. Hierarquia organizada: root/{parentSku}/{variationSuffix}
+    if (suffix && pSku) {
+      const hierarchicalDir = join(root, pSku, suffix);
+      if (existsSync(hierarchicalDir)) {
+        targetDir = hierarchicalDir;
+      }
+    }
+
+    // 1b. Hierarquia com subpastas divididas por underscore (ex: SANDALIASTARFEM_ROSA_35 -> root/SANDALIASTARFEM/ROSA/35)
+    if (!targetDir && sku && sku.includes("_")) {
+      const parts = sku.split("_");
+      const nestedDir = join(root, ...parts);
+      if (existsSync(nestedDir)) {
+        targetDir = nestedDir;
+      }
+    }
+
+    // 1c. Hierarquia se parentSku tiver underscore: root/{...parts(pSku)}/{suffix}
+    if (!targetDir && pSku && pSku.includes("_") && suffix) {
+      const parts = pSku.split("_");
+      const nestedDir = join(root, ...parts, suffix);
+      if (existsSync(nestedDir)) {
+        targetDir = nestedDir;
+      }
+    }
+
+    // 2. Pasta direta: root/{sku}
+    if (!targetDir) {
+      const directDir = join(root, sku);
+      if (existsSync(directDir)) {
+        targetDir = directDir;
+      }
+    }
+
+    // 3. Pasta do pai direto (se produto simples): root/{pSku}
+    if (!targetDir && pSku) {
+      const parentDir = join(root, pSku);
+      if (existsSync(parentDir)) {
+        targetDir = parentDir;
+      }
+    }
+
+    // 3b. Pasta do pai se tiver underscore: root/{parts[0]}
+    if (!targetDir && pSku && pSku.includes("_")) {
+      const parts = pSku.split("_");
+      const parentDir = join(root, ...parts);
+      if (existsSync(parentDir)) {
+        targetDir = parentDir;
+      }
+    }
+
+    if (targetDir) {
+      try {
+        const files = (await readdir(targetDir))
+          .filter((f) => f.toLowerCase().endsWith(".jpg") || f.toLowerCase().endsWith(".png") || f.toLowerCase().endsWith(".webp"))
+          .sort()
+          .map((f) => join(targetDir, f));
+        if (files.length > 0) return files;
+      } catch {}
+    }
   }
+
+  return [];
 }
 
 /**
@@ -268,6 +317,14 @@ async function prepareImagesForGroup(group) {
   // 1. Carrega todas as imagens de cada variação
   for (const item of group.items) {
     item.imagens = await getVariationImages(item.sku, group.parentSku, item.variationName);
+  }
+
+  // Se alguma variação do mesmo produto pai ficou sem fotos, herda das outras variações do grupo
+  const groupSampleImgs = group.items.find((it) => it.imagens && it.imagens.length > 0)?.imagens || [];
+  for (const item of group.items) {
+    if (!item.imagens || item.imagens.length === 0) {
+      item.imagens = [...groupSampleImgs];
+    }
   }
 
   // Se existe pasta direta com o parentSku
@@ -397,6 +454,11 @@ async function enrichProduct(genAI, sku, tituloBruto, images, preferredModel, va
   const parts = [...images, { text: userPrompt }];
 
   for (const modelName of chain) {
+    const quotaCheck = isModelBlocked(modelName);
+    if (quotaCheck.blocked) {
+      log(`  ⏭️ Modelo ${modelName} ignorado (limite de cota diária atingido até ${formatResetTime(quotaCheck.resetAt)}).`);
+      continue;
+    }
     if (exhaustedGeminiModels.has(modelName)) {
       continue;
     }
@@ -463,25 +525,54 @@ async function enrichProduct(genAI, sku, tituloBruto, images, preferredModel, va
         }
       } catch (err) {
         const isRateLimit = err.status === 429 || err.message?.includes("429") || err.message?.includes("RESOURCE_EXHAUSTED");
-        const isUnavailable = err.status === 503 || err.message?.includes("503");
-        const isModelNotFound = err.status === 404 || err.message?.includes("not found");
+        const isUnavailable = err.status === 503 || err.message?.includes("503") || err.message?.includes("experiencing high demand");
+        const isModelNotFound = err.status === 404 || err.message?.includes("not found") || err.message?.includes("no longer available");
 
         if (isModelNotFound) {
-          log(`  Modelo ${modelName} não disponível, tentando próximo...`);
+          log(`  Modelo ${modelName} não disponível (404), pulando para próximo modelo...`);
           exhaustedGeminiModels.add(modelName);
           break; // Pula para o próximo modelo
         }
 
-        if (isRateLimit || isUnavailable) {
-          const isDailyQuota = err.message?.includes("FreeTier") || err.message?.includes("quota") || err.message?.includes("PerDay") || err.message?.includes("RESOURCE_EXHAUSTED");
-          if (isDailyQuota) {
-            log(`  ⚠️ Cota diária do modelo ${modelName} esgotada. Pulando para o próximo modelo...`);
+        if (isUnavailable) {
+          if (attempt < MAX_RETRIES) {
+            const waitMs = (attempt + 1) * 3000;
+            log(`  ⚠️ Demanda temporária em ${modelName} (503). Aguardando ${waitMs / 1000}s para retentar...`);
+            await sleep(waitMs);
+            continue;
+          }
+          log(`  ⚠️ Modelo ${modelName} com alta demanda após tentativas. Alternando para o próximo modelo...`);
+          break;
+        }
+
+        if (isRateLimit) {
+          const retryMatch = err.message?.match(/retry in ([\d\.]+)s/i);
+          if (retryMatch) {
+            const waitSec = Math.ceil(parseFloat(retryMatch[1])) + 2;
+            if (waitSec > 15 || attempt >= 1) {
+              log(`  ⏳ Rate limit em ${modelName} (${waitSec}s). Alternando imediatamente para o próximo modelo da esteira...`);
+              break;
+            }
+            log(`  ⏳ Rate limit temporário por minuto em ${modelName}. Aguardando ${waitSec}s para retentar...`);
+            await sleep(waitSec * 1000);
+            continue;
+          }
+
+          const isDailyQuota =
+            err.message?.includes("PerDay") ||
+            err.message?.includes("per_day") ||
+            (err.message?.includes("Quota exceeded") && !err.message?.includes("retry in"));
+
+          if (isDailyQuota && attempt >= MAX_RETRIES) {
+            const { resetAt } = blockModelUntilNextDay(modelName, err.message);
+            log(`  🚫 Limite diário de cota atingido no modelo ${modelName}!`);
+            log(`  ⏳ Modelo bloqueado até o próximo dia (${formatResetTime(resetAt)}). Pulando para o próximo modelo...`);
             exhaustedGeminiModels.add(modelName);
             break;
           }
           if (attempt < MAX_RETRIES) {
-            const waitMs = (attempt + 1) * 3000; // Backoff: 3s, 6s
-            log(`  Rate limit/indisponível em ${modelName}. Aguardando ${waitMs / 1000}s...`);
+            const waitMs = (attempt + 1) * 3000;
+            log(`  Rate limit em ${modelName}. Aguardando ${waitMs / 1000}s...`);
             await sleep(waitMs);
             continue; // Retry no mesmo modelo
           }
@@ -505,7 +596,7 @@ async function enrichProduct(genAI, sku, tituloBruto, images, preferredModel, va
   if (groqKey) {
     log(`  🦙 Modelos Gemini esgotados/indisponíveis. Migrando automaticamente para Groq / LLaMA...`);
     const groqRes = await enrichProductWithGroq(sku, tituloBruto, images, variacoesList);
-    if (groqRes.success) {
+    if (groqRes && groqRes.success) {
       return groqRes;
     }
   }
@@ -636,6 +727,8 @@ async function enrichProductWithGroq(sku, tituloBruto, images, variacoesList = [
       return { success: false, data: null, model: modelName, errors: [err.message] };
     }
   }
+
+  return { success: false, data: null, model: null, errors: ["Tentativas na Groq esgotadas"] };
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -654,24 +747,45 @@ async function main() {
   if (batchSize) log(`  Modo Lote: ${batchSize} produtos por lote (pausa de ${batchPause}s)`);
   log(`  Downloads: ${DOWNLOADS_DIR}`);
   log(`  Saída JSONs: ${PRODUTOS_DIR}`);
+  const quotaData = getQuotaData();
+  const blockedKeys = Object.keys(quotaData);
+  if (blockedKeys.length > 0) {
+    log(`  ⚠️ Modelos bloqueados por cota diária até amanhã:`);
+    for (const bKey of blockedKeys) {
+      log(`     • ${bKey}: bloqueado até ${formatResetTime(quotaData[bKey].resetAt)}`);
+    }
+  }
   log(`═══════════════════════════════════════════════════`);
 
-  // Validações
-  if (!inputFile || !existsSync(inputFile)) {
-    logError(`CSV não encontrado: ${inputFile || "(nenhum)"}`);
-    logError(`Verifique se o Agente 1 já foi executado.`);
-    logError(`Use: node enricher.mjs --input <caminho_do_csv>`);
-    process.exit(1);
-  }
+  // Validações e Leitura de dados (suporta CSV direto ou mapeia Excel para lote CSV)
+  let activeCsvFile = inputFile;
+  let records;
 
-  if (!existsSync(DOWNLOADS_DIR)) {
-    logError(`Diretório de downloads não encontrado: ${DOWNLOADS_DIR}`);
-    logError(`Execute o Agente 1 primeiro para baixar as imagens.`);
-    process.exit(1);
+  if (inputFile && /\.(xlsx?)$/i.test(inputFile)) {
+    log(`💡 Arquivo Excel informado: ${basename(inputFile)}. Extraindo produtos...`);
+    const loteCsv = resolve("../agent1-scraper/lote_d1fae5.csv");
+    const { extractProductsFromXls } = await import("../agent1-scraper/colorFilter.mjs");
+    const items = extractProductsFromXls(inputFile, null);
+    records = items.map((item) => ({
+      sku: item.sku,
+      cod_sankhya: item.cod_sankhya,
+      titulo_bruto: item.titulo_bruto,
+      status: "scraped",
+      cor: item.cor,
+      classificacao: item.classificacao,
+    }));
+    activeCsvFile = loteCsv;
+    await writeCsv(activeCsvFile, records);
+    logSuccess(`${records.length} produtos carregados da planilha ${basename(inputFile)}`);
+  } else {
+    if (!inputFile || !existsSync(inputFile)) {
+      logError(`CSV não encontrado: ${inputFile || "(nenhum)"}`);
+      logError(`Verifique se o Agente 1 já foi executado.`);
+      logError(`Use: node enricher.mjs --input <caminho_do_csv>`);
+      process.exit(1);
+    }
+    records = await readCsv(activeCsvFile);
   }
-
-  // Lê o CSV
-  const records = await readCsv(inputFile);
 
   // Agrupa os registros pelo Código Pai
   const allGroups = groupRecordsByParent(records);
@@ -685,10 +799,70 @@ async function main() {
         g.parentSku.toLowerCase() === targetParent ||
         g.items.some((it) => it.sku.toLowerCase() === targetSku.toLowerCase())
     );
+
     if (pendentesGroups.length === 0) {
-      logError(`SKU ou Código Pai "${targetSku}" não encontrado no CSV (${inputFile}).`);
-      return;
+      log(`🔍 SKU ou Código Pai "${targetSku}" não consta no CSV local.`);
+      log(`🌐 Buscando diretamente nos sites oficiais (BRK Fishing, BRK Agro, BRK Motors)...`);
+      const webProd = await fetchProductFromAnyStore(targetSku);
+
+      if (!webProd) {
+        logError(`SKU "${targetSku}" não foi localizado em nenhum dos 3 sites oficiais (BRK Fishing, BRK Agro, BRK Motors).`);
+        return;
+      }
+
+      logSuccess(`Produto localizado na loja ${webProd._sourceName}: "${webProd.title}"`);
+      const parentSku = extractParentSku(targetSku);
+      const destDir = join(DOWNLOADS_DIR, parentSku);
+      log(`Baixando fotos oficiais para ${destDir}...`);
+      const downloadedImages = await downloadProductImages(webProd, destDir);
+      logSuccess(`${downloadedImages.length} fotos salvas com sucesso.`);
+
+      // Variações do produto se houver
+      const syntheticItems = (webProd.variants && webProd.variants.length > 1)
+        ? webProd.variants.map((v) => ({
+            sku: v.sku || `${parentSku}_${String(v.title).replace(/\s+/g, '')}`,
+            record: {
+              sku: v.sku || `${parentSku}_${String(v.title).replace(/\s+/g, '')}`,
+              titulo_bruto: webProd.title,
+              status: "scraped",
+              cod_sankhya: "",
+            },
+            variationName: v.title !== "Default Title" ? String(v.title) : "",
+            imagens: downloadedImages,
+          }))
+        : [{
+            sku: targetSku,
+            record: {
+              sku: targetSku,
+              titulo_bruto: webProd.title,
+              status: "scraped",
+              cod_sankhya: "",
+            },
+            variationName: "",
+            imagens: downloadedImages,
+          }];
+
+      const syntheticGroup = {
+        parentSku: parentSku,
+        baseTitle: webProd.title,
+        isGroup: syntheticItems.length > 1,
+        items: syntheticItems,
+      };
+
+      pendentesGroups = [syntheticGroup];
+
+      if (activeCsvFile && existsSync(activeCsvFile)) {
+        try {
+          for (const it of syntheticItems) {
+            if (!records.some((r) => r.sku === it.record.sku)) {
+              records.push(it.record);
+            }
+          }
+          await writeCsv(activeCsvFile, records);
+        } catch {}
+      }
     }
+
     log(`Processando Código Pai: ${pendentesGroups[0].parentSku} (${pendentesGroups[0].items.length} variação/ões)`);
   } else {
     let sourceGroups = allGroups;
@@ -779,10 +953,24 @@ async function main() {
 
     // 1. Preparar imagens representativas (amostras das variações)
     log(`${progresso} Preparando imagens das variações...`);
-    const images = await prepareImagesForGroup(group);
+    let images = await prepareImagesForGroup(group);
 
     if (images.length === 0) {
-      const motivo = "Nenhuma imagem encontrada nas pastas das variações";
+      log(`🔍 Nenhuma imagem local para ${parentSku}. Buscando online nos 3 sites (BRK Fishing, BRK Agro, BRK Motors)...`);
+      const webProd = await fetchProductFromAnyStore(parentSku);
+      if (webProd) {
+        logSuccess(`Produto localizado na loja ${webProd._sourceName}: "${webProd.title}"`);
+        const destDir = join(DOWNLOADS_DIR, parentSku);
+        const downloadedImages = await downloadProductImages(webProd, destDir);
+        if (downloadedImages.length > 0) {
+          logSuccess(`${downloadedImages.length} fotos baixadas com sucesso.`);
+          images = await prepareImagesForGroup(group);
+        }
+      }
+    }
+
+    if (images.length === 0) {
+      const motivo = "Nenhuma imagem encontrada nas pastas das variações ou nos sites da BRK";
       logError(`${progresso} ${motivo}`);
       for (const it of items) {
         it.record.status = `erro: ${motivo}`;
@@ -891,7 +1079,7 @@ async function main() {
     }
     report.sucesso.push({ sku: parentSku, model: result.model });
     report.modelosUsados[result.model] = (report.modelosUsados[result.model] || 0) + 1;
-    await writeCsv(inputFile, records);
+    await writeCsv(activeCsvFile, records);
 
     // Rate limiting e controle de lotes (batches)
     if (batchSize && (i + 1) % batchSize === 0 && i < pendentesGroups.length - 1) {
@@ -940,7 +1128,7 @@ async function main() {
   log(`\nGerando relatório HTML...`);
   try {
     const { generateReport } = await import("./report.mjs");
-    await generateReport(PRODUTOS_DIR, DOWNLOADS_DIR, inputFile);
+    await generateReport(PRODUTOS_DIR, DOWNLOADS_DIR, activeCsvFile);
     logSuccess(`Relatório gerado: ./relatorio.html`);
     log(`Abra com: start relatorio.html`);
   } catch (err) {
@@ -949,8 +1137,11 @@ async function main() {
 }
 
 // Execução
-main().catch((err) => {
-  logError(`Erro fatal: ${err.message}`);
-  console.error(err);
-  process.exit(1);
-});
+const isDirectRun = process.argv[1] && resolve(process.argv[1]) === resolve(fileURLToPath(import.meta.url));
+if (isDirectRun) {
+  main().catch((err) => {
+    logError(`Erro fatal: ${err.message}`);
+    console.error(err);
+    process.exit(1);
+  });
+}

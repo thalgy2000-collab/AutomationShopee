@@ -1,4 +1,4 @@
-import { join, resolve } from "node:path";
+import path, { join, resolve, basename } from "node:path";
 import { existsSync } from "node:fs";
 import { readdir } from "node:fs/promises";
 import {
@@ -9,6 +9,8 @@ import {
   ACTION_TIMEOUT_MS,
 } from "./config.mjs";
 import { validateProduct } from "./checkpoint.mjs";
+import { resolveAllProductImages, resolveVariantImage, resolveLocalImage } from "./image_resolver.mjs";
+import { generateFriendlyModel } from "../../agent2-enricher/schemas.mjs";
 
 /**
  * Mapeia qualquer peso informado para a opção mais próxima da pré-seleção da Shopee/Magis5:
@@ -60,6 +62,56 @@ export function getClosestShopeeWeight(rawWeight) {
   return closest.label;
 }
 
+function normalizeLocalImagePath(p, sku = null) {
+  return resolveLocalImage(p, sku);
+}
+
+/**
+ * Remove estritamente qualquer menção ao código SKU, códigos internos ou referências
+ * do texto da descrição antes de enviar ao Magis5 / Shopee.
+ *
+ * @param {string} desc - Texto original da descrição
+ * @param {object} product - Objeto do produto
+ * @returns {string} Descrição limpa sem SKU
+ */
+export function sanitizeDescription(desc, product = {}) {
+  if (!desc) return "";
+  let text = String(desc);
+  const sku = product?.sku ? String(product.sku).trim() : "";
+
+  // 1. Remove linhas que declaram explicitamente o SKU / Código / Referência
+  text = text.replace(/^[ \t]*(?:-|\*)*[ \t]*(?:SKU|C[oó]digo(?: do Produto)?|Refer[eê]ncia|Ref)[ \t]*:[ \t]*[^\r\n]+[\r\n]*/gmi, "");
+
+  // 2. Se a linha do Modelo tiver apenas o SKU bruto (ex: "- Modelo: C02829"), substitui pelo nome do modelo comercial
+  if (sku) {
+    const friendly = (product.modelo && product.modelo !== sku) ? product.modelo : "BRK Especial";
+    const escapedSku = sku.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    text = text.replace(new RegExp(`^([ \\t]*-[ \\t]*Modelo[ \\t]*:[ \\t]*)${escapedSku}[ \\t]*$`, "gmi"), `$1${friendly}`);
+    
+    // 3. Remove o SKU se estiver em parênteses ou colchetes: ex: "São Bento Medalhão (C02830)" -> "São Bento Medalhão"
+    text = text.replace(new RegExp(`[ \\t]*[\\(\\[]${escapedSku}[\\)\\]]`, "gi"), "");
+  }
+
+  // 4. Remove qualquer código alfanumérico que esteja em parênteses na linha de Modelo (ex: "- Modelo: Algo (C02830)")
+  text = text.replace(/([ \t]*-[ \t]*Modelo[ \t]*:[ \t]*[^\r\n\(]+)[ \t]*\([A-Za-z0-9_-]+\)/gi, "$1");
+
+  // 5. Remove qualquer menção residual do SKU exato isolado
+  if (sku) {
+    const escapedSku = sku.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    text = text.replace(new RegExp(`\\b${escapedSku}\\b`, "gi"), "");
+    // Limpa parênteses vazios resultantes "()"
+    text = text.replace(/[ \t]*\(\s*\)/g, "");
+  }
+
+  // 6. REGRA CRÍTICA: NUNCA colocar tamanho na descrição (remover menções e tabelas de medidas)
+  text = text.replace(/^[ \t]*(?:-|\*)*[ \t]*Tamanho[ \t]*:[^\r\n]*[\r\n]*/gmi, "");
+  text = text.replace(/\bTamanho\s*:\s*(?:Variado|[A-Z0-9\s,\/()\-]+(?=\n|$))/gmi, "");
+  text = text.replace(/Tabela de Medidas[^\n]*:?[\s\S]*?(?=(?:Nossa Estampa|Garantia|Diferenciais|Cuidados|\n\n\n|$))/gi, "");
+  text = text.replace(/^[ \t]*(?:Masculino|Feminino|Infantil)?[ \t]*Tamanho[ \t]*[A-Z0-9 ]+:[^\r\n]*[\r\n]*/gmi, "");
+
+  return text.trim();
+}
+
 /**
  * Coleta os caminhos absolutos das imagens locais válidas para o produto.
  *
@@ -67,78 +119,19 @@ export function getClosestShopeeWeight(rawWeight) {
  * @returns {Promise<string[]>}
  */
 export async function resolveProductImages(product) {
-  const images = [];
-
-  // 1. Tentar ler do array direto
-  if (Array.isArray(product.imagens)) {
-    for (const p of product.imagens) {
-      if (existsSync(p)) images.push(resolve(p));
-    }
-    if (images.length > 0) return images;
-  }
-
-  // 2. Tentar ler da pasta downloads/{sku}
-  const skuDir = join(DOWNLOADS_DIR, product.sku);
-  if (existsSync(skuDir)) {
-    const entries = await readdir(skuDir, { withFileTypes: true });
-    for (const e of entries) {
-      if (e.isFile() && e.name.toLowerCase().endsWith(".jpg")) {
-        images.push(resolve(join(skuDir, e.name)));
-      }
-    }
-  }
-
-  return images;
+  return resolveAllProductImages(product);
 }
 
 /**
- * Resolve a imagem específica da variação correspondente ao site oficial,
- * garantindo que apenas a foto oficial (sem banners de cabeçalho) seja enviada.
+ * Resolve a primeira foto oficial para a variação (Regra: preencher todas as variações com a primeira foto).
  *
  * @param {object} product
  * @param {object} variant
+ * @param {string[]} imageFiles
  * @returns {Promise<string|null>}
  */
-export async function resolveVariationImage(product, variant) {
-  const rawImgs = variant.imagens || product.imagens || [];
-  if (rawImgs.length === 0) return null;
-  if (rawImgs.length === 1 && existsSync(rawImgs[0])) return resolve(rawImgs[0]);
-
-  // Consulta o Shopify para obter a posição exata da imagem do modelo no site
-  try {
-    const searchSku = variant.sku || product.sku;
-    const searchUrl = `https://brkfishing.com.br/search/suggest.json?q=${encodeURIComponent(searchSku)}&resources[type]=product`;
-    const res = await fetch(searchUrl, { signal: AbortSignal.timeout(3500) });
-    const data = await res.json();
-    const handle = data?.resources?.results?.products?.[0]?.handle;
-    if (handle) {
-      const pRes = await fetch(`https://brkfishing.com.br/products/${handle}.js`, { signal: AbortSignal.timeout(3500) });
-      const pData = await pRes.json();
-      const shopifyVar = pData.variants?.find((sv) => sv.sku === variant.sku || sv.title?.includes(variant.nome));
-      if (shopifyVar?.featured_image?.position) {
-        const posStr = String(shopifyVar.featured_image.position).padStart(2, "0");
-        const matchPos = rawImgs.find((img) => img.includes(`${posStr}.jpg`) || img.includes(`${posStr}.png`));
-        if (matchPos && existsSync(matchPos)) {
-          return resolve(matchPos);
-        }
-      }
-    }
-  } catch {
-    // Fallback se requisição falhar ou offline
-  }
-
-  // Fallback 1: se for código 208, procura 07.jpg
-  if (variant.sku?.includes("208") || variant.nome === "208") {
-    const m07 = rawImgs.find((img) => img.endsWith("07.jpg") || img.endsWith("7.jpg"));
-    if (m07 && existsSync(m07)) return resolve(m07);
-  }
-
-  // Fallback 2: última imagem da lista de fotos da variação (geralmente produto isolado em fundo branco)
-  for (let i = rawImgs.length - 1; i >= 0; i--) {
-    if (existsSync(rawImgs[i])) return resolve(rawImgs[i]);
-  }
-
-  return rawImgs[0] ? resolve(rawImgs[0]) : null;
+export async function resolveVariationImage(product, variant, imageFiles = []) {
+  return resolveVariantImage(product, variant, imageFiles);
 }
 
 /**
@@ -164,6 +157,32 @@ export async function publishProductToMagis5(page, product, options = {}) {
   if (!validation.valid) {
     throw new Error(`Falha no checkpoint do produto ${sku}: ${validation.errors.join("; ")}`);
   }
+
+  // Monitoramento ativo de respostas do Magis5 e console do navegador
+  let lastServerInsertError = "";
+  page.on("console", (msg) => {
+    if (msg.type() === "error" || msg.type() === "warning") {
+      console.log(`  [BROWSER CONSOLE] ${msg.type()}: ${msg.text()}`);
+    }
+  });
+
+  page.on("response", async (res) => {
+    const url = res.url();
+    if (url.includes("variation") || url.includes("save") || url.includes("product") || url.includes("shopee") || url.includes("insert")) {
+      const status = res.status();
+      if (status >= 400 || url.includes("save") || url.includes("variation.php") || url.includes("insert")) {
+        let bodyText = "";
+        try {
+          bodyText = await res.text();
+          if (bodyText.includes("SKU já cadastrado") || bodyText.includes("já cadastrado")) {
+            lastServerInsertError = "SKU_ALREADY_EXISTS";
+          }
+          if (bodyText.length > 500) bodyText = bodyText.substring(0, 500) + "...";
+        } catch (_) {}
+        console.log(`  [NETWORK] ${res.request().method()} ${url} -> Status: ${status} | Body: ${bodyText}`);
+      }
+    }
+  });
 
   // 2. Resolver imagens locais no disco
   const imageFiles = await resolveProductImages(product);
@@ -226,12 +245,18 @@ export async function publishProductToMagis5(page, product, options = {}) {
     }
   }
 
-  // Modelo
-  if (product.modelo && product.modelo !== "N/A") {
+  // Modelo (REGRA: NUNCA colocar SKU no modelo - usar características como 'FUSION AZUL', etc.)
+  const friendlyModel = generateFriendlyModel(
+    product.sku,
+    product.titulo_shopee,
+    product.atributos?.estampa,
+    product.modelo
+  );
+  if (friendlyModel && friendlyModel !== "N/A") {
     const modelEl = page.locator('#model, input[name="model"]').first();
     if (await modelEl.isVisible().catch(() => false)) {
-      await modelEl.fill(product.modelo);
-      console.log(`  • Modelo: ${product.modelo}`);
+      await modelEl.fill(friendlyModel);
+      console.log(`  • Modelo comercial: ${friendlyModel}`);
     }
   }
 
@@ -250,11 +275,14 @@ export async function publishProductToMagis5(page, product, options = {}) {
   // Descrição
   const descEl = page.locator('#description, textarea[name="description"]').first();
   if (await descEl.isVisible().catch(() => false)) {
-    await descEl.fill(product.descricao);
-    console.log(`  • Descrição rica preenchida (${product.descricao.length} caracteres)`);
+    const cleanDesc = sanitizeDescription(product.descricao, product);
+    await descEl.fill(cleanDesc);
+    console.log(`  • Descrição rica preenchida sem SKU (${cleanDesc.length} caracteres)`);
   }
 
   // 6. Seleção de Categorias Encadeadas (com mapeamento de sinônimos e resolução automática)
+  let resolvedCategory = "";
+  let isCamisa = false;
   if (product.categoria_sugerida) {
     let catPath = product.categoria_sugerida
       .replace(/Animais de Estimação/gi, "Animais Domésticos")
@@ -263,16 +291,33 @@ export async function publishProductToMagis5(page, product, options = {}) {
       .replace(/Cachorros/gi, "Cães");
 
     // Para calçados/sandálias masculinas, garante a árvore oficial padrão da Shopee
-    const fullSearch = `${product.titulo_shopee || ""} ${product.modelo || ""} ${product.categoria_sugerida || ""} ${product.sku || ""}`.toLowerCase();
-    const isFootwear = /sand[aá]lia|chinelo|babuche|croc|clog|tamanco|\bslides?\b|sapato|cal[çc]ado/i.test(fullSearch) || /colt|brave|boaonda/i.test(product.sku || "");
-    const isFem = /feminin|mulher|starfem|flowf/i.test(fullSearch);
+    const titleAndSku = `${product.titulo_shopee || ""} ${product.modelo || ""} ${product.sku || ""}`.toLowerCase();
+    const isFootwear = /sand[aá]lia|chinelo|babuche|croc|clog|tamanco|\bslides?\b|sapato|cal[çc]ado/i.test(titleAndSku) || /colt|brave|boaonda/i.test(product.sku || "");
+    const isFem = /feminin|mulher|starfem|flowf|baby\s*look/i.test(titleAndSku) || /bl$/i.test(product.sku || "") || /bl_/i.test(product.sku || "") || /bl/i.test(product.sku || "");
+    const isInfantil = (/\binfantil\b|\binfantis\b|\bcrian[çc]a\b|\bkids\b|\bjuvenil\b/i.test(product.titulo_shopee || "") || /inf$/i.test(product.sku || "") || /i$/i.test(product.sku || "")) && !isFem && !/masculin/i.test(product.titulo_shopee || "");
 
     if (isFootwear && !isFem) {
       catPath = "Sapatos Masculinos > Sandalia e Chinelos > Chinelos";
     }
 
-    // Para produtos de pesca (excluindo calçados), garante a árvore oficial da Shopee
-    const isFishing = !isFootwear && /pesca|isca|linha|anzol|vara|carretilha|molinete|snap|chumbada/i.test(
+    // Para produtos de vestuário (camisas, camisetas, baby look), define a categoria padrão oficial
+    isCamisa = !isFootwear && (
+      /camisa|camiseta|baby\s*look|vestu[aá]rio|agro/i.test(titleAndSku) ||
+      /^(?:c0|cax|fusion|cbt|cmb|apc|adv)/i.test(product.sku || "")
+    );
+    if (isCamisa) {
+      if (isInfantil) {
+        catPath = "Moda Infantil > Roupas Infantis > Blusas";
+      } else if (isFem) {
+        catPath = "Roupas Femininas > Blusas > Camisas e Blusas";
+      } else {
+        catPath = "Roupas Masculinas > Blusas > Camisas";
+      }
+    }
+
+
+    // Para produtos de pesca (excluindo calçados e vestuário), garante a árvore oficial da Shopee
+    const isFishing = !isFootwear && !isCamisa && /pesca|isca|linha|anzol|vara|carretilha|molinete|snap|chumbada/i.test(
       `${product.titulo_shopee || ""} ${product.modelo || ""} ${product.categoria_sugerida || ""}`
     );
     if (isFishing && !catPath.includes("Pescaria")) {
@@ -281,10 +326,11 @@ export async function publishProductToMagis5(page, product, options = {}) {
     }
 
     // Para Varas de pesca, garante a subcategoria oficial da Shopee (Varas e Molinetes de Pesca)
-    if (!/suporte|salva\s*vara|porta\s*vara/i.test(fullSearch) && (/\bvara\b|blank|\bvaras\b/i.test(fullSearch) || catPath.toLowerCase().includes("varas"))) {
+    if (!/suporte|salva\s*vara|porta\s*vara/i.test(titleAndSku) && (/\bvara\b|blank|\bvaras\b/i.test(titleAndSku) || catPath.toLowerCase().includes("varas"))) {
       catPath = "Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Varas e Molinetes de Pesca";
     }
 
+    resolvedCategory = catPath;
     console.log(`📂 Configurando Categoria Shopee: ${catPath}`);
     const catParts = catPath.split(">").map(p => p.trim()).filter(Boolean);
 
@@ -417,6 +463,7 @@ export async function publishProductToMagis5(page, product, options = {}) {
         .toLowerCase()
         .normalize("NFD")
         .replace(/[\u0300-\u036f]/g, "")
+        .replace(/compimento/g, "comprimento")
         .replace(/[^a-z0-9]/g, "");
 
     const fichaFields = page.locator('input[id^="field_optional_"], select[id^="field_optional_"]');
@@ -483,6 +530,84 @@ export async function publishProductToMagis5(page, product, options = {}) {
         continue;
       }
 
+      // Regra: Blusa Cropped (sempre 'Não' para camisas)
+      if (normLabel.includes("blusacropped") || normLabel.includes("cropped")) {
+        const cropVal = atributos.blusa_cropped || "Não";
+        const tagName = await field.evaluate((el) => el.tagName);
+        if (tagName === "SELECT") {
+          await field.selectOption({ label: cropVal }).catch(() => field.selectOption(cropVal).catch(() => {}));
+        } else {
+          await field.fill(cropVal);
+        }
+        console.log(`  • ${labelText}: ${cropVal}`);
+        continue;
+      }
+
+      // Regra: Plus Size ('Não' por padrão para modelagem regular feminina)
+      if (normLabel.includes("plussize")) {
+        const psVal = atributos.plus_size || "Não";
+        const tagName = await field.evaluate((el) => el.tagName);
+        if (tagName === "SELECT") {
+          await field.selectOption({ label: psVal }).catch(() => field.selectOption(psVal).catch(() => {}));
+        } else {
+          await field.fill(psVal);
+        }
+        console.log(`  • ${labelText}: ${psVal}`);
+        continue;
+      }
+
+      // Regra: Pequeno / Estações do ano / Comprimento da parte de cima: deixar em branco por padrão
+      if (normLabel === "pequeno" || normLabel.includes("estacoesdoano") || normLabel.includes("comprimentodapartedecima")) {
+        const customVal = atributos[normLabel] || "";
+        if (customVal) {
+          await field.fill(customVal);
+          console.log(`  • ${labelText}: ${customVal}`);
+        } else {
+          await field.fill("");
+          console.log(`  • ${labelText}: [DEIXADO EM BRANCO]`);
+        }
+        continue;
+      }
+
+      // Regra Infantil: Se for roupa infantil (Moda Infantil), deixar em branco: Gola, Compimento da Manga, Dimensões do Produto, Idade recomendada
+      const isProductInfantil = resolvedCategory && resolvedCategory.includes("Moda Infantil");
+      if (isProductInfantil) {
+        if (
+          normLabel === "gola" ||
+          normLabel.includes("compimentodamanga") ||
+          normLabel.includes("comprimentodamanga") ||
+          normLabel.includes("idaderecomendada") ||
+          normLabel.includes("dimensoesdoproduto")
+        ) {
+          await field.fill("");
+          console.log(`  • ${labelText}: [DEIXADO EM BRANCO - Padrão Infantil]`);
+          continue;
+        }
+      }
+
+      // Regra Geral: Dimensões do produto e Idade recomendada deixar em branco a menos que fornecido explicitamente
+      if (normLabel.includes("idaderecomendada") || normLabel.includes("dimensoesdoproduto")) {
+        const customVal = atributos[normLabel] || "";
+        if (customVal) {
+          await field.fill(customVal);
+          console.log(`  • ${labelText}: ${customVal}`);
+        } else {
+          await field.fill("");
+          console.log(`  • ${labelText}: [DEIXADO EM BRANCO]`);
+        }
+        continue;
+      }
+
+      // Regra Modelo: preencher com o SKU do produto
+      if (normLabel === "modelo") {
+        const modelVal = atributos.modelo || product.sku || product.modelo || "";
+        if (modelVal) {
+          await field.fill(modelVal);
+          console.log(`  • ${labelText}: ${modelVal}`);
+          continue;
+        }
+      }
+
       for (const [attrKey, attrVal] of Object.entries(atributos)) {
         const normKey = normalize(attrKey);
         if (normLabel.includes(normKey) || normKey.includes(normLabel)) {
@@ -493,8 +618,8 @@ export async function publishProductToMagis5(page, product, options = {}) {
             break;
           }
 
-          // Regra 2: "no comprimento colocar somente o número e selecionar 'cm' na escala ao lado"
-          if (normLabel.includes("comprimento") || normKey.includes("comprimento")) {
+          // Regra 2: "no comprimento colocar somente o número e selecionar 'cm' na escala ao lado" (NÃO aplicar para manga!)
+          if ((normLabel.includes("comprimento") || normKey.includes("comprimento")) && !normLabel.includes("manga") && !normKey.includes("manga")) {
             const numStr = String(attrVal).replace(",", ".").match(/[\d.]+/)?.[0] || String(attrVal);
             await field.fill(numStr);
             console.log(`  • ${labelText}: ${numStr} (somente o número)`);
@@ -537,8 +662,19 @@ export async function publishProductToMagis5(page, product, options = {}) {
 
           const tagName = await field.evaluate((el) => el.tagName);
           if (tagName === "SELECT") {
-            await field.selectOption({ label: String(attrVal) }).catch(async () => {
-              await field.selectOption(String(attrVal)).catch(() => {});
+            const valStr = String(attrVal);
+            await field.selectOption({ label: valStr }).catch(async () => {
+              await field.selectOption(valStr).catch(async () => {
+                const options = await field.locator('option').all();
+                for (const opt of options) {
+                  const optText = (await opt.innerText()).trim();
+                  if (normalize(optText) === normalize(valStr)) {
+                    const optVal = await opt.getAttribute('value');
+                    await field.selectOption(optVal).catch(() => {});
+                    break;
+                  }
+                }
+              });
             });
           } else {
             await field.fill(String(attrVal));
@@ -566,56 +702,162 @@ export async function publishProductToMagis5(page, product, options = {}) {
     } catch (_) {}
   }
 
-  // 8. Upload de Fotos
-  if (imageFiles.length > 0) {
-    console.log(`📸 Enviando ${imageFiles.length} fotos do produto...`);
-    const fileInput = page.locator('input[type="file"]').first();
-    if (await fileInput.count() > 0) {
-      await fileInput.setInputFiles(imageFiles.slice(0, 8));
-      await page.waitForTimeout(1500);
-      console.log(`  • ${Math.min(imageFiles.length, 8)} fotos carregadas com sucesso.`);
+  // 8. Upload de Fotos Gerais do Produto (Imagens Gerais Shopee - Capa e Galeria)
+  console.log(`📸 Configurando Imagens Gerais do produto (Capa e Galeria)...`);
+  const generalImagesContainer = page.locator('#parent_images');
+  const generalDropzone = page.locator('#list_image');
+  
+  if (await generalImagesContainer.count() > 0) {
+    let generalCount = await generalImagesContainer.locator('.m-portlet--sortable').count();
+    console.log(`  • Imagens gerais existentes: ${generalCount}`);
+
+    const generalPhotos = (Array.isArray(imageFiles) && imageFiles.length > 0)
+      ? imageFiles.filter(f => existsSync(f))
+      : (Array.isArray(product.imagens) ? product.imagens.filter(f => existsSync(f)) : []);
+
+    if (generalCount === 0 && generalPhotos.length > 0) {
+      const photosToUpload = generalPhotos.slice(0, 9);
+      console.log(`  • Enviando ${photosToUpload.length} foto(s) para a Galeria Geral Shopee...`);
+      for (let g = 0; g < photosToUpload.length; g++) {
+        const photoPath = photosToUpload[g];
+        try {
+          let gUploaded = false;
+          const gHiddenInput = generalDropzone.locator('input[type="file"], .dz-hidden-input').first();
+          if (await gHiddenInput.count() > 0) {
+            await gHiddenInput.setInputFiles(photoPath);
+            await page.waitForTimeout(1500);
+            gUploaded = true;
+          }
+          if (!gUploaded && await generalDropzone.count() > 0) {
+            await generalDropzone.scrollIntoViewIfNeeded().catch(() => {});
+            const [fileChooser] = await Promise.all([
+              page.waitForEvent('filechooser', { timeout: 8000 }),
+              generalDropzone.click({ force: true }),
+            ]);
+            await fileChooser.setFiles(photoPath);
+            await page.waitForTimeout(1500);
+            gUploaded = true;
+          }
+        } catch (err) {
+          console.warn(`  ⚠️ Falha ao subir imagem geral ${g + 1} (${path.basename(photoPath)}): ${err.message}`);
+        }
+      }
     }
+    const finalGenCount = await generalImagesContainer.locator('.m-portlet--sortable').count();
+    console.log(`  ✓ Total de Imagens Gerais do produto = ${finalGenCount}/9 foto(s).`);
   }
 
   // 9. Configuração das Variações
   console.log(`🎨 Configurando seção de Variações...`);
 
-  // Sempre define "modelo" como padrão em atributo
-  const attrInput = page.locator('#attribute');
-  if (await attrInput.isVisible().catch(() => false)) {
-    await attrInput.fill('modelo');
-    console.log('  • Atributo definido como: "modelo"');
-    await page.waitForTimeout(300);
-  }
-
-  // Prepara lista de variações a criar (Regra: sem promoção)
+  const hasMultiAttributes = product.is_multi_model || (Array.isArray(product.atributos_magis5) && product.atributos_magis5.length > 1);
   let variationsToCreate = [];
-  if (Array.isArray(product.variacoes) && product.variacoes.length > 0) {
-    variationsToCreate = product.variacoes.map((v) => ({
-      nome: String(v.nome || v.sku?.replace(product.sku + '_', '') || v.sku || 'Padrão').trim(),
-      cod_sankhya: String(v.cod_sankhya || product.cod_sankhya || '').trim(),
-      preco: v.preco_sem_promocao ?? product.preco_sem_promocao ?? product.preco?.preco_sem_promocao ?? v.preco_atual ?? v.preco_com_promocao ?? 0,
-    }));
-  } else {
-    // Produto simples cadastrado na tela de variação
-    variationsToCreate = [
+
+  if (hasMultiAttributes) {
+    const attrConfigs = product.atributos_magis5 || [
       {
-        nome: String(product.modelo || 'Padrão').trim(),
-        cod_sankhya: String(product.cod_sankhya || product.sku || '').trim(),
-        preco: product.preco_sem_promocao ?? product.preco?.preco_sem_promocao ?? product.preco_atual ?? product.preco_com_promocao ?? 0,
+        nome: "Modelo",
+        valores: Array.from(new Set(product.variacoes.map(v => v.modelo_nome || v.modelo))).filter(Boolean),
+      },
+      {
+        nome: "Tamanho",
+        valores: Array.from(new Set(product.variacoes.map(v => v.tamanho))).filter(Boolean),
       },
     ];
-  }
 
-  // Preenche cada variação no input de tags
-  const tagifyInput = page.locator('.input-tags, [id^="variationTagify"], .tagify__input').first();
-  if (await tagifyInput.isVisible().catch(() => false)) {
-    for (const v of variationsToCreate) {
-      console.log(`  • Inserindo variação: "${v.nome}"`);
-      await tagifyInput.click();
-      await page.keyboard.type(v.nome);
-      await page.keyboard.press('Enter');
+    console.log(`  • Modo Multi-Atributos detectado (${attrConfigs.length} atributos: ${attrConfigs.map(a => a.nome).join(" x ")})`);
+
+    // 1º Atributo: Modelo (com nomes comerciais, nunca SKU)
+    const firstAttr = attrConfigs[0];
+    const attrInput0 = page.locator('input#attribute, input[placeholder*="Cor, Tamanho"]').first();
+    if (await attrInput0.isVisible().catch(() => false)) {
+      await attrInput0.fill(firstAttr.nome || 'Modelo');
+      console.log(`  • 1º Atributo definido como: "${firstAttr.nome || 'Modelo'}"`);
       await page.waitForTimeout(300);
+    }
+
+    const tagifyInput0 = page.locator('.tagify__input').first();
+    if (await tagifyInput0.isVisible().catch(() => false)) {
+      for (const val of firstAttr.valores) {
+        console.log(`    - Inserindo modelo comercial: "${val}"`);
+        await tagifyInput0.click();
+        await page.keyboard.type(val);
+        await page.keyboard.press('Enter');
+        await page.waitForTimeout(200);
+      }
+    }
+
+    // Clica em "+ Adicionar atributo" para abrir a 2ª linha
+    const addAttrBtn = page.locator('a:has-text("Adicionar atributo"), button:has-text("Adicionar atributo")').first();
+    if (await addAttrBtn.isVisible().catch(() => false)) {
+      console.log('  • Clicando em "+ Adicionar atributo"...');
+      await addAttrBtn.click();
+      await page.waitForTimeout(600);
+    }
+
+    // 2º Atributo: Tamanho (PP ao G2)
+    const secondAttr = attrConfigs[1];
+    const attrInput1 = page.locator('input#attribute, input[placeholder*="Cor, Tamanho"]').nth(1);
+    if (await attrInput1.isVisible().catch(() => false)) {
+      await attrInput1.fill(secondAttr.nome || 'Tamanho');
+      console.log(`  • 2º Atributo definido como: "${secondAttr.nome || 'Tamanho'}"`);
+      await page.waitForTimeout(300);
+    }
+
+    const tagifyInput1 = page.locator('.tagify__input').nth(1);
+    if (await tagifyInput1.isVisible().catch(() => false)) {
+      for (const val of secondAttr.valores) {
+        console.log(`    - Inserindo tamanho: "${val}"`);
+        await tagifyInput1.click();
+        await page.keyboard.type(val);
+        await page.keyboard.press('Enter');
+        await page.waitForTimeout(200);
+      }
+    }
+
+    // Lista de variações para preenchimento de SKU Sankhya
+    variationsToCreate = product.variacoes.map((v) => ({
+      nome: String(v.nome || `${v.modelo_nome || v.modelo} - ${v.tamanho}`).trim(),
+      cod_sankhya: String(v.cod_sankhya || v.sku || '').trim(),
+      preco: v.preco_sem_promocao ?? product.preco_sem_promocao ?? product.preco?.preco_sem_promocao ?? v.preco_atual ?? 0,
+      foto: v.imagens?.[0] || '',
+    }));
+  } else {
+    // Modo 1 atributo clássico
+    const attrInput = page.locator('#attribute');
+    if (await attrInput.isVisible().catch(() => false)) {
+      const isSizeVar = isCamisa || (Array.isArray(product.variacoes) && product.variacoes.some(v => /^(?:pp|p|m|g|gg|g[1-5]|xxg|exg|egg|xg|eg|\d{2}\/\d{2})$/i.test(v.nome || "")));
+      const attrName = isSizeVar ? "Tamanho" : "modelo";
+      await attrInput.fill(attrName);
+      console.log(`  • Atributo definido como: "${attrName}"`);
+      await page.waitForTimeout(300);
+    }
+
+    if (Array.isArray(product.variacoes) && product.variacoes.length > 0) {
+      variationsToCreate = product.variacoes.map((v) => ({
+        nome: String(v.nome || v.sku?.replace(product.sku + '_', '') || v.sku || 'Padrão').trim(),
+        cod_sankhya: String(v.cod_sankhya || product.cod_sankhya || '').trim(),
+        preco: v.preco_sem_promocao ?? product.preco_sem_promocao ?? product.preco?.preco_sem_promocao ?? v.preco_atual ?? v.preco_com_promocao ?? 0,
+      }));
+    } else {
+      variationsToCreate = [
+        {
+          nome: String(product.modelo || 'Padrão').trim(),
+          cod_sankhya: String(product.cod_sankhya || product.sku || '').trim(),
+          preco: product.preco_sem_promocao ?? product.preco?.preco_sem_promocao ?? product.preco_atual ?? product.preco_com_promocao ?? 0,
+        },
+      ];
+    }
+
+    const tagifyInput = page.locator('.input-tags, [id^="variationTagify"], .tagify__input').first();
+    if (await tagifyInput.isVisible().catch(() => false)) {
+      for (const v of variationsToCreate) {
+        console.log(`  • Inserindo variação: "${v.nome}"`);
+        await tagifyInput.click();
+        await page.keyboard.type(v.nome);
+        await page.keyboard.press('Enter');
+        await page.waitForTimeout(300);
+      }
     }
   }
 
@@ -624,10 +866,10 @@ export async function publishProductToMagis5(page, product, options = {}) {
   const btnGenVar = page.locator('button:has-text("Gerar lista de variações")');
   if (await btnGenVar.isVisible().catch(() => false)) {
     await btnGenVar.click();
-    await page.waitForTimeout(2500);
+    await page.waitForTimeout(3000);
   }
 
-  // Regra: "sempre adicionar o preço nesse campo da foto e selecionar a caixinha 'mesmo preço para todas variações' e sem promoção."
+  // Preenche preço geral no cabeçalho e marca "Mesmo preço para todas variações"
   const targetCommonPrice = variationsToCreate[0]?.preco || product.preco_sem_promocao || product.preco?.preco_sem_promocao || 0;
   if (targetCommonPrice > 0) {
     const priceNum = typeof targetCommonPrice === 'number' ? targetCommonPrice : parseFloat(String(targetCommonPrice).replace(',', '.'));
@@ -641,7 +883,6 @@ export async function publishProductToMagis5(page, product, options = {}) {
       console.log(`  • Preço de venda geral preenchido no cabeçalho (sem promoção): R$ ${priceNum.toFixed(2)}`);
     }
 
-    // Seleciona a caixinha "Mesmo preço para todas variações:"
     const samePriceCheckbox = page.locator('.checkbox:has-text("Mesmo preço para todas variações") input[type="checkbox"], label:has-text("Mesmo preço para todas variações") input[type="checkbox"]').first();
     if (await samePriceCheckbox.isVisible().catch(() => false)) {
       const isChecked = await samePriceCheckbox.isChecked().catch(() => false);
@@ -661,23 +902,21 @@ export async function publishProductToMagis5(page, product, options = {}) {
     await page.waitForTimeout(500);
   }
 
-  // Preenche o código do Sankhya no campo SKU da variação
+  // Preenche o código do Sankhya no campo SKU da variação gerada
   for (let i = 0; i < variationsToCreate.length; i++) {
     const v = variationsToCreate[i];
-
-    // Preenche código do Sankhya no campo SKU
     const skuInput = page.locator(`#variationSKU-${i}`);
     if (await skuInput.isVisible().catch(() => false)) {
       const skuVal = v.cod_sankhya || product.cod_sankhya || v.sku || product.sku;
       if (skuVal) {
+        await skuInput.scrollIntoViewIfNeeded();
         await skuInput.fill(skuVal);
-        console.log(`  • Variação ${i} (${v.nome}): SKU preenchido com código: "${skuVal}"`);
-        // Aguarda sincronização automática do Sankhya na Magis5 (EAN, estoque e fotos da variação)
-        await page.waitForTimeout(1500);
+        console.log(`  • Variação ${i} (${v.nome}): SKU preenchido com código do Sankhya: "${skuVal}"`);
+        await page.waitForTimeout(500);
       }
     }
 
-    // Garante que o preço da variação esteja preenchido caso não tenha sido preenchido automaticamente
+    // Garante preço preenchido na linha
     const pInput = page.locator(`#variationPrice-${i}`);
     if (await pInput.isVisible().catch(() => false)) {
       const curPrice = await pInput.inputValue();
@@ -687,67 +926,130 @@ export async function publishProductToMagis5(page, product, options = {}) {
         await pInput.scrollIntoViewIfNeeded();
         await pInput.click({ force: true });
         await pInput.pressSequentially(cents, { delay: 50 });
-        await page.waitForTimeout(300);
-        const formattedPrice = await pInput.inputValue();
-        console.log(`  • Variação ${i} (${v.nome}): Preço definido na linha: ${formattedPrice}`);
+        await page.waitForTimeout(200);
+      }
+    }
+
+    // Garante estoque preenchido na linha se o campo for editável
+    const stockInput = page.locator(`#variationStock-${i}`);
+    if (await stockInput.isVisible().catch(() => false)) {
+      const isEnabled = await stockInput.isEnabled().catch(() => false);
+      if (isEnabled) {
+        const curStock = await stockInput.inputValue().catch(() => "0");
+        if (!curStock || curStock === "0") {
+          const rawStock = v.estoque ?? v.qtd ?? v.saldo ?? 10;
+          const targetStock = parseInt(String(rawStock).replace(/\D/g, ""), 10) || 10;
+          await stockInput.scrollIntoViewIfNeeded();
+          await stockInput.fill(String(targetStock));
+          console.log(`  • Variação ${i} (${v.nome}): Estoque inicial definido como: ${targetStock}`);
+          await page.waitForTimeout(200);
+        }
+      } else {
+        console.log(`  • Variação ${i} (${v.nome}): Campo de estoque desabilitado pelo Magis5 (gerenciado por integração).`);
       }
     }
   }
 
-  // 10. Imagens das Variações: Shopee exige estritamente no máximo 1 foto por variação (1/1)
-  console.log(`🖼️ Configurando fotos das variações (1 foto oficial por modelo, igual ao site)...`);
-  await page.waitForTimeout(2000);
-
-  const varImagesCard = page.locator('.card:has-text("Imagens das variações"), [id*="VariationImages"], [id*="collapseVariationImages"]');
-  if (await varImagesCard.count() > 0) {
-    // Remove fotos pré-carregadas pelo ERP dentro da variação para não estourar o limite de 1 foto da Shopee
-    const delBtns = varImagesCard.locator('.btn-light-danger, .btn-danger, [data-action="remove"], button:has(i), a:has(i)');
-    let btnCount = await delBtns.count();
-    if (btnCount > 0) {
-      console.log(`  • Removendo ${btnCount} foto(s) pré-carregadas pelo ERP dentro da variação...`);
-      for (let d = 0; d < btnCount; d++) {
-        const btn = varImagesCard.locator('.btn-light-danger, .btn-danger, [data-action="remove"], button:has(i), a:has(i)').first();
-        if (await btn.isVisible().catch(() => false)) {
-          await btn.click({ force: true }).catch(() => {});
-          await page.waitForTimeout(400);
-          const swalConfirm = page.locator('.swal2-confirm');
-          if (await swalConfirm.isVisible().catch(() => false)) {
-            await swalConfirm.click().catch(() => {});
-            await page.waitForTimeout(300);
-          }
+  // Sanitização estrita dos campos SKU de variação: garante apenas o código Sankhya limpo
+  await page.evaluate((expectedList) => {
+    expectedList.forEach((v, idx) => {
+      const el = document.querySelector(`#variationSKU-${idx}`);
+      const cod = v.cod_sankhya || v.sku;
+      if (el && cod) {
+        const cleanCod = String(cod).trim();
+        if (el.value !== cleanCod) {
+          el.value = cleanCod;
+          el.dispatchEvent(new Event('input', { bubbles: true }));
+          el.dispatchEvent(new Event('change', { bubbles: true }));
         }
       }
-      console.log("  • Limpeza de fotos pré-carregadas da variação concluída.");
-    }
-  }
+    });
+  }, variationsToCreate);
 
-  // Faz o upload da foto individual oficial para cada variação
-  const fileInputs = page.locator('input[type="file"]');
-  const fCount = await fileInputs.count();
+  // 10. Imagens das Variações (Shopee exige estritamente no máximo 1 foto por modelo)
+  console.log(`🖼️ Configurando fotos das variações...`);
+  await page.waitForTimeout(1500);
 
-  for (let i = 0; i < variationsToCreate.length; i++) {
-    const v = variationsToCreate[i];
-    const targetFileInput = fileInputs.nth(i + 1); // index 0 é fotos gerais, index 1+ são variações
+  const varImagesLists = page.locator('#parent_images_variation');
+  const dropzones = page.locator('#list_variation_image');
+  const totalDropzones = await varImagesLists.count();
+  console.log(`  • Detectadas ${totalDropzones} seção(ões) de imagens de variação.`);
 
-    // Verifica se a variação já possui 1 foto (Shopee: 1/1)
-    const varBadges = page.locator('span:has-text("/1 imagens de variação")');
-    if (await varBadges.nth(i).isVisible().catch(() => false)) {
-      const badgeText = await varBadges.nth(i).innerText().catch(() => "");
-      if (badgeText.includes("1/1")) {
-        console.log(`  • Variação ${i} (${v.nome}): Já possui 1/1 foto (respeitando limite da Shopee).`);
-        continue;
+  const itemsToUploadPhotos = product.is_multi_model && Array.isArray(product.modelos_info)
+    ? product.modelos_info
+    : variationsToCreate.slice(0, totalDropzones);
+
+  for (let i = 0; i < Math.min(totalDropzones, itemsToUploadPhotos.length); i++) {
+    const item = itemsToUploadPhotos[i];
+    const listEl = varImagesLists.nth(i);
+    const dz = dropzones.nth(i);
+    const varPhoto = item.foto || await resolveVariationImage(product, item, imageFiles);
+
+    if (await listEl.count() > 0) {
+      let currentCount = await listEl.locator('.m-portlet--sortable').count();
+      const itemName = item.nome || item.sku || i;
+      console.log(`  • Variação/Modelo ${i} (${itemName}): ${currentCount} foto(s) detectada(s).`);
+
+      if (currentCount > 0) {
+        console.log(`  • Limpando ${currentCount} foto(s) existentes da variação ${i} para padronizar com a 1ª foto...`);
+        while (currentCount > 0) {
+          const delBtn = listEl.locator('.btn-light-danger, button:has(i.flaticon-delete)').first();
+          if (await delBtn.isVisible().catch(() => false)) {
+            await delBtn.click({ force: true }).catch(() => {});
+            await page.waitForTimeout(300);
+            const swalConfirm = page.locator('.swal2-confirm');
+            if (await swalConfirm.isVisible().catch(() => false)) {
+              await swalConfirm.click().catch(() => {});
+              await page.waitForTimeout(300);
+            }
+          } else {
+            break;
+          }
+          currentCount = await listEl.locator('.m-portlet--sortable').count();
+        }
       }
-    }
 
-    if (await targetFileInput.count() > 0) {
-      const varPhoto = await resolveVariationImage(product, v);
-      if (varPhoto && existsSync(varPhoto)) {
-        console.log(`  • Variação ${i} (${v.nome}): Enviando foto oficial do site: ${varPhoto}`);
-        await targetFileInput.setInputFiles(varPhoto);
-        await page.waitForTimeout(1500);
-      } else {
-        console.warn(`  ⚠️ Variação ${i} (${v.nome}): Foto não encontrada localmente.`);
+      currentCount = await listEl.locator('.m-portlet--sortable').count();
+      if (currentCount === 0 && varPhoto && existsSync(varPhoto)) {
+        console.log(`  • Variação/Modelo ${i} (${itemName}): Enviando foto oficial: ${path.basename(varPhoto)}`);
+        try {
+          let uploaded = false;
+          // Tenta input file oculto do dropzone
+          const hiddenFileInput = dz.locator('input[type="file"], .dz-hidden-input').first();
+          if (await hiddenFileInput.count() > 0) {
+            try {
+              await hiddenFileInput.setInputFiles(varPhoto);
+              await page.waitForTimeout(2000);
+              uploaded = true;
+            } catch (_) {}
+          }
+          if (!uploaded && await dz.count() > 0) {
+            await dz.scrollIntoViewIfNeeded().catch(() => {});
+            await page.waitForTimeout(400);
+            const clickable = dz.locator('.dz-message, p, i').first();
+            const targetClick = (await clickable.isVisible().catch(() => false)) ? clickable : dz;
+            const [fileChooser] = await Promise.all([
+              page.waitForEvent('filechooser', { timeout: 8000 }),
+              targetClick.click({ force: true }),
+            ]);
+            await fileChooser.setFiles(varPhoto);
+            await page.waitForTimeout(2000);
+            uploaded = true;
+          }
+          if (!uploaded) {
+            const targetFileInput = page.locator('input[type="file"]').nth(i + 1);
+            if (await targetFileInput.count() > 0) {
+              await targetFileInput.setInputFiles(varPhoto);
+              await page.waitForTimeout(2000);
+            }
+          }
+        } catch (err) {
+          console.warn(`  ⚠️ Falha no upload da foto da variação ${i} (${itemName}): ${err.message}`);
+        }
       }
+
+      const finalCount = await listEl.locator('.m-portlet--sortable').count();
+      console.log(`  ✓ Variação/Modelo ${i} (${itemName}): Total final = ${finalCount}/1 foto(s).`);
     }
   }
 
@@ -780,36 +1082,74 @@ export async function publishProductToMagis5(page, product, options = {}) {
     }
   }
 
-  // Publicação em Produção (se confirmada com flag --publish)
-  console.log("🚀 [PRODUÇÃO] Clicando no botão Salvar...");
-  const saveBtn = page.locator('button:has-text("Salvar")').last();
-  await saveBtn.scrollIntoViewIfNeeded();
-  await saveBtn.click();
+  // Salvamento do Rascunho no Magis5
+  console.log("💾 Clicando no botão Salvar para gravar o rascunho no Magis5...");
+  const saveBtn = page.locator('button:has-text("Salvar")').first();
+  await saveBtn.scrollIntoViewIfNeeded().catch(() => {});
+  await page.waitForTimeout(500);
 
-  // Aguarda confirmação ou redirecionamento da Magis5 (até 10 segundos)
+  // Checagem de campos com erro de validação HTML5 antes de clicar
+  const preInvalid = await page.evaluate(() => {
+    return Array.from(document.querySelectorAll(':invalid, .is-invalid, input[aria-invalid="true"]')).map(el => ({
+      tag: el.tagName, id: el.id, name: el.name, msg: el.validationMessage, html: el.outerHTML.slice(0, 120)
+    }));
+  }).catch(() => []);
+  if (preInvalid.length > 0) {
+    console.log("  ⚠️ [VALIDAÇÃO PRÉ-SALVAR] Campos inválidos:", JSON.stringify(preInvalid));
+  }
+
+  // Executa o clique de salvamento de forma resiliente
+  try {
+    await saveBtn.click({ force: true });
+  } catch {
+    await saveBtn.evaluate(b => b.click());
+  }
+
+  await page.waitForTimeout(1000);
+  const postInvalid = await page.evaluate(() => {
+    return Array.from(document.querySelectorAll(':invalid, .is-invalid, input[aria-invalid="true"], .has-error, .text-danger')).map(el => ({
+      tag: el.tagName, id: el.id, name: el.name, msg: el.validationMessage || el.innerText, html: el.outerHTML.slice(0, 120)
+    }));
+  }).catch(() => []);
+  if (postInvalid.length > 0) {
+    console.log("  ⚠️ [VALIDAÇÃO PÓS-SALVAR] Campos inválidos:", JSON.stringify(postInvalid));
+  }
+
+  // Aguarda confirmação ou redirecionamento da Magis5 (até 25 segundos)
   let isSaved = false;
-  for (let w = 0; w < 10; w++) {
+  for (let w = 0; w < 25; w++) {
     await page.waitForTimeout(1000);
     const currUrl = page.url();
-    if (currUrl.includes("index.php") || !currUrl.includes("variation.php")) {
+    if (currUrl.includes("consult.php") || currUrl.includes("index.php") || !currUrl.includes("variation.php")) {
       isSaved = true;
       break;
     }
   }
 
-  const screenshotPath = join(SCREENSHOTS_DIR, `published-${sku}-${timestamp}.png`);
+  const screenshotPath = join(SCREENSHOTS_DIR, `draft-${sku}-${timestamp}.png`);
   await page.screenshot({ path: screenshotPath, fullPage: true });
 
-  // Captura mensagens de alerta ou toast na tela
-  const toastTexts = await page.locator('.toast, .alert, .notification, [class*="alert"], [class*="toast"], .swal2-title, .invalid-feedback, span:has-text("/1 imagens de variação")')
+  // Captura mensagens reais de erro, alerta ou toast na tela
+  const toastTexts = await page.locator('.toast, .alert, .notification, [class*="alert"], [class*="toast"], .swal2-title, .invalid-feedback')
     .evaluateAll(els => els.map(e => e.innerText.trim()).filter(Boolean))
     .catch(() => []);
 
   if (!isSaved) {
+    if (lastServerInsertError === "SKU_ALREADY_EXISTS") {
+      console.log(`ℹ️ [JÁ EXISTE NO MAGIS5] O produto ${sku} já possui rascunho cadastrado com variações na Magis5. Marcando como concluído.`);
+      return {
+        success: true,
+        dryRun: false,
+        alreadyExists: true,
+        screenshot: screenshotPath,
+        sku,
+      };
+    }
+
     const errorMsg = toastTexts
       .filter(t => !t.includes("algumas contas não permitem definir preços diferentes"))
       .join(" | ") || "Magis5 não redirecionou (erro de validação na tela)";
-    console.error(`❌ [FALHA NO SALVAMENTO] O Magis5 recusou salvar o SKU ${sku}: ${errorMsg}`);
+    console.error(`❌ [FALHA NO SALVAMENTO] O Magis5 recusou salvar o rascunho do SKU ${sku}: ${errorMsg}`);
     return {
       success: false,
       error: errorMsg,
@@ -818,7 +1158,7 @@ export async function publishProductToMagis5(page, product, options = {}) {
     };
   }
 
-  console.log(`✅ [PRODUÇÃO] Anúncio salvo com sucesso no Magis5! Redirecionado para a lista de produtos. Screenshot: ${screenshotPath}`);
+  console.log(`✅ Anúncio/Rascunho salvo com sucesso no Magis5! Redirecionado para a listagem. Screenshot: ${screenshotPath}`);
 
   return {
     success: true,

@@ -15,6 +15,7 @@ import {
 import { loadAndValidateAll } from "./checkpoint.mjs";
 import { getAuthenticatedContext } from "./auth.mjs";
 import { publishProductToMagis5 } from "./publisher.mjs";
+import { extractParentSku } from "../../agent2-enricher/grouping.mjs";
 
 /**
  * Parsing de argumentos CLI:
@@ -104,20 +105,47 @@ async function main() {
   // Filtrar apenas produtos válidos
   let candidates = checkpoint.items.filter((i) => i.valid);
 
+  // Se uma planilha / CSV foi especificado, filtra os produtos para corresponder ao lote!
+  if (inputFile && csvRecords.length > 0) {
+    const allowedSkus = new Set();
+    csvRecords.forEach((r) => {
+      if (r.sku) {
+        const raw = String(r.sku).trim();
+        allowedSkus.add(raw);
+        allowedSkus.add(raw.toUpperCase());
+        const parent = extractParentSku(raw, r.titulo_bruto || "");
+        if (parent) {
+          allowedSkus.add(parent);
+          allowedSkus.add(parent.toUpperCase());
+        }
+      }
+    });
+
+    const batchCandidates = candidates.filter((i) => allowedSkus.has(i.sku) || allowedSkus.has(String(i.sku).toUpperCase()));
+    candidates = batchCandidates;
+    if (candidates.length === 0) {
+      console.error(`❌ [LOTE ATIVO] Nenhum produto do lote '${activeCsvPath.split(/[/\\]/).pop()}' foi encontrado na pasta produtos/ com enriquecimento concluído.`);
+      console.error(`👉 Você precisa primeiro enriquecer os produtos desta planilha no Agente 2 antes de publicar no Agente 3!`);
+      process.exit(1);
+    }
+  }
+
   // Filtra descartando quem já estiver publicado (Status "publicado" ou Cor #83E28E)
   const toProcess = [];
   let jaPublicadosCount = 0;
 
   for (const item of candidates) {
     const csvRow = csvMap[item.sku] || {};
-    const isPublished =
-      item.product.is_published === true ||
-      item.product.status === "concluido" ||
-      item.product.status === "publicado" ||
-      csvRow.status === "publicado" ||
-      csvRow.status === "concluido" ||
-      csvRow.cor === COLOR_PUBLISHED ||
-      csvRow.cor === "#47D359";
+    const isPublished = inputFile
+      ? (csvRow.status === "publicado" || csvRow.cor === COLOR_PUBLISHED || csvRow.cor === "#47D359")
+      : (
+          item.product.is_published === true ||
+          item.product.status === "publicado" ||
+          csvRow.status === "publicado" ||
+          csvRow.status === "concluido" ||
+          csvRow.cor === COLOR_PUBLISHED ||
+          csvRow.cor === "#47D359"
+        );
 
     if (isPublished && !force && !targetSku) {
       jaPublicadosCount++;
@@ -196,7 +224,8 @@ async function main() {
         if (!dryRun) {
           let updatedCount = 0;
           for (const r of csvRecords) {
-            if (r.sku === item.sku || r.sku?.startsWith(item.sku + "_")) {
+            const pSku = extractParentSku(r.sku);
+            if (r.sku === item.sku || pSku === item.sku || r.sku?.startsWith(item.sku + "_") || r.sku?.startsWith(item.sku)) {
               r.status = "publicado";
               r.cor = COLOR_PUBLISHED;
               updatedCount++;
@@ -229,6 +258,7 @@ async function main() {
     await context.close();
   } catch (globalErr) {
     console.error("❌ Erro fatal durante a execução do RPA:", globalErr.message);
+    process.exit(1);
   } finally {
     await browser.close();
   }
@@ -248,6 +278,10 @@ async function main() {
   if (results.erros.length > 0) {
     console.log("\n❌ Produtos com erro:");
     results.erros.forEach((e) => console.log(`  • SKU: ${e.sku} | Motivo: ${e.erro} (Screenshot: ${e.screenshot})`));
+  }
+
+  if (results.sucesso.length === 0 && results.erros.length > 0) {
+    process.exit(1);
   }
 }
 
