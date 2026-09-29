@@ -7,11 +7,12 @@ Sistema integrado de agentes autônomos para extração, enriquecimento com Inte
 ## 📑 Sumário
 
 - [Visão Geral e Arquitetura](#-visão-geral-e-arquitetura)
-- [Os 4 Agentes Autônomos](#-os-4-agentes-autônomos)
+- [Os 5 Agentes Autônomos](#-os-5-agentes-autônomos)
   - [Agente 1 — Coletor & Scraper](#1-agente-1--coletor--scraper-agent1-scraper)
   - [Agente 2 — Enriquecedor com IA Multimodal](#2-agente-2--enriquecedor-com-ia-multimodal-agent2-enricher)
   - [Agente 3 — Publicador RPA Magis5 / Shopee](#3-agente-3--publicador-rpa-magis5--shopee-agent3-rpa-magis5)
   - [Agente 4 — Diagnóstico e Soluções Automáticas](#4-agente-4--diagnóstico-e-soluções-automáticas-agent4-diagnostician)
+  - [Agente 5 — Atualizador de Atributos Shopee Seller Center](#5-agente-5--atualizador-de-atributos-shopee-seller-center-agent5-shopee-attributes)
 - [Gestão Visual por Cores (Planilhas Excel)](#-gestão-visual-por-cores-planilhas-excel)
 - [Central de Controle Web (Mission Control)](#-central-de-controle-web-mission-control)
 - [Rotas da API HTTP do Servidor](#-rotas-da-api-http-do-servidor)
@@ -108,6 +109,13 @@ flowchart TD
   - Aplica automaticamente a categoria oficial correta no arquivo JSON do produto.
   - Ajusta marcas para termos aceitos (ex: `Boaonda`, `Albatroz`, `Rapala`, `Deyu`).
   - Permite aplicar a solução individualmente ou em lote para toda a categoria (ex: todas as Varas de Pesca ou todas as Sandálias Masculinas).
+
+### 5. Agente 5 — Atualizador de Atributos Shopee Seller Center (`agent5-shopee-attributes`)
+- **Automação Direta no Seller Center:** Opera diretamente no portal oficial (`seller.shopee.com.br`) via Playwright, sem depender de integrações intermediárias.
+- **Perfil Persistente Resiliente:** Utiliza pasta de sessão persistente (`browser_profile_shopee/`), permitindo login e 2FA uma única vez via `npm run shopee:login`.
+- **Mapeador Inteligente de Atributos:** Normaliza campos da Ficha Técnica (Gênero, Material, Manga, Gola, Ocasião, Estilo, Estampa, País de Origem) seguindo as diretrizes do `shopee-brk-agro`.
+- **Preenchimento Tolerante a Falhas:** Preenche dropdowns com busca e campos de texto vazios, preservando dados já preenchidos (com suporte a `--force` para sobrescrita).
+- **Auditoria Visual com Screenshots:** Registra capturas de tela dos anúncios antes e depois das alterações em `screenshots/shopee_attributes/`.
 
 ---
 

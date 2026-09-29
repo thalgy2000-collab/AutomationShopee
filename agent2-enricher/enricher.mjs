@@ -524,6 +524,18 @@ async function enrichProduct(genAI, sku, tituloBruto, images, preferredModel, va
           break;
         }
       } catch (err) {
+        const isAuthError = err.status === 401 || err.message?.includes("401") || err.message?.includes("ACCESS_TOKEN_TYPE_UNSUPPORTED") || err.message?.includes("API_KEY_INVALID");
+        if (isAuthError) {
+          logError(`  ❌ [401 Unauthorized] Falha de autenticação no Gemini: A chave GEMINI_API_KEY no .env é inválida ou expirou.`);
+          if (process.env.GEMINI_API_KEY?.startsWith("AQ.")) {
+            logError(`  💡 O valor configurado começa com 'AQ.', o que indica ser um token OAuth temporário, e NÃO uma chave de API do Google AI Studio (que começa com 'AIzaSy...').`);
+            logError(`  👉 Obtenha sua chave oficial gratuita em: https://aistudio.google.com/app/apikey`);
+          }
+          // Marca todos os modelos Gemini como indisponíveis para evitar retries inúteis e migrar logo para Groq
+          for (const m of chain) exhaustedGeminiModels.add(m);
+          break;
+        }
+
         const isRateLimit = err.status === 429 || err.message?.includes("429") || err.message?.includes("RESOURCE_EXHAUSTED");
         const isUnavailable = err.status === 503 || err.message?.includes("503") || err.message?.includes("experiencing high demand");
         const isModelNotFound = err.status === 404 || err.message?.includes("not found") || err.message?.includes("no longer available");

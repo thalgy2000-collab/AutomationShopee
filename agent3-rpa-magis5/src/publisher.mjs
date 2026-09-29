@@ -158,8 +158,20 @@ export async function publishProductToMagis5(page, product, options = {}) {
     throw new Error(`Falha no checkpoint do produto ${sku}: ${validation.errors.join("; ")}`);
   }
 
+function enforceMax60Title(t) {
+  if (!t) return "";
+  const clean = String(t).trim().replace(/\s+/g, " ");
+  if (clean.length <= 60) return clean;
+  const cut = clean.slice(0, 60);
+  const lastSpace = cut.lastIndexOf(" ");
+  return (lastSpace > 30 ? cut.slice(0, lastSpace) : cut).trim();
+}
+
   // Monitoramento ativo de respostas do Magis5 e console do navegador
   let lastServerInsertError = "";
+  page.on("pageerror", (err) => {
+    console.error(`  🔥 [UNCAUGHT PAGE ERROR] ${err.message}\n${err.stack || ""}`);
+  });
   page.on("console", (msg) => {
     if (msg.type() === "error" || msg.type() === "warning") {
       console.log(`  [BROWSER CONSOLE] ${msg.type()}: ${msg.text()}`);
@@ -174,7 +186,8 @@ export async function publishProductToMagis5(page, product, options = {}) {
         let bodyText = "";
         try {
           bodyText = await res.text();
-          if (bodyText.includes("SKU já cadastrado") || bodyText.includes("já cadastrado")) {
+          const cleanBody = bodyText.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+          if (cleanBody.includes("sku ja cadastrado") || cleanBody.includes("ja cadastrado") || /cadastrado/i.test(cleanBody)) {
             lastServerInsertError = "SKU_ALREADY_EXISTS";
           }
           if (bodyText.length > 500) bodyText = bodyText.substring(0, 500) + "...";
@@ -191,6 +204,21 @@ export async function publishProductToMagis5(page, product, options = {}) {
   // 3. Navegar para a tela de criação de produtos com variações
   const createUrl = `${MAGIS5_BASE_URL}/v2/admin/product/variations/variation.php`;
   console.log(`🌐 Navegando para tela de criação Shopee: ${createUrl}`);
+  await page.addInitScript(() => {
+    window.isBase64 = function(e, n) {
+      if (typeof e !== 'string') return false;
+      if (!e) return !(n && n.allowEmpty === false);
+      if (e.startsWith('data:')) {
+        const commaIdx = e.indexOf(',');
+        if (commaIdx === -1) return false;
+        const header = e.slice(0, commaIdx);
+        if (!header.includes(';base64')) return false;
+        const data = e.slice(commaIdx + 1);
+        return data.length % 4 === 0 && !/[^A-Za-z0-9+/=]/.test(data);
+      }
+      return e.length % 4 === 0 && !/[^A-Za-z0-9+/=]/.test(e);
+    };
+  }).catch(() => {});
   await page.goto(createUrl, { waitUntil: "networkidle" });
 
   // 4. Selecionar o Marketplace "Shopee" e clicar em "Prosseguir"
@@ -220,14 +248,15 @@ export async function publishProductToMagis5(page, product, options = {}) {
     await page.waitForTimeout(2000);
   }
 
-  // Título Shopee
+  // Título Shopee (estritamente limitado a 60 caracteres no Magis5)
   const titleEl = page.locator('#title');
+  const safeShopeeTitle = enforceMax60Title(product.titulo_shopee);
   if (await titleEl.isVisible().catch(() => false)) {
     await titleEl.click({ force: true });
-    await titleEl.fill(product.titulo_shopee);
+    await titleEl.fill(safeShopeeTitle);
     await titleEl.dispatchEvent('input').catch(() => {});
     await titleEl.dispatchEvent('change').catch(() => {});
-    console.log(`  • Título: ${product.titulo_shopee.substring(0, 60)}...`);
+    console.log(`  • Título Shopee (${safeShopeeTitle.length} carac): "${safeShopeeTitle}"`);
   }
 
   // Condição (Novo)
@@ -1073,14 +1102,32 @@ export async function publishProductToMagis5(page, product, options = {}) {
   if (await finalTitleEl.isVisible().catch(() => false)) {
     const curVal = await finalTitleEl.inputValue();
     if (!curVal || curVal.trim() === '') {
-      console.log(`  ⚠️ Título Shopee estava vazio, re-preenchendo: ${product.titulo_shopee}`);
+      const safeShopeeTitle = enforceMax60Title(product.titulo_shopee);
+      console.log(`  ⚠️ Título Shopee estava vazio, re-preenchendo (${safeShopeeTitle.length} carac): ${safeShopeeTitle}`);
       await finalTitleEl.click({ force: true });
-      await finalTitleEl.fill(product.titulo_shopee);
+      await finalTitleEl.fill(safeShopeeTitle);
       await finalTitleEl.dispatchEvent('input').catch(() => {});
       await finalTitleEl.dispatchEvent('change').catch(() => {});
       await page.waitForTimeout(500);
     }
   }
+
+  // Patch de proteção contra o bug de RegExp do Magis5 comum.js (RangeError: Maximum call stack size exceeded em isBase64 ao serializar imagens)
+  await page.evaluate(() => {
+    window.isBase64 = function(e, n) {
+      if (typeof e !== 'string') return false;
+      if (!e) return !(n && n.allowEmpty === false);
+      if (e.startsWith('data:')) {
+        const commaIdx = e.indexOf(',');
+        if (commaIdx === -1) return false;
+        const header = e.slice(0, commaIdx);
+        if (!header.includes(';base64')) return false;
+        const data = e.slice(commaIdx + 1);
+        return data.length % 4 === 0 && !/[^A-Za-z0-9+/=]/.test(data);
+      }
+      return e.length % 4 === 0 && !/[^A-Za-z0-9+/=]/.test(e);
+    };
+  }).catch(() => {});
 
   // Salvamento do Rascunho no Magis5
   console.log("💾 Clicando no botão Salvar para gravar o rascunho no Magis5...");
@@ -1098,7 +1145,41 @@ export async function publishProductToMagis5(page, product, options = {}) {
     console.log("  ⚠️ [VALIDAÇÃO PRÉ-SALVAR] Campos inválidos:", JSON.stringify(preInvalid));
   }
 
-  // Executa o clique de salvamento de forma resiliente
+  // Diagnóstico detalhado das validações internas do Magis5
+  const diag = await page.evaluate(() => {
+    const v = window.variations;
+    const res = {};
+    try { res.validarCampos = typeof validarCampos === 'function' ? validarCampos() : 'N/A'; } catch (e) { res.validarCamposErr = e.message; }
+    try { res.verifyRequiredField = typeof verifyRequiredField === 'function' ? verifyRequiredField("[data-required-field]") : 'N/A'; } catch (e) { res.verifyRequiredFieldErr = e.message; }
+    try { res.valMkts = v && typeof v.validateSelectedMarketplacesAndCategories === 'function' ? v.validateSelectedMarketplacesAndCategories() : 'N/A'; } catch (e) { res.valMktsErr = e.message; }
+    try { res.valDataSheet = v && typeof v.validateRequiredDataSheetFields === 'function' ? v.validateRequiredDataSheetFields() : 'N/A'; } catch (e) { res.valDataSheetErr = e.message; }
+    try { res.valVars = v && typeof v.validateVariationsRequiredFields === 'function' ? v.validateVariationsRequiredFields() : 'N/A'; } catch (e) { res.valVarsErr = e.message; }
+    try {
+      if (v && typeof v.buildFormPayload === 'function') {
+        const p = v.buildFormPayload();
+        res.payloadOk = true;
+        res.imagesCount = p?.images ? p.images.length : 0;
+        res.variationsCount = p?.variations ? p.variations.length : 0;
+      }
+    } catch (e) {
+      res.payloadError = e.message;
+      res.payloadStack = e.stack;
+    }
+    return res;
+  }).catch((e) => ({ evalErr: e.message }));
+  console.log("  🔍 [DIAGNÓSTICO VUE/MAGIS5]:", JSON.stringify(diag));
+
+  // Executa o salvamento acionando tanto o handleSubmitForm do Vue quanto o botão na interface
+  try {
+    await page.evaluate(() => {
+      if (window.variations && typeof window.variations.handleSubmitForm === 'function') {
+        window.variations.handleSubmitForm();
+      }
+    });
+  } catch (err) {
+    console.warn("  ⚠️ Erro ao chamar window.variations.handleSubmitForm():", err.message);
+  }
+
   try {
     await saveBtn.click({ force: true });
   } catch {
@@ -1119,6 +1200,11 @@ export async function publishProductToMagis5(page, product, options = {}) {
   let isSaved = false;
   for (let w = 0; w < 25; w++) {
     await page.waitForTimeout(1000);
+    // Se a Magis5 já retornou rejeição imediata informando que o SKU já existe cadastrado, não fica esperando
+    if (lastServerInsertError === "SKU_ALREADY_EXISTS") {
+      console.log(`⚡ [RESPOSTA IMEDIATA MAGIS5] Detectado que o SKU já está cadastrado em outro produto. Avançando sem esperar timeout.`);
+      break;
+    }
     const currUrl = page.url();
     if (currUrl.includes("consult.php") || currUrl.includes("index.php") || !currUrl.includes("variation.php")) {
       isSaved = true;

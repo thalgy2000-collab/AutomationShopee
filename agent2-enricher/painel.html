@@ -298,26 +298,42 @@
       background: rgba(255, 255, 255, 0.25);
     }
 
-    /* ── Header Flutuante Executivo ───── */
-    header {
-      backdrop-filter: blur(24px);
-      -webkit-backdrop-filter: blur(24px);
+    /* ── Header Fixo Superior & Menu de Features ───── */
+    header.fixed-top-header {
+      position: sticky;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      backdrop-filter: blur(28px);
+      -webkit-backdrop-filter: blur(28px);
       background: var(--header-bg);
       border-bottom: 1px solid var(--bg-card-border);
-      padding: 0.85rem 2rem;
+      box-shadow: 0 4px 25px rgba(0, 0, 0, 0.45);
       display: flex;
-      justify-content: space-between;
-      align-items: center;
-      z-index: 50;
+      flex-direction: column;
       flex-shrink: 0;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+      width: 100%;
+      padding: 0;
       transition: background-color 0.3s var(--ease-smooth), border-color 0.3s var(--ease-smooth);
+    }
+
+    /* Linha Principal de Navegação */
+    .header-main-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.65rem 1.8rem;
+      gap: 1rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      background: rgba(0, 0, 0, 0.12);
     }
 
     .brand-group {
       display: flex;
       align-items: center;
-      gap: 0.9rem;
+      gap: 0.85rem;
+      flex-shrink: 0;
     }
 
     .brand-logo {
@@ -341,67 +357,146 @@
 
     .brand-text h1 {
       font-family: var(--font-heading);
-      font-size: 1.05rem;
+      font-size: 1.02rem;
       font-weight: 700;
       letter-spacing: -0.025em;
       color: var(--text-main);
-    }
-
-    /* ── Seletor de Temas e Paletas no Header ── */
-    .theme-picker-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid var(--bg-card-border);
-      padding: 0.38rem 0.75rem;
-      border-radius: var(--radius-sm);
-      font-size: 0.76rem;
-      transition: all 0.2s var(--ease-spring);
-    }
-
-    .theme-picker-pill:hover {
-      background: rgba(255, 255, 255, 0.08);
-      border-color: var(--tab-active-border);
-    }
-
-    .theme-picker-label {
-      color: var(--text-dim);
-      font-size: 0.65rem;
-      font-weight: 700;
-      letter-spacing: 0.06em;
-      font-family: var(--font-mono);
-      text-transform: uppercase;
-    }
-
-    .theme-select {
-      background: transparent;
-      border: none;
-      color: var(--text-main);
-      font-family: var(--font-heading);
-      font-size: 0.76rem;
-      font-weight: 600;
-      cursor: pointer;
-      outline: none;
-      padding-right: 0.2rem;
-    }
-
-    .theme-select option {
-      background: #11141C;
-      color: #EDEDED;
+      line-height: 1.2;
     }
 
     .brand-text p {
-      font-size: 0.72rem;
+      font-size: 0.7rem;
       color: var(--text-muted);
       letter-spacing: -0.01em;
       font-weight: 400;
     }
 
-    .header-actions {
+    /* ── MENU FIXO DE FEATURES PRINCIPAIS ── */
+    .nav-features-dock {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(0, 0, 0, 0.28);
+      padding: 0.25rem 0.55rem;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.3);
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .nav-feature-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.38rem 0.8rem;
+      border-radius: 8px;
+      font-size: 0.77rem;
+      font-weight: 600;
+      text-decoration: none;
+      color: var(--text-muted);
+      background: rgba(255, 255, 255, 0.035);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      white-space: nowrap;
+      user-select: none;
+    }
+
+    .nav-feature-item:hover {
+      color: #FFF;
+      background: rgba(255, 255, 255, 0.09);
+      border-color: rgba(255, 255, 255, 0.18);
+      transform: translateY(-1px);
+    }
+
+    /* 🗺️ Destaque Vibrante: Roadmap Shopee */
+    .nav-feature-roadmap {
+      background: rgba(16, 185, 129, 0.15) !important;
+      border-color: rgba(16, 185, 129, 0.55) !important;
+      color: #34d399 !important;
+      font-weight: 700 !important;
+      box-shadow: 0 0 14px rgba(16, 185, 129, 0.22);
+    }
+
+    .nav-feature-roadmap:hover {
+      background: rgba(16, 185, 129, 0.28) !important;
+      border-color: rgba(16, 185, 129, 0.85) !important;
+      color: #6ee7b7 !important;
+      box-shadow: 0 0 22px rgba(16, 185, 129, 0.45);
+      transform: translateY(-1px);
+    }
+
+    /* 📋 Destaque Vibrante: Quadro Kanban */
+    .nav-feature-kanban {
+      background: rgba(6, 182, 212, 0.14) !important;
+      border-color: rgba(6, 182, 212, 0.5) !important;
+      color: #22d3ee !important;
+      font-weight: 700 !important;
+      box-shadow: 0 0 12px rgba(6, 182, 212, 0.18);
+    }
+
+    .nav-feature-kanban:hover {
+      background: rgba(6, 182, 212, 0.26) !important;
+      border-color: rgba(6, 182, 212, 0.8) !important;
+      color: #67e8f9 !important;
+      box-shadow: 0 0 18px rgba(6, 182, 212, 0.38);
+      transform: translateY(-1px);
+    }
+
+    /* 📊 Auditoria */
+    .nav-feature-audit:hover {
+      border-color: rgba(139, 92, 246, 0.5);
+      color: #c4b5fd;
+      background: rgba(139, 92, 246, 0.12);
+    }
+
+    /* ⚡ Relatório Esteira */
+    .nav-feature-pipeline:hover {
+      border-color: rgba(56, 189, 248, 0.5);
+      color: #7dd3fc;
+      background: rgba(56, 189, 248, 0.12);
+    }
+
+    /* ⚠️ Falhas */
+    .nav-feature-faults:hover {
+      border-color: rgba(244, 63, 94, 0.5);
+      color: #fda4af;
+      background: rgba(244, 63, 94, 0.12);
+    }
+
+    .nav-feature-pill {
+      font-size: 0.62rem;
+      font-weight: 800;
+      padding: 0.12rem 0.42rem;
+      border-radius: 9999px;
+      letter-spacing: 0.04em;
+      line-height: 1;
+    }
+
+    .pill-emerald {
+      background: rgba(16, 185, 129, 0.25);
+      color: #6ee7b7;
+      border: 1px solid rgba(16, 185, 129, 0.4);
+    }
+
+    .pill-cyan {
+      background: rgba(6, 182, 212, 0.25);
+      color: #67e8f9;
+      border: 1px solid rgba(6, 182, 212, 0.4);
+    }
+
+    .pill-amber {
+      background: rgba(245, 158, 11, 0.25);
+      color: #fcd34d;
+      border: 1px solid rgba(245, 158, 11, 0.4);
+    }
+
+    .header-status-group {
       display: flex;
       align-items: center;
       gap: 0.65rem;
+      flex-shrink: 0;
     }
 
     .status-pill {
@@ -444,14 +539,110 @@
       }
     }
 
+    /* ── Sub-Barra de Controles & Monitoramento (Lote, Esteira, Notificações, Paleta) ── */
+    .header-sub-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.38rem 1.8rem;
+      background: rgba(0, 0, 0, 0.18);
+      gap: 1rem;
+      font-size: 0.75rem;
+    }
+
+    .sub-row-left {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      flex-wrap: wrap;
+    }
+
+    .sub-row-right {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      flex-shrink: 0;
+    }
+
+    .header-batch-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: var(--bg-surface);
+      border: 1px solid var(--bg-card-border);
+      padding: 4px 12px;
+      border-radius: 9999px;
+      font-size: 0.74rem;
+    }
+
+    .batch-pill-label {
+      color: var(--text-dim);
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+    }
+
+    #header-batch-name {
+      color: #EDEDED;
+      font-weight: 600;
+      max-width: 220px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      font-family: var(--font-mono);
+    }
+
+    .theme-picker-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--bg-card-border);
+      padding: 0.32rem 0.75rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.74rem;
+      transition: all 0.2s var(--ease-spring);
+    }
+
+    .theme-picker-pill:hover {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: var(--tab-active-border);
+    }
+
+    .theme-picker-label {
+      color: var(--text-dim);
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      font-family: var(--font-mono);
+      text-transform: uppercase;
+    }
+
+    .theme-select {
+      background: transparent;
+      border: none;
+      color: var(--text-main);
+      font-family: var(--font-heading);
+      font-size: 0.74rem;
+      font-weight: 600;
+      cursor: pointer;
+      outline: none;
+      padding-right: 0.2rem;
+    }
+
+    .theme-select option {
+      background: #11141C;
+      color: #EDEDED;
+    }
+
     .btn-header {
       background: rgba(255, 255, 255, 0.04);
       border: 1px solid var(--bg-card-border);
       color: var(--text-muted);
-      padding: 0.4rem 0.85rem;
+      padding: 0.35rem 0.8rem;
       border-radius: var(--radius-sm);
       text-decoration: none;
-      font-size: 0.76rem;
+      font-size: 0.75rem;
       font-weight: 600;
       transition: all 0.2s var(--ease-spring);
       display: inline-flex;
@@ -468,15 +659,15 @@
     }
 
     .btn-header.notif-active {
-      color: #EDEDED;
-      background: rgba(255, 255, 255, 0.08);
-      border-color: rgba(255, 255, 255, 0.18);
+      color: #34D399;
+      background: rgba(16, 185, 129, 0.08);
+      border-color: rgba(16, 185, 129, 0.3);
     }
 
     .btn-header.notif-active:hover {
-      background: rgba(255, 255, 255, 0.12);
-      border-color: rgba(255, 255, 255, 0.28);
-      color: #FFF;
+      background: rgba(16, 185, 129, 0.15);
+      border-color: rgba(16, 185, 129, 0.45);
+      color: #6ee7b7;
     }
 
     .btn-header.notif-muted {
@@ -2950,85 +3141,791 @@
         display: inline;
       }
     }
-  </style>
+  
+    /* ═══════════════════════════════════════════════════════════════════
+       SHOPEE SELLER CENTER — SIDEBAR LATERAL & TOPBAR MODERNA
+       ═══════════════════════════════════════════════════════════════════ */
+    :root {
+      --sidebar-width: 258px;
+      --sidebar-width-collapsed: 68px;
+      --shopee-orange: #EE4D2D;
+      --shopee-orange-hover: #FF5722;
+      --shopee-orange-glow: rgba(238, 77, 45, 0.35);
+      --shopee-sidebar-bg: #0C0F19;
+      --shopee-sidebar-border: rgba(255, 255, 255, 0.08);
+      --shopee-topbar-height: 58px;
+    }
+
+    body {
+      display: flex !important;
+      min-height: 100vh;
+      background: var(--bg-dark);
+      color: var(--text-main);
+      overflow-x: hidden;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Backdrop móvel */
+    .shopee-sidebar-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(4px);
+      z-index: 1090;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    body.sidebar-mobile-open .shopee-sidebar-backdrop {
+      display: block;
+      opacity: 1;
+    }
+
+    /* ── SIDEBAR LATERAL FIXA ────────────────────────────────────────── */
+    .shopee-sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      width: var(--sidebar-width);
+      background: var(--shopee-sidebar-bg);
+      border-right: 1px solid var(--shopee-sidebar-border);
+      display: flex;
+      flex-direction: column;
+      z-index: 1100;
+      transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1), transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 4px 0 25px rgba(0, 0, 0, 0.45);
+      user-select: none;
+    }
+
+    /* Sidebar Header: Logo Shopee & Título */
+    .shopee-sidebar-header {
+      padding: 1.1rem 1rem 0.9rem 1.1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      background: linear-gradient(180deg, rgba(238, 77, 45, 0.08) 0%, transparent 100%);
+    }
+
+    .shopee-brand-link {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+      color: inherit;
+      min-width: 0;
+      flex: 1;
+    }
+
+    .shopee-bag-icon {
+      width: 38px;
+      height: 38px;
+      background: linear-gradient(135deg, #FF5722 0%, #EE4D2D 100%);
+      color: #FFFFFF;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 14px rgba(238, 77, 45, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+      flex-shrink: 0;
+      transition: transform 0.25s var(--ease-spring);
+    }
+
+    .shopee-bag-icon:hover {
+      transform: scale(1.05) rotate(-3deg);
+    }
+
+    .shopee-brand-meta {
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      transition: opacity 0.2s ease;
+    }
+
+    .shopee-brand-title {
+      font-family: var(--font-heading);
+      font-size: 0.95rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: #FFFFFF;
+      line-height: 1.2;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .shopee-badge-pro {
+      font-size: 0.58rem;
+      font-weight: 800;
+      background: rgba(238, 77, 45, 0.25);
+      color: #FF7A59;
+      border: 1px solid rgba(238, 77, 45, 0.5);
+      padding: 1px 4px;
+      border-radius: 4px;
+      letter-spacing: 0.04em;
+    }
+
+    .shopee-brand-sub {
+      font-size: 0.68rem;
+      color: var(--text-muted);
+      font-weight: 500;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* Botão Retrátil / Colapsar */
+    .shopee-btn-collapse {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: var(--text-muted);
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s var(--ease-spring);
+      flex-shrink: 0;
+    }
+
+    .shopee-btn-collapse:hover {
+      background: rgba(238, 77, 45, 0.2);
+      border-color: rgba(238, 77, 45, 0.4);
+      color: #FF5722;
+    }
+
+    /* Cartão de Loja Oficial */
+    .shopee-store-card {
+      margin: 0.75rem 0.9rem;
+      padding: 0.55rem 0.75rem;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+    }
+
+    .shopee-store-name {
+      font-size: 0.76rem;
+      font-weight: 700;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .shopee-store-tag {
+      font-size: 0.6rem;
+      font-weight: 700;
+      color: #34D399;
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      padding: 2px 6px;
+      border-radius: 9999px;
+      white-space: nowrap;
+    }
+
+    /* Conteúdo com Scroll da Sidebar */
+    .shopee-sidebar-scroll {
+      flex: 1;
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding: 0.4rem 0.7rem 1.5rem 0.7rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.1rem;
+    }
+
+    .shopee-sidebar-scroll::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    .shopee-sidebar-scroll::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 4px;
+    }
+
+    /* Seções e Agrupadores Estilo Shopee */
+    .shopee-nav-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+    }
+
+    .shopee-nav-header {
+      font-size: 0.65rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-dim);
+      padding: 0.4rem 0.65rem 0.25rem 0.65rem;
+      font-family: var(--font-heading);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    /* Links de Navegação da Sidebar */
+    .shopee-nav-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.55rem 0.75rem;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-decoration: none;
+      border: 1px solid transparent;
+      background: transparent;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      cursor: pointer;
+      width: 100%;
+      text-align: left;
+      position: relative;
+    }
+
+    .shopee-nav-item:hover {
+      color: #FFFFFF;
+      background: rgba(255, 255, 255, 0.05);
+      border-color: rgba(255, 255, 255, 0.08);
+      transform: translateX(2px);
+    }
+
+    .shopee-nav-item.active {
+      color: #FFFFFF !important;
+      background: linear-gradient(90deg, rgba(238, 77, 45, 0.18) 0%, rgba(238, 77, 45, 0.06) 100%) !important;
+      border-color: rgba(238, 77, 45, 0.4) !important;
+      font-weight: 700 !important;
+    }
+
+    .shopee-nav-item.active::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 15%;
+      bottom: 15%;
+      width: 3.5px;
+      background: #EE4D2D;
+      border-radius: 0 4px 4px 0;
+      box-shadow: 0 0 10px #EE4D2D;
+    }
+
+    .shopee-nav-icon {
+      width: 20px;
+      height: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: var(--text-dim);
+      transition: color 0.2s ease, transform 0.2s ease;
+    }
+
+    .shopee-nav-item:hover .shopee-nav-icon,
+    .shopee-nav-item.active .shopee-nav-icon {
+      color: #EE4D2D;
+      transform: scale(1.1);
+    }
+
+    .shopee-nav-title {
+      flex: 1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .shopee-nav-badge {
+      font-size: 0.62rem;
+      font-weight: 800;
+      padding: 2px 6px;
+      border-radius: 9999px;
+      letter-spacing: 0.03em;
+      line-height: 1;
+    }
+
+    .badge-orange-hot {
+      background: rgba(238, 77, 45, 0.25);
+      color: #FF6E4A;
+      border: 1px solid rgba(238, 77, 45, 0.5);
+      box-shadow: 0 0 10px rgba(238, 77, 45, 0.3);
+      animation: shopeePulse 2s infinite ease-in-out;
+    }
+
+    @keyframes shopeePulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.05); opacity: 0.85; }
+    }
+
+    .badge-cyan-trello {
+      background: rgba(6, 182, 212, 0.2);
+      color: #22D3EE;
+      border: 1px solid rgba(6, 182, 212, 0.4);
+    }
+
+    .badge-amber-count {
+      background: rgba(245, 158, 11, 0.2);
+      color: #FCD34D;
+      border: 1px solid rgba(245, 158, 11, 0.4);
+    }
+
+    /* Itens Especiais da Sidebar */
+    .shopee-nav-item-roadmap {
+      background: rgba(16, 185, 129, 0.08);
+      border-color: rgba(16, 185, 129, 0.25);
+      color: #6EE7B7;
+    }
+
+    .shopee-nav-item-roadmap:hover {
+      background: rgba(16, 185, 129, 0.18) !important;
+      border-color: rgba(16, 185, 129, 0.6) !important;
+      color: #A7F3D0 !important;
+      box-shadow: 0 0 16px rgba(16, 185, 129, 0.25);
+    }
+
+    .shopee-nav-item-kanban {
+      background: rgba(6, 182, 212, 0.08);
+      border-color: rgba(6, 182, 212, 0.25);
+      color: #67E8F9;
+    }
+
+    .shopee-nav-item-kanban:hover {
+      background: rgba(6, 182, 212, 0.18) !important;
+      border-color: rgba(6, 182, 212, 0.6) !important;
+      color: #A5F3FC !important;
+      box-shadow: 0 0 16px rgba(6, 182, 212, 0.25);
+    }
+
+    /* Rodapé da Sidebar */
+    .shopee-sidebar-footer {
+      padding: 0.9rem 0.85rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      background: rgba(0, 0, 0, 0.25);
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+    }
+
+    /* ── APLICAÇÃO PRINCIPAL COM DESLOCAMENTO (MAIN WRAPPER) ────────── */
+    .shopee-main-wrapper {
+      flex: 1;
+      margin-left: var(--sidebar-width);
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      transition: margin-left 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      width: calc(100% - var(--sidebar-width));
+    }
+
+    /* ── TOPBAR MODERNA (SLIM & CLEAN) ─────────────────────────────── */
+    .shopee-topbar {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      height: var(--shopee-topbar-height);
+      background: rgba(11, 14, 23, 0.88);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border-bottom: 1px solid var(--bg-card-border);
+      padding: 0 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    .shopee-topbar-left {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      min-width: 0;
+    }
+
+    .shopee-hamburger-btn {
+      display: none;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #FFFFFF;
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .shopee-hamburger-btn:hover {
+      background: rgba(238, 77, 45, 0.2);
+      border-color: #EE4D2D;
+    }
+
+    .shopee-topbar-breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--text-dim);
+      white-space: nowrap;
+    }
+
+    .shopee-topbar-breadcrumb span.active-crumb {
+      color: var(--text-main);
+      font-weight: 700;
+    }
+
+    .shopee-topbar-right {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      flex-shrink: 0;
+    }
+
+    /* ── ESTADO COLAPSADO (SLIM ICON-ONLY) ─────────────────────────── */
+    body.sidebar-collapsed .shopee-sidebar {
+      width: var(--sidebar-width-collapsed);
+    }
+
+    body.sidebar-collapsed .shopee-main-wrapper {
+      margin-left: var(--sidebar-width-collapsed);
+      width: calc(100% - var(--sidebar-width-collapsed));
+    }
+
+    body.sidebar-collapsed .shopee-brand-meta,
+    body.sidebar-collapsed .shopee-store-card,
+    body.sidebar-collapsed .shopee-nav-header,
+    body.sidebar-collapsed .shopee-nav-title,
+    body.sidebar-collapsed .shopee-nav-badge,
+    body.sidebar-collapsed .shopee-sidebar-footer span:not(.status-dot) {
+      display: none !important;
+    }
+
+    body.sidebar-collapsed .shopee-sidebar-header {
+      justify-content: center;
+      padding: 0.85rem 0.5rem;
+    }
+
+    body.sidebar-collapsed .shopee-btn-collapse {
+      transform: rotate(180deg);
+    }
+
+    body.sidebar-collapsed .shopee-nav-item {
+      justify-content: center;
+      padding: 0.65rem 0;
+    }
+
+    body.sidebar-collapsed .shopee-nav-icon {
+      transform: none !important;
+    }
+
+    /* ── RESPONSIVIDADE MOBILE / TABLET ────────────────────────────── */
+    @media (max-width: 992px) {
+      .shopee-sidebar {
+        transform: translateX(-100%);
+      }
+
+      body.sidebar-mobile-open .shopee-sidebar {
+        transform: translateX(0);
+      }
+
+      .shopee-main-wrapper {
+        margin-left: 0 !important;
+        width: 100% !important;
+      }
+
+      .shopee-hamburger-btn {
+        display: flex;
+      }
+
+      .shopee-topbar {
+        padding: 0 1rem;
+      }
+
+      .header-batch-pill {
+        display: none;
+      }
+    }
+
+</style>
 </head>
 
 <body>
 
-  <!-- Header -->
-  <header>
-    <div class="brand-group">
-      <div class="brand-logo">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-          <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
-          <polyline points="2 17 12 22 22 17"></polyline>
-          <polyline points="2 12 12 17 22 12"></polyline>
-        </svg>
-      </div>
-      <div class="brand-text">
-        <h1>Central de Automação Shopee</h1>
-        <p>BRK Pipeline Control Center</p>
-      </div>
+  <!-- Fixed Top Header & Navigation Suite -->
+  
+  <!-- BACKDROP MOBILE -->
+  <div class="shopee-sidebar-backdrop" onclick="toggleShopeeSidebarMobile()"></div>
+
+  <!-- MENU LATERAL SHOPEE SELLER CENTER -->
+  <aside class="shopee-sidebar" id="shopee-sidebar">
+    <!-- Cabeçalho da Marca Shopee -->
+    <div class="shopee-sidebar-header">
+      <a href="/" class="shopee-brand-link" title="Central Shopee — BRK Fishing">
+        <div class="shopee-bag-icon">
+          <!-- Ícone Oficial de Sacola Shopee com o 'S' -->
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <path d="M16 10a4 4 0 0 1-8 0"></path>
+          </svg>
+        </div>
+        <div class="shopee-brand-meta">
+          <div class="shopee-brand-title">
+            Shopee Seller <span class="shopee-badge-pro">BRK</span>
+          </div>
+          <span class="shopee-brand-sub">Central de Automação</span>
+        </div>
+      </a>
+      <button class="shopee-btn-collapse" id="shopee-collapse-btn" onclick="toggleShopeeSidebar()" title="Recolher / Expandir Menu">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+      </button>
     </div>
 
-    <div class="header-actions">
-      <div class="status-pill" id="system-status">
+    <!-- Identificação da Loja Oficial -->
+    <div class="shopee-store-card">
+      <span class="shopee-store-name">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="color: #EE4D2D;"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+        BRK Agro & Pesca
+      </span>
+      <span class="shopee-store-tag">✓ Oficial</span>
+    </div>
+
+    <!-- Navegação Agrupada da Sidebar (Estilo Shopee Seller Center) -->
+    <div class="shopee-sidebar-scroll">
+
+      <!-- 1. GESTÃO E ESTRATÉGIA -->
+      <div class="shopee-nav-group">
+        <div class="shopee-nav-header">
+          <span>Gestão & Estratégia</span>
+        </div>
+
+        <!-- 🗺️ ROADMAP SHOPEE (EM ALTO DESTAQUE) -->
+        <a href="/roadmap.html" target="_blank" class="shopee-nav-item shopee-nav-item-roadmap" title="Abrir Roadmap Estratégico Shopee 2026">
+          <div class="shopee-nav-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"></polygon>
+              <line x1="8" y1="2" x2="8" y2="18"></line>
+              <line x1="16" y1="6" x2="16" y2="22"></line>
+            </svg>
+          </div>
+          <span class="shopee-nav-title">Roadmap Shopee</span>
+          <span class="shopee-nav-badge badge-orange-hot">2026</span>
+        </a>
+
+        <!-- 📋 QUADRO KANBAN (TRELLO) -->
+        <a href="/kanban" target="_blank" class="shopee-nav-item shopee-nav-item-kanban" title="Quadro Kanban Interativo Shopee (Estilo Trello)">
+          <div class="shopee-nav-icon">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="7" height="18" rx="1.5"></rect>
+              <rect x="14" y="3" width="7" height="11" rx="1.5"></rect>
+            </svg>
+          </div>
+          <span class="shopee-nav-title">Quadro Kanban</span>
+          <span class="shopee-nav-badge badge-cyan-trello">TRELLO</span>
+        </a>
+
+        <!-- 📊 AUDITORIA & CATÁLOGO -->
+        <a href="/relatorio.html" target="_blank" class="shopee-nav-item" title="Auditoria de Anúncios, Preços e Métricas de Catálogo">
+          <div class="shopee-nav-icon">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="18" y1="20" x2="18" y2="10"></line>
+              <line x1="12" y1="20" x2="12" y2="4"></line>
+              <line x1="6" y1="20" x2="6" y2="14"></line>
+            </svg>
+          </div>
+          <span class="shopee-nav-title">Auditoria Catálogo</span>
+        </a>
+
+        <!-- ⚡ RELATÓRIO EXECUTIVO DA ESTEIRA -->
+        <a href="/relatorio-esteira.html" target="_blank" class="shopee-nav-item" title="Relatório Executivo da Esteira (Agentes 0, 1, 2 e 3)">
+          <div class="shopee-nav-icon">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="18" height="18" rx="2"></rect>
+              <path d="M3 9h18"></path>
+              <path d="M9 21V9"></path>
+            </svg>
+          </div>
+          <span class="shopee-nav-title">Relatório da Esteira</span>
+        </a>
+      </div>
+
+      <!-- 2. ESTEIRA DE AUTOMAÇÃO & AGENTES -->
+      <div class="shopee-nav-group">
+        <div class="shopee-nav-header">
+          <span>Esteira de Robôs</span>
+        </div>
+
+        <!-- Agente 0 -->
+        <button type="button" class="shopee-nav-item shopee-nav-agent active" id="sidebar-agent-agent0" onclick="switchAgent('agent0')" title="Agente 0: Sankhya Scout">
+          <div class="shopee-nav-icon">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path></svg>
+          </div>
+          <span class="shopee-nav-title">00 • Sankhya ERP</span>
+        </button>
+
+        <!-- Agente 1 -->
+        <button type="button" class="shopee-nav-item shopee-nav-agent" id="sidebar-agent-agent1" onclick="switchAgent('agent1')" title="Agente 1: Coletor de Fotos & Shopify">
+          <div class="shopee-nav-icon">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
+          </div>
+          <span class="shopee-nav-title">01 • Coletor & Fotos</span>
+        </button>
+
+        <!-- Agente 2 -->
+        <button type="button" class="shopee-nav-item shopee-nav-agent" id="sidebar-agent-agent2" onclick="switchAgent('agent2')" title="Agente 2: IA Vision & SEO Shopee">
+          <div class="shopee-nav-icon">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+          </div>
+          <span class="shopee-nav-title">02 • IA Vision & SEO</span>
+        </button>
+
+        <!-- Agente 3 -->
+        <button type="button" class="shopee-nav-item shopee-nav-agent" id="sidebar-agent-agent3" onclick="switchAgent('agent3')" title="Agente 3: RPA Publicador Magis5">
+          <div class="shopee-nav-icon">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"></path><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"></path></svg>
+          </div>
+          <span class="shopee-nav-title">03 • RPA Magis5</span>
+        </button>
+
+        <!-- Agente 4 -->
+        <button type="button" class="shopee-nav-item shopee-nav-agent" id="sidebar-agent-agent4" onclick="switchAgent('agent4')" title="Agente 4: Diagnóstico & Regras">
+          <div class="shopee-nav-icon">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+          </div>
+          <span class="shopee-nav-title">04 • Diagnóstico</span>
+        </button>
+      </div>
+
+      <!-- 3. FERRAMENTAS OPERACIONAIS -->
+      <div class="shopee-nav-group">
+        <div class="shopee-nav-header">
+          <span>Ferramentas</span>
+        </div>
+
+        <!-- Edição em Massa -->
+        <button type="button" class="shopee-nav-item" onclick="openBulkEditorModal()" title="Edição em Massa de Anúncios (Descrições, Títulos, Preços e Medidas)">
+          <div class="shopee-nav-icon">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+          </div>
+          <span class="shopee-nav-title">Edição em Massa</span>
+        </button>
+
+        <!-- Falhas & Rejeitados -->
+        <a href="/rejeitados.html" class="shopee-nav-item" title="Diagnósticos de Falhas e Rejeições">
+          <div class="shopee-nav-icon">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+          </div>
+          <span class="shopee-nav-title">Falhas & Rejeições</span>
+          <span class="shopee-nav-badge badge-amber-count" id="header-rejected-badge"><span id="header-rejected-count">0</span></span>
+        </a>
+      </div>
+
+      <!-- 4. CANAIS EXTERNOS -->
+      <div class="shopee-nav-group">
+        <div class="shopee-nav-header">
+          <span>Canais & Integrações</span>
+        </div>
+
+        <!-- Magis5 Hub -->
+        <a href="https://app.magis5.com.br/v2/admin/product/variations/variation.php" target="_blank" class="shopee-nav-item" title="Acessar o Painel Oficial da Magis5">
+          <div class="shopee-nav-icon">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="color: #F59E0B;"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+          </div>
+          <span class="shopee-nav-title">Magis5 Hub</span>
+        </a>
+
+        <!-- Shopee Seller Center -->
+        <a href="https://seller.shopee.com.br/" target="_blank" class="shopee-nav-item" title="Acessar Shopee Seller Center Brasil">
+          <div class="shopee-nav-icon">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="color: #EE4D2D;"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+          </div>
+          <span class="shopee-nav-title">Shopee Seller Center</span>
+        </a>
+      </div>
+
+    </div>
+
+    <!-- Rodapé da Sidebar: Status, Parar Robô e Tema -->
+    <div class="shopee-sidebar-footer">
+      <!-- Status do Sistema -->
+      <div class="status-pill" id="system-status" style="width: 100%; justify-content: center;">
         <span class="status-dot"></span>
         <span id="system-status-text">Sistema Pronto</span>
       </div>
 
-      <!-- Seletor Dinâmico de Paleta de Cores -->
-      <div class="theme-picker-pill" title="Mudar a combinação de cores do painel">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--accent-brand); flex-shrink: 0;"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
-        <span class="theme-picker-label">PALETA:</span>
-        <select id="theme-selector" onchange="changeTheme(this.value)" class="theme-select">
-          <option value="shopee-blaze">🔥 Shopee Flame (Quente)</option>
-          <option value="nordic-marine">🌊 Nordic Marine (Pesca)</option>
-          <option value="emerald-tech">⚡ Emerald Tech (Terminal)</option>
-          <option value="cyber-violet">🔮 Cyber Violet (Raycast)</option>
-          <option value="titanium-amber">🏆 Titanium Gold (Luxo)</option>
-          <option value="stealth-graphite">🖤 Stealth Charcoal (Mono)</option>
-        </select>
-      </div>
-
-      <button class="btn-header-stop" id="btn-header-stop" onclick="stopCurrentAgent()" style="display: none;"
+      <!-- Botão Parar Robô -->
+      <button class="btn-header-stop" id="btn-header-stop" onclick="stopCurrentAgent()" style="display: none; width: 100%; justify-content: center;"
         title="Encerrar o robô imediatamente no meio da tarefa">
         <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><rect x="4" y="4" width="16" height="16" rx="2"/></svg>
         <span>Parar Robô</span>
       </button>
 
-      <!-- Indicador de Lote Ativo & Sequência Contínua -->
-      <div class="header-batch-pill" id="header-batch-pill" style="display: inline-flex; align-items: center; gap: 7px; background: var(--bg-surface); border: 1px solid var(--bg-card-border); padding: 5px 12px; border-radius: 9999px; font-size: 0.76rem;" title="Lote / Planilha ativa que passa automaticamente entre Agente 0 ➔ 1 ➔ 2 ➔ 3">
-        <span style="color: var(--text-dim); font-size: 0.68rem; font-weight: 700; letter-spacing: 0.05em;">LOTE ATIVO:</span>
-        <span id="header-batch-name" style="color: #EDEDED; font-weight: 600; max-width: 170px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-family: var(--font-mono);">Carregando...</span>
+      <!-- Seletor de Paleta / Tema -->
+      <div class="theme-picker-pill" style="width: 100%; justify-content: space-between;" title="Mudar a combinação de cores do painel">
+        <span class="theme-picker-label">TEMA</span>
+        <select id="theme-selector" onchange="changeTheme(this.value)" class="theme-select">
+          <option value="shopee-blaze">🔥 Shopee Flame</option>
+          <option value="nordic-marine">🌊 Nordic Marine</option>
+          <option value="emerald-tech">⚡ Emerald Tech</option>
+          <option value="cyber-violet">🔮 Cyber Violet</option>
+          <option value="titanium-amber">🏆 Titanium Gold</option>
+          <option value="stealth-graphite">🖤 Stealth Charcoal</option>
+        </select>
+      </div>
+    </div>
+  </aside>
+
+  <!-- WRAPPER DA APLICAÇÃO PRINCIPAL COM O CONTEÚDO -->
+  <div class="shopee-main-wrapper" id="shopee-main-wrapper">
+    <!-- TOPBAR SUPERIOR MODERNA (SLIM & LIMPA) -->
+    <header class="shopee-topbar" id="shopee-topbar">
+      <div class="shopee-topbar-left">
+        <!-- Botão Hambúrguer para telas menores -->
+        <button class="shopee-hamburger-btn" onclick="toggleShopeeSidebarMobile()" title="Abrir Menu">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+        </button>
+
+        <!-- Breadcrumb Shopee -->
+        <div class="shopee-topbar-breadcrumb">
+          <span>Shopee Seller</span>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+          <span class="active-crumb" id="topbar-current-agent">Agente 0 — Sankhya Scout</span>
+        </div>
       </div>
 
-      <button class="btn-header" id="btn-toggle-continuous" onclick="toggleContinuousPipeline()" title="Quando ativado, os Agentes 0 ➔ 1 ➔ 2 ➔ 3 avançam e executam automaticamente sem você precisar reenviar a planilha ou clicar em avançar">
-        <svg id="continuous-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>
-        <span id="continuous-label">Esteira Contínua: OFF</span>
-      </button>
+      <div class="shopee-topbar-right">
+        <!-- Indicador de Lote Ativo -->
+        <div class="header-batch-pill" id="header-batch-pill" title="Lote / Planilha ativa da esteira">
+          <span class="batch-pill-label">LOTE ATIVO:</span>
+          <span id="header-batch-name">Carregando...</span>
+        </div>
 
-      <button class="btn-header notif-active" id="btn-toggle-notifications" onclick="toggleNotifications()" title="Alertas sonoros e notificações nativas da área de trabalho quando cada agente finalizar">
-        <svg id="notif-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
-        <span id="notif-label">Notificações: ON</span>
-      </button>
+        <!-- Esteira Contínua -->
+        <button class="btn-header" id="btn-toggle-continuous" onclick="toggleContinuousPipeline()" title="Esteira Contínua: avança automaticamente entre agentes sem intervenção">
+          <svg id="continuous-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>
+          <span id="continuous-label">Esteira Contínua: OFF</span>
+        </button>
 
-      <a href="/rejeitados.html" class="btn-header" title="Diagnósticos de Rejeições">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
-        <span>Falhas (<span id="header-rejected-count">0</span>)</span>
-      </a>
+        <!-- Notificações -->
+        <button class="btn-header notif-active" id="btn-toggle-notifications" onclick="toggleNotifications()" title="Alertas sonoros e notificações de conclusão">
+          <svg id="notif-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+          <span id="notif-label">Notificações: ON</span>
+        </button>
+      </div>
+    </header>
 
-      <a href="/relatorio.html" target="_blank" class="btn-header" title="Auditoria & Catálogo">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
-        <span>Auditoria</span>
-      </a>
-
-      <button class="btn-header" onclick="openBulkEditorModal()" title="Edição em Massa de Anúncios (Descrições, Títulos, Preços e Medidas)">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
-        <span>Edição em Massa</span>
-      </button>
-    </div>
-  </header>
 
   <!-- Top Agent Filter / Stepper Bar -->
   <div class="agent-switcher-bar" id="agent-switcher-bar">
@@ -3119,13 +4016,13 @@
           <span class="agent-num-badge">04</span>
           <div class="agent-tab-info">
             <div class="agent-tab-title">Agente 4</div>
-            <div class="agent-tab-role">Auditor & Auto-Fix</div>
+            <div class="agent-tab-role">Relator da Esteira</div>
           </div>
         </div>
         <div class="agent-tab-actions">
           <span class="agent-tab-status" id="tab-status-agent4">Pronto</span>
           <button class="tab-quick-play" onclick="event.stopPropagation(); triggerAgentQuick('agent4')"
-            title="Executar Agente 4 agora em 1 clique">
+            title="Gerar Relatório Executivo da Esteira em 1 clique">
             <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
           </button>
         </div>
@@ -3896,23 +4793,24 @@
         ]
       },
       agent4: {
-        name: 'Agente 4 — Auditor & Diagnóstico',
+        name: 'Agente 4 — Relator & Auditor da Esteira',
         avatarClass: 'avatar-agent4',
         icon: '04',
-        role: 'Auditoria de Rejeições & Auto-Fix',
-        placeholder: 'Clique no botão acima para aplicar correções sem escrever nada...',
-        welcome: `Olá! Sou o **Agente 4 (Auditor)**.\n\nMonitorei os produtos rejeitados e possuo regras de auto-fix prontas em 1 clique para resolver divergências de categorias, regras de títulos e atributos obrigatórios da Shopee.\n\n👉 *Clique no botão acima **AUTO-FIX DE REJEIÇÕES AGORA** para corrigir divergências em 1 clique.*`,
+        role: 'Relatórios Consolidados & Auditoria da Operação',
+        placeholder: 'Peça um relatório ou clique nos botões acima para ver o funil da esteira...',
+        welcome: `Olá! Sou o **Agente 4 — Relator & Auditor Consolidado da Esteira** 📊\n\nMinha função é cruzar e apresentar o trabalho de **todos os outros agentes (0, 1, 2 e 3)** de forma simples, visual e executiva:\n\n• 📑 **Agente 0 (Sankhya):** Lote ativo, linhas mineradas e variações do ERP\n• 📸 **Agente 1 (Coletor):** Pastas criadas e fotos baixadas em alta resolução\n• ⚡ **Agente 2 (IA SEO):** Produtos enriquecidos com títulos de 60 carac. e ficha técnica\n• 🚀 **Agente 3 (Magis5):** Anúncios publicados na Shopee, comprovantes e pendências\n\n👉 *Clique no botão acima **GERAR RELATÓRIO DA ESTEIRA** para compilar o funil completo em tempo real!*`,
         heroAction: {
-          badge: 'AÇÃO RECOMENDADA',
-          title: 'Auditar Rejeições & Aplicar Auto-Fix',
-          desc: 'Analisa rejeições da Shopee e corrige automaticamente divergências de categorias e atributos obrigatórios.',
-          btnText: 'AUTO-FIX DE REJEIÇÕES AGORA',
-          execute: () => executeChipAction('fixAllCategories')
+          badge: 'VISÃO EXECUTIVA EM TEMPO REAL',
+          title: 'Relatório Consolidado da Esteira de Agentes',
+          desc: 'Cruza os dados dos Agentes 0, 1, 2 e 3, revelando taxas de conclusão, gargalos operacionais e o funil SKU por SKU.',
+          btnText: '📊 GERAR RELATÓRIO DA ESTEIRA',
+          execute: () => executeChipAction('runPipelineReport')
         },
         chips: [
-          { label: 'Executar Diagnóstico Completo', action: 'runDiagnostics' },
-          { label: 'Auto-Fix de Categorias em Massa', action: 'fixAllCategories' },
-          { label: 'Abrir Painel de Rejeitados', action: 'openRejectedPage' }
+          { label: '📊 Relatório Geral da Operação', action: 'runPipelineReport' },
+          { label: '🎯 Funil SKU a SKU do Lote Ativo', action: 'runBatchFunnelAudit' },
+          { label: '📸 Galeria de Comprovantes Magis5', action: 'openEvidencesGallery' },
+          { label: '🌐 Abrir Painel Consolidado em Nova Aba', action: 'openEsteiraFullPage' }
         ]
       }
     };
@@ -4202,6 +5100,11 @@
 
       // 1. Atualiza abas visuais
       document.querySelectorAll('.agent-tab').forEach(tab => tab.classList.remove('active'));
+      document.querySelectorAll('.shopee-nav-agent').forEach(el => el.classList.remove('active'));
+      const activeSidebarItem = document.getElementById('sidebar-agent-' + agentId);
+      if (activeSidebarItem) activeSidebarItem.classList.add('active');
+      const topbarCrumb = document.getElementById('topbar-current-agent');
+      if (topbarCrumb && AGENT_CONFIGS[agentId]) topbarCrumb.textContent = AGENT_CONFIGS[agentId].name;
       const activeTab = document.getElementById(`tab-${agentId}`);
       if (activeTab) {
         activeTab.classList.add('active');
@@ -4431,6 +5334,7 @@
 
       feed.appendChild(row);
       feed.scrollTop = feed.scrollHeight;
+      try { window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' }); } catch (e) { }
     }
 
     function appendUserMessage(text, agentId = null) {
@@ -4448,6 +5352,7 @@
 
       feed.appendChild(row);
       feed.scrollTop = feed.scrollHeight;
+      try { window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' }); } catch (e) { }
     }
 
     function formatMarkdown(text) {
@@ -4739,7 +5644,7 @@
         // 3. Padrão: publica produtos do lote ativo
         executeChipAction('runAgent3Publish10');
       } else if (currentAgent === 'agent4') {
-        executeChipAction('runDiagnostics');
+        executeChipAction('runPipelineReport');
       }
     }
 
@@ -5201,18 +6106,205 @@
           promptPublishEstrutura1();
           break;
 
-        case 'runDiagnostics':
-          appendUserMessage('Executar diagnóstico de rejeições');
-          runDiagnostics();
+        case 'runPipelineReport':
+          appendUserMessage('Gerar Relatório Geral da Operação');
+          runPipelineReport();
           break;
 
-        case 'fixAllCategories':
-          fixAllCategories();
+        case 'runBatchFunnelAudit':
+          appendUserMessage('Auditar Funil SKU a SKU do Lote Ativo');
+          runBatchFunnelAudit();
           break;
 
-        case 'openRejectedPage':
-          window.location.href = '/rejeitados.html';
+        case 'openEvidencesGallery':
+          appendUserMessage('Visualizar Galeria de Comprovantes Magis5');
+          openEvidencesGallery();
           break;
+
+        case 'openEsteiraFullPage':
+          appendUserMessage('Abrir Painel Consolidado da Esteira');
+          window.open('/relatorio-esteira.html', '_blank');
+          break;
+      }
+    }
+
+    // ─────────────────────────────────────────────────────────────────────────
+    // Funções do Agente 4 — Relator Executivo & Auditor da Esteira
+    // ─────────────────────────────────────────────────────────────────────────
+    async function runPipelineReport() {
+      appendBotMessage('agent4', '📊 Compilando dados em tempo real dos Agentes 0, 1, 2 e 3... Aguarde alguns instantes.');
+      try {
+        const res = await fetch('/api/agent4/report');
+        const data = await res.json();
+        if (!data.success || !data.report) {
+          throw new Error(data.error || 'Não foi possível carregar o relatório.');
+        }
+
+        const rep = data.report;
+        const s = rep.summary;
+        const ag = rep.agentsStatus;
+
+        const cardHtml = `
+          <div style="background: linear-gradient(135deg, rgba(15,23,42,0.98), rgba(30,41,59,0.98)); border: 1px solid rgba(59,130,246,0.35); border-radius: 12px; padding: 16px; margin-top: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 10px; margin-bottom: 14px;">
+              <span style="font-weight: 800; color: #38bdf8; font-size: 0.95rem; display: flex; align-items: center; gap: 8px;">
+                📊 RELATÓRIO EXECUTIVO DA ESTEIRA
+              </span>
+              <span style="background: rgba(16,185,129,0.18); color: #34d399; padding: 3px 10px; border-radius: 12px; font-size: 0.76rem; font-weight: 700; border: 1px solid rgba(16,185,129,0.35);">
+                ${s.completionRate}% Concluído
+              </span>
+            </div>
+
+            <!-- KPIs Rápidos -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 8px; margin-bottom: 14px;">
+              <div style="background: rgba(0,0,0,0.4); padding: 10px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.06); text-align: center;">
+                <div style="font-size: 0.72rem; color: #94a3b8; font-weight: 600;">LOTE ATIVO</div>
+                <div style="font-size: 1.2rem; font-weight: 800; color: #fff;">${s.totalParents}</div>
+                <div style="font-size: 0.68rem; color: #64748b;">anúncios pai</div>
+              </div>
+
+              <div style="background: rgba(0,0,0,0.4); padding: 10px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.06); text-align: center;">
+                <div style="font-size: 0.72rem; color: #94a3b8; font-weight: 600;">FOTOS (AG. 1)</div>
+                <div style="font-size: 1.2rem; font-weight: 800; color: #38bdf8;">${s.batchPhotosCount}</div>
+                <div style="font-size: 0.68rem; color: #64748b;">${s.photosRate}% do lote</div>
+              </div>
+
+              <div style="background: rgba(0,0,0,0.4); padding: 10px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.06); text-align: center;">
+                <div style="font-size: 0.72rem; color: #94a3b8; font-weight: 600;">IA SEO (AG. 2)</div>
+                <div style="font-size: 1.2rem; font-weight: 800; color: #a78bfa;">${s.batchEnrichedCount}</div>
+                <div style="font-size: 0.68rem; color: #64748b;">${s.enrichmentRate}% do lote</div>
+              </div>
+
+              <div style="background: rgba(0,0,0,0.4); padding: 10px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.06); text-align: center;">
+                <div style="font-size: 0.72rem; color: #94a3b8; font-weight: 600;">PUBLICADOS (AG. 3)</div>
+                <div style="font-size: 1.2rem; font-weight: 800; color: #34d399;">${s.batchPublishedCount}</div>
+                <div style="font-size: 0.68rem; color: #64748b;">${s.completionRate}% do lote</div>
+              </div>
+            </div>
+
+            <!-- Alerta de Gargalo -->
+            <div style="background: rgba(245,158,11,0.12); border: 1px solid rgba(245,158,11,0.3); border-radius: 8px; padding: 10px 12px; margin-bottom: 14px; font-size: 0.82rem; color: #fde68a;">
+              ⚠️ <strong>Ponto de Atenção: ${escapeHtml(s.currentBottleneck)}</strong><br>
+              <span style="color: #cbd5e1;">${escapeHtml(s.bottleneckAdvice)}</span>
+            </div>
+
+            <!-- Botões de Ação do Relatório -->
+            <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+              <a href="/relatorio-esteira.html" target="_blank" class="btn-action-primary" style="background: #0284c7; border-color: #0369a1; text-decoration: none; padding: 8px 14px; font-size: 0.84rem; display: inline-flex; align-items: center; gap: 6px;">
+                <span>🌐</span> Abrir Relatório Completo em Tela Cheia &rarr;
+              </a>
+              <button type="button" class="btn-action-secondary" onclick="executeChipAction('runBatchFunnelAudit')" style="padding: 8px 14px; font-size: 0.84rem; display: inline-flex; align-items: center; gap: 6px;">
+                <span>🎯</span> Ver Funil SKU a SKU
+              </button>
+            </div>
+          </div>
+        `;
+
+        appendBotMessage('agent4', `Relatório da esteira compilado com sucesso às **${rep.generatedAtBr}**:`, cardHtml);
+      } catch (err) {
+        appendBotMessage('agent4', `❌ Erro ao compilar relatório: ${err.message}`);
+      }
+    }
+
+    async function runBatchFunnelAudit() {
+      appendBotMessage('agent4', '🎯 Auditando o funil de cada produto do lote ativo...');
+      try {
+        const res = await fetch('/api/agent4/report');
+        const data = await res.json();
+        const rep = data.report;
+        const funnel = rep.funnel || [];
+
+        if (funnel.length === 0) {
+          appendBotMessage('agent4', 'Nenhum produto encontrado no lote ativo para auditar.');
+          return;
+        }
+
+        const previewItems = funnel.slice(0, 15);
+        const rowsHtml = previewItems.map(item => `
+          <tr style="border-bottom: 1px solid rgba(255,255,255,0.06); font-size: 0.82rem;">
+            <td style="padding: 8px; font-family: monospace; font-weight: 700; color: #fff;">${escapeHtml(item.parentSku)}</td>
+            <td style="padding: 8px; max-width: 220px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: #cbd5e1;" title="${escapeHtml(item.title)}">${escapeHtml(item.title)}</td>
+            <td style="padding: 8px; text-align: center;">${item.hasPhotos ? '<span style="color: #34d399;">✓</span>' : '<span style="color: #ef4444;">✕</span>'}</td>
+            <td style="padding: 8px; text-align: center;">${item.isEnriched ? '<span style="color: #34d399;">✓</span>' : '<span style="color: #ef4444;">✕</span>'}</td>
+            <td style="padding: 8px; text-align: center;">${item.isPublished ? '<span style="color: #34d399; font-weight: 700;">✓ Publicado</span>' : (item.hasFailedRPA ? '<span style="color: #ef4444;">Falhou</span>' : '<span style="color: #f59e0b;">Pendente</span>')}</td>
+          </tr>
+        `).join('');
+
+        const tableCard = `
+          <div style="background: rgba(15,23,42,0.95); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; padding: 14px; margin-top: 10px; overflow-x: auto;">
+            <div style="font-weight: 700; color: #38bdf8; font-size: 0.9rem; margin-bottom: 8px; display: flex; justify-content: space-between;">
+              <span>🎯 SITUAÇÃO DOS PRIMEIROS 15 PRODUTOS DO LOTE</span>
+              <span style="font-size: 0.75rem; color: #94a3b8;">Total no lote: ${funnel.length} produtos</span>
+            </div>
+            <table style="width: 100%; border-collapse: collapse; text-align: left;">
+              <thead>
+                <tr style="border-bottom: 1px solid rgba(255,255,255,0.12); color: #94a3b8; font-size: 0.75rem;">
+                  <th style="padding: 6px 8px;">CÓDIGO</th>
+                  <th style="padding: 6px 8px;">TÍTULO</th>
+                  <th style="padding: 6px 8px; text-align: center;">FOTOS</th>
+                  <th style="padding: 6px 8px; text-align: center;">IA SEO</th>
+                  <th style="padding: 6px 8px; text-align: center;">MAGIS5</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${rowsHtml}
+              </tbody>
+            </table>
+            <div style="margin-top: 10px; text-align: center;">
+              <a href="/relatorio-esteira.html" target="_blank" style="color: #38bdf8; font-size: 0.8rem; text-decoration: underline;">
+                Ver todos os ${funnel.length} produtos na página completa &rarr;
+              </a>
+            </div>
+          </div>
+        `;
+
+        appendBotMessage('agent4', `Auditoria do lote **${escapeHtml(rep.activeBatch.name)}**:`, tableCard);
+      } catch (err) {
+        appendBotMessage('agent4', `❌ Erro ao auditar lote: ${err.message}`);
+      }
+    }
+
+    async function openEvidencesGallery() {
+      appendBotMessage('agent4', '📸 Carregando galeria de comprovantes de publicação...');
+      try {
+        const res = await fetch('/api/agent4/report');
+        const data = await res.json();
+        const evs = data.report?.recentEvidences || [];
+
+        if (evs.length === 0) {
+          appendBotMessage('agent4', 'Nenhum comprovante de publicação encontrado no momento.');
+          return;
+        }
+
+        const itemsHtml = evs.slice(0, 6).map(ev => `
+          <a href="${ev.url}" target="_blank" style="background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; overflow: hidden; text-decoration: none; color: #fff; display: flex; flex-direction: column;">
+            <img src="${ev.url}" style="width: 100%; height: 85px; object-fit: cover; display: block;" />
+            <div style="padding: 6px 8px; font-size: 0.72rem;">
+              <span style="font-weight: 700; color: ${ev.isSuccess ? '#34d399' : '#f87171'};">${ev.isSuccess ? '✓ SALVO' : '✕ ERRO'}</span>
+              <div style="font-family: monospace; font-weight: 600; margin-top: 2px;">${escapeHtml(ev.sku || 'PRODUTO')}</div>
+            </div>
+          </a>
+        `).join('');
+
+        const galleryCard = `
+          <div style="background: rgba(15,23,42,0.95); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; padding: 14px; margin-top: 10px;">
+            <div style="font-weight: 700; color: #38bdf8; font-size: 0.9rem; margin-bottom: 10px;">
+              📸 ÚLTIMOS COMPROVANTES CAPTURADOS PELO AGENTE 3
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 8px;">
+              ${itemsHtml}
+            </div>
+            <div style="margin-top: 10px; text-align: center;">
+              <a href="/relatorio-esteira.html" target="_blank" style="color: #38bdf8; font-size: 0.8rem; text-decoration: underline;">
+                Ver galeria completa de comprovantes &rarr;
+              </a>
+            </div>
+          </div>
+        `;
+
+        appendBotMessage('agent4', 'Comprovantes reais salvos pelo robô no Magis5:', galleryCard);
+      } catch (err) {
+        appendBotMessage('agent4', `❌ Erro ao carregar comprovantes: ${err.message}`);
       }
     }
 
@@ -6314,26 +7406,180 @@
       }
     }
 
-    async function runDiagnostics() {
-      appendBotMessage('agent4', 'Executando diagnóstico de rejeições e conferência de regras...');
+    async function runPipelineReport() {
+      appendBotMessage('agent4', '📊 Compilando dados em tempo real dos Agentes 0, 1, 2 e 3... Aguarde alguns instantes.');
       try {
-        const res = await fetch('/api/diagnostics?refresh=true');
+        const res = await fetch('/api/agent4/report');
         const data = await res.json();
-        appendBotMessage('agent4', `📊 **Diagnóstico Concluído:**\n• Total de produtos rejeitados: **${data.total || 0}**\n• Erros de categoria: **${data.byType?.category || 0}**\n• Erros de atributos: **${data.byType?.attributes || 0}**\n\n👉 Acesse a aba de **Falhas** no topo para aplicar correções em massa.`);
+        if (!data.success || !data.report) {
+          throw new Error(data.error || 'Não foi possível carregar o relatório.');
+        }
+
+        const rep = data.report;
+        const s = rep.summary;
+        const ag = rep.agentsStatus;
+
+        const cardHtml = `
+          <div style="background: linear-gradient(135deg, rgba(15,23,42,0.98), rgba(30,41,59,0.98)); border: 1px solid rgba(59,130,246,0.35); border-radius: 12px; padding: 16px; margin-top: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 10px; margin-bottom: 14px;">
+              <span style="font-weight: 800; color: #38bdf8; font-size: 0.95rem; display: flex; align-items: center; gap: 8px;">
+                📊 RELATÓRIO EXECUTIVO DA ESTEIRA
+              </span>
+              <span style="background: rgba(16,185,129,0.18); color: #34d399; padding: 3px 10px; border-radius: 12px; font-size: 0.76rem; font-weight: 700; border: 1px solid rgba(16,185,129,0.35);">
+                ${s.completionRate}% Concluído
+              </span>
+            </div>
+
+            <!-- KPIs Rápidos -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 8px; margin-bottom: 14px;">
+              <div style="background: rgba(0,0,0,0.4); padding: 10px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.06); text-align: center;">
+                <div style="font-size: 0.72rem; color: #94a3b8; font-weight: 600;">LOTE ATIVO</div>
+                <div style="font-size: 1.2rem; font-weight: 800; color: #fff;">${s.totalParents}</div>
+                <div style="font-size: 0.68rem; color: #64748b;">anúncios pai</div>
+              </div>
+
+              <div style="background: rgba(0,0,0,0.4); padding: 10px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.06); text-align: center;">
+                <div style="font-size: 0.72rem; color: #94a3b8; font-weight: 600;">FOTOS (AG. 1)</div>
+                <div style="font-size: 1.2rem; font-weight: 800; color: #38bdf8;">${s.batchPhotosCount}</div>
+                <div style="font-size: 0.68rem; color: #64748b;">${s.photosRate}% do lote</div>
+              </div>
+
+              <div style="background: rgba(0,0,0,0.4); padding: 10px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.06); text-align: center;">
+                <div style="font-size: 0.72rem; color: #94a3b8; font-weight: 600;">IA SEO (AG. 2)</div>
+                <div style="font-size: 1.2rem; font-weight: 800; color: #a78bfa;">${s.batchEnrichedCount}</div>
+                <div style="font-size: 0.68rem; color: #64748b;">${s.enrichmentRate}% do lote</div>
+              </div>
+
+              <div style="background: rgba(0,0,0,0.4); padding: 10px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.06); text-align: center;">
+                <div style="font-size: 0.72rem; color: #94a3b8; font-weight: 600;">PUBLICADOS (AG. 3)</div>
+                <div style="font-size: 1.2rem; font-weight: 800; color: #34d399;">${s.batchPublishedCount}</div>
+                <div style="font-size: 0.68rem; color: #64748b;">${s.completionRate}% do lote</div>
+              </div>
+            </div>
+
+            <!-- Alerta de Gargalo -->
+            <div style="background: rgba(245,158,11,0.12); border: 1px solid rgba(245,158,11,0.3); border-radius: 8px; padding: 10px 12px; margin-bottom: 14px; font-size: 0.82rem; color: #fde68a;">
+              ⚠️ <strong>Ponto de Atenção: ${escapeHtml(s.currentBottleneck)}</strong><br>
+              <span style="color: #cbd5e1;">${escapeHtml(s.bottleneckAdvice)}</span>
+            </div>
+
+            <!-- Botões de Ação do Relatório -->
+            <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+              <a href="/relatorio-esteira.html" target="_blank" class="btn-action-primary" style="background: #0284c7; border-color: #0369a1; text-decoration: none; padding: 8px 14px; font-size: 0.84rem; display: inline-flex; align-items: center; gap: 6px;">
+                <span>🌐</span> Abrir Relatório Completo em Tela Cheia &rarr;
+              </a>
+              <button type="button" class="btn-action-secondary" onclick="executeChipAction('runBatchFunnelAudit')" style="padding: 8px 14px; font-size: 0.84rem; display: inline-flex; align-items: center; gap: 6px;">
+                <span>🎯</span> Ver Funil SKU a SKU
+              </button>
+            </div>
+          </div>
+        `;
+
+        appendBotMessage('agent4', `Relatório da esteira compilado com sucesso às **${rep.generatedAtBr}**:`, cardHtml);
       } catch (err) {
-        appendBotMessage('agent4', `❌ Falha ao obter diagnósticos: ${err.message}`);
+        appendBotMessage('agent4', `❌ Erro ao compilar relatório: ${err.message}`);
       }
     }
 
-    async function fixAllCategories() {
-      appendUserMessage('Aplicar Auto-Fix de Categorias em Massa');
-      appendBotMessage('agent4', 'Aplicando correção automática em massa nas categorias dos produtos rejeitados...');
+    async function runBatchFunnelAudit() {
+      appendBotMessage('agent4', '🎯 Auditando o funil de cada produto do lote ativo...');
       try {
-        const res = await fetch('/api/diagnostics/fix-all', { method: 'POST' });
+        const res = await fetch('/api/agent4/report');
         const data = await res.json();
-        appendBotMessage('agent4', `✨ **Correção concluída com sucesso!**\n• Produtos corrigidos: **${data.fixedCount || 0}**\n• Falhas: **${data.errorCount || 0}**`);
+        const rep = data.report;
+        const funnel = rep.funnel || [];
+
+        if (funnel.length === 0) {
+          appendBotMessage('agent4', 'Nenhum produto encontrado no lote ativo para auditar.');
+          return;
+        }
+
+        const previewItems = funnel.slice(0, 15);
+        const rowsHtml = previewItems.map(item => `
+          <tr style="border-bottom: 1px solid rgba(255,255,255,0.06); font-size: 0.82rem;">
+            <td style="padding: 8px; font-family: monospace; font-weight: 700; color: #fff;">${escapeHtml(item.parentSku)}</td>
+            <td style="padding: 8px; max-width: 220px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: #cbd5e1;" title="${escapeHtml(item.title)}">${escapeHtml(item.title)}</td>
+            <td style="padding: 8px; text-align: center;">${item.hasPhotos ? '<span style="color: #34d399;">✓</span>' : '<span style="color: #ef4444;">✕</span>'}</td>
+            <td style="padding: 8px; text-align: center;">${item.isEnriched ? '<span style="color: #34d399;">✓</span>' : '<span style="color: #ef4444;">✕</span>'}</td>
+            <td style="padding: 8px; text-align: center;">${item.isPublished ? '<span style="color: #34d399; font-weight: 700;">✓ Publicado</span>' : (item.hasFailedRPA ? '<span style="color: #ef4444;">Falhou</span>' : '<span style="color: #f59e0b;">Pendente</span>')}</td>
+          </tr>
+        `).join('');
+
+        const tableCard = `
+          <div style="background: rgba(15,23,42,0.95); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; padding: 14px; margin-top: 10px; overflow-x: auto;">
+            <div style="font-weight: 700; color: #38bdf8; font-size: 0.9rem; margin-bottom: 8px; display: flex; justify-content: space-between;">
+              <span>🎯 SITUAÇÃO DOS PRIMEIROS 15 PRODUTOS DO LOTE</span>
+              <span style="font-size: 0.75rem; color: #94a3b8;">Total no lote: ${funnel.length} produtos</span>
+            </div>
+            <table style="width: 100%; border-collapse: collapse; text-align: left;">
+              <thead>
+                <tr style="border-bottom: 1px solid rgba(255,255,255,0.12); color: #94a3b8; font-size: 0.75rem;">
+                  <th style="padding: 6px 8px;">CÓDIGO</th>
+                  <th style="padding: 6px 8px;">TÍTULO</th>
+                  <th style="padding: 6px 8px; text-align: center;">FOTOS</th>
+                  <th style="padding: 6px 8px; text-align: center;">IA SEO</th>
+                  <th style="padding: 6px 8px; text-align: center;">MAGIS5</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${rowsHtml}
+              </tbody>
+            </table>
+            <div style="margin-top: 10px; text-align: center;">
+              <a href="/relatorio-esteira.html" target="_blank" style="color: #38bdf8; font-size: 0.8rem; text-decoration: underline;">
+                Ver todos os ${funnel.length} produtos na página completa &rarr;
+              </a>
+            </div>
+          </div>
+        `;
+
+        appendBotMessage('agent4', `Auditoria do lote **${escapeHtml(rep.activeBatch.name)}**:`, tableCard);
       } catch (err) {
-        appendBotMessage('agent4', `❌ Falha ao aplicar correções: ${err.message}`);
+        appendBotMessage('agent4', `❌ Erro ao auditar lote: ${err.message}`);
+      }
+    }
+
+    async function openEvidencesGallery() {
+      appendBotMessage('agent4', '📸 Carregando galeria de comprovantes de publicação...');
+      try {
+        const res = await fetch('/api/agent4/report');
+        const data = await res.json();
+        const evs = data.report?.recentEvidences || [];
+
+        if (evs.length === 0) {
+          appendBotMessage('agent4', 'Nenhum comprovante de publicação encontrado no momento.');
+          return;
+        }
+
+        const itemsHtml = evs.slice(0, 6).map(ev => `
+          <a href="${ev.url}" target="_blank" style="background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; overflow: hidden; text-decoration: none; color: #fff; display: flex; flex-direction: column;">
+            <img src="${ev.url}" style="width: 100%; height: 85px; object-fit: cover; display: block;" />
+            <div style="padding: 6px 8px; font-size: 0.72rem;">
+              <span style="font-weight: 700; color: ${ev.isSuccess ? '#34d399' : '#f87171'};">${ev.isSuccess ? '✓ SALVO' : '✕ ERRO'}</span>
+              <div style="font-family: monospace; font-weight: 600; margin-top: 2px;">${escapeHtml(ev.sku || 'PRODUTO')}</div>
+            </div>
+          </a>
+        `).join('');
+
+        const galleryCard = `
+          <div style="background: rgba(15,23,42,0.95); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; padding: 14px; margin-top: 10px;">
+            <div style="font-weight: 700; color: #38bdf8; font-size: 0.9rem; margin-bottom: 10px;">
+              📸 ÚLTIMOS COMPROVANTES CAPTURADOS PELO AGENTE 3
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 8px;">
+              ${itemsHtml}
+            </div>
+            <div style="margin-top: 10px; text-align: center;">
+              <a href="/relatorio-esteira.html" target="_blank" style="color: #38bdf8; font-size: 0.8rem; text-decoration: underline;">
+                Ver galeria completa de comprovantes &rarr;
+              </a>
+            </div>
+          </div>
+        `;
+
+        appendBotMessage('agent4', 'Comprovantes reais salvos pelo robô no Magis5:', galleryCard);
+      } catch (err) {
+        appendBotMessage('agent4', `❌ Erro ao carregar comprovantes: ${err.message}`);
       }
     }
 
@@ -6392,7 +7638,7 @@
       const agentNames = {
         agent0: 'Sankhya Scout', agent1: 'Coletor de Fotos',
         agent2: 'IA Vision & SEO', agent3: 'Magis5 RPA',
-        agent4: 'Auditor & Correções'
+        agent4: 'Relator da Esteira'
       };
       const agentName = agentNames[agentId] || agentId;
 
@@ -6784,7 +8030,25 @@
         }
       });
     }
-  </script>
+  
+    // ── Controle do Menu Lateral Shopee ────────────────────────────────
+    function toggleShopeeSidebar() {
+      document.body.classList.toggle('sidebar-collapsed');
+      const isCollapsed = document.body.classList.contains('sidebar-collapsed');
+      localStorage.setItem('shopee_sidebar_collapsed', isCollapsed ? '1' : '0');
+    }
+
+    function toggleShopeeSidebarMobile() {
+      document.body.classList.toggle('sidebar-mobile-open');
+    }
+
+    // Restaura preferência salva do usuário
+    if (localStorage.getItem('shopee_sidebar_collapsed') === '1') {
+      document.body.classList.add('sidebar-collapsed');
+    }
+
+</script>
+  </div><!-- fecha .shopee-main-wrapper -->
 </body>
 
 </html>

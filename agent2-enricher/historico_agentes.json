@@ -1,5 +1,824 @@
 [
   {
+    "id": "exec_1790710329577_2es3",
+    "agentId": "agent2",
+    "agentName": "Agente 2 — IA Vision & SEO",
+    "timestamp": "2026-09-29T19:32:09.577Z",
+    "formattedDate": "29/09/2026",
+    "formattedTime": "16:32:09",
+    "status": "error",
+    "durationSeconds": 5475,
+    "durationFormatted": "91m 15s",
+    "summary": "Execução finalizou com erro (código null)",
+    "details": [
+      "275 produtos encontrados. Gerando relatório...",
+      "Progresso: 160/309"
+    ],
+    "skus": [],
+    "files": [],
+    "metadata": {
+      "exitCode": null,
+      "model": "gemini-2.5-flash"
+    }
+  },
+  {
+    "id": "exec_1790710329518_f0ak",
+    "agentId": "agent2",
+    "agentName": "Agente 2 — IA Vision & SEO",
+    "timestamp": "2026-09-29T19:32:09.518Z",
+    "formattedDate": "29/09/2026",
+    "formattedTime": "16:32:09",
+    "status": "error",
+    "durationSeconds": 5475,
+    "durationFormatted": "91m 15s",
+    "summary": "Execução finalizou com erro (código null)",
+    "details": [
+      "275 produtos encontrados. Gerando relatório...",
+      "Progresso: 160/309"
+    ],
+    "skus": [],
+    "files": [],
+    "metadata": {
+      "exitCode": null,
+      "model": "gemini-2.5-flash"
+    }
+  },
+  {
+    "id": "exec_1790710076932_od6q",
+    "agentId": "agent2",
+    "agentName": "Agente 2 — IA Vision & SEO",
+    "timestamp": "2026-09-29T19:27:56.932Z",
+    "formattedDate": "29/09/2026",
+    "formattedTime": "16:27:56",
+    "status": "error",
+    "durationSeconds": 5222,
+    "durationFormatted": "87m 2s",
+    "summary": "Execução finalizou com erro (código null)",
+    "details": [
+      "275 produtos encontrados. Gerando relatório...",
+      "Progresso: 160/309"
+    ],
+    "skus": [],
+    "files": [],
+    "metadata": {
+      "exitCode": null,
+      "model": "gemini-2.5-flash"
+    }
+  },
+  {
+    "id": "exec_1790704856859_x982",
+    "agentId": "agent3",
+    "agentName": "Agente 3 — RPA Publicador Magis5",
+    "timestamp": "2026-09-29T18:00:56.859Z",
+    "formattedDate": "29/09/2026",
+    "formattedTime": "15:00:56",
+    "status": "error",
+    "durationSeconds": 2,
+    "durationFormatted": "2s",
+    "summary": "Execução finalizou com erro (código 1)",
+    "details": [
+      "Carregando dependências e ambiente de execução...",
+      "Progresso: 0/10"
+    ],
+    "skus": [],
+    "files": [],
+    "metadata": {
+      "exitCode": 1,
+      "model": "gemini-2.5-flash"
+    }
+  },
+  {
+    "id": "exec_1790704847894_ceu2",
+    "agentId": "agent2",
+    "agentName": "Agente 2 — IA Vision & SEO",
+    "timestamp": "2026-09-29T18:00:47.894Z",
+    "formattedDate": "29/09/2026",
+    "formattedTime": "15:00:47",
+    "status": "success",
+    "durationSeconds": 107,
+    "durationFormatted": "1m 47s",
+    "summary": "Execução concluída com sucesso (SKU CAX023)",
+    "details": [
+      "272 produtos encontrados. Gerando relatório...",
+      "Progresso: 96/309"
+    ],
+    "skus": [
+      "CAX023"
+    ],
+    "files": [],
+    "metadata": {
+      "exitCode": 0,
+      "model": "gemini-2.5-flash"
+    }
+  },
+  {
+    "id": "exec_1790703577691_3iwc",
+    "agentId": "agent3",
+    "agentName": "Agente 3 — RPA Publicador Magis5",
+    "timestamp": "2026-09-29T17:39:37.691Z",
+    "formattedDate": "29/09/2026",
+    "formattedTime": "14:39:37",
+    "status": "error",
+    "durationSeconds": 2,
+    "durationFormatted": "2s",
+    "summary": "Execução finalizou com erro (código 1)",
+    "details": [
+      "Carregando dependências e ambiente de execução...",
+      "Progresso: 0/10"
+    ],
+    "skus": [],
+    "files": [],
+    "metadata": {
+      "exitCode": 1,
+      "model": "gemini-2.5-flash"
+    }
+  },
+  {
+    "id": "exec_1790703560353_8m0m",
+    "agentId": "agent2",
+    "agentName": "Agente 2 — IA Vision & SEO",
+    "timestamp": "2026-09-29T17:39:20.353Z",
+    "formattedDate": "29/09/2026",
+    "formattedTime": "14:39:20",
+    "status": "success",
+    "durationSeconds": 106,
+    "durationFormatted": "1m 46s",
+    "summary": "Execução concluída com sucesso (SKU CAX023)",
+    "details": [
+      "272 produtos encontrados. Gerando relatório...",
+      "Progresso: 78/309"
+    ],
+    "skus": [
+      "CAX023"
+    ],
+    "files": [],
+    "metadata": {
+      "exitCode": 0,
+      "model": "gemini-2.5-flash"
+    }
+  },
+  {
+    "id": "exec_1790703422093_93or",
+    "agentId": "agent3",
+    "agentName": "Agente 3 — RPA Publicador Magis5",
+    "timestamp": "2026-09-29T17:37:02.093Z",
+    "formattedDate": "29/09/2026",
+    "formattedTime": "14:37:02",
+    "status": "error",
+    "durationSeconds": 2,
+    "durationFormatted": "2s",
+    "summary": "Execução finalizou com erro (código 1)",
+    "details": [
+      "Carregando dependências e ambiente de execução...",
+      "Progresso: 77/309"
+    ],
+    "skus": [],
+    "files": [],
+    "metadata": {
+      "exitCode": 1,
+      "model": "gemini-2.5-flash"
+    }
+  },
+  {
+    "id": "exec_1790703165070_kw78",
+    "agentId": "agent2",
+    "agentName": "Agente 2 — IA Vision & SEO",
+    "timestamp": "2026-09-29T17:32:45.070Z",
+    "formattedDate": "29/09/2026",
+    "formattedTime": "14:32:45",
+    "status": "success",
+    "durationSeconds": 211,
+    "durationFormatted": "3m 31s",
+    "summary": "Execução concluída com sucesso (Concluído)",
+    "details": [
+      "272 produtos encontrados. Gerando relatório...",
+      "Progresso: 75/309"
+    ],
+    "skus": [],
+    "files": [],
+    "metadata": {
+      "exitCode": 0,
+      "model": "gemini-2.5-flash"
+    }
+  },
+  {
+    "id": "exec_1790702948446_nxhi",
+    "agentId": "agent1",
+    "agentName": "Agente 1 — Coletor de Imagens",
+    "timestamp": "2026-09-29T17:29:08.446Z",
+    "formattedDate": "29/09/2026",
+    "formattedTime": "14:29:08",
+    "status": "success",
+    "durationSeconds": 7,
+    "durationFormatted": "7s",
+    "summary": "Execução concluída com sucesso (Concluído)",
+    "details": [
+      "[8/14] 📥 Baixando e aprimorando 4 fotos para CAX023BLPP...",
+      "Progresso: 14/14"
+    ],
+    "skus": [],
+    "files": [],
+    "metadata": {
+      "exitCode": 0,
+      "model": "gemini-2.5-flash"
+    }
+  },
+  {
+    "id": "exec_1790702815781_9fj8",
+    "agentId": "agent0",
+    "agentName": "Agente 0 — Sankhya Scout",
+    "timestamp": "2026-09-29T17:26:55.781Z",
+    "formattedDate": "29/09/2026",
+    "formattedTime": "14:26:55",
+    "status": "success",
+    "durationSeconds": 441,
+    "durationFormatted": "7m 21s",
+    "summary": "Execução concluída com sucesso (Concluído)",
+    "details": [
+      "Planilha .xlsx gerada e vinculada a todos os agentes",
+      "Progresso: 71/309"
+    ],
+    "skus": [],
+    "files": [
+      {
+        "name": "CAX023_1790702815343.xlsx",
+        "path": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\uploads\\CAX023_1790702815343.xlsx",
+        "size": 19385,
+        "downloadUrl": "/uploads/CAX023_1790702815343.xlsx",
+        "sizeFormatted": "18.9 KB"
+      }
+    ],
+    "metadata": {
+      "exitCode": 0,
+      "model": "gemini-2.5-flash"
+    }
+  },
+  {
+    "id": "exec_sankhya_CAX023_1790702815343_xlsx",
+    "agentId": "agent0",
+    "agentName": "Agente 0 — Sankhya Scout",
+    "timestamp": "2026-09-29T17:26:55.343Z",
+    "formattedDate": "29/09/2026",
+    "formattedTime": "14:26:55",
+    "status": "success",
+    "durationSeconds": 45,
+    "durationFormatted": "45s",
+    "summary": "Planilha exportada do Sankhya: CAX023_1790702815343.xlsx",
+    "details": [
+      "Arquivo de dados cadastrais Sankhya: CAX023_1790702815343.xlsx",
+      "Tamanho do arquivo: 18.9 KB",
+      "Pronta para download e processamento pelos Agentes 1, 2 e 3"
+    ],
+    "skus": [],
+    "files": [
+      {
+        "name": "CAX023_1790702815343.xlsx",
+        "path": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\uploads\\CAX023_1790702815343.xlsx",
+        "size": 19385,
+        "sizeFormatted": "18.9 KB",
+        "downloadUrl": "/uploads/CAX023_1790702815343.xlsx"
+      }
+    ],
+    "metadata": {
+      "autoDiscovered": true,
+      "fileName": "CAX023_1790702815343.xlsx"
+    }
+  },
+  {
+    "id": "exec_1790700364837_zw60",
+    "agentId": "agent3",
+    "agentName": "Agente 3 — RPA Publicador Magis5",
+    "timestamp": "2026-09-29T16:46:04.837Z",
+    "formattedDate": "29/09/2026",
+    "formattedTime": "13:46:04",
+    "status": "error",
+    "durationSeconds": 358,
+    "durationFormatted": "5m 58s",
+    "summary": "Execução finalizou com erro (código null)",
+    "details": [
+      "💾 Salvando rascunho corrigido...",
+      "Progresso: 42/309"
+    ],
+    "skus": [
+      "CAX020"
+    ],
+    "files": [],
+    "metadata": {
+      "exitCode": null,
+      "model": "gemini-2.5-flash"
+    }
+  },
+  {
+    "id": "exec_1790700008735_tc42",
+    "agentId": "agent3",
+    "agentName": "Agente 3 — RPA Publicador Magis5",
+    "timestamp": "2026-09-29T16:40:08.735Z",
+    "formattedDate": "29/09/2026",
+    "formattedTime": "13:40:08",
+    "status": "error",
+    "durationSeconds": 2,
+    "durationFormatted": "2s",
+    "summary": "Execução finalizou com erro (código 1)",
+    "details": [
+      "Carregando dependências e ambiente de execução..."
+    ],
+    "skus": [
+      "CAX020"
+    ],
+    "files": [],
+    "metadata": {
+      "exitCode": 1,
+      "model": "gemini-2.5-flash"
+    }
+  },
+  {
+    "id": "exec_1790697880148_epi2",
+    "agentId": "agent3",
+    "agentName": "Agente 3 — RPA Publicador Magis5",
+    "timestamp": "2026-09-29T16:04:40.148Z",
+    "formattedDate": "29/09/2026",
+    "formattedTime": "13:04:40",
+    "status": "error",
+    "durationSeconds": 7,
+    "durationFormatted": "7s",
+    "summary": "Execução finalizou com erro (código 1)",
+    "details": [
+      "Carregando dependências e ambiente de execução..."
+    ],
+    "skus": [
+      "CAX005BL"
+    ],
+    "files": [],
+    "metadata": {
+      "exitCode": 1,
+      "model": "gemini-2.5-flash"
+    }
+  },
+  {
+    "id": "exec_1790690054155_dco7",
+    "agentId": "agent1",
+    "agentName": "Agente 1 — Coletor de Imagens",
+    "timestamp": "2026-09-29T13:54:14.155Z",
+    "formattedDate": "29/09/2026",
+    "formattedTime": "10:54:14",
+    "status": "success",
+    "durationSeconds": 3,
+    "durationFormatted": "3s",
+    "summary": "Execução concluída com sucesso (SKU CAX005BL)",
+    "details": [
+      "Carregando dependências e ambiente de execução...",
+      "Progresso: 1/1"
+    ],
+    "skus": [
+      "CAX005BL"
+    ],
+    "files": [],
+    "metadata": {
+      "exitCode": 0,
+      "model": "gemini-2.5-flash"
+    }
+  },
+  {
+    "id": "exec_1790690018847_djhe",
+    "agentId": "agent0",
+    "agentName": "Agente 0 — Sankhya Scout",
+    "timestamp": "2026-09-29T13:53:38.847Z",
+    "formattedDate": "29/09/2026",
+    "formattedTime": "10:53:38",
+    "status": "error",
+    "durationSeconds": 49,
+    "durationFormatted": "49s",
+    "summary": "Execução finalizou com erro (código 1)",
+    "details": [
+      "📑 Gerando planilha Excel (.xlsx)...",
+      "Progresso: 1/1"
+    ],
+    "skus": [],
+    "files": [
+      {
+        "name": "Relatorio_Diagnostico_Produtos_Ativos_Shopee_AoVivo.xlsx",
+        "path": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\uploads\\Relatorio_Diagnostico_Produtos_Ativos_Shopee_AoVivo.xlsx",
+        "size": 841804,
+        "downloadUrl": "/uploads/Relatorio_Diagnostico_Produtos_Ativos_Shopee_AoVivo.xlsx",
+        "sizeFormatted": "822.1 KB"
+      }
+    ],
+    "metadata": {
+      "exitCode": 1,
+      "model": "gemini-2.5-flash"
+    }
+  },
+  {
+    "id": "exec_sankhya_Relatorio_Diagnostico_Produtos_Ativos_Shopee_AoVivo_xlsx",
+    "agentId": "agent0",
+    "agentName": "Agente 0 — Sankhya Scout",
+    "timestamp": "2026-09-23T20:52:27.256Z",
+    "formattedDate": "23/09/2026",
+    "formattedTime": "17:52:27",
+    "status": "success",
+    "durationSeconds": 45,
+    "durationFormatted": "45s",
+    "summary": "Planilha exportada do Sankhya: Relatorio_Diagnostico_Produtos_Ativos_Shopee_AoVivo.xlsx",
+    "details": [
+      "Arquivo de dados cadastrais Sankhya: Relatorio_Diagnostico_Produtos_Ativos_Shopee_AoVivo.xlsx",
+      "Tamanho do arquivo: 822.1 KB",
+      "Pronta para download e processamento pelos Agentes 1, 2 e 3"
+    ],
+    "skus": [],
+    "files": [
+      {
+        "name": "Relatorio_Diagnostico_Produtos_Ativos_Shopee_AoVivo.xlsx",
+        "path": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\uploads\\Relatorio_Diagnostico_Produtos_Ativos_Shopee_AoVivo.xlsx",
+        "size": 841804,
+        "sizeFormatted": "822.1 KB",
+        "downloadUrl": "/uploads/Relatorio_Diagnostico_Produtos_Ativos_Shopee_AoVivo.xlsx"
+      }
+    ],
+    "metadata": {
+      "autoDiscovered": true,
+      "fileName": "Relatorio_Diagnostico_Produtos_Ativos_Shopee_AoVivo.xlsx"
+    }
+  },
+  {
+    "id": "exec_sankhya_Relatorio_Diagnostico_Falhas_Shopee_BRK_Atualizado_xlsx",
+    "agentId": "agent0",
+    "agentName": "Agente 0 — Sankhya Scout",
+    "timestamp": "2026-09-23T19:32:20.653Z",
+    "formattedDate": "23/09/2026",
+    "formattedTime": "16:32:20",
+    "status": "success",
+    "durationSeconds": 45,
+    "durationFormatted": "45s",
+    "summary": "Planilha exportada do Sankhya: Relatorio_Diagnostico_Falhas_Shopee_BRK_Atualizado.xlsx",
+    "details": [
+      "Arquivo de dados cadastrais Sankhya: Relatorio_Diagnostico_Falhas_Shopee_BRK_Atualizado.xlsx",
+      "Tamanho do arquivo: 997.8 KB",
+      "Pronta para download e processamento pelos Agentes 1, 2 e 3"
+    ],
+    "skus": [],
+    "files": [
+      {
+        "name": "Relatorio_Diagnostico_Falhas_Shopee_BRK_Atualizado.xlsx",
+        "path": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\uploads\\Relatorio_Diagnostico_Falhas_Shopee_BRK_Atualizado.xlsx",
+        "size": 1021730,
+        "sizeFormatted": "997.8 KB",
+        "downloadUrl": "/uploads/Relatorio_Diagnostico_Falhas_Shopee_BRK_Atualizado.xlsx"
+      }
+    ],
+    "metadata": {
+      "autoDiscovered": true,
+      "fileName": "Relatorio_Diagnostico_Falhas_Shopee_BRK_Atualizado.xlsx"
+    }
+  },
+  {
+    "id": "exec_sankhya_Relatorio_Diagnostico_Falhas_Shopee_BRK_xlsx",
+    "agentId": "agent0",
+    "agentName": "Agente 0 — Sankhya Scout",
+    "timestamp": "2026-09-23T18:48:25.744Z",
+    "formattedDate": "23/09/2026",
+    "formattedTime": "15:48:25",
+    "status": "success",
+    "durationSeconds": 45,
+    "durationFormatted": "45s",
+    "summary": "Planilha exportada do Sankhya: Relatorio_Diagnostico_Falhas_Shopee_BRK.xlsx",
+    "details": [
+      "Arquivo de dados cadastrais Sankhya: Relatorio_Diagnostico_Falhas_Shopee_BRK.xlsx",
+      "Tamanho do arquivo: 1.7 MB",
+      "Pronta para download e processamento pelos Agentes 1, 2 e 3"
+    ],
+    "skus": [],
+    "files": [
+      {
+        "name": "Relatorio_Diagnostico_Falhas_Shopee_BRK.xlsx",
+        "path": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\uploads\\Relatorio_Diagnostico_Falhas_Shopee_BRK.xlsx",
+        "size": 1790844,
+        "sizeFormatted": "1.7 MB",
+        "downloadUrl": "/uploads/Relatorio_Diagnostico_Falhas_Shopee_BRK.xlsx"
+      }
+    ],
+    "metadata": {
+      "autoDiscovered": true,
+      "fileName": "Relatorio_Diagnostico_Falhas_Shopee_BRK.xlsx"
+    }
+  },
+  {
+    "id": "exec_sankhya_relatorio_produtos_sem_venda_xlsx",
+    "agentId": "agent0",
+    "agentName": "Agente 0 — Sankhya Scout",
+    "timestamp": "2026-09-22T20:58:02.858Z",
+    "formattedDate": "22/09/2026",
+    "formattedTime": "17:58:02",
+    "status": "success",
+    "durationSeconds": 45,
+    "durationFormatted": "45s",
+    "summary": "Planilha exportada do Sankhya: relatorio_produtos_sem_venda.xlsx",
+    "details": [
+      "Arquivo de dados cadastrais Sankhya: relatorio_produtos_sem_venda.xlsx",
+      "Tamanho do arquivo: 124.2 KB",
+      "Pronta para download e processamento pelos Agentes 1, 2 e 3"
+    ],
+    "skus": [],
+    "files": [
+      {
+        "name": "relatorio_produtos_sem_venda.xlsx",
+        "path": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\uploads\\relatorio_produtos_sem_venda.xlsx",
+        "size": 127199,
+        "sizeFormatted": "124.2 KB",
+        "downloadUrl": "/uploads/relatorio_produtos_sem_venda.xlsx"
+      }
+    ],
+    "metadata": {
+      "autoDiscovered": true,
+      "fileName": "relatorio_produtos_sem_venda.xlsx"
+    }
+  },
+  {
+    "id": "exec_1790009713270_axlv",
+    "agentId": "agent3",
+    "agentName": "Agente 3 — RPA Publicador Magis5",
+    "timestamp": "2026-09-21T16:55:13.270Z",
+    "formattedDate": "21/09/2026",
+    "formattedTime": "13:55:13",
+    "status": "success",
+    "durationSeconds": 914,
+    "durationFormatted": "15m 14s",
+    "summary": "Execução concluída com sucesso (SKU CAX022)",
+    "details": [
+      "✅ Anúncio/Rascunho salvo com sucesso no Magis5! Redirecionado para a listagem. Screenshot: C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\agent3-rpa-magis5\\screenshots\\draft-CAX022-1790009705308.png",
+      "Progresso: 68/68"
+    ],
+    "skus": [
+      "CAX022"
+    ],
+    "files": [],
+    "metadata": {
+      "exitCode": 0,
+      "model": "gemini-2.5-flash"
+    }
+  },
+  {
+    "id": "exec_1790009664688_ol4e",
+    "agentId": "agent2",
+    "agentName": "Agente 2 — IA Vision & SEO",
+    "timestamp": "2026-09-21T16:54:24.688Z",
+    "formattedDate": "21/09/2026",
+    "formattedTime": "13:54:24",
+    "status": "error",
+    "durationSeconds": 865,
+    "durationFormatted": "14m 25s",
+    "summary": "Execução finalizou com erro (código null)",
+    "details": [
+      "256 produtos encontrados. Gerando relatório...",
+      "Progresso: 68/68"
+    ],
+    "skus": [
+      "CAX022"
+    ],
+    "files": [],
+    "metadata": {
+      "exitCode": null,
+      "model": "gemini-2.5-flash"
+    }
+  },
+  {
+    "id": "exec_1790009644031_7fsc",
+    "agentId": "agent2",
+    "agentName": "Agente 2 — IA Vision & SEO",
+    "timestamp": "2026-09-21T16:54:04.031Z",
+    "formattedDate": "21/09/2026",
+    "formattedTime": "13:54:04",
+    "status": "error",
+    "durationSeconds": 844,
+    "durationFormatted": "14m 4s",
+    "summary": "Execução finalizou com erro (código null)",
+    "details": [
+      "256 produtos encontrados. Gerando relatório...",
+      "Progresso: 68/68"
+    ],
+    "skus": [
+      "CAX022"
+    ],
+    "files": [],
+    "metadata": {
+      "exitCode": null,
+      "model": "gemini-2.5-flash"
+    }
+  },
+  {
+    "id": "exec_1790009632150_jbji",
+    "agentId": "agent2",
+    "agentName": "Agente 2 — IA Vision & SEO",
+    "timestamp": "2026-09-21T16:53:52.150Z",
+    "formattedDate": "21/09/2026",
+    "formattedTime": "13:53:52",
+    "status": "error",
+    "durationSeconds": 832,
+    "durationFormatted": "13m 52s",
+    "summary": "Execução finalizou com erro (código null)",
+    "details": [
+      "256 produtos encontrados. Gerando relatório...",
+      "Progresso: 68/68"
+    ],
+    "skus": [
+      "CAX022"
+    ],
+    "files": [],
+    "metadata": {
+      "exitCode": null,
+      "model": "gemini-2.5-flash"
+    }
+  },
+  {
+    "id": "exec_1790009616710_ipy8",
+    "agentId": "agent2",
+    "agentName": "Agente 2 — IA Vision & SEO",
+    "timestamp": "2026-09-21T16:53:36.710Z",
+    "formattedDate": "21/09/2026",
+    "formattedTime": "13:53:36",
+    "status": "error",
+    "durationSeconds": 817,
+    "durationFormatted": "13m 37s",
+    "summary": "Execução finalizou com erro (código null)",
+    "details": [
+      "256 produtos encontrados. Gerando relatório...",
+      "Progresso: 68/68"
+    ],
+    "skus": [
+      "CAX016"
+    ],
+    "files": [],
+    "metadata": {
+      "exitCode": null,
+      "model": "gemini-2.5-flash"
+    }
+  },
+  {
+    "id": "exec_1790008771547_xbo4",
+    "agentId": "agent2",
+    "agentName": "Agente 2 — IA Vision & SEO",
+    "timestamp": "2026-09-21T16:39:31.547Z",
+    "formattedDate": "21/09/2026",
+    "formattedTime": "13:39:31",
+    "status": "success",
+    "durationSeconds": 32,
+    "durationFormatted": "32s",
+    "summary": "Execução concluída com sucesso (SKU CAX022_FULL\nCAX021BL_FULL)",
+    "details": [
+      "224 produtos encontrados. Gerando relatório...",
+      "Progresso: 1/1"
+    ],
+    "skus": [
+      "CAX022_FULL\nCAX021BL_FULL"
+    ],
+    "files": [],
+    "metadata": {
+      "exitCode": 0,
+      "model": "gemini-2.5-flash"
+    }
+  },
+  {
+    "id": "exec_1790008378413_b5c3",
+    "agentId": "agent1",
+    "agentName": "Agente 1 — Coletor de Imagens",
+    "timestamp": "2026-09-21T16:32:58.413Z",
+    "formattedDate": "21/09/2026",
+    "formattedTime": "13:32:58",
+    "status": "success",
+    "durationSeconds": 4,
+    "durationFormatted": "4s",
+    "summary": "Execução concluída com sucesso (SKU CAX021BL_FULL,CAX022_FULL)",
+    "details": [
+      "[2/2] 📥 Baixando e aprimorando 4 fotos para CAX022_FULL...",
+      "Progresso: 2/2"
+    ],
+    "skus": [
+      "CAX021BL_FULL,CAX022_FULL"
+    ],
+    "files": [],
+    "metadata": {
+      "exitCode": 0,
+      "model": "gemini-2.5-flash"
+    }
+  },
+  {
+    "id": "exec_1790001930162_jio5",
+    "agentId": "agent3",
+    "agentName": "Agente 3 — RPA Publicador Magis5",
+    "timestamp": "2026-09-21T14:45:30.162Z",
+    "formattedDate": "21/09/2026",
+    "formattedTime": "11:45:30",
+    "status": "success",
+    "durationSeconds": 953,
+    "durationFormatted": "15m 53s",
+    "summary": "Execução concluída com sucesso (SKU CAX029)",
+    "details": [
+      "Vinculando 1 foto oficial por modelo/variação",
+      "Progresso: 10/10"
+    ],
+    "skus": [
+      "CAX029"
+    ],
+    "files": [],
+    "metadata": {
+      "exitCode": 0,
+      "model": "groq"
+    }
+  },
+  {
+    "id": "exec_1790000375170_4guz",
+    "agentId": "agent3",
+    "agentName": "Agente 3 — RPA Publicador Magis5",
+    "timestamp": "2026-09-21T14:19:35.170Z",
+    "formattedDate": "21/09/2026",
+    "formattedTime": "11:19:35",
+    "status": "success",
+    "durationSeconds": 983,
+    "durationFormatted": "16m 23s",
+    "summary": "Execução concluída com sucesso (SKU CAX029)",
+    "details": [
+      "Vinculando 1 foto oficial por modelo/variação",
+      "Progresso: 10/10"
+    ],
+    "skus": [
+      "CAX029"
+    ],
+    "files": [],
+    "metadata": {
+      "exitCode": 0,
+      "model": "groq"
+    }
+  },
+  {
+    "id": "exec_1789998588127_fwms",
+    "agentId": "agent3",
+    "agentName": "Agente 3 — RPA Publicador Magis5",
+    "timestamp": "2026-09-21T13:49:48.127Z",
+    "formattedDate": "21/09/2026",
+    "formattedTime": "10:49:48",
+    "status": "success",
+    "durationSeconds": 1188,
+    "durationFormatted": "19m 48s",
+    "summary": "Execução concluída com sucesso (SKU CAX029)",
+    "details": [
+      "Vinculando 1 foto oficial por modelo/variação",
+      "Progresso: 10/10"
+    ],
+    "skus": [
+      "CAX029"
+    ],
+    "files": [],
+    "metadata": {
+      "exitCode": 0,
+      "model": "groq"
+    }
+  },
+  {
+    "id": "exec_1789998006048_3rit",
+    "agentId": "agent2",
+    "agentName": "Agente 2 — IA Vision & SEO",
+    "timestamp": "2026-09-21T13:40:06.048Z",
+    "formattedDate": "21/09/2026",
+    "formattedTime": "10:40:06",
+    "status": "error",
+    "durationSeconds": 606,
+    "durationFormatted": "10m 6s",
+    "summary": "Execução finalizou com erro (código null)",
+    "details": [
+      "Abrindo formulário de criação Shopee",
+      "Progresso: 6/10"
+    ],
+    "skus": [
+      "CAX014"
+    ],
+    "files": [],
+    "metadata": {
+      "exitCode": null,
+      "model": "groq"
+    }
+  },
+  {
+    "id": "exec_1789997338752_4uyq",
+    "agentId": "agent2",
+    "agentName": "Agente 2 — IA Vision & SEO",
+    "timestamp": "2026-09-21T13:28:58.752Z",
+    "formattedDate": "21/09/2026",
+    "formattedTime": "10:28:58",
+    "status": "success",
+    "durationSeconds": 89,
+    "durationFormatted": "1m 29s",
+    "summary": "Execução concluída com sucesso (Concluído)",
+    "details": [
+      "218 produtos encontrados. Gerando relatório...",
+      "Progresso: 20/20"
+    ],
+    "skus": [],
+    "files": [],
+    "metadata": {
+      "exitCode": 0,
+      "model": "groq"
+    }
+  },
+  {
     "id": "exec_1789994331530_vum8",
     "agentId": "agent3",
     "agentName": "Agente 3 — RPA Publicador Magis5",
@@ -157,6 +976,130 @@
     "metadata": {
       "autoDiscovered": true,
       "fileName": "ARMORX_1789992652872_1789992804925.xlsx"
+    }
+  },
+  {
+    "id": "exec_sankhya_ARMORX_1789992652872_1789996419600_xlsx",
+    "agentId": "agent0",
+    "agentName": "Agente 0 — Sankhya Scout",
+    "timestamp": "2026-09-21T12:10:52.872Z",
+    "formattedDate": "21/09/2026",
+    "formattedTime": "09:10:52",
+    "status": "success",
+    "durationSeconds": 45,
+    "durationFormatted": "45s",
+    "summary": "Planilha exportada do Sankhya: ARMORX_1789992652872_1789996419600.xlsx",
+    "details": [
+      "Arquivo de dados cadastrais Sankhya: ARMORX_1789992652872_1789996419600.xlsx",
+      "Tamanho do arquivo: 23.0 KB",
+      "Pronta para download e processamento pelos Agentes 1, 2 e 3"
+    ],
+    "skus": [],
+    "files": [
+      {
+        "name": "ARMORX_1789992652872_1789996419600.xlsx",
+        "path": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\uploads\\ARMORX_1789992652872_1789996419600.xlsx",
+        "size": 23601,
+        "sizeFormatted": "23.0 KB",
+        "downloadUrl": "/uploads/ARMORX_1789992652872_1789996419600.xlsx"
+      }
+    ],
+    "metadata": {
+      "autoDiscovered": true,
+      "fileName": "ARMORX_1789992652872_1789996419600.xlsx"
+    }
+  },
+  {
+    "id": "exec_sankhya_ARMORX_1789992652872_1789999391692_xlsx",
+    "agentId": "agent0",
+    "agentName": "Agente 0 — Sankhya Scout",
+    "timestamp": "2026-09-21T12:10:52.872Z",
+    "formattedDate": "21/09/2026",
+    "formattedTime": "09:10:52",
+    "status": "success",
+    "durationSeconds": 45,
+    "durationFormatted": "45s",
+    "summary": "Planilha exportada do Sankhya: ARMORX_1789992652872_1789999391692.xlsx",
+    "details": [
+      "Arquivo de dados cadastrais Sankhya: ARMORX_1789992652872_1789999391692.xlsx",
+      "Tamanho do arquivo: 23.0 KB",
+      "Pronta para download e processamento pelos Agentes 1, 2 e 3"
+    ],
+    "skus": [],
+    "files": [
+      {
+        "name": "ARMORX_1789992652872_1789999391692.xlsx",
+        "path": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\uploads\\ARMORX_1789992652872_1789999391692.xlsx",
+        "size": 23601,
+        "sizeFormatted": "23.0 KB",
+        "downloadUrl": "/uploads/ARMORX_1789992652872_1789999391692.xlsx"
+      }
+    ],
+    "metadata": {
+      "autoDiscovered": true,
+      "fileName": "ARMORX_1789992652872_1789999391692.xlsx"
+    }
+  },
+  {
+    "id": "exec_sankhya_ARMORX_1789992652872_1790000678965_xlsx",
+    "agentId": "agent0",
+    "agentName": "Agente 0 — Sankhya Scout",
+    "timestamp": "2026-09-21T12:10:52.872Z",
+    "formattedDate": "21/09/2026",
+    "formattedTime": "09:10:52",
+    "status": "success",
+    "durationSeconds": 45,
+    "durationFormatted": "45s",
+    "summary": "Planilha exportada do Sankhya: ARMORX_1789992652872_1790000678965.xlsx",
+    "details": [
+      "Arquivo de dados cadastrais Sankhya: ARMORX_1789992652872_1790000678965.xlsx",
+      "Tamanho do arquivo: 23.0 KB",
+      "Pronta para download e processamento pelos Agentes 1, 2 e 3"
+    ],
+    "skus": [],
+    "files": [
+      {
+        "name": "ARMORX_1789992652872_1790000678965.xlsx",
+        "path": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\uploads\\ARMORX_1789992652872_1790000678965.xlsx",
+        "size": 23601,
+        "sizeFormatted": "23.0 KB",
+        "downloadUrl": "/uploads/ARMORX_1789992652872_1790000678965.xlsx"
+      }
+    ],
+    "metadata": {
+      "autoDiscovered": true,
+      "fileName": "ARMORX_1789992652872_1790000678965.xlsx"
+    }
+  },
+  {
+    "id": "exec_sankhya_ARMORX_1789992652872_1790000976194_xlsx",
+    "agentId": "agent0",
+    "agentName": "Agente 0 — Sankhya Scout",
+    "timestamp": "2026-09-21T12:10:52.872Z",
+    "formattedDate": "21/09/2026",
+    "formattedTime": "09:10:52",
+    "status": "success",
+    "durationSeconds": 45,
+    "durationFormatted": "45s",
+    "summary": "Planilha exportada do Sankhya: ARMORX_1789992652872_1790000976194.xlsx",
+    "details": [
+      "Arquivo de dados cadastrais Sankhya: ARMORX_1789992652872_1790000976194.xlsx",
+      "Tamanho do arquivo: 23.0 KB",
+      "Pronta para download e processamento pelos Agentes 1, 2 e 3"
+    ],
+    "skus": [],
+    "files": [
+      {
+        "name": "ARMORX_1789992652872_1790000976194.xlsx",
+        "path": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\uploads\\ARMORX_1789992652872_1790000976194.xlsx",
+        "size": 23601,
+        "sizeFormatted": "23.0 KB",
+        "downloadUrl": "/uploads/ARMORX_1789992652872_1790000976194.xlsx"
+      }
+    ],
+    "metadata": {
+      "autoDiscovered": true,
+      "fileName": "ARMORX_1789992652872_1790000976194.xlsx"
     }
   },
   {

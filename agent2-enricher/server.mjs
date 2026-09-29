@@ -15,6 +15,7 @@ const PORT = process.env.PORT ? parseInt(process.env.PORT, 10) : 80;
 const NGROK_URL = process.env.NGROK_URL || process.env.SYSTEM_URL || 'https://daredevil-splashy-scrawny.ngrok-free.dev';
 const RELATORIO_PATH = path.join(__dirname, 'relatorio.html');
 const PAINEL_PATH = path.join(__dirname, 'painel.html');
+const ROADMAP_PATH = path.resolve(__dirname, '../roadmap_shopee_brk.html');
 const CSV_PATH = path.resolve(__dirname, '../agent1-scraper/lote_d1fae5.csv');
 const PRODUTOS_DIR = path.join(__dirname, 'produtos');
 const SCRAPER_DIR = path.resolve(__dirname, '../agent1-scraper');
@@ -406,7 +407,7 @@ function startAgent(agentId, options = {}) {
       addLog(`🔧 [AGENTE 3] Iniciando Correção de Variações em Rascunhos Magis5${options.onlyFusion ? ' (Exclusivo FUSION)' : ''}...`);
     } else {
       args = ['src/runner.mjs'];
-      const inputFile = effectiveInput;
+      const inputFile = (options.sku && !options.inputFile) ? null : effectiveInput;
       if (inputFile) {
         let fullPath = path.isAbsolute(inputFile)
           ? inputFile
@@ -464,7 +465,7 @@ function startAgent(agentId, options = {}) {
     }
   } else if (agentId === 'agent4') {
     cwd = path.resolve(__dirname, '../agent4-diagnostician');
-    args = ['diagnose.mjs'];
+    args = ['pipeline_reporter.mjs'];
   } else if (agentId === 'sync-report') {
     cwd = __dirname;
     args = ['report.mjs'];
@@ -1459,6 +1460,18 @@ const server = http.createServer(async (req, res) => {
     }
   }
 
+  // 6f. API: Relatório Consolidado da Esteira (Agente 4)
+  if (req.method === 'GET' && (urlPath === '/api/agent4/report' || urlPath === '/api/agents/agent4-report')) {
+    try {
+      const { generatePipelineReport } = await import('../agent4-diagnostician/pipeline_reporter.mjs');
+      const report = generatePipelineReport();
+      return sendJson(200, { success: true, report });
+    } catch (err) {
+      console.error('Erro ao gerar relatório do Agente 4:', err);
+      return sendJson(500, { error: err.message });
+    }
+  }
+
   // 7. API: Atualização manual de status de produto (existente)
   if (req.method === 'POST' && urlPath === '/api/status') {
     let body = '';
@@ -1673,6 +1686,32 @@ const server = http.createServer(async (req, res) => {
     } else {
       res.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8' });
       res.end('rejeitados.html não encontrado.');
+      return;
+    }
+  }
+
+  const RELATORIO_ESTEIRA_PATH = path.resolve(__dirname, '../agent4-diagnostician/relatorio_esteira.html');
+  if (urlPath === '/relatorio-esteira' || urlPath === '/relatorio-esteira.html' || urlPath === '/relatorio_esteira.html') {
+    if (fs.existsSync(RELATORIO_ESTEIRA_PATH)) {
+      res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+      fs.createReadStream(RELATORIO_ESTEIRA_PATH).pipe(res);
+      return;
+    } else {
+      res.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8' });
+      res.end('relatorio_esteira.html ainda não foi gerado. Execute o Agente 4 para gerar.');
+      return;
+    }
+  }
+
+  // 11.4 Roadmap Estratégico Shopee & Quadro Kanban
+  if (urlPath === '/roadmap' || urlPath === '/roadmap.html' || urlPath === '/roadmap_shopee_brk.html' || urlPath === '/kanban' || urlPath === '/kanban.html' || urlPath === '/quadro-kanban') {
+    if (fs.existsSync(ROADMAP_PATH)) {
+      res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+      fs.createReadStream(ROADMAP_PATH).pipe(res);
+      return;
+    } else {
+      res.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8' });
+      res.end('roadmap_shopee_brk.html não encontrado.');
       return;
     }
   }
@@ -1941,6 +1980,8 @@ server.listen(PORT, '0.0.0.0', () => {
   console.log(`🚀 Painel de Automação ativo em: http://localhost:${currentPort}`);
   console.log(`🌐 Link Permanente Ngrok:        ${NGROK_URL}`);
   console.log(`📊 Relatório de Auditoria:       ${NGROK_URL}/relatorio.html`);
+  console.log(`🗺️ Roadmap Estratégico Shopee:   ${NGROK_URL}/roadmap.html`);
+  console.log(`📋 Quadro Kanban Interativo:    ${NGROK_URL}/kanban`);
   console.log(`📂 Pasta de Uploads:             ${UPLOADS_DIR}`);
   console.log(`=============================================================\n`);
 });

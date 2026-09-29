@@ -1,0 +1,4433 @@
+[
+  {
+    "sku": "C01038_FULL",
+    "productId": "23298162905",
+    "status": "success",
+    "updatedFields": [],
+    "existingFields": [
+      {
+        "label": "Material",
+        "current": "XTechPro"
+      },
+      {
+        "label": "Ocasião",
+        "current": "Casual"
+      },
+      {
+        "label": "Compimento da Manga",
+        "current": "Manga Comprida"
+      },
+      {
+        "label": "Produto personalizado",
+        "current": "Não"
+      },
+      {
+        "label": "País de Origem",
+        "current": "Brasil"
+      },
+      {
+        "label": "Gola",
+        "current": "Gola Alta"
+      },
+      {
+        "label": "Estampa",
+        "current": "Outros"
+      },
+      {
+        "label": "Estilo",
+        "current": "Básico"
+      },
+      {
+        "label": "Tipo de Colarinho",
+        "current": "Colarinho Clássico"
+      },
+      {
+        "label": "Quantidade da embalagem",
+        "current": "1"
+      },
+      {
+        "label": "Modelo",
+        "current": "C01038_FULL"
+      }
+    ],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\C01038_FULL_23298162905_2026-09-28T16-48-39-611Z.png"
+  },
+  {
+    "sku": "ADV125_FULL",
+    "productId": "22893671575",
+    "status": "success",
+    "updatedFields": [],
+    "existingFields": [
+      {
+        "label": "Material",
+        "current": "Sintético"
+      },
+      {
+        "label": "Ocasião",
+        "current": "Casual"
+      },
+      {
+        "label": "Compimento da Manga",
+        "current": "Manga Comprida"
+      },
+      {
+        "label": "Produto personalizado",
+        "current": "Não"
+      },
+      {
+        "label": "País de Origem",
+        "current": "Brasil"
+      },
+      {
+        "label": "Gola",
+        "current": "Gola Alta"
+      },
+      {
+        "label": "Estampa",
+        "current": "Outros"
+      },
+      {
+        "label": "Estilo",
+        "current": "Básico"
+      },
+      {
+        "label": "Tipo de Colarinho",
+        "current": "Colarinho Clássico"
+      },
+      {
+        "label": "Quantidade da embalagem",
+        "current": "1"
+      },
+      {
+        "label": "Modelo",
+        "current": "Camisa Expedição Atacama Chile"
+      }
+    ],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\ADV125_FULL_22893671575_2026-09-28T16-48-52-102Z.png"
+  },
+  {
+    "sku": "C02041BL_FULL",
+    "productId": "22899187139",
+    "status": "success",
+    "updatedFields": [],
+    "existingFields": [
+      {
+        "label": "Material",
+        "current": "Sintético"
+      },
+      {
+        "label": "Gola",
+        "current": "Gola Alta"
+      },
+      {
+        "label": "Estilo",
+        "current": "Básico"
+      },
+      {
+        "label": "Quantidade da embalagem",
+        "current": "1"
+      },
+      {
+        "label": "Modelo",
+        "current": "Camisa Blusa Feminina Brk Agro"
+      },
+      {
+        "label": "País de Origem",
+        "current": "Brasil"
+      },
+      {
+        "label": "Ocasião",
+        "current": "Casual"
+      },
+      {
+        "label": "Estampa",
+        "current": "Outros"
+      },
+      {
+        "label": "Compimento da Manga",
+        "current": "Manga Comprida"
+      },
+      {
+        "label": "Produto personalizado",
+        "current": "Não"
+      }
+    ],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\C02041BL_FULL_22899187139_2026-09-28T16-49-03-424Z.png"
+  },
+  {
+    "sku": "CCPBR0756_FULL",
+    "productId": "22699175384",
+    "status": "success",
+    "updatedFields": [],
+    "existingFields": [
+      {
+        "label": "País de Origem",
+        "current": "Brasil"
+      },
+      {
+        "label": "Gola",
+        "current": "Gola Alta"
+      },
+      {
+        "label": "Estampa",
+        "current": "Outros"
+      },
+      {
+        "label": "Compimento da Manga",
+        "current": "Manga Comprida"
+      },
+      {
+        "label": "Produto personalizado",
+        "current": "Não"
+      },
+      {
+        "label": "Gênero",
+        "current": "Masculino"
+      },
+      {
+        "label": "Material",
+        "current": "Poliéster"
+      },
+      {
+        "label": "Quantidade da embalagem",
+        "current": "1"
+      },
+      {
+        "label": "Quantidade por Pacote",
+        "current": "1"
+      }
+    ],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\CCPBR0756_FULL_22699175384_2026-09-28T16-49-14-997Z.png"
+  },
+  {
+    "sku": "ADV125_FULL",
+    "productId": "22993673782",
+    "status": "success",
+    "updatedFields": [],
+    "existingFields": [
+      {
+        "label": "País de Origem",
+        "current": "Brasil"
+      },
+      {
+        "label": "Gola",
+        "current": "Gola Alta"
+      },
+      {
+        "label": "Estampa",
+        "current": "Outros"
+      },
+      {
+        "label": "Compimento da Manga",
+        "current": "Manga Comprida"
+      },
+      {
+        "label": "Produto personalizado",
+        "current": "Não"
+      },
+      {
+        "label": "Gênero",
+        "current": "Masculino"
+      },
+      {
+        "label": "Material",
+        "current": "Poliéster"
+      },
+      {
+        "label": "Quantidade da embalagem",
+        "current": "1"
+      },
+      {
+        "label": "Quantidade por Pacote",
+        "current": "1"
+      }
+    ],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\ADV125_FULL_22993673782_2026-09-28T16-49-28-075Z.png"
+  },
+  {
+    "sku": "C01647BL_FULL",
+    "productId": "23999155005",
+    "status": "success",
+    "updatedFields": [],
+    "existingFields": [
+      {
+        "label": "Material",
+        "current": "Sintético"
+      },
+      {
+        "label": "Gola",
+        "current": "Gola Alta"
+      },
+      {
+        "label": "Estilo",
+        "current": "Básico"
+      },
+      {
+        "label": "Quantidade da embalagem",
+        "current": "1"
+      },
+      {
+        "label": "Modelo",
+        "current": "Camisa Blusa Roxa Feminina Seg"
+      },
+      {
+        "label": "País de Origem",
+        "current": "Brasil"
+      },
+      {
+        "label": "Ocasião",
+        "current": "Casual"
+      },
+      {
+        "label": "Estampa",
+        "current": "Outros"
+      },
+      {
+        "label": "Compimento da Manga",
+        "current": "Manga Comprida"
+      },
+      {
+        "label": "Produto personalizado",
+        "current": "Não"
+      }
+    ],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\C01647BL_FULL_23999155005_2026-09-28T16-49-42-396Z.png"
+  },
+  {
+    "sku": "FLOWFPRETO",
+    "productId": "22898709037",
+    "status": "success",
+    "updatedFields": [],
+    "existingFields": [
+      {
+        "label": "Material",
+        "current": "Sintético"
+      },
+      {
+        "label": "Modelo",
+        "current": "Flow Discovery"
+      },
+      {
+        "label": "País de Origem",
+        "current": "Brasil"
+      },
+      {
+        "label": "Quantidade da embalagem",
+        "current": "1"
+      },
+      {
+        "label": "Produto personalizado",
+        "current": "Não"
+      }
+    ],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\FLOWFPRETO_22898709037_2026-09-28T16-49-55-037Z.png"
+  },
+  {
+    "sku": "C01038_FULL",
+    "productId": "22793480532",
+    "status": "success",
+    "updatedFields": [],
+    "existingFields": [
+      {
+        "label": "Material",
+        "current": "Sintético"
+      },
+      {
+        "label": "Ocasião",
+        "current": "Casual"
+      },
+      {
+        "label": "Compimento da Manga",
+        "current": "Manga Comprida"
+      },
+      {
+        "label": "Produto personalizado",
+        "current": "Não"
+      },
+      {
+        "label": "País de Origem",
+        "current": "Brasil"
+      },
+      {
+        "label": "Gola",
+        "current": "Gola Alta"
+      },
+      {
+        "label": "Estampa",
+        "current": "Outros"
+      },
+      {
+        "label": "Estilo",
+        "current": "Básico"
+      },
+      {
+        "label": "Tipo de Colarinho",
+        "current": "Colarinho Clássico"
+      },
+      {
+        "label": "Quantidade da embalagem",
+        "current": "1"
+      },
+      {
+        "label": "Modelo",
+        "current": "BRK AGRO JESUS"
+      }
+    ],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\C01038_FULL_22793480532_2026-09-28T16-50-08-157Z.png"
+  },
+  {
+    "sku": "ALL_FLOW",
+    "productId": "23893616001",
+    "status": "success",
+    "updatedFields": [],
+    "existingFields": [
+      {
+        "label": "Material",
+        "current": "Sintético"
+      },
+      {
+        "label": "Modelo",
+        "current": "Sandália Babuche Variadas Orto"
+      },
+      {
+        "label": "País de Origem",
+        "current": "Brasil"
+      },
+      {
+        "label": "Quantidade da embalagem",
+        "current": "1"
+      },
+      {
+        "label": "Produto personalizado",
+        "current": "Não"
+      }
+    ],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\ALL_FLOW_23893616001_2026-09-28T16-50-22-669Z.png"
+  },
+  {
+    "sku": "7908788613401",
+    "productId": "22694673420",
+    "status": "success",
+    "updatedFields": [],
+    "existingFields": [
+      {
+        "label": "Material",
+        "current": "Aço Inoxidável e Madeira"
+      },
+      {
+        "label": "Quantidade por Pacote",
+        "current": "1"
+      },
+      {
+        "label": "País de Origem",
+        "current": "Brasil"
+      },
+      {
+        "label": "Quantidade da embalagem",
+        "current": "1"
+      },
+      {
+        "label": "Produto personalizado",
+        "current": "Não"
+      }
+    ],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\7908788613401_22694673420_2026-09-28T16-50-34-851Z.png"
+  },
+  {
+    "sku": "ADV237_FULL",
+    "productId": "22298588326",
+    "status": "success",
+    "updatedFields": [
+      {
+        "label": "País de Origem",
+        "value": "Brasil"
+      },
+      {
+        "label": "Gola",
+        "value": "Gola Alta"
+      },
+      {
+        "label": "Estampa",
+        "value": "Outros"
+      },
+      {
+        "label": "Compimento da Manga",
+        "value": "Manga Comprida"
+      },
+      {
+        "label": "Produto personalizado",
+        "value": "Não"
+      },
+      {
+        "label": "Gênero",
+        "value": "Masculino"
+      },
+      {
+        "label": "Material",
+        "value": "Poliéster"
+      },
+      {
+        "label": "Quantidade da embalagem",
+        "value": "1"
+      },
+      {
+        "label": "Quantidade por Pacote",
+        "value": "1"
+      }
+    ],
+    "existingFields": [],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\ADV237_FULL_22298588326_2026-09-28T16-51-14-628Z.png"
+  },
+  {
+    "sku": "C0685_FULL",
+    "productId": "23098560987",
+    "status": "success",
+    "updatedFields": [
+      {
+        "label": "País de Origem",
+        "value": "Brasil"
+      },
+      {
+        "label": "Gola",
+        "value": "Gola Alta"
+      },
+      {
+        "label": "Estampa",
+        "value": "Outros"
+      },
+      {
+        "label": "Compimento da Manga",
+        "value": "Manga Comprida"
+      },
+      {
+        "label": "Produto personalizado",
+        "value": "Não"
+      },
+      {
+        "label": "Gênero",
+        "value": "Masculino"
+      },
+      {
+        "label": "Material",
+        "value": "Poliéster"
+      },
+      {
+        "label": "Quantidade da embalagem",
+        "value": "1"
+      },
+      {
+        "label": "Quantidade por Pacote",
+        "value": "1"
+      }
+    ],
+    "existingFields": [],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\C0685_FULL_23098560987_2026-09-28T16-52-01-855Z.png"
+  },
+  {
+    "sku": "SANDALIASTARFEM_PRETA",
+    "productId": "22094225791",
+    "status": "success",
+    "updatedFields": [
+      {
+        "label": "Material",
+        "value": "Sintético"
+      },
+      {
+        "label": "Quantidade da embalagem",
+        "value": "1"
+      },
+      {
+        "label": "Produto personalizado",
+        "value": "Não"
+      },
+      {
+        "label": "País de Origem",
+        "value": "Brasil"
+      },
+      {
+        "label": "Modelo",
+        "value": "Star"
+      }
+    ],
+    "existingFields": [],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\SANDALIASTARFEM_PRETA_22094225791_2026-09-28T16-52-33-212Z.png"
+  },
+  {
+    "sku": "C02363_FULL",
+    "productId": "58202029440",
+    "status": "success",
+    "updatedFields": [
+      {
+        "label": "País de Origem",
+        "value": "Brasil"
+      },
+      {
+        "label": "Gola",
+        "value": "Gola Alta"
+      },
+      {
+        "label": "Estampa",
+        "value": "Outros"
+      },
+      {
+        "label": "Compimento da Manga",
+        "value": "Manga Comprida"
+      },
+      {
+        "label": "Produto personalizado",
+        "value": "Não"
+      },
+      {
+        "label": "Gênero",
+        "value": "Masculino"
+      },
+      {
+        "label": "Material",
+        "value": "Poliéster"
+      },
+      {
+        "label": "Quantidade da embalagem",
+        "value": "1"
+      },
+      {
+        "label": "Quantidade por Pacote",
+        "value": "1"
+      }
+    ],
+    "existingFields": [],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\C02363_FULL_58202029440_2026-09-28T16-53-17-044Z.png"
+  },
+  {
+    "sku": "C01963_FULL",
+    "productId": "23399164408",
+    "status": "success",
+    "updatedFields": [],
+    "existingFields": [],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\C01963_FULL_23399164408_2026-09-28T16-56-40-321Z.png"
+  },
+  {
+    "sku": "JPSTICK85",
+    "productId": "22993520811",
+    "status": "success",
+    "updatedFields": [
+      {
+        "label": "Material",
+        "value": "Plástico ABS"
+      },
+      {
+        "label": "Quantidade da embalagem",
+        "value": "1"
+      },
+      {
+        "label": "Produto personalizado",
+        "value": "Não"
+      },
+      {
+        "label": "País de Origem",
+        "value": "Brasil"
+      },
+      {
+        "label": "Quantidade por Pacote",
+        "value": "1"
+      }
+    ],
+    "existingFields": [],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\JPSTICK85_22993520811_2026-09-28T16-57-04-695Z.png"
+  },
+  {
+    "sku": "C02351_FULL",
+    "productId": "23399131281",
+    "status": "success",
+    "updatedFields": [
+      {
+        "label": "Material",
+        "value": "Sintético"
+      },
+      {
+        "label": "Ocasião",
+        "value": "Casual"
+      },
+      {
+        "label": "Produto personalizado",
+        "value": "Não"
+      },
+      {
+        "label": "Estilo",
+        "value": "Básico"
+      },
+      {
+        "label": "Tipo de Colarinho",
+        "value": "Colarinho Clássico"
+      },
+      {
+        "label": "Quantidade da embalagem",
+        "value": "1"
+      },
+      {
+        "label": "Modelo",
+        "value": "Camisa Camiseta Agro Masculina"
+      }
+    ],
+    "existingFields": [
+      {
+        "label": "Compimento da Manga",
+        "current": "Manga Comprida"
+      },
+      {
+        "label": "País de Origem",
+        "current": "Brasil"
+      },
+      {
+        "label": "Gola",
+        "current": "Gola Redonda"
+      },
+      {
+        "label": "Estampa",
+        "current": "Estampado"
+      }
+    ],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\C02351_FULL_23399131281_2026-09-28T16-57-40-602Z.png"
+  },
+  {
+    "sku": "IS-F009",
+    "productId": "23098002516",
+    "status": "success",
+    "updatedFields": [
+      {
+        "label": "Material",
+        "value": "Silicone / Borracha Macia"
+      },
+      {
+        "label": "Quantidade da embalagem",
+        "value": "1"
+      },
+      {
+        "label": "Produto personalizado",
+        "value": "Não"
+      },
+      {
+        "label": "País de Origem",
+        "value": "Brasil"
+      },
+      {
+        "label": "Quantidade por Pacote",
+        "value": "1"
+      }
+    ],
+    "existingFields": [],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\IS-F009_23098002516_2026-09-28T16-58-13-393Z.png"
+  },
+  {
+    "sku": "ADV237_FULL",
+    "productId": "22494076714",
+    "status": "success",
+    "updatedFields": [
+      {
+        "label": "País de Origem",
+        "value": "Brasil"
+      },
+      {
+        "label": "Gola",
+        "value": "Gola Alta"
+      },
+      {
+        "label": "Estampa",
+        "value": "Outros"
+      },
+      {
+        "label": "Compimento da Manga",
+        "value": "Manga Comprida"
+      },
+      {
+        "label": "Produto personalizado",
+        "value": "Não"
+      },
+      {
+        "label": "Gênero",
+        "value": "Masculino"
+      },
+      {
+        "label": "Material",
+        "value": "Poliéster"
+      },
+      {
+        "label": "Quantidade da embalagem",
+        "value": "1"
+      },
+      {
+        "label": "Quantidade por Pacote",
+        "value": "1"
+      }
+    ],
+    "existingFields": [],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\ADV237_FULL_22494076714_2026-09-28T16-58-56-650Z.png"
+  },
+  {
+    "sku": "BA0112",
+    "productId": "23993212033",
+    "status": "success",
+    "updatedFields": [
+      {
+        "label": "Quantidade da embalagem",
+        "value": "1"
+      },
+      {
+        "label": "Produto personalizado",
+        "value": "Não"
+      },
+      {
+        "label": "Gênero",
+        "value": "Unissex"
+      },
+      {
+        "label": "Material",
+        "value": "Sintético"
+      }
+    ],
+    "existingFields": [
+      {
+        "label": "País de Origem",
+        "current": "Brasil"
+      }
+    ],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\BA0112_23993212033_2026-09-28T16-59-21-539Z.png"
+  },
+  {
+    "sku": "MT055_FULL",
+    "productId": "22598658527",
+    "status": "success",
+    "updatedFields": [
+      {
+        "label": "País de Origem",
+        "value": "Brasil"
+      },
+      {
+        "label": "Material",
+        "value": "Poliéster"
+      },
+      {
+        "label": "Quantidade da embalagem",
+        "value": "1"
+      },
+      {
+        "label": "Gênero",
+        "value": "Unissex"
+      },
+      {
+        "label": "Produto personalizado",
+        "value": "Não"
+      },
+      {
+        "label": "Quantidade por Pacote",
+        "value": "1"
+      }
+    ],
+    "existingFields": [],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\MT055_FULL_22598658527_2026-09-28T16-59-50-933Z.png"
+  },
+  {
+    "sku": "C0620_FULL",
+    "productId": "23093209123",
+    "status": "success",
+    "updatedFields": [
+      {
+        "label": "Material",
+        "value": "Sintético"
+      },
+      {
+        "label": "Ocasião",
+        "value": "Casual"
+      },
+      {
+        "label": "Compimento da Manga",
+        "value": "Manga Comprida"
+      },
+      {
+        "label": "Produto personalizado",
+        "value": "Não"
+      },
+      {
+        "label": "País de Origem",
+        "value": "Brasil"
+      },
+      {
+        "label": "Gola",
+        "value": "Gola Alta"
+      },
+      {
+        "label": "Estampa",
+        "value": "Outros"
+      },
+      {
+        "label": "Estilo",
+        "value": "Básico"
+      },
+      {
+        "label": "Tipo de Colarinho",
+        "value": "Colarinho Clássico"
+      },
+      {
+        "label": "Quantidade da embalagem",
+        "value": "1"
+      },
+      {
+        "label": "Modelo",
+        "value": "Camisa Camiseta Agro Trator Br"
+      }
+    ],
+    "existingFields": [],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\C0620_FULL_23093209123_2026-09-28T17-00-35-395Z.png"
+  },
+  {
+    "sku": "BA0120",
+    "productId": "22998066384",
+    "status": "success",
+    "updatedFields": [
+      {
+        "label": "País de Origem",
+        "value": "Brasil"
+      },
+      {
+        "label": "Material",
+        "value": "Sintético"
+      },
+      {
+        "label": "Quantidade da embalagem",
+        "value": "1"
+      },
+      {
+        "label": "Produto personalizado",
+        "value": "Não"
+      },
+      {
+        "label": "Gênero",
+        "value": "Unissex"
+      },
+      {
+        "label": "Modelo",
+        "value": "Boné Chapéu Pesca Brk Isca Art"
+      }
+    ],
+    "existingFields": [],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\BA0120_22998066384_2026-09-28T17-01-10-196Z.png"
+  },
+  {
+    "sku": "C01457_FULL",
+    "productId": "22693710903",
+    "status": "success",
+    "updatedFields": [
+      {
+        "label": "Material",
+        "value": "Sintético"
+      },
+      {
+        "label": "Ocasião",
+        "value": "Casual"
+      },
+      {
+        "label": "Compimento da Manga",
+        "value": "Manga Comprida"
+      },
+      {
+        "label": "Produto personalizado",
+        "value": "Não"
+      },
+      {
+        "label": "País de Origem",
+        "value": "Brasil"
+      },
+      {
+        "label": "Gola",
+        "value": "Gola Alta"
+      },
+      {
+        "label": "Estampa",
+        "value": "Outros"
+      },
+      {
+        "label": "Estilo",
+        "value": "Básico"
+      },
+      {
+        "label": "Tipo de Colarinho",
+        "value": "Colarinho Clássico"
+      },
+      {
+        "label": "Quantidade da embalagem",
+        "value": "1"
+      },
+      {
+        "label": "Modelo",
+        "value": "Camisa Pesca Brk Agro Mescla M"
+      }
+    ],
+    "existingFields": [],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\C01457_FULL_22693710903_2026-09-28T17-01-52-550Z.png"
+  },
+  {
+    "sku": "GIRA",
+    "productId": "23793242600",
+    "status": "success",
+    "updatedFields": [
+      {
+        "label": "Quantidade da embalagem",
+        "value": "1"
+      },
+      {
+        "label": "Produto personalizado",
+        "value": "Não"
+      }
+    ],
+    "existingFields": [
+      {
+        "label": "Material",
+        "current": "Aço de Carbono"
+      },
+      {
+        "label": "País de Origem",
+        "current": "Brazil"
+      },
+      {
+        "label": "Quantidade por Pacote",
+        "current": "15"
+      }
+    ],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\GIRA_23793242600_2026-09-28T17-02-12-213Z.png"
+  },
+  {
+    "sku": "CPT020",
+    "productId": "22194964770",
+    "status": "success",
+    "updatedFields": [
+      {
+        "label": "Material",
+        "value": "Outros"
+      },
+      {
+        "label": "Quantidade da embalagem",
+        "value": "1"
+      },
+      {
+        "label": "Produto personalizado",
+        "value": "Não"
+      },
+      {
+        "label": "País de Origem",
+        "value": "Brasil"
+      },
+      {
+        "label": "Capacidade de Volume",
+        "value": "473ml"
+      },
+      {
+        "label": "Quantidade por Pacote",
+        "value": "1"
+      }
+    ],
+    "existingFields": [],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\CPT020_22194964770_2026-09-28T17-02-41-211Z.png"
+  },
+  {
+    "sku": "C02281_FULL",
+    "productId": "58200280755",
+    "status": "success",
+    "updatedFields": [
+      {
+        "label": "Material",
+        "value": "Sintético"
+      },
+      {
+        "label": "Ocasião",
+        "value": "Casual"
+      },
+      {
+        "label": "Compimento da Manga",
+        "value": "Manga Comprida"
+      },
+      {
+        "label": "Produto personalizado",
+        "value": "Não"
+      },
+      {
+        "label": "País de Origem",
+        "value": "Brasil"
+      },
+      {
+        "label": "Gola",
+        "value": "Gola Alta"
+      },
+      {
+        "label": "Estampa",
+        "value": "Outros"
+      },
+      {
+        "label": "Estilo",
+        "value": "Básico"
+      },
+      {
+        "label": "Tipo de Colarinho",
+        "value": "Colarinho Clássico"
+      },
+      {
+        "label": "Quantidade da embalagem",
+        "value": "1"
+      },
+      {
+        "label": "Modelo",
+        "value": "BRK SÃO BENTO"
+      }
+    ],
+    "existingFields": [],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\C02281_FULL_58200280755_2026-09-28T17-03-23-961Z.png"
+  },
+  {
+    "sku": "LISBOA",
+    "productId": "23994957113",
+    "status": "success",
+    "updatedFields": [
+      {
+        "label": "País de Origem",
+        "value": "Brasil"
+      },
+      {
+        "label": "Material da armação",
+        "value": "XTechPro"
+      },
+      {
+        "label": "Gênero",
+        "value": "Unissex"
+      },
+      {
+        "label": "Material",
+        "value": "XTechPro"
+      },
+      {
+        "label": "Quantidade da embalagem",
+        "value": "1"
+      },
+      {
+        "label": "Produto personalizado",
+        "value": "Não"
+      },
+      {
+        "label": "Modelo",
+        "value": "Óculos de Sol BRK Agro Lisboa "
+      }
+    ],
+    "existingFields": [],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\LISBOA_23994957113_2026-09-28T17-04-04-001Z.png"
+  },
+  {
+    "sku": "SANDALIASTARFEM_PRETA",
+    "productId": "22094225791",
+    "status": "success",
+    "updatedFields": [],
+    "existingFields": [
+      {
+        "label": "Material",
+        "current": "Sintético"
+      },
+      {
+        "label": "Quantidade da embalagem",
+        "current": "1"
+      },
+      {
+        "label": "Produto personalizado",
+        "current": "Não"
+      },
+      {
+        "label": "País de Origem",
+        "current": "Brasil"
+      },
+      {
+        "label": "Modelo",
+        "current": "Star"
+      }
+    ],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\SANDALIASTARFEM_PRETA_22094225791_2026-09-28T17-04-20-703Z.png"
+  },
+  {
+    "sku": "C01038_FULL",
+    "productId": "22498172072",
+    "status": "success",
+    "updatedFields": [
+      {
+        "label": "Ocasião",
+        "value": "Casual"
+      },
+      {
+        "label": "Produto personalizado",
+        "value": "Não"
+      },
+      {
+        "label": "Tipo de Colarinho",
+        "value": "Colarinho Clássico"
+      },
+      {
+        "label": "Quantidade da embalagem",
+        "value": "1"
+      },
+      {
+        "label": "Modelo",
+        "value": "BRK AGRO JESUS"
+      }
+    ],
+    "existingFields": [
+      {
+        "label": "Material",
+        "current": "XTechPro"
+      },
+      {
+        "label": "Compimento da Manga",
+        "current": "Manga Comprida"
+      },
+      {
+        "label": "País de Origem",
+        "current": "Brasil"
+      },
+      {
+        "label": "Gola",
+        "current": "Gola Alta"
+      },
+      {
+        "label": "Estampa",
+        "current": "Jesus Agricultura"
+      },
+      {
+        "label": "Estilo",
+        "current": "Agro"
+      }
+    ],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\C01038_FULL_22498172072_2026-09-28T17-04-42-546Z.png"
+  },
+  {
+    "sku": "7899675840072",
+    "productId": "22597750595",
+    "status": "success",
+    "updatedFields": [
+      {
+        "label": "Quantidade por Pacote",
+        "value": "1"
+      },
+      {
+        "label": "País de Origem",
+        "value": "Brasil"
+      },
+      {
+        "label": "Quantidade da embalagem",
+        "value": "1"
+      },
+      {
+        "label": "Produto personalizado",
+        "value": "Não"
+      }
+    ],
+    "existingFields": [],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\7899675840072_22597750595_2026-09-28T17-05-08-344Z.png"
+  },
+  {
+    "sku": "HUNTER",
+    "productId": "23699484626",
+    "status": "success",
+    "updatedFields": [
+      {
+        "label": "País de Origem",
+        "value": "Brasil"
+      },
+      {
+        "label": "Material da armação",
+        "value": "XTechPro"
+      },
+      {
+        "label": "Gênero",
+        "value": "Unissex"
+      },
+      {
+        "label": "Material",
+        "value": "XTechPro"
+      },
+      {
+        "label": "Quantidade da embalagem",
+        "value": "1"
+      },
+      {
+        "label": "Produto personalizado",
+        "value": "Não"
+      },
+      {
+        "label": "Modelo",
+        "value": "Oculos De Sol Polarizado BRK H"
+      }
+    ],
+    "existingFields": [],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\HUNTER_23699484626_2026-09-28T17-05-48-178Z.png"
+  },
+  {
+    "sku": "VORAZPLUS",
+    "productId": "23793538186",
+    "status": "success",
+    "updatedFields": [
+      {
+        "label": "Material",
+        "value": "Plástico ABS"
+      },
+      {
+        "label": "Quantidade da embalagem",
+        "value": "1"
+      },
+      {
+        "label": "Produto personalizado",
+        "value": "Não"
+      },
+      {
+        "label": "País de Origem",
+        "value": "Brasil"
+      },
+      {
+        "label": "Quantidade por Pacote",
+        "value": "1"
+      }
+    ],
+    "existingFields": [],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\VORAZPLUS_23793538186_2026-09-28T17-06-22-301Z.png"
+  },
+  {
+    "sku": "IPON65",
+    "productId": "22893526301",
+    "status": "success",
+    "updatedFields": [
+      {
+        "label": "Material",
+        "value": "Plástico de alta resistência"
+      },
+      {
+        "label": "Quantidade da embalagem",
+        "value": "1"
+      },
+      {
+        "label": "Produto personalizado",
+        "value": "Não"
+      },
+      {
+        "label": "País de Origem",
+        "value": "Brasil"
+      },
+      {
+        "label": "Quantidade por Pacote",
+        "value": "1"
+      }
+    ],
+    "existingFields": [],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\IPON65_22893526301_2026-09-28T17-06-56-141Z.png"
+  },
+  {
+    "sku": "EMPATE100",
+    "productId": "58205802218",
+    "status": "success",
+    "updatedFields": [
+      {
+        "label": "Material",
+        "value": "XTechPro"
+      },
+      {
+        "label": "Quantidade da embalagem",
+        "value": "1"
+      },
+      {
+        "label": "Produto personalizado",
+        "value": "Não"
+      },
+      {
+        "label": "País de Origem",
+        "value": "Brasil"
+      },
+      {
+        "label": "Quantidade por Pacote",
+        "value": "1"
+      }
+    ],
+    "existingFields": [],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\EMPATE100_58205802218_2026-09-28T17-07-25-719Z.png"
+  },
+  {
+    "sku": "CPT019",
+    "productId": "23299432098",
+    "status": "success",
+    "updatedFields": [],
+    "existingFields": [],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\CPT019_23299432098_2026-09-28T17-09-07-793Z.png"
+  },
+  {
+    "sku": "ALL_CAPIVARA",
+    "productId": "58215411408",
+    "status": "success",
+    "updatedFields": [
+      {
+        "label": "Estilo",
+        "value": "Básico"
+      },
+      {
+        "label": "Quantidade da embalagem",
+        "value": "1"
+      },
+      {
+        "label": "Modelo",
+        "value": "Camisa Feminina Amazon BRK Cap"
+      },
+      {
+        "label": "Produto personalizado",
+        "value": "Não"
+      }
+    ],
+    "existingFields": [
+      {
+        "label": "Material",
+        "current": "XTechPro"
+      },
+      {
+        "label": "Gola",
+        "current": "Gola Alta"
+      },
+      {
+        "label": "País de Origem",
+        "current": "Brasil"
+      },
+      {
+        "label": "Ocasião",
+        "current": "Casual"
+      },
+      {
+        "label": "Estampa",
+        "current": "Capivara"
+      },
+      {
+        "label": "Compimento da Manga",
+        "current": "Manga Comprida"
+      }
+    ],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\ALL_CAPIVARA_58215411408_2026-09-28T17-09-31-644Z.png"
+  },
+  {
+    "sku": "BTMORGAN",
+    "productId": "22495047361",
+    "status": "success",
+    "updatedFields": [
+      {
+        "label": "Material",
+        "value": "Sintético"
+      },
+      {
+        "label": "Quantidade da embalagem",
+        "value": "1"
+      },
+      {
+        "label": "Produto personalizado",
+        "value": "Não"
+      },
+      {
+        "label": "País de Origem",
+        "value": "Brasil"
+      },
+      {
+        "label": "Modelo",
+        "value": "Bota Masculina Morgan Casual C"
+      }
+    ],
+    "existingFields": [],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\BTMORGAN_22495047361_2026-09-28T17-10-04-980Z.png"
+  },
+  {
+    "sku": "LK201-V",
+    "productId": "23294672499",
+    "status": "success",
+    "updatedFields": [
+      {
+        "label": "Quantidade da embalagem",
+        "value": "1"
+      },
+      {
+        "label": "Material",
+        "value": "XTechPro"
+      },
+      {
+        "label": "Produto personalizado",
+        "value": "Não"
+      },
+      {
+        "label": "Modelo",
+        "value": "Carretilha Deyu LK201 Vermelha"
+      },
+      {
+        "label": "País de Origem",
+        "value": "Brasil"
+      },
+      {
+        "label": "Quantidade por Pacote",
+        "value": "1"
+      }
+    ],
+    "existingFields": [],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\LK201-V_23294672499_2026-09-28T17-10-41-779Z.png"
+  },
+  {
+    "sku": "194136678303522",
+    "productId": "23599643704",
+    "status": "success",
+    "updatedFields": [
+      {
+        "label": "Material",
+        "value": "Sintético"
+      },
+      {
+        "label": "Quantidade da embalagem",
+        "value": "1"
+      },
+      {
+        "label": "Modelo",
+        "value": "Lenço Feminino Estampado Fauna"
+      },
+      {
+        "label": "País de Origem",
+        "value": "Brasil"
+      },
+      {
+        "label": "Estampa",
+        "value": "Outros"
+      },
+      {
+        "label": "Produto personalizado",
+        "value": "Não"
+      }
+    ],
+    "existingFields": [],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\194136678303522_23599643704_2026-09-28T17-11-14-853Z.png"
+  },
+  {
+    "sku": "DAKOTA",
+    "productId": "58210755219",
+    "status": "success",
+    "updatedFields": [
+      {
+        "label": "País de Origem",
+        "value": "Brasil"
+      },
+      {
+        "label": "Material da armação",
+        "value": "XTechPro"
+      },
+      {
+        "label": "Gênero",
+        "value": "Unissex"
+      },
+      {
+        "label": "Material",
+        "value": "XTechPro"
+      },
+      {
+        "label": "Quantidade da embalagem",
+        "value": "1"
+      },
+      {
+        "label": "Produto personalizado",
+        "value": "Não"
+      },
+      {
+        "label": "Modelo",
+        "value": "Óculos de Sol BRK Dakota Polar"
+      }
+    ],
+    "existingFields": [],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\DAKOTA_58210755219_2026-09-28T17-12-14-869Z.png"
+  },
+  {
+    "sku": "JPSTICK95",
+    "productId": "22393520764",
+    "status": "success",
+    "updatedFields": [
+      {
+        "label": "Material",
+        "value": "Plástico ABS"
+      },
+      {
+        "label": "Quantidade da embalagem",
+        "value": "1"
+      },
+      {
+        "label": "Produto personalizado",
+        "value": "Não"
+      },
+      {
+        "label": "País de Origem",
+        "value": "Brasil"
+      },
+      {
+        "label": "Quantidade por Pacote",
+        "value": "1"
+      }
+    ],
+    "existingFields": [],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\JPSTICK95_22393520764_2026-09-28T17-12-45-374Z.png"
+  },
+  {
+    "sku": "SM6H625",
+    "productId": "58250384869",
+    "status": "success",
+    "updatedFields": [
+      {
+        "label": "Quantidade por Pacote",
+        "value": "1"
+      },
+      {
+        "label": "País de Origem",
+        "value": "Brasil"
+      },
+      {
+        "label": "Quantidade da embalagem",
+        "value": "1"
+      },
+      {
+        "label": "Produto personalizado",
+        "value": "Não"
+      }
+    ],
+    "existingFields": [],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\SM6H625_58250384869_2026-09-28T17-13-11-265Z.png"
+  },
+  {
+    "sku": "LUVADI",
+    "productId": "58205042343",
+    "status": "success",
+    "updatedFields": [
+      {
+        "label": "País de Origem",
+        "value": "Brasil"
+      },
+      {
+        "label": "Modelo",
+        "value": "Luva Motoqueiro Motociclista A"
+      },
+      {
+        "label": "Gênero",
+        "value": "Unissex"
+      },
+      {
+        "label": "Material",
+        "value": "Outros"
+      },
+      {
+        "label": "Quantidade da embalagem",
+        "value": "1"
+      },
+      {
+        "label": "Produto personalizado",
+        "value": "Não"
+      }
+    ],
+    "existingFields": [],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\LUVADI_58205042343_2026-09-28T17-13-44-521Z.png"
+  },
+  {
+    "sku": "CPT041",
+    "productId": "22199460870",
+    "status": "success",
+    "updatedFields": [
+      {
+        "label": "Material",
+        "value": "Outros"
+      },
+      {
+        "label": "Quantidade da embalagem",
+        "value": "1"
+      },
+      {
+        "label": "Produto personalizado",
+        "value": "Não"
+      },
+      {
+        "label": "País de Origem",
+        "value": "Brasil"
+      },
+      {
+        "label": "Capacidade de Volume",
+        "value": "473ml"
+      },
+      {
+        "label": "Quantidade por Pacote",
+        "value": "1"
+      }
+    ],
+    "existingFields": [],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\CPT041_22199460870_2026-09-28T17-14-14-249Z.png"
+  },
+  {
+    "sku": "SIGLONPEX8VERDE",
+    "productId": "20798334671",
+    "status": "success",
+    "updatedFields": [
+      {
+        "label": "Quantidade da embalagem",
+        "value": "1"
+      },
+      {
+        "label": "Produto personalizado",
+        "value": "Não"
+      },
+      {
+        "label": "País de Origem",
+        "value": "Brasil"
+      },
+      {
+        "label": "Material",
+        "value": "Polietileno (PE)"
+      },
+      {
+        "label": "Quantidade por Pacote",
+        "value": "1"
+      }
+    ],
+    "existingFields": [],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\SIGLONPEX8VERDE_20798334671_2026-09-28T17-14-44-984Z.png"
+  },
+  {
+    "sku": "PREDATORSR115S",
+    "productId": "22299278635",
+    "status": "success",
+    "updatedFields": [
+      {
+        "label": "Material",
+        "value": "Plástico ABS"
+      },
+      {
+        "label": "Quantidade da embalagem",
+        "value": "1"
+      },
+      {
+        "label": "Produto personalizado",
+        "value": "Não"
+      },
+      {
+        "label": "País de Origem",
+        "value": "Brasil"
+      },
+      {
+        "label": "Quantidade por Pacote",
+        "value": "1"
+      }
+    ],
+    "existingFields": [],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\PREDATORSR115S_22299278635_2026-09-28T17-15-17-255Z.png"
+  },
+  {
+    "sku": "ALCAMSPS12",
+    "productId": "22999138502",
+    "status": "success",
+    "updatedFields": [
+      {
+        "label": "Material",
+        "value": "XTechPro"
+      },
+      {
+        "label": "Quantidade da embalagem",
+        "value": "1"
+      },
+      {
+        "label": "Produto personalizado",
+        "value": "Não"
+      },
+      {
+        "label": "País de Origem",
+        "value": "Brasil"
+      },
+      {
+        "label": "Quantidade por Pacote",
+        "value": "1"
+      }
+    ],
+    "existingFields": [],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\ALCAMSPS12_22999138502_2026-09-28T17-15-46-834Z.png"
+  },
+  {
+    "sku": "ACTIONPOWERPLUS600_2843",
+    "productId": "23294549310",
+    "status": "success",
+    "updatedFields": [
+      {
+        "label": "Quantidade da embalagem",
+        "value": "1"
+      }
+    ],
+    "existingFields": [],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\ACTIONPOWERPLUS600_2843_23294549310_2026-09-28T17-17-25-555Z.png"
+  },
+  {
+    "sku": "DRAGON28",
+    "productId": "22999464417",
+    "status": "success",
+    "updatedFields": [],
+    "existingFields": [],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\DRAGON28_22999464417_2026-09-28T17-17-47-160Z.png"
+  },
+  {
+    "sku": "RAMPOPPER90",
+    "productId": "58210860642",
+    "status": "success",
+    "updatedFields": [
+      {
+        "label": "Quantidade da embalagem",
+        "value": "1"
+      }
+    ],
+    "existingFields": [],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\RAMPOPPER90_58210860642_2026-09-28T17-19-04-444Z.png"
+  },
+  {
+    "sku": "BRAVAGRAND100",
+    "productId": "58200392675",
+    "status": "success",
+    "updatedFields": [
+      {
+        "label": "Quantidade da embalagem",
+        "value": "1"
+      }
+    ],
+    "existingFields": [],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\BRAVAGRAND100_58200392675_2026-09-28T17-20-33-067Z.png"
+  },
+  {
+    "sku": "SMMDMR03",
+    "productId": "58250939738",
+    "status": "success",
+    "updatedFields": [
+      {
+        "label": "País de Origem",
+        "value": "Brasil"
+      },
+      {
+        "label": "Quantidade por Pacote",
+        "value": "1"
+      },
+      {
+        "label": "Quantidade da embalagem",
+        "value": "1"
+      },
+      {
+        "label": "Material",
+        "value": "Alumínio / Neodímio"
+      },
+      {
+        "label": "Produto personalizado",
+        "value": "Não"
+      }
+    ],
+    "existingFields": [],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\SMMDMR03_58250939738_2026-09-28T17-21-09-363Z.png"
+  },
+  {
+    "sku": "CPT024",
+    "productId": "23099432138",
+    "status": "success",
+    "updatedFields": [],
+    "existingFields": [],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\CPT024_23099432138_2026-09-28T17-22-52-129Z.png"
+  },
+  {
+    "sku": "BRAVA90",
+    "productId": "22494972161",
+    "status": "success",
+    "updatedFields": [
+      {
+        "label": "Quantidade da embalagem",
+        "value": "1"
+      }
+    ],
+    "existingFields": [],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\BRAVA90_22494972161_2026-09-28T17-24-09-592Z.png"
+  },
+  {
+    "sku": "IRONHEAD50",
+    "productId": "58210858245",
+    "status": "success",
+    "updatedFields": [
+      {
+        "label": "Material",
+        "value": "Plástico ABS"
+      },
+      {
+        "label": "Quantidade da embalagem",
+        "value": "1"
+      },
+      {
+        "label": "Produto personalizado",
+        "value": "Não"
+      },
+      {
+        "label": "País de Origem",
+        "value": "Brasil"
+      },
+      {
+        "label": "Quantidade por Pacote",
+        "value": "1"
+      }
+    ],
+    "existingFields": [],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\IRONHEAD50_58210858245_2026-09-28T17-24-43-032Z.png"
+  },
+  {
+    "sku": "ISCA-SSC-80",
+    "productId": "58211122431",
+    "status": "success",
+    "updatedFields": [
+      {
+        "label": "Material",
+        "value": "Plástico ABS"
+      },
+      {
+        "label": "Quantidade da embalagem",
+        "value": "1"
+      },
+      {
+        "label": "Produto personalizado",
+        "value": "Não"
+      },
+      {
+        "label": "País de Origem",
+        "value": "Brasil"
+      },
+      {
+        "label": "Quantidade por Pacote",
+        "value": "1"
+      }
+    ],
+    "existingFields": [],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\ISCA-SSC-80_58211122431_2026-09-28T17-25-13-389Z.png"
+  },
+  {
+    "sku": "COMPORT",
+    "productId": "22997728079",
+    "status": "success",
+    "updatedFields": [
+      {
+        "label": "Quantidade da embalagem",
+        "value": "1"
+      }
+    ],
+    "existingFields": [],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\COMPORT_22997728079_2026-09-28T17-26-55-591Z.png"
+  },
+  {
+    "sku": "SIGLONPEX8MULTICOLOR",
+    "productId": "23294548031",
+    "status": "success",
+    "updatedFields": [
+      {
+        "label": "Quantidade da embalagem",
+        "value": "1"
+      },
+      {
+        "label": "Produto personalizado",
+        "value": "Não"
+      },
+      {
+        "label": "País de Origem",
+        "value": "Brasil"
+      },
+      {
+        "label": "Material",
+        "value": "Fibra de Polietileno (PE)"
+      },
+      {
+        "label": "Quantidade por Pacote",
+        "value": "1"
+      }
+    ],
+    "existingFields": [],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\SIGLONPEX8MULTICOLOR_23294548031_2026-09-28T17-27-29-493Z.png"
+  },
+  {
+    "sku": "XIT279",
+    "productId": "22195024575",
+    "status": "success",
+    "updatedFields": [
+      {
+        "label": "Material",
+        "value": "Plástico ABS"
+      },
+      {
+        "label": "Quantidade da embalagem",
+        "value": "1"
+      },
+      {
+        "label": "Produto personalizado",
+        "value": "Não"
+      },
+      {
+        "label": "País de Origem",
+        "value": "Brasil"
+      },
+      {
+        "label": "Quantidade por Pacote",
+        "value": "1"
+      }
+    ],
+    "existingFields": [],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\XIT279_22195024575_2026-09-28T17-27-59-515Z.png"
+  },
+  {
+    "sku": "PROSLIDER115",
+    "productId": "22994972889",
+    "status": "success",
+    "updatedFields": [
+      {
+        "label": "Material",
+        "value": "Plástico ABS"
+      },
+      {
+        "label": "Quantidade da embalagem",
+        "value": "1"
+      },
+      {
+        "label": "Produto personalizado",
+        "value": "Não"
+      },
+      {
+        "label": "País de Origem",
+        "value": "Brasil"
+      },
+      {
+        "label": "Quantidade por Pacote",
+        "value": "1"
+      }
+    ],
+    "existingFields": [],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\PROSLIDER115_22994972889_2026-09-28T17-28-31-169Z.png"
+  },
+  {
+    "sku": "CPT043",
+    "productId": "58208839153",
+    "status": "success",
+    "updatedFields": [
+      {
+        "label": "Material",
+        "value": "Outros"
+      },
+      {
+        "label": "Quantidade da embalagem",
+        "value": "1"
+      },
+      {
+        "label": "Produto personalizado",
+        "value": "Não"
+      },
+      {
+        "label": "País de Origem",
+        "value": "Brasil"
+      },
+      {
+        "label": "Capacidade de Volume",
+        "value": "473ml"
+      },
+      {
+        "label": "Quantidade por Pacote",
+        "value": "1"
+      }
+    ],
+    "existingFields": [],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\CPT043_58208839153_2026-09-28T17-29-01-111Z.png"
+  },
+  {
+    "sku": "CPT013",
+    "productId": "58208911808",
+    "status": "success",
+    "updatedFields": [
+      {
+        "label": "Material",
+        "value": "Outros"
+      },
+      {
+        "label": "Quantidade da embalagem",
+        "value": "1"
+      },
+      {
+        "label": "Produto personalizado",
+        "value": "Não"
+      },
+      {
+        "label": "País de Origem",
+        "value": "Brasil"
+      },
+      {
+        "label": "Capacidade de Volume",
+        "value": "473ml"
+      },
+      {
+        "label": "Quantidade por Pacote",
+        "value": "1"
+      }
+    ],
+    "existingFields": [],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\CPT013_58208911808_2026-09-28T17-29-30-597Z.png"
+  },
+  {
+    "sku": "VIBRAX40",
+    "productId": "58210693558",
+    "status": "success",
+    "updatedFields": [
+      {
+        "label": "Material",
+        "value": "Plástico ABS"
+      },
+      {
+        "label": "Quantidade da embalagem",
+        "value": "1"
+      },
+      {
+        "label": "Produto personalizado",
+        "value": "Não"
+      },
+      {
+        "label": "País de Origem",
+        "value": "Brasil"
+      },
+      {
+        "label": "Quantidade por Pacote",
+        "value": "1"
+      }
+    ],
+    "existingFields": [],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\VIBRAX40_58210693558_2026-09-28T17-30-00-398Z.png"
+  },
+  {
+    "sku": "PRECISIONXTREMEPENCILEXO107",
+    "productId": "58210894545",
+    "status": "success",
+    "updatedFields": [
+      {
+        "label": "Material",
+        "value": "Plástico ABS"
+      },
+      {
+        "label": "Quantidade da embalagem",
+        "value": "1"
+      },
+      {
+        "label": "Produto personalizado",
+        "value": "Não"
+      },
+      {
+        "label": "País de Origem",
+        "value": "Brasil"
+      },
+      {
+        "label": "Quantidade por Pacote",
+        "value": "1"
+      }
+    ],
+    "existingFields": [],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\PRECISIONXTREMEPENCILEXO107_58210894545_2026-09-28T17-30-30-954Z.png"
+  },
+  {
+    "sku": "JERKBAIT85SP",
+    "productId": "58210903974",
+    "status": "success",
+    "updatedFields": [
+      {
+        "label": "Quantidade da embalagem",
+        "value": "1"
+      },
+      {
+        "label": "Produto personalizado",
+        "value": "Não"
+      },
+      {
+        "label": "País de Origem",
+        "value": "Brasil"
+      },
+      {
+        "label": "Quantidade por Pacote",
+        "value": "1"
+      }
+    ],
+    "existingFields": [
+      {
+        "label": "Material",
+        "current": "abdômen"
+      }
+    ],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\JERKBAIT85SP_58210903974_2026-09-28T17-30-57-441Z.png"
+  },
+  {
+    "sku": "AKIPEGA10",
+    "productId": "58211189169",
+    "status": "success",
+    "updatedFields": [
+      {
+        "label": "Material",
+        "value": "Plástico ABS"
+      },
+      {
+        "label": "Quantidade da embalagem",
+        "value": "1"
+      },
+      {
+        "label": "Produto personalizado",
+        "value": "Não"
+      },
+      {
+        "label": "País de Origem",
+        "value": "Brasil"
+      },
+      {
+        "label": "Quantidade por Pacote",
+        "value": "1"
+      }
+    ],
+    "existingFields": [],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\AKIPEGA10_58211189169_2026-09-28T17-31-28-448Z.png"
+  },
+  {
+    "sku": "STICKNINA90",
+    "productId": "58211195342",
+    "status": "success",
+    "updatedFields": [
+      {
+        "label": "Quantidade da embalagem",
+        "value": "1"
+      }
+    ],
+    "existingFields": [],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\STICKNINA90_58211195342_2026-09-28T17-32-50-356Z.png"
+  },
+  {
+    "sku": "BONNY",
+    "productId": "58211346617",
+    "status": "success",
+    "updatedFields": [
+      {
+        "label": "Material",
+        "value": "Plástico ABS"
+      },
+      {
+        "label": "Quantidade da embalagem",
+        "value": "1"
+      },
+      {
+        "label": "Produto personalizado",
+        "value": "Não"
+      },
+      {
+        "label": "País de Origem",
+        "value": "Brasil"
+      },
+      {
+        "label": "Quantidade por Pacote",
+        "value": "1"
+      }
+    ],
+    "existingFields": [],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\BONNY_58211346617_2026-09-28T17-33-25-089Z.png"
+  },
+  {
+    "sku": "ISCA-SVS-75",
+    "productId": "58205408461",
+    "status": "success",
+    "updatedFields": [
+      {
+        "label": "Material",
+        "value": "Plástico ABS"
+      },
+      {
+        "label": "Quantidade da embalagem",
+        "value": "1"
+      },
+      {
+        "label": "Produto personalizado",
+        "value": "Não"
+      },
+      {
+        "label": "País de Origem",
+        "value": "Brasil"
+      },
+      {
+        "label": "Quantidade por Pacote",
+        "value": "1"
+      }
+    ],
+    "existingFields": [],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\ISCA-SVS-75_58205408461_2026-09-28T17-33-56-553Z.png"
+  },
+  {
+    "sku": "CPT033",
+    "productId": "58208830416",
+    "status": "success",
+    "updatedFields": [
+      {
+        "label": "Material",
+        "value": "Outros"
+      },
+      {
+        "label": "Quantidade da embalagem",
+        "value": "1"
+      },
+      {
+        "label": "Produto personalizado",
+        "value": "Não"
+      },
+      {
+        "label": "País de Origem",
+        "value": "Brasil"
+      },
+      {
+        "label": "Capacidade de Volume",
+        "value": "473ml"
+      },
+      {
+        "label": "Quantidade por Pacote",
+        "value": "1"
+      }
+    ],
+    "existingFields": [],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\CPT033_58208830416_2026-09-28T17-34-28-080Z.png"
+  },
+  {
+    "sku": "CPT039",
+    "productId": "58208836494",
+    "status": "success",
+    "updatedFields": [
+      {
+        "label": "Material",
+        "value": "Outros"
+      },
+      {
+        "label": "Quantidade da embalagem",
+        "value": "1"
+      },
+      {
+        "label": "Produto personalizado",
+        "value": "Não"
+      },
+      {
+        "label": "País de Origem",
+        "value": "Brasil"
+      },
+      {
+        "label": "Capacidade de Volume",
+        "value": "473ml"
+      },
+      {
+        "label": "Quantidade por Pacote",
+        "value": "1"
+      }
+    ],
+    "existingFields": [],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\CPT039_58208836494_2026-09-28T17-34-58-886Z.png"
+  },
+  {
+    "sku": "CPT038",
+    "productId": "58208836596",
+    "status": "success",
+    "updatedFields": [
+      {
+        "label": "Material",
+        "value": "Outros"
+      },
+      {
+        "label": "Quantidade da embalagem",
+        "value": "1"
+      },
+      {
+        "label": "Produto personalizado",
+        "value": "Não"
+      },
+      {
+        "label": "País de Origem",
+        "value": "Brasil"
+      },
+      {
+        "label": "Capacidade de Volume",
+        "value": "473ml"
+      },
+      {
+        "label": "Quantidade por Pacote",
+        "value": "1"
+      }
+    ],
+    "existingFields": [],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\CPT038_58208836596_2026-09-28T17-35-30-030Z.png"
+  },
+  {
+    "sku": "CPT044",
+    "productId": "58208845242",
+    "status": "success",
+    "updatedFields": [
+      {
+        "label": "Material",
+        "value": "Outros"
+      },
+      {
+        "label": "Quantidade da embalagem",
+        "value": "1"
+      },
+      {
+        "label": "Produto personalizado",
+        "value": "Não"
+      },
+      {
+        "label": "País de Origem",
+        "value": "Brasil"
+      },
+      {
+        "label": "Capacidade de Volume",
+        "value": "473ml"
+      },
+      {
+        "label": "Quantidade por Pacote",
+        "value": "1"
+      }
+    ],
+    "existingFields": [],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\CPT044_58208845242_2026-09-28T17-36-00-103Z.png"
+  },
+  {
+    "sku": "CPT021",
+    "productId": "58208926765",
+    "status": "success",
+    "updatedFields": [
+      {
+        "label": "Material",
+        "value": "Outros"
+      },
+      {
+        "label": "Quantidade da embalagem",
+        "value": "1"
+      },
+      {
+        "label": "Produto personalizado",
+        "value": "Não"
+      },
+      {
+        "label": "País de Origem",
+        "value": "Brasil"
+      },
+      {
+        "label": "Capacidade de Volume",
+        "value": "473ml"
+      },
+      {
+        "label": "Quantidade por Pacote",
+        "value": "1"
+      }
+    ],
+    "existingFields": [],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\CPT021_58208926765_2026-09-28T17-36-29-661Z.png"
+  },
+  {
+    "sku": "ARIRANHA105",
+    "productId": "58210869429",
+    "status": "success",
+    "updatedFields": [
+      {
+        "label": "Material",
+        "value": "Plástico ABS"
+      },
+      {
+        "label": "Quantidade da embalagem",
+        "value": "1"
+      },
+      {
+        "label": "Produto personalizado",
+        "value": "Não"
+      },
+      {
+        "label": "País de Origem",
+        "value": "Brasil"
+      },
+      {
+        "label": "Quantidade por Pacote",
+        "value": "1"
+      }
+    ],
+    "existingFields": [],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\ARIRANHA105_58210869429_2026-09-28T17-37-01-099Z.png"
+  },
+  {
+    "sku": "SKITTERPOPELITE",
+    "productId": "58210900028",
+    "status": "success",
+    "updatedFields": [
+      {
+        "label": "Material",
+        "value": "Plástico ABS"
+      },
+      {
+        "label": "Quantidade da embalagem",
+        "value": "1"
+      },
+      {
+        "label": "Produto personalizado",
+        "value": "Não"
+      },
+      {
+        "label": "País de Origem",
+        "value": "Brasil"
+      },
+      {
+        "label": "Quantidade por Pacote",
+        "value": "1"
+      }
+    ],
+    "existingFields": [],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\SKITTERPOPELITE_58210900028_2026-09-28T17-37-33-317Z.png"
+  },
+  {
+    "sku": "JERKBAIT9",
+    "productId": "58211131362",
+    "status": "success",
+    "updatedFields": [
+      {
+        "label": "Material",
+        "value": "Plástico ABS"
+      },
+      {
+        "label": "Quantidade da embalagem",
+        "value": "1"
+      },
+      {
+        "label": "Produto personalizado",
+        "value": "Não"
+      },
+      {
+        "label": "País de Origem",
+        "value": "Brasil"
+      },
+      {
+        "label": "Quantidade por Pacote",
+        "value": "1"
+      }
+    ],
+    "existingFields": [],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\JERKBAIT9_58211131362_2026-09-28T17-38-06-072Z.png"
+  },
+  {
+    "sku": "ZAP90",
+    "productId": "58211139481",
+    "status": "success",
+    "updatedFields": [
+      {
+        "label": "Material",
+        "value": "Plástico ABS"
+      },
+      {
+        "label": "Quantidade da embalagem",
+        "value": "1"
+      },
+      {
+        "label": "Produto personalizado",
+        "value": "Não"
+      },
+      {
+        "label": "País de Origem",
+        "value": "Brasil"
+      },
+      {
+        "label": "Quantidade por Pacote",
+        "value": "1"
+      }
+    ],
+    "existingFields": [],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\ZAP90_58211139481_2026-09-28T17-38-38-794Z.png"
+  },
+  {
+    "sku": "INNA70",
+    "productId": "58211145839",
+    "status": "success",
+    "updatedFields": [
+      {
+        "label": "Material",
+        "value": "Plástico ABS"
+      },
+      {
+        "label": "Quantidade da embalagem",
+        "value": "1"
+      },
+      {
+        "label": "Produto personalizado",
+        "value": "Não"
+      },
+      {
+        "label": "País de Origem",
+        "value": "Brasil"
+      },
+      {
+        "label": "Quantidade por Pacote",
+        "value": "1"
+      }
+    ],
+    "existingFields": [],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\INNA70_58211145839_2026-09-28T17-39-13-395Z.png"
+  },
+  {
+    "sku": "SHINERKING100MR",
+    "productId": "58211197208",
+    "status": "success",
+    "updatedFields": [
+      {
+        "label": "Material",
+        "value": "Plástico ABS"
+      },
+      {
+        "label": "Quantidade da embalagem",
+        "value": "1"
+      },
+      {
+        "label": "Produto personalizado",
+        "value": "Não"
+      },
+      {
+        "label": "País de Origem",
+        "value": "Brasil"
+      },
+      {
+        "label": "Quantidade por Pacote",
+        "value": "1"
+      }
+    ],
+    "existingFields": [],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\SHINERKING100MR_58211197208_2026-09-28T17-39-45-659Z.png"
+  },
+  {
+    "sku": "DRAGON35",
+    "productId": "58211343866",
+    "status": "success",
+    "updatedFields": [
+      {
+        "label": "Material",
+        "value": "Plástico ABS"
+      },
+      {
+        "label": "Quantidade da embalagem",
+        "value": "1"
+      },
+      {
+        "label": "Produto personalizado",
+        "value": "Não"
+      },
+      {
+        "label": "País de Origem",
+        "value": "Brasil"
+      },
+      {
+        "label": "Quantidade por Pacote",
+        "value": "1"
+      }
+    ],
+    "existingFields": [],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\DRAGON35_58211343866_2026-09-28T17-40-16-552Z.png"
+  },
+  {
+    "sku": "FLOWROSE",
+    "productId": "20199840958",
+    "status": "success",
+    "updatedFields": [
+      {
+        "label": "Quantidade da embalagem",
+        "value": "1"
+      }
+    ],
+    "existingFields": [],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\FLOWROSE_20199840958_2026-09-28T17-42-01-437Z.png"
+  },
+  {
+    "sku": "27622333",
+    "productId": "22698219010",
+    "status": "success",
+    "updatedFields": [
+      {
+        "label": "País de Origem",
+        "value": "Brasil"
+      },
+      {
+        "label": "Gola",
+        "value": "Gola Alta"
+      },
+      {
+        "label": "Estampa",
+        "value": "Outros"
+      },
+      {
+        "label": "Compimento da Manga",
+        "value": "Manga Comprida"
+      },
+      {
+        "label": "Produto personalizado",
+        "value": "Não"
+      },
+      {
+        "label": "Gênero",
+        "value": "Masculino"
+      },
+      {
+        "label": "Material",
+        "value": "Poliéster"
+      },
+      {
+        "label": "Quantidade da embalagem",
+        "value": "1"
+      },
+      {
+        "label": "Quantidade por Pacote",
+        "value": "1"
+      }
+    ],
+    "existingFields": [],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\27622333_22698219010_2026-09-28T17-42-48-493Z.png"
+  },
+  {
+    "sku": "FUSION20_FULL",
+    "productId": "23294137625",
+    "status": "success",
+    "updatedFields": [],
+    "existingFields": [],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\FUSION20_FULL_23294137625_2026-09-28T17-43-06-836Z.png"
+  },
+  {
+    "sku": "CCPBR0801_FULL",
+    "productId": "22494540172",
+    "status": "success",
+    "updatedFields": [
+      {
+        "label": "País de Origem",
+        "value": "Brasil"
+      },
+      {
+        "label": "Gola",
+        "value": "Gola Alta"
+      },
+      {
+        "label": "Estampa",
+        "value": "Outros"
+      },
+      {
+        "label": "Compimento da Manga",
+        "value": "Manga Comprida"
+      },
+      {
+        "label": "Produto personalizado",
+        "value": "Não"
+      },
+      {
+        "label": "Gênero",
+        "value": "Masculino"
+      },
+      {
+        "label": "Material",
+        "value": "Poliéster"
+      },
+      {
+        "label": "Quantidade da embalagem",
+        "value": "1"
+      },
+      {
+        "label": "Quantidade por Pacote",
+        "value": "1"
+      }
+    ],
+    "existingFields": [],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\CCPBR0801_FULL_22494540172_2026-09-28T17-43-44-189Z.png"
+  },
+  {
+    "sku": "C02324_FULL",
+    "productId": "22094456313",
+    "status": "success",
+    "updatedFields": [],
+    "existingFields": [],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\C02324_FULL_22094456313_2026-09-28T17-47-08-867Z.png"
+  },
+  {
+    "sku": "CCPBR0800_FULL",
+    "productId": "22394536641",
+    "status": "success",
+    "updatedFields": [
+      {
+        "label": "País de Origem",
+        "value": "Brasil"
+      },
+      {
+        "label": "Gola",
+        "value": "Gola Alta"
+      },
+      {
+        "label": "Estampa",
+        "value": "Outros"
+      },
+      {
+        "label": "Compimento da Manga",
+        "value": "Manga Comprida"
+      },
+      {
+        "label": "Produto personalizado",
+        "value": "Não"
+      },
+      {
+        "label": "Gênero",
+        "value": "Masculino"
+      },
+      {
+        "label": "Material",
+        "value": "Poliéster"
+      },
+      {
+        "label": "Quantidade da embalagem",
+        "value": "1"
+      },
+      {
+        "label": "Quantidade por Pacote",
+        "value": "1"
+      }
+    ],
+    "existingFields": [],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\CCPBR0800_FULL_22394536641_2026-09-28T17-47-47-886Z.png"
+  },
+  {
+    "sku": "CCPBR0796_FULL",
+    "productId": "23594663894",
+    "status": "success",
+    "updatedFields": [
+      {
+        "label": "País de Origem",
+        "value": "Brasil"
+      },
+      {
+        "label": "Gola",
+        "value": "Gola Alta"
+      },
+      {
+        "label": "Estampa",
+        "value": "Outros"
+      },
+      {
+        "label": "Compimento da Manga",
+        "value": "Manga Comprida"
+      },
+      {
+        "label": "Produto personalizado",
+        "value": "Não"
+      },
+      {
+        "label": "Gênero",
+        "value": "Masculino"
+      },
+      {
+        "label": "Material",
+        "value": "Poliéster"
+      },
+      {
+        "label": "Quantidade da embalagem",
+        "value": "1"
+      },
+      {
+        "label": "Quantidade por Pacote",
+        "value": "1"
+      }
+    ],
+    "existingFields": [],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\CCPBR0796_FULL_23594663894_2026-09-28T17-48-31-447Z.png"
+  },
+  {
+    "sku": "CCPBR0757_FULL",
+    "productId": "22993717603",
+    "status": "success",
+    "updatedFields": [
+      {
+        "label": "Material",
+        "value": "Sintético"
+      },
+      {
+        "label": "Ocasião",
+        "value": "Casual"
+      },
+      {
+        "label": "Compimento da Manga",
+        "value": "Manga Comprida"
+      },
+      {
+        "label": "Produto personalizado",
+        "value": "Não"
+      },
+      {
+        "label": "País de Origem",
+        "value": "Brasil"
+      },
+      {
+        "label": "Gola",
+        "value": "Gola Alta"
+      },
+      {
+        "label": "Estampa",
+        "value": "Outros"
+      },
+      {
+        "label": "Estilo",
+        "value": "Básico"
+      },
+      {
+        "label": "Tipo de Colarinho",
+        "value": "Colarinho Clássico"
+      },
+      {
+        "label": "Quantidade da embalagem",
+        "value": "1"
+      },
+      {
+        "label": "Modelo",
+        "value": "Camisa Camiseta Blusa de Pesca"
+      }
+    ],
+    "existingFields": [],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\CCPBR0757_FULL_22993717603_2026-09-28T17-49-16-888Z.png"
+  },
+  {
+    "sku": "C01999_FULL",
+    "productId": "20199893590",
+    "status": "success",
+    "updatedFields": [
+      {
+        "label": "Material",
+        "value": "Sintético"
+      },
+      {
+        "label": "Ocasião",
+        "value": "Casual"
+      },
+      {
+        "label": "Compimento da Manga",
+        "value": "Manga Comprida"
+      },
+      {
+        "label": "Produto personalizado",
+        "value": "Não"
+      },
+      {
+        "label": "País de Origem",
+        "value": "Brasil"
+      },
+      {
+        "label": "Gola",
+        "value": "Gola Alta"
+      },
+      {
+        "label": "Estampa",
+        "value": "Outros"
+      },
+      {
+        "label": "Estilo",
+        "value": "Básico"
+      },
+      {
+        "label": "Tipo de Colarinho",
+        "value": "Colarinho Clássico"
+      },
+      {
+        "label": "Quantidade da embalagem",
+        "value": "1"
+      },
+      {
+        "label": "Modelo",
+        "value": "Camisa Camiseta Agro Uniforme "
+      }
+    ],
+    "existingFields": [],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\C01999_FULL_20199893590_2026-09-28T17-50-02-871Z.png"
+  },
+  {
+    "sku": "CCPBR0800_FULL",
+    "productId": "22494678923",
+    "status": "success",
+    "updatedFields": [
+      {
+        "label": "País de Origem",
+        "value": "Brasil"
+      },
+      {
+        "label": "Gola",
+        "value": "Gola Alta"
+      },
+      {
+        "label": "Estampa",
+        "value": "Outros"
+      },
+      {
+        "label": "Compimento da Manga",
+        "value": "Manga Comprida"
+      },
+      {
+        "label": "Produto personalizado",
+        "value": "Não"
+      },
+      {
+        "label": "Gênero",
+        "value": "Masculino"
+      },
+      {
+        "label": "Material",
+        "value": "Poliéster"
+      },
+      {
+        "label": "Quantidade da embalagem",
+        "value": "1"
+      },
+      {
+        "label": "Quantidade por Pacote",
+        "value": "1"
+      }
+    ],
+    "existingFields": [],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\CCPBR0800_FULL_22494678923_2026-09-28T17-50-46-758Z.png"
+  },
+  {
+    "sku": "C02349_FULL",
+    "productId": "23198930158",
+    "status": "success",
+    "updatedFields": [
+      {
+        "label": "Material",
+        "value": "Sintético"
+      },
+      {
+        "label": "Ocasião",
+        "value": "Casual"
+      },
+      {
+        "label": "Compimento da Manga",
+        "value": "Manga Comprida"
+      },
+      {
+        "label": "Produto personalizado",
+        "value": "Não"
+      },
+      {
+        "label": "País de Origem",
+        "value": "Brasil"
+      },
+      {
+        "label": "Gola",
+        "value": "Gola Alta"
+      },
+      {
+        "label": "Estampa",
+        "value": "Outros"
+      },
+      {
+        "label": "Estilo",
+        "value": "Básico"
+      },
+      {
+        "label": "Tipo de Colarinho",
+        "value": "Colarinho Clássico"
+      },
+      {
+        "label": "Quantidade da embalagem",
+        "value": "1"
+      },
+      {
+        "label": "Modelo",
+        "value": "BRK AGRO JESUS"
+      }
+    ],
+    "existingFields": [],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\C02349_FULL_23198930158_2026-09-28T17-51-28-506Z.png"
+  },
+  {
+    "sku": "C02325_FULL",
+    "productId": "22798814395",
+    "status": "success",
+    "updatedFields": [
+      {
+        "label": "Material",
+        "value": "Sintético"
+      },
+      {
+        "label": "Ocasião",
+        "value": "Casual"
+      },
+      {
+        "label": "Compimento da Manga",
+        "value": "Manga Comprida"
+      },
+      {
+        "label": "Produto personalizado",
+        "value": "Não"
+      },
+      {
+        "label": "País de Origem",
+        "value": "Brasil"
+      },
+      {
+        "label": "Gola",
+        "value": "Gola Alta"
+      },
+      {
+        "label": "Estampa",
+        "value": "Outros"
+      },
+      {
+        "label": "Estilo",
+        "value": "Básico"
+      },
+      {
+        "label": "Tipo de Colarinho",
+        "value": "Colarinho Clássico"
+      },
+      {
+        "label": "Quantidade da embalagem",
+        "value": "1"
+      },
+      {
+        "label": "Modelo",
+        "value": "Camisa Camiseta Agro Marrom Fa"
+      }
+    ],
+    "existingFields": [],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\C02325_FULL_22798814395_2026-09-28T17-52-11-765Z.png"
+  },
+  {
+    "sku": "C02326_FULL",
+    "productId": "23598807953",
+    "status": "success",
+    "updatedFields": [
+      {
+        "label": "Material",
+        "value": "Sintético"
+      },
+      {
+        "label": "Ocasião",
+        "value": "Casual"
+      },
+      {
+        "label": "Compimento da Manga",
+        "value": "Manga Comprida"
+      },
+      {
+        "label": "Produto personalizado",
+        "value": "Não"
+      },
+      {
+        "label": "País de Origem",
+        "value": "Brasil"
+      },
+      {
+        "label": "Gola",
+        "value": "Gola Alta"
+      },
+      {
+        "label": "Estampa",
+        "value": "Outros"
+      },
+      {
+        "label": "Estilo",
+        "value": "Básico"
+      },
+      {
+        "label": "Tipo de Colarinho",
+        "value": "Colarinho Clássico"
+      },
+      {
+        "label": "Quantidade da embalagem",
+        "value": "1"
+      },
+      {
+        "label": "Modelo",
+        "value": "Camisa Camiseta Agro Envio Ime"
+      }
+    ],
+    "existingFields": [],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\C02326_FULL_23598807953_2026-09-28T17-52-56-708Z.png"
+  },
+  {
+    "sku": "OC1032",
+    "productId": "23094935180",
+    "status": "success",
+    "updatedFields": [
+      {
+        "label": "País de Origem",
+        "value": "Brasil"
+      },
+      {
+        "label": "Material da armação",
+        "value": "XTechPro"
+      },
+      {
+        "label": "Material",
+        "value": "XTechPro"
+      },
+      {
+        "label": "Quantidade da embalagem",
+        "value": "1"
+      },
+      {
+        "label": "Produto personalizado",
+        "value": "Não"
+      },
+      {
+        "label": "Modelo",
+        "value": "Óculos De Sol BRK Polarizado A"
+      }
+    ],
+    "existingFields": [
+      {
+        "label": "Gênero",
+        "current": "Masculino"
+      }
+    ],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\OC1032_23094935180_2026-09-28T17-53-35-965Z.png"
+  },
+  {
+    "sku": "C02349_FULL",
+    "productId": "22794666165",
+    "status": "success",
+    "updatedFields": [
+      {
+        "label": "Material",
+        "value": "Sintético"
+      },
+      {
+        "label": "Ocasião",
+        "value": "Casual"
+      },
+      {
+        "label": "Compimento da Manga",
+        "value": "Manga Comprida"
+      },
+      {
+        "label": "Produto personalizado",
+        "value": "Não"
+      },
+      {
+        "label": "País de Origem",
+        "value": "Brasil"
+      },
+      {
+        "label": "Gola",
+        "value": "Gola Alta"
+      },
+      {
+        "label": "Estampa",
+        "value": "Outros"
+      },
+      {
+        "label": "Estilo",
+        "value": "Básico"
+      },
+      {
+        "label": "Tipo de Colarinho",
+        "value": "Colarinho Clássico"
+      },
+      {
+        "label": "Quantidade da embalagem",
+        "value": "1"
+      },
+      {
+        "label": "Modelo",
+        "value": "BRK AGRO JESUS"
+      }
+    ],
+    "existingFields": [],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\C02349_FULL_22794666165_2026-09-28T17-54-18-545Z.png"
+  },
+  {
+    "sku": "C02352_FULL",
+    "productId": "23294661110",
+    "status": "success",
+    "updatedFields": [
+      {
+        "label": "Material",
+        "value": "Sintético"
+      },
+      {
+        "label": "Ocasião",
+        "value": "Casual"
+      },
+      {
+        "label": "Compimento da Manga",
+        "value": "Manga Comprida"
+      },
+      {
+        "label": "Produto personalizado",
+        "value": "Não"
+      },
+      {
+        "label": "País de Origem",
+        "value": "Brasil"
+      },
+      {
+        "label": "Gola",
+        "value": "Gola Alta"
+      },
+      {
+        "label": "Estampa",
+        "value": "Outros"
+      },
+      {
+        "label": "Estilo",
+        "value": "Básico"
+      },
+      {
+        "label": "Tipo de Colarinho",
+        "value": "Colarinho Clássico"
+      },
+      {
+        "label": "Quantidade da embalagem",
+        "value": "1"
+      },
+      {
+        "label": "Modelo",
+        "value": "Camisa Camiseta Agro Brk Fazen"
+      }
+    ],
+    "existingFields": [],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\C02352_FULL_23294661110_2026-09-28T17-55-02-532Z.png"
+  },
+  {
+    "sku": "FUSION59_FULL",
+    "productId": "23598829869",
+    "status": "success",
+    "updatedFields": [],
+    "existingFields": [],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\FUSION59_FULL_23598829869_2026-09-28T17-58-27-149Z.png"
+  },
+  {
+    "sku": "BRAVA77",
+    "productId": "22399172814",
+    "status": "success",
+    "updatedFields": [
+      {
+        "label": "Quantidade da embalagem",
+        "value": "1"
+      },
+      {
+        "label": "Produto personalizado",
+        "value": "Não"
+      },
+      {
+        "label": "País de Origem",
+        "value": "Brasil"
+      },
+      {
+        "label": "Quantidade por Pacote",
+        "value": "1"
+      }
+    ],
+    "existingFields": [
+      {
+        "label": "Material",
+        "current": "vivid eyes\nsteel wire\nabs plastic"
+      }
+    ],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\BRAVA77_22399172814_2026-09-28T17-58-48-315Z.png"
+  },
+  {
+    "sku": "C02331_FULL",
+    "productId": "20799893491",
+    "status": "success",
+    "updatedFields": [
+      {
+        "label": "País de Origem",
+        "value": "Brasil"
+      },
+      {
+        "label": "Gola",
+        "value": "Gola Alta"
+      },
+      {
+        "label": "Estampa",
+        "value": "Outros"
+      },
+      {
+        "label": "Compimento da Manga",
+        "value": "Manga Comprida"
+      },
+      {
+        "label": "Produto personalizado",
+        "value": "Não"
+      },
+      {
+        "label": "Gênero",
+        "value": "Masculino"
+      },
+      {
+        "label": "Material",
+        "value": "Poliéster"
+      },
+      {
+        "label": "Quantidade da embalagem",
+        "value": "1"
+      },
+      {
+        "label": "Quantidade por Pacote",
+        "value": "1"
+      }
+    ],
+    "existingFields": [],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\C02331_FULL_20799893491_2026-09-28T17-59-31-586Z.png"
+  },
+  {
+    "sku": "7908137901821",
+    "productId": "23294647967",
+    "status": "success",
+    "updatedFields": [
+      {
+        "label": "Quantidade da embalagem",
+        "value": "1"
+      },
+      {
+        "label": "Material",
+        "value": "XTechPro"
+      },
+      {
+        "label": "Produto personalizado",
+        "value": "Não"
+      },
+      {
+        "label": "Modelo",
+        "value": "Molinete Beta 400i FD Marine S"
+      },
+      {
+        "label": "País de Origem",
+        "value": "Brasil"
+      },
+      {
+        "label": "Quantidade por Pacote",
+        "value": "1"
+      }
+    ],
+    "existingFields": [],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\7908137901821_23294647967_2026-09-28T18-00-08-892Z.png"
+  },
+  {
+    "sku": "CCPBR0796_FULL",
+    "productId": "58200440262",
+    "status": "success",
+    "updatedFields": [
+      {
+        "label": "País de Origem",
+        "value": "Brasil"
+      },
+      {
+        "label": "Gola",
+        "value": "Gola Alta"
+      },
+      {
+        "label": "Estampa",
+        "value": "Outros"
+      },
+      {
+        "label": "Compimento da Manga",
+        "value": "Manga Comprida"
+      },
+      {
+        "label": "Produto personalizado",
+        "value": "Não"
+      },
+      {
+        "label": "Gênero",
+        "value": "Masculino"
+      },
+      {
+        "label": "Material",
+        "value": "Poliéster"
+      },
+      {
+        "label": "Quantidade da embalagem",
+        "value": "1"
+      },
+      {
+        "label": "Quantidade por Pacote",
+        "value": "1"
+      }
+    ],
+    "existingFields": [],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\CCPBR0796_FULL_58200440262_2026-09-28T18-00-52-833Z.png"
+  },
+  {
+    "sku": "CLSP001_FULL",
+    "productId": "22594658189",
+    "status": "success",
+    "updatedFields": [
+      {
+        "label": "Material",
+        "value": "Sintético"
+      },
+      {
+        "label": "Estampa",
+        "value": "Outros"
+      },
+      {
+        "label": "Compimento da Manga",
+        "value": "Manga Comprida"
+      },
+      {
+        "label": "Quantidade da embalagem",
+        "value": "1"
+      },
+      {
+        "label": "Modelo",
+        "value": "Camisa Camiseta Blusa Masculin"
+      },
+      {
+        "label": "País de Origem",
+        "value": "Brasil"
+      },
+      {
+        "label": "Gola",
+        "value": "Gola Alta"
+      },
+      {
+        "label": "Estilo",
+        "value": "Básico"
+      },
+      {
+        "label": "Produto personalizado",
+        "value": "Não"
+      }
+    ],
+    "existingFields": [],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\CLSP001_FULL_22594658189_2026-09-28T18-01-33-017Z.png"
+  },
+  {
+    "sku": "C02327_FULL",
+    "productId": "22694316051",
+    "status": "success",
+    "updatedFields": [],
+    "existingFields": [],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\C02327_FULL_22694316051_2026-09-28T18-04-57-419Z.png"
+  },
+  {
+    "sku": "C02355_FULL",
+    "productId": "23898811942",
+    "status": "success",
+    "updatedFields": [],
+    "existingFields": [],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\C02355_FULL_23898811942_2026-09-28T18-08-10-089Z.png"
+  },
+  {
+    "sku": "CLSP001_FULL",
+    "productId": "58200211303",
+    "status": "success",
+    "updatedFields": [
+      {
+        "label": "Material",
+        "value": "Sintético"
+      },
+      {
+        "label": "Estampa",
+        "value": "Outros"
+      },
+      {
+        "label": "Compimento da Manga",
+        "value": "Manga Comprida"
+      },
+      {
+        "label": "Quantidade da embalagem",
+        "value": "1"
+      },
+      {
+        "label": "Modelo",
+        "value": "Camisa Camiseta Blusa Azul Man"
+      },
+      {
+        "label": "País de Origem",
+        "value": "Brasil"
+      },
+      {
+        "label": "Gola",
+        "value": "Gola Alta"
+      },
+      {
+        "label": "Estilo",
+        "value": "Básico"
+      },
+      {
+        "label": "Produto personalizado",
+        "value": "Não"
+      }
+    ],
+    "existingFields": [],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\CLSP001_FULL_58200211303_2026-09-28T18-08-41-334Z.png"
+  },
+  {
+    "sku": "CURISCO70",
+    "productId": "50367597270",
+    "status": "success",
+    "updatedFields": [
+      {
+        "label": "Quantidade da embalagem",
+        "value": "1"
+      },
+      {
+        "label": "Produto personalizado",
+        "value": "Não"
+      },
+      {
+        "label": "Quantidade por Pacote",
+        "value": "1"
+      }
+    ],
+    "existingFields": [
+      {
+        "label": "Material",
+        "current": "Plástico ABS"
+      },
+      {
+        "label": "País de Origem",
+        "current": "Brasil"
+      }
+    ],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\CURISCO70_50367597270_2026-09-28T18-09-03-744Z.png"
+  },
+  {
+    "sku": "CPT008",
+    "productId": "22194968263",
+    "status": "success",
+    "updatedFields": [
+      {
+        "label": "Material",
+        "value": "Outros"
+      },
+      {
+        "label": "Quantidade da embalagem",
+        "value": "1"
+      },
+      {
+        "label": "Produto personalizado",
+        "value": "Não"
+      },
+      {
+        "label": "País de Origem",
+        "value": "Brasil"
+      },
+      {
+        "label": "Capacidade de Volume",
+        "value": "473ml"
+      },
+      {
+        "label": "Quantidade por Pacote",
+        "value": "1"
+      }
+    ],
+    "existingFields": [],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\CPT008_22194968263_2026-09-28T18-09-33-795Z.png"
+  },
+  {
+    "sku": "CABOACOROLO500_50500",
+    "productId": "23794539685",
+    "status": "success",
+    "updatedFields": [
+      {
+        "label": "Quantidade da embalagem",
+        "value": "1"
+      },
+      {
+        "label": "Produto personalizado",
+        "value": "Não"
+      },
+      {
+        "label": "País de Origem",
+        "value": "Brasil"
+      },
+      {
+        "label": "Material",
+        "value": "XTechPro"
+      },
+      {
+        "label": "Quantidade por Pacote",
+        "value": "1"
+      }
+    ],
+    "existingFields": [],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\CABOACOROLO500_50500_23794539685_2026-09-28T18-10-02-811Z.png"
+  },
+  {
+    "sku": "C02330_FULL",
+    "productId": "22099189156",
+    "status": "success",
+    "updatedFields": [
+      {
+        "label": "Material",
+        "value": "Sintético"
+      },
+      {
+        "label": "Ocasião",
+        "value": "Casual"
+      },
+      {
+        "label": "Compimento da Manga",
+        "value": "Manga Comprida"
+      },
+      {
+        "label": "Produto personalizado",
+        "value": "Não"
+      },
+      {
+        "label": "País de Origem",
+        "value": "Brasil"
+      },
+      {
+        "label": "Gola",
+        "value": "Gola Alta"
+      },
+      {
+        "label": "Estampa",
+        "value": "Outros"
+      },
+      {
+        "label": "Estilo",
+        "value": "Básico"
+      },
+      {
+        "label": "Tipo de Colarinho",
+        "value": "Colarinho Clássico"
+      },
+      {
+        "label": "Quantidade da embalagem",
+        "value": "1"
+      },
+      {
+        "label": "Modelo",
+        "value": "Camisa Camiseta Agro BRK Verde"
+      }
+    ],
+    "existingFields": [],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\C02330_FULL_22099189156_2026-09-28T18-10-45-877Z.png"
+  },
+  {
+    "sku": "7908137906253",
+    "productId": "23897724895",
+    "status": "success",
+    "updatedFields": [
+      {
+        "label": "Quantidade da embalagem",
+        "value": "1"
+      }
+    ],
+    "existingFields": [],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\7908137906253_23897724895_2026-09-28T18-12-08-411Z.png"
+  },
+  {
+    "sku": "7899675812338",
+    "productId": "58204632070",
+    "status": "success",
+    "updatedFields": [
+      {
+        "label": "Material",
+        "value": "Aço Carbono e Borracha"
+      },
+      {
+        "label": "Quantidade da embalagem",
+        "value": "1"
+      },
+      {
+        "label": "Produto personalizado",
+        "value": "Não"
+      },
+      {
+        "label": "País de Origem",
+        "value": "Brasil"
+      },
+      {
+        "label": "Quantidade por Pacote",
+        "value": "1"
+      }
+    ],
+    "existingFields": [],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\7899675812338_58204632070_2026-09-28T18-12-41-596Z.png"
+  },
+  {
+    "sku": "CABOACOROLO1000_401000",
+    "productId": "23099045812",
+    "status": "success",
+    "updatedFields": [
+      {
+        "label": "Quantidade da embalagem",
+        "value": "1"
+      },
+      {
+        "label": "Produto personalizado",
+        "value": "Não"
+      },
+      {
+        "label": "País de Origem",
+        "value": "Brasil"
+      },
+      {
+        "label": "Material",
+        "value": "XTechPro"
+      },
+      {
+        "label": "Quantidade por Pacote",
+        "value": "1"
+      }
+    ],
+    "existingFields": [],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\CABOACOROLO1000_401000_23099045812_2026-09-28T18-13-10-215Z.png"
+  },
+  {
+    "sku": "CR-ESPIRITO-SANTO-REDONDA-NIQUEL",
+    "productId": "23294622459",
+    "status": "success",
+    "updatedFields": [
+      {
+        "label": "País de Origem",
+        "value": "Brasil"
+      },
+      {
+        "label": "Quantidade da embalagem",
+        "value": "1"
+      },
+      {
+        "label": "Produto personalizado",
+        "value": "Não"
+      },
+      {
+        "label": "Gênero",
+        "value": "Unissex"
+      },
+      {
+        "label": "Material",
+        "value": "Outros"
+      }
+    ],
+    "existingFields": [],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\CR-ESPIRITO-SANTO-REDONDA-NIQUEL_23294622459_2026-09-28T18-13-35-727Z.png"
+  },
+  {
+    "sku": "51RASACP8",
+    "productId": "22598069660",
+    "status": "success",
+    "updatedFields": [
+      {
+        "label": "Material",
+        "value": "XTechPro"
+      },
+      {
+        "label": "Quantidade da embalagem",
+        "value": "1"
+      },
+      {
+        "label": "Produto personalizado",
+        "value": "Não"
+      },
+      {
+        "label": "País de Origem",
+        "value": "Brasil"
+      },
+      {
+        "label": "Quantidade por Pacote",
+        "value": "1"
+      }
+    ],
+    "existingFields": [],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\51RASACP8_22598069660_2026-09-28T18-14-03-191Z.png"
+  },
+  {
+    "sku": "BRAVA110",
+    "productId": "23094666166",
+    "status": "success",
+    "updatedFields": [
+      {
+        "label": "Material",
+        "value": "Plástico ABS e Aço Carbono"
+      },
+      {
+        "label": "Quantidade da embalagem",
+        "value": "1"
+      },
+      {
+        "label": "Produto personalizado",
+        "value": "Não"
+      },
+      {
+        "label": "País de Origem",
+        "value": "Brasil"
+      },
+      {
+        "label": "Quantidade por Pacote",
+        "value": "1"
+      }
+    ],
+    "existingFields": [],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\BRAVA110_23094666166_2026-09-28T18-14-34-425Z.png"
+  },
+  {
+    "sku": "IMALI",
+    "productId": "22399482783",
+    "status": "success",
+    "updatedFields": [
+      {
+        "label": "Material",
+        "value": "Plástico ABS"
+      },
+      {
+        "label": "Quantidade da embalagem",
+        "value": "1"
+      },
+      {
+        "label": "Produto personalizado",
+        "value": "Não"
+      },
+      {
+        "label": "País de Origem",
+        "value": "Brasil"
+      },
+      {
+        "label": "Quantidade por Pacote",
+        "value": "1"
+      }
+    ],
+    "existingFields": [],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\IMALI_22399482783_2026-09-28T18-15-05-737Z.png"
+  },
+  {
+    "sku": "ZAP120",
+    "productId": "22994993635",
+    "status": "success",
+    "updatedFields": [
+      {
+        "label": "Material",
+        "value": "Plástico ABS"
+      },
+      {
+        "label": "Quantidade da embalagem",
+        "value": "1"
+      },
+      {
+        "label": "Produto personalizado",
+        "value": "Não"
+      },
+      {
+        "label": "País de Origem",
+        "value": "Brasil"
+      },
+      {
+        "label": "Quantidade por Pacote",
+        "value": "1"
+      }
+    ],
+    "existingFields": [],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\ZAP120_22994993635_2026-09-28T18-15-37-742Z.png"
+  },
+  {
+    "sku": "KISUSINKING",
+    "productId": "23494659077",
+    "status": "success",
+    "updatedFields": [
+      {
+        "label": "Quantidade da embalagem",
+        "value": "1"
+      }
+    ],
+    "existingFields": [],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\KISUSINKING_23494659077_2026-09-28T18-17-01-647Z.png"
+  },
+  {
+    "sku": "7898480944906",
+    "productId": "58250018419",
+    "status": "success",
+    "updatedFields": [
+      {
+        "label": "Quantidade da embalagem",
+        "value": "1"
+      },
+      {
+        "label": "Material",
+        "value": "XTechPro"
+      },
+      {
+        "label": "Produto personalizado",
+        "value": "Não"
+      },
+      {
+        "label": "Modelo",
+        "value": "Carretilha de Pesca Marine Spo"
+      },
+      {
+        "label": "País de Origem",
+        "value": "Brasil"
+      },
+      {
+        "label": "Quantidade por Pacote",
+        "value": "1"
+      }
+    ],
+    "existingFields": [],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\7898480944906_58250018419_2026-09-28T18-17-40-260Z.png"
+  },
+  {
+    "sku": "BADDYD001",
+    "productId": "58251037162",
+    "status": "success",
+    "updatedFields": [
+      {
+        "label": "Quantidade da embalagem",
+        "value": "1"
+      },
+      {
+        "label": "Produto personalizado",
+        "value": "Não"
+      }
+    ],
+    "existingFields": [],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\BADDYD001_58251037162_2026-09-28T18-17-59-956Z.png"
+  },
+  {
+    "sku": "CR-NOSSA-SENHORA-REDONDA",
+    "productId": "23194623583",
+    "status": "success",
+    "updatedFields": [
+      {
+        "label": "País de Origem",
+        "value": "Brasil"
+      },
+      {
+        "label": "Quantidade da embalagem",
+        "value": "1"
+      },
+      {
+        "label": "Produto personalizado",
+        "value": "Não"
+      },
+      {
+        "label": "Gênero",
+        "value": "Feminino"
+      },
+      {
+        "label": "Material",
+        "value": "Outros"
+      }
+    ],
+    "existingFields": [],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\CR-NOSSA-SENHORA-REDONDA_23194623583_2026-09-28T18-18-25-871Z.png"
+  },
+  {
+    "sku": "CR-CRUZ-QUADRADA-DOURADA",
+    "productId": "58200010300",
+    "status": "success",
+    "updatedFields": [
+      {
+        "label": "País de Origem",
+        "value": "Brasil"
+      },
+      {
+        "label": "Quantidade da embalagem",
+        "value": "1"
+      },
+      {
+        "label": "Produto personalizado",
+        "value": "Não"
+      },
+      {
+        "label": "Gênero",
+        "value": "Unissex"
+      },
+      {
+        "label": "Material",
+        "value": "Outros"
+      }
+    ],
+    "existingFields": [],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\CR-CRUZ-QUADRADA-DOURADA_58200010300_2026-09-28T18-18-51-986Z.png"
+  },
+  {
+    "sku": "CR-SAO-JORGE-GRAFITE-PRETO",
+    "productId": "58250014174",
+    "status": "success",
+    "updatedFields": [
+      {
+        "label": "Quantidade da embalagem",
+        "value": "1"
+      }
+    ],
+    "existingFields": [],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\CR-SAO-JORGE-GRAFITE-PRETO_58250014174_2026-09-28T18-20-36-030Z.png"
+  },
+  {
+    "sku": "VEXTERX8MULTVERDE300_4029",
+    "productId": "58250167774",
+    "status": "success",
+    "updatedFields": [
+      {
+        "label": "Quantidade da embalagem",
+        "value": "1"
+      },
+      {
+        "label": "Produto personalizado",
+        "value": "Não"
+      },
+      {
+        "label": "País de Origem",
+        "value": "Brasil"
+      },
+      {
+        "label": "Material",
+        "value": "XTechPro"
+      },
+      {
+        "label": "Quantidade por Pacote",
+        "value": "1"
+      }
+    ],
+    "existingFields": [],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\VEXTERX8MULTVERDE300_4029_58250167774_2026-09-28T18-21-10-290Z.png"
+  },
+  {
+    "sku": "CAIXABRK-VERDE",
+    "productId": "22498374748",
+    "status": "success",
+    "updatedFields": [
+      {
+        "label": "Quantidade da embalagem",
+        "value": "1"
+      }
+    ],
+    "existingFields": [],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\CAIXABRK-VERDE_22498374748_2026-09-28T18-23-12-736Z.png"
+  },
+  {
+    "sku": "BIRUTA90",
+    "productId": "23994950554",
+    "status": "success",
+    "updatedFields": [
+      {
+        "label": "Material",
+        "value": "Plástico ABS e Metal"
+      },
+      {
+        "label": "Quantidade da embalagem",
+        "value": "1"
+      },
+      {
+        "label": "Produto personalizado",
+        "value": "Não"
+      },
+      {
+        "label": "País de Origem",
+        "value": "Brasil"
+      },
+      {
+        "label": "Quantidade por Pacote",
+        "value": "1"
+      }
+    ],
+    "existingFields": [],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\BIRUTA90_23994950554_2026-09-28T18-23-46-745Z.png"
+  },
+  {
+    "sku": "OC1033",
+    "productId": "58208757181",
+    "status": "success",
+    "updatedFields": [
+      {
+        "label": "País de Origem",
+        "value": "Brasil"
+      },
+      {
+        "label": "Material da armação",
+        "value": "XTechPro"
+      },
+      {
+        "label": "Gênero",
+        "value": "Unissex"
+      },
+      {
+        "label": "Material",
+        "value": "XTechPro"
+      },
+      {
+        "label": "Quantidade da embalagem",
+        "value": "1"
+      },
+      {
+        "label": "Produto personalizado",
+        "value": "Não"
+      },
+      {
+        "label": "Modelo",
+        "value": "Óculos BRK Original Esportivo "
+      }
+    ],
+    "existingFields": [],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\OC1033_58208757181_2026-09-28T18-24-25-942Z.png"
+  },
+  {
+    "sku": "CPT037",
+    "productId": "58208829848",
+    "status": "success",
+    "updatedFields": [
+      {
+        "label": "Material",
+        "value": "Outros"
+      },
+      {
+        "label": "Quantidade da embalagem",
+        "value": "1"
+      },
+      {
+        "label": "Produto personalizado",
+        "value": "Não"
+      },
+      {
+        "label": "País de Origem",
+        "value": "Brasil"
+      },
+      {
+        "label": "Capacidade de Volume",
+        "value": "473ml"
+      },
+      {
+        "label": "Quantidade por Pacote",
+        "value": "1"
+      }
+    ],
+    "existingFields": [],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\CPT037_58208829848_2026-09-28T18-24-55-923Z.png"
+  },
+  {
+    "sku": "CPT002",
+    "productId": "58208882832",
+    "status": "success",
+    "updatedFields": [],
+    "existingFields": [],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\CPT002_58208882832_2026-09-28T18-26-38-222Z.png"
+  },
+  {
+    "sku": "CPT003",
+    "productId": "58208885786",
+    "status": "success",
+    "updatedFields": [
+      {
+        "label": "Material",
+        "value": "Outros"
+      },
+      {
+        "label": "Quantidade da embalagem",
+        "value": "1"
+      },
+      {
+        "label": "Produto personalizado",
+        "value": "Não"
+      },
+      {
+        "label": "País de Origem",
+        "value": "Brasil"
+      },
+      {
+        "label": "Capacidade de Volume",
+        "value": "473ml"
+      },
+      {
+        "label": "Quantidade por Pacote",
+        "value": "1"
+      }
+    ],
+    "existingFields": [],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\CPT003_58208885786_2026-09-28T18-27-01-671Z.png"
+  },
+  {
+    "sku": "CPT009",
+    "productId": "58208895697",
+    "status": "success",
+    "updatedFields": [],
+    "existingFields": [],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\CPT009_58208895697_2026-09-28T18-28-43-625Z.png"
+  },
+  {
+    "sku": "CPT012",
+    "productId": "58208907926",
+    "status": "success",
+    "updatedFields": [
+      {
+        "label": "Material",
+        "value": "Outros"
+      },
+      {
+        "label": "Quantidade da embalagem",
+        "value": "1"
+      },
+      {
+        "label": "Produto personalizado",
+        "value": "Não"
+      },
+      {
+        "label": "País de Origem",
+        "value": "Brasil"
+      },
+      {
+        "label": "Capacidade de Volume",
+        "value": "473ml"
+      },
+      {
+        "label": "Quantidade por Pacote",
+        "value": "1"
+      }
+    ],
+    "existingFields": [],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\CPT012_58208907926_2026-09-28T18-29-07-609Z.png"
+  },
+  {
+    "sku": "SAVAGE65",
+    "productId": "58210886260",
+    "status": "success",
+    "updatedFields": [
+      {
+        "label": "Material",
+        "value": "Plástico ABS"
+      },
+      {
+        "label": "Quantidade da embalagem",
+        "value": "1"
+      },
+      {
+        "label": "Produto personalizado",
+        "value": "Não"
+      },
+      {
+        "label": "País de Origem",
+        "value": "Brasil"
+      },
+      {
+        "label": "Quantidade por Pacote",
+        "value": "1"
+      }
+    ],
+    "existingFields": [],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\SAVAGE65_58210886260_2026-09-28T18-29-36-455Z.png"
+  },
+  {
+    "sku": "ISCA-SBS-85SP",
+    "productId": "58211118174",
+    "status": "success",
+    "updatedFields": [
+      {
+        "label": "Material",
+        "value": "Plástico ABS"
+      },
+      {
+        "label": "Quantidade da embalagem",
+        "value": "1"
+      },
+      {
+        "label": "Produto personalizado",
+        "value": "Não"
+      },
+      {
+        "label": "País de Origem",
+        "value": "Brasil"
+      },
+      {
+        "label": "Quantidade por Pacote",
+        "value": "1"
+      }
+    ],
+    "existingFields": [],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\ISCA-SBS-85SP_58211118174_2026-09-28T18-30-06-176Z.png"
+  },
+  {
+    "sku": "POPAI90",
+    "productId": "58211123776",
+    "status": "success",
+    "updatedFields": [
+      {
+        "label": "Material",
+        "value": "Plástico ABS"
+      },
+      {
+        "label": "Quantidade da embalagem",
+        "value": "1"
+      },
+      {
+        "label": "Produto personalizado",
+        "value": "Não"
+      },
+      {
+        "label": "País de Origem",
+        "value": "Brasil"
+      },
+      {
+        "label": "Quantidade por Pacote",
+        "value": "1"
+      }
+    ],
+    "existingFields": [],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\POPAI90_58211123776_2026-09-28T18-30-35-588Z.png"
+  },
+  {
+    "sku": "YOKAA115",
+    "productId": "58211124642",
+    "status": "success",
+    "updatedFields": [
+      {
+        "label": "Quantidade da embalagem",
+        "value": "1"
+      }
+    ],
+    "existingFields": [],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\YOKAA115_58211124642_2026-09-28T18-31-59-655Z.png"
+  },
+  {
+    "sku": "MARRENTA80",
+    "productId": "58211135438",
+    "status": "success",
+    "updatedFields": [
+      {
+        "label": "Material",
+        "value": "Plástico ABS"
+      },
+      {
+        "label": "Quantidade da embalagem",
+        "value": "1"
+      },
+      {
+        "label": "Produto personalizado",
+        "value": "Não"
+      },
+      {
+        "label": "País de Origem",
+        "value": "Brasil"
+      },
+      {
+        "label": "Quantidade por Pacote",
+        "value": "1"
+      }
+    ],
+    "existingFields": [],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\MARRENTA80_58211135438_2026-09-28T18-32-33-594Z.png"
+  },
+  {
+    "sku": "BORAPLUS75",
+    "productId": "48767612411",
+    "status": "success",
+    "updatedFields": [
+      {
+        "label": "Quantidade da embalagem",
+        "value": "1"
+      },
+      {
+        "label": "Produto personalizado",
+        "value": "Não"
+      },
+      {
+        "label": "Quantidade por Pacote",
+        "value": "1"
+      }
+    ],
+    "existingFields": [
+      {
+        "label": "Material",
+        "current": "Plástico ABS"
+      },
+      {
+        "label": "País de Origem",
+        "current": "Brasil"
+      }
+    ],
+    "screenshot": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\screenshots\\shopee_attributes\\BORAPLUS75_48767612411_2026-09-28T18-32-55-988Z.png"
+  }
+]

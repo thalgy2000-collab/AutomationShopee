@@ -105,8 +105,16 @@ async function main() {
   // Filtrar apenas produtos válidos
   let candidates = checkpoint.items.filter((i) => i.valid);
 
-  // Se uma planilha / CSV foi especificado, filtra os produtos para corresponder ao lote!
-  if (inputFile && csvRecords.length > 0) {
+  // Se um targetSku específico foi informado, prioriza o produto diretamente do catálogo enriquecido
+  if (targetSku) {
+    const found = candidates.find((i) => i.sku.toUpperCase() === targetSku.toUpperCase());
+    if (!found) {
+      console.error(`❌ O SKU '${targetSku}' não foi encontrado na pasta de produtos enriquecidos (${PRODUTOS_DIR}) ou possui dados inválidos.`);
+      process.exit(1);
+    }
+    candidates = [found];
+  } else if (inputFile && csvRecords.length > 0) {
+    // Se uma planilha / CSV foi especificado (e não há SKU único), filtra os produtos para corresponder ao lote!
     const allowedSkus = new Set();
     csvRecords.forEach((r) => {
       if (r.sku) {
@@ -173,9 +181,9 @@ async function main() {
   }
 
   if (targetSku) {
-    finalCandidates = toProcess.filter((i) => i.sku === targetSku);
+    finalCandidates = toProcess.filter((i) => i.sku.toUpperCase() === targetSku.toUpperCase());
     if (finalCandidates.length === 0) {
-      console.error(`❌ O SKU '${targetSku}' não encontrado.`);
+      console.error(`❌ O SKU '${targetSku}' não encontrado na lista para processar.`);
       process.exit(1);
     }
   }

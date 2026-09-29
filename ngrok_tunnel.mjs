@@ -106,6 +106,7 @@ function startNgrok() {
       console.log(`👉 Link Permanente de Acesso:`);
       console.log(`   ${PERMANENT_URL}`);
       console.log(`   ${PERMANENT_URL}/relatorio.html`);
+      console.log(`   ${PERMANENT_URL}/roadmap.html`);
       console.log(`=============================================================\n`);
     }
   }

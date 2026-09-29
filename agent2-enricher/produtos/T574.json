@@ -1,0 +1,93 @@
+{
+  "sku": "T574",
+  "titulo_shopee": "Bandana Tubeneck Brk Armorx Preto Com Protecao Uv50+",
+  "titulos_alternativos": [
+    "Bandana Tubeneck Pesca Brk Armorx Protecao Solar Uv50 Preto",
+    "Gola Tubeneck Mascara Protecao Uv50 Brk Armorx Preto Pesca"
+  ],
+  "marca": "BRK",
+  "modelo": "Armorx Preto",
+  "categoria_sugerida": "Acessórios de Moda > Bonés, Chapéus e Toucas",
+  "descricao": "Bandana Tubeneck Brk Armorx Preto Com Protecao Uv50+\n\nA Bandana Tubeneck Brk Armorx é o acessório indispensável para pescadores e entusiastas de atividades ao ar livre que buscam máxima proteção contra os raios solares. Confeccionada com materiais de alta qualidade, garante excelente respirabilidade, toque suave na pele e secagem ultrarrápida durante o uso prolongado sob o sol.\n\nPor que escolher esta bandana:\n- Proteção solar UV50+ homologada: bloqueia eficazmente os raios ultravioleta, prevenindo queimaduras e danos à pele\n- Tecido leve e altamente respirável: proporciona conforto térmico e evita o acúmulo de suor\n- Alta elasticidade e ajuste versátil: adapta-se perfeitamente ao formato do rosto e pescoço, podendo ser usada de várias formas\n- Secagem ultrarrápida: ideal para dias quentes e pescarias intensas na água ou em terra\n- Design ergonômico sem costuras incômodas: máximo conforto durante todo o dia de pescaria\n\nIndicado para pescar:\nPraticantes de pesca esportiva em geral (Tucunaré, Traíra, Robalo, Dourado, Piau), além de trilhas, ciclismo, camping, cavalgadas e trabalhos no campo.\n\nEspecificações:\n- Marca: BRK\n- Modelo: Armorx\n- Material: Poliéster de alta performance com proteção UV50+\n- Cor: Preto\n- Estilo: Tubeneck / Bandana tubular\n\nDicas de uso:\nPode ser utilizada cobrindo o pescoço, a nuca, a orelha e parte do rosto junto com um boné ou chapéu para garantir proteção solar completa. Lave à mão com sabão neutro e seque à sombra para preservar as propriedades do tecido.",
+  "atributos": {
+    "genero": "Unissex",
+    "pais_de_origem": "Brasil",
+    "material": "Poliéster com Proteção UV50+",
+    "estampa": "Lisa",
+    "estilo_de_chapeu": "Bandana",
+    "tipo_de_couro": "",
+    "condicao": "Novo",
+    "numero_de_registro_da_fda": "",
+    "quantidade_da_embalagem": 1,
+    "tamanho_do_pacote": "",
+    "produto_personalizado": "Não",
+    "quantidade_por_pacote": 1
+  },
+  "variacoes": [],
+  "palavras_chave": [
+    "bandana pesca",
+    "tubeneck brk",
+    "protecao uv50 pesca",
+    "mascara pesca sol",
+    "gola pesca esportiva"
+  ],
+  "medidas": {
+    "altura_cm": 3,
+    "largura_cm": 20,
+    "comprimento_cm": 30,
+    "peso_kg": 0.25
+  },
+  "seo_score": 90,
+  "seo_checklist": [
+    {
+      "item": "Tamanho do Título",
+      "passed": false,
+      "score": 15,
+      "maxScore": 25,
+      "reason": "52/120 caracteres (muito curto, adicione termos)"
+    },
+    {
+      "item": "Estrutura Persuasiva",
+      "passed": true,
+      "score": 25,
+      "maxScore": 25,
+      "reason": "25/25 pts (Intro: ✅, Benefícios: ✅, Indicado: ✅, Especificações: ✅, Dicas: ✅)"
+    },
+    {
+      "item": "Atributos Técnicos",
+      "passed": true,
+      "score": 20,
+      "maxScore": 20,
+      "reason": "12 atributos mapeados (meta: 3+)"
+    },
+    {
+      "item": "Palavras-chave SEO",
+      "passed": true,
+      "score": 15,
+      "maxScore": 15,
+      "reason": "5 palavras-chave identificadas (meta: 4+)"
+    },
+    {
+      "item": "Escaneabilidade & E-E-A-T",
+      "passed": true,
+      "score": 15,
+      "maxScore": 15,
+      "reason": "11 marcadores/bullet points com quebras de linha"
+    }
+  ],
+  "preco": {
+    "preco_sem_promocao": 34.9,
+    "preco_com_promocao": null,
+    "preco_atual": 34.9,
+    "em_promocao": false,
+    "desconto_percentual": 0
+  },
+  "parent_sku": "T574",
+  "is_parent": false,
+  "cod_sankhya": "82501",
+  "imagens": [
+    "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\agent1-scraper\\downloads\\Planilha\\T574_FULL\\01.jpg",
+    "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\agent1-scraper\\downloads\\Planilha\\T574_FULL\\02.jpg",
+    "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\agent1-scraper\\downloads\\Planilha\\T574_FULL\\03.jpg"
+  ]
+}

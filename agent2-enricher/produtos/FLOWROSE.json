@@ -1,0 +1,94 @@
+{
+  "sku": "FLOWROSE",
+  "titulo_shopee": "Bandana BRK Capivara Estampada Proteção UV50+ Tecido XTech Pro Pesca Esportiva",
+  "titulos_alternativos": [
+    "Bandana Tubeneck BRK Capivara Estampada Proteção Solar UV50+ Tecido XTech Pro",
+    "Bandana BRK Capivara Estampada Tecido XTech Pro Proteção UV50+ Pesca e Agro"
+  ],
+  "marca": "BRK",
+  "modelo": "Capivara",
+  "categoria_sugerida": "Acessórios de Moda > Bonés, Chapéus e Toucas",
+  "descricao": "Bandana BRK Capivara Estampada\n\nAlta performance em um só produto. Confeccionadas com o tecido exclusivo XTech Pro®, proporcionam conforto, proteção solar UV50+.\nVista-se com as vibrantes Bandanas Brk, que não desbotam, não precisam ser passadas, possuem costura reforçada e secagem ultra rápida.\n\nCuidados para Conservação:\nAs Bandanas Brk são uma inovação no segmento, unindo qualidade, estilo e performance em um só produto. Confeccionadas com o tecido exclusivo XTech Pro®, proporcionam conforto, proteção solar UV50+.\nPara preservar as propriedades do tecido e a eficácia da tecnologia utilizada, atente-se aos seguintes cuidados:\n- Lave em água fria com detergente líquido.\n- Após a lavagem, deixe secar na sombra.\n- Não utilize máquina de secar e nem lavagem a seco.\n- Não passe sua bandana com ferro elétrico.\n\nDiferenciais da Bandana Brk:\n- Costura reforçada com tecnologia.\n- Tecido XTech Pro® exclusivo.\n- Proteção solar UV50+ homologada.\n- Estampas exclusivas.\n- Garantia de 1 ano contra defeitos de fábrica.\n- Troca fácil.\n\nNossa Estampa é protegida pela Lei de Direitos Autorais (Lei 9.610/98) e Reprodução não autorizada está sujeita às penalidades legais. Copiar é crime!",
+  "atributos": {
+    "genero": "Unissex",
+    "pais_de_origem": "Brasil",
+    "material": "Sintético",
+    "estampa": "Capivara",
+    "estilo_de_chapeu": "Bandana",
+    "tipo_de_couro": "",
+    "condicao": "Novo",
+    "numero_de_registro_da_fda": "",
+    "quantidade_da_embalagem": 1,
+    "tamanho_do_pacote": "",
+    "produto_personalizado": "Não",
+    "quantidade_por_pacote": 1,
+    "modelo": "Capivara"
+  },
+  "variacoes": [],
+  "palavras_chave": [
+    "bandana brk",
+    "bandana capivara",
+    "tubeneck pesca",
+    "bandana uv50",
+    "tecido xtech pro",
+    "lenço pesca",
+    "bandana agro",
+    "brk capivara"
+  ],
+  "medidas": {
+    "altura_cm": 3,
+    "largura_cm": 20,
+    "comprimento_cm": 30,
+    "peso_kg": 0.25
+  },
+  "seo_score": 80,
+  "seo_checklist": [
+    {
+      "item": "Tamanho do Título",
+      "passed": true,
+      "score": 25,
+      "maxScore": 25,
+      "reason": "78/120 caracteres (faixa ideal: 60-120)"
+    },
+    {
+      "item": "Estrutura Persuasiva",
+      "passed": false,
+      "score": 5,
+      "maxScore": 25,
+      "reason": "5/25 pts (Intro: ✅, Benefícios: ❌, Indicado: ❌, Especificações: ❌, Dicas: ❌)"
+    },
+    {
+      "item": "Atributos Técnicos",
+      "passed": true,
+      "score": 20,
+      "maxScore": 20,
+      "reason": "13 atributos mapeados (meta: 3+)"
+    },
+    {
+      "item": "Palavras-chave SEO",
+      "passed": true,
+      "score": 15,
+      "maxScore": 15,
+      "reason": "8 palavras-chave identificadas (meta: 4+)"
+    },
+    {
+      "item": "Escaneabilidade & E-E-A-T",
+      "passed": true,
+      "score": 15,
+      "maxScore": 15,
+      "reason": "12 marcadores/bullet points com quebras de linha"
+    }
+  ],
+  "ia_provedor": "Groq / LLaMA",
+  "ia_etiqueta": "🦙 Gerado com LLaMA / Groq",
+  "ia_modelo": "qwen/qwen3.8-27b (Groq)",
+  "ia_data": "2026-09-29T14:11:54.306Z",
+  "preco": null,
+  "parent_sku": "FLOWROSE",
+  "is_parent": false,
+  "cod_sankhya": "Babuche Feminina Rose Boaonda Flow Discovery Academia Trilha",
+  "imagens": [
+    "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\agent1-scraper\\downloads\\FLOWROSE\\foto_01.jpg",
+    "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\agent1-scraper\\downloads\\FLOWROSE\\foto_02.jpg"
+  ]
+}

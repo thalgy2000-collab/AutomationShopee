@@ -19,6 +19,9 @@ bin/
 # Perfis e cache de navegador
 browser_profile/
 **/browser_profile/
+browser_profile_shopee/
+**/browser_profile_shopee/
+*.bak
 
 # Imagens locais pesadas e capturas de tela
 **/downloads/

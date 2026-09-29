@@ -18,6 +18,11 @@
     "agent3:fix": "node agent3-rpa-magis5/fix_drafts_runner.mjs",
     "agent3:fix:fusion": "node agent3-rpa-magis5/fix_drafts_runner.mjs --only-fusion --publish",
     "agent3:fix:dry": "node agent3-rpa-magis5/fix_drafts_runner.mjs --only-fusion --dry-run",
-    "agent4": "node agent4-diagnostician/diagnose.mjs"
+    "agent4": "node agent4-diagnostician/pipeline_reporter.mjs",
+    "agent5": "node agent5-shopee-attributes/src/runner.mjs",
+    "agent5:login": "node agent5-shopee-attributes/src/login.mjs",
+    "agent5:test": "node agent5-shopee-attributes/src/runner.mjs --limit 1 --headed --dry-run",
+    "shopee:login": "node agent5-shopee-attributes/src/login.mjs",
+    "shopee:attributes": "node agent5-shopee-attributes/src/runner.mjs"
   }
 }

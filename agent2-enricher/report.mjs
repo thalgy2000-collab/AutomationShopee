@@ -1061,8 +1061,23 @@ function buildHtml(products) {
 <body>
   <div class="header">
     <div class="header-content">
-      <h1>🎣 Relatório de Validação — Agente 2</h1>
-      <div class="header-meta">BRK Fishing × Shopee | Gerado em ${now} | ${totalProducts} produtos</div>
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 16px;">
+        <div>
+          <h1>🎣 Relatório de Validação — Agente 2</h1>
+          <div class="header-meta">BRK Fishing × Shopee | Gerado em ${now} | ${totalProducts} produtos</div>
+        </div>
+        <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+          <a href="/roadmap.html" target="_blank" style="display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; background: rgba(16, 185, 129, 0.2); border: 1px solid rgba(16, 185, 129, 0.5); border-radius: 8px; color: #34d399; text-decoration: none; font-weight: 700; font-size: 0.9rem; transition: all 0.2s;" onmouseover="this.style.background='rgba(16, 185, 129, 0.35)'" onmouseout="this.style.background='rgba(16, 185, 129, 0.2)'">
+            <span>🗺️ Roadmap Shopee</span>
+          </a>
+          <a href="/painel.html" target="_blank" style="display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px; background: rgba(79, 140, 255, 0.15); border: 1px solid rgba(79, 140, 255, 0.3); border-radius: 8px; color: #60a5fa; text-decoration: none; font-weight: 600; font-size: 0.85rem;">
+            <span>📊 Painel Principal</span>
+          </a>
+          <a href="/relatorio-esteira.html" target="_blank" style="display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 8px; color: #e2e8f0; text-decoration: none; font-weight: 600; font-size: 0.85rem;">
+            <span>⚡ Relatório Esteira</span>
+          </a>
+        </div>
+      </div>
       <div class="stats-bar">
         <div class="stat stat--total">
           <span>📦 Total:</span>
