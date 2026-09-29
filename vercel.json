@@ -1,0 +1,15 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "cleanUrls": true,
+  "rewrites": [
+    { "source": "/", "destination": "/roadmap_shopee_brk.html" },
+    { "source": "/roadmap", "destination": "/roadmap_shopee_brk.html" },
+    { "source": "/roadmap.html", "destination": "/roadmap_shopee_brk.html" },
+    { "source": "/painel", "destination": "/agent2-enricher/painel.html" },
+    { "source": "/painel.html", "destination": "/agent2-enricher/painel.html" },
+    { "source": "/relatorio", "destination": "/agent2-enricher/relatorio.html" },
+    { "source": "/relatorio.html", "destination": "/agent2-enricher/relatorio.html" },
+    { "source": "/esteira", "destination": "/agent4-diagnostician/relatorio_esteira.html" },
+    { "source": "/esteira.html", "destination": "/agent4-diagnostician/relatorio_esteira.html" }
+  ]
+}
