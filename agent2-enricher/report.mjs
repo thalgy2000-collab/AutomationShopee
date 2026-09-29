@@ -108,6 +108,9 @@ async function loadProducts() {
  * Carrega até 3 imagens de um produto (ou suas variações) como data URIs para embedding.
  */
 async function loadProductImages(product, maxImages = 3) {
+  if (process.env.NO_EMBED_IMAGES === "1" || process.env.VERCEL || process.argv.includes("--no-images") || process.argv.includes("--light")) {
+    return [];
+  }
   const images = [];
 
   // 1. Tentar carregar de product.imagens
@@ -1934,7 +1937,11 @@ function buildProductCard(product, idx) {
             <img id="main-img-${idx}" src="${mainImage}" alt="${sku}">
           </div>
           ${images.length > 1 ? `<div class="gallery-thumbs" id="thumbs-${idx}">${thumbsHtml}</div>` : ""}
-        </div>` : `<div class="gallery" style="display:flex;align-items:center;justify-content:center;color:var(--text-muted);">Sem imagens</div>`}
+        </div>` : `<div class="gallery" style="display:flex; flex-direction:column; align-items:center; justify-content:center; background:rgba(255,255,255,0.02); border:1px dashed var(--border); border-radius:var(--radius-sm); padding:2rem 1rem; color:var(--text-muted); text-align:center; min-height:180px;">
+          <div style="font-size:2rem; margin-bottom:0.4rem; opacity:0.6;">📦</div>
+          <div style="font-size:0.85rem; font-weight:700; color:var(--text-primary);">${sku}</div>
+          <div style="font-size:0.75rem; color:var(--text-muted); margin-top:0.25rem;">Foto Original no ERP Sankhya / Shopee</div>
+        </div>`}
 
         <div class="details">
           <div class="detail-section">

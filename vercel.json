@@ -5,11 +5,12 @@
     { "source": "/", "destination": "/roadmap_shopee_brk.html" },
     { "source": "/roadmap", "destination": "/roadmap_shopee_brk.html" },
     { "source": "/roadmap.html", "destination": "/roadmap_shopee_brk.html" },
+    { "source": "/relatorio", "destination": "/relatorio.html" },
+    { "source": "/relatorio.html", "destination": "/relatorio.html" },
     { "source": "/painel", "destination": "/agent2-enricher/painel.html" },
     { "source": "/painel.html", "destination": "/agent2-enricher/painel.html" },
-    { "source": "/relatorio", "destination": "/agent2-enricher/relatorio.html" },
-    { "source": "/relatorio.html", "destination": "/agent2-enricher/relatorio.html" },
-    { "source": "/esteira", "destination": "/agent4-diagnostician/relatorio_esteira.html" },
-    { "source": "/esteira.html", "destination": "/agent4-diagnostician/relatorio_esteira.html" }
+    { "source": "/esteira", "destination": "/esteira.html" },
+    { "source": "/esteira.html", "destination": "/esteira.html" },
+    { "source": "/relatorio-esteira.html", "destination": "/esteira.html" }
   ]
 }
