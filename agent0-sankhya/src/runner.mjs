@@ -212,6 +212,16 @@ export async function runAgent0(options = {}) {
     }
 
     console.log(`\n📊 Total de registros coletados: ${uniqueItems.length}`);
+    if (uniqueItems.length === 0) {
+      console.warn("⚠️ Nenhum produto foi localizado no Sankhya para os termos ou SKUs consultados.");
+      await client.close();
+      return {
+        success: false,
+        error: "Nenhum produto foi localizado no Sankhya para os termos ou SKUs consultados.",
+        total: 0,
+        items: []
+      };
+    }
     console.log("📑 Gerando planilha Excel (.xlsx)...");
 
     const uploadsDir = resolve(import.meta.dirname, "../../uploads");

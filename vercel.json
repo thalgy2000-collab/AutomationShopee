@@ -1,16 +1,28 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
+  "outputDirectory": ".",
   "cleanUrls": true,
+  "trailingSlash": false,
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Robots-Tag", "value": "noindex, nofollow" },
+        { "key": "Access-Control-Allow-Origin", "value": "*" }
+      ]
+    }
+  ],
   "rewrites": [
-    { "source": "/", "destination": "/roadmap_shopee_brk.html" },
-    { "source": "/roadmap", "destination": "/roadmap_shopee_brk.html" },
-    { "source": "/roadmap.html", "destination": "/roadmap_shopee_brk.html" },
+    { "source": "/api/(.*)", "destination": "https://communicate-verde-counters-jane.trycloudflare.com/api/$1" },
+    { "source": "/screenshots/(.*)", "destination": "https://communicate-verde-counters-jane.trycloudflare.com/screenshots/$1" },
+    { "source": "/uploads/(.*)", "destination": "https://communicate-verde-counters-jane.trycloudflare.com/uploads/$1" },
+    { "source": "/produtos/(.*)", "destination": "https://communicate-verde-counters-jane.trycloudflare.com/produtos/$1" },
+    { "source": "/downloads/(.*)", "destination": "https://communicate-verde-counters-jane.trycloudflare.com/downloads/$1" },
+
+    { "source": "/", "destination": "/agent0.html" },
+    { "source": "/roadmap", "destination": "/roadmap.html" },
+    { "source": "/kanban", "destination": "/kanban.html" },
     { "source": "/relatorio", "destination": "/relatorio.html" },
-    { "source": "/relatorio.html", "destination": "/relatorio.html" },
-    { "source": "/painel", "destination": "/agent2-enricher/painel.html" },
-    { "source": "/painel.html", "destination": "/agent2-enricher/painel.html" },
-    { "source": "/esteira", "destination": "/esteira.html" },
-    { "source": "/esteira.html", "destination": "/esteira.html" },
-    { "source": "/relatorio-esteira.html", "destination": "/esteira.html" }
+    { "source": "/esteira", "destination": "/esteira.html" }
   ]
 }

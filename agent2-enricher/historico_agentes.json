@@ -1,5 +1,65 @@
 [
   {
+    "id": "exec_1790769447312_jlzc",
+    "agentId": "agent0",
+    "agentName": "Agente 0 — Sankhya Scout",
+    "timestamp": "2026-09-30T11:57:27.312Z",
+    "formattedDate": "30/09/2026",
+    "formattedTime": "08:57:27",
+    "status": "success",
+    "durationSeconds": 8,
+    "durationFormatted": "8s",
+    "summary": "Execução concluída com sucesso (Concluído)",
+    "details": [
+      "Carregando dependências e ambiente de execução..."
+    ],
+    "skus": [],
+    "files": [
+      {
+        "name": "planilha_sankhya_1790769381053.xlsx",
+        "path": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\uploads\\planilha_sankhya_1790769381053.xlsx",
+        "size": 23393,
+        "downloadUrl": "/uploads/planilha_sankhya_1790769381053.xlsx",
+        "sizeFormatted": "22.8 KB"
+      }
+    ],
+    "metadata": {
+      "exitCode": 0,
+      "model": "gemini-2.5-flash"
+    }
+  },
+  {
+    "id": "exec_sankhya_planilha_sankhya_1790769381053_xlsx",
+    "agentId": "agent0",
+    "agentName": "Agente 0 — Sankhya Scout",
+    "timestamp": "2026-09-30T11:56:21.053Z",
+    "formattedDate": "30/09/2026",
+    "formattedTime": "08:56:21",
+    "status": "success",
+    "durationSeconds": 45,
+    "durationFormatted": "45s",
+    "summary": "Planilha exportada do Sankhya: planilha_sankhya_1790769381053.xlsx",
+    "details": [
+      "Arquivo de dados cadastrais Sankhya: planilha_sankhya_1790769381053.xlsx",
+      "Tamanho do arquivo: 22.8 KB",
+      "Pronta para download e processamento pelos Agentes 1, 2 e 3"
+    ],
+    "skus": [],
+    "files": [
+      {
+        "name": "planilha_sankhya_1790769381053.xlsx",
+        "path": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\uploads\\planilha_sankhya_1790769381053.xlsx",
+        "size": 23393,
+        "sizeFormatted": "22.8 KB",
+        "downloadUrl": "/uploads/planilha_sankhya_1790769381053.xlsx"
+      }
+    ],
+    "metadata": {
+      "autoDiscovered": true,
+      "fileName": "planilha_sankhya_1790769381053.xlsx"
+    }
+  },
+  {
     "id": "exec_1790710329577_2es3",
     "agentId": "agent2",
     "agentName": "Agente 2 — IA Vision & SEO",

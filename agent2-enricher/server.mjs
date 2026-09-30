@@ -459,10 +459,23 @@ function startAgent(agentId, options = {}) {
       args.push('--skus', options.skus.join(','));
     } else if (options.sku) {
       args.push('--sku', options.sku.trim());
+    } else if (!options.action && !options.collection) {
+      // Se chamado sem coleção e sem SKUs, utiliza os 6 SKUs padrão recentes do Sankhya
+      const DEFAULT_SANKHYA_SKUS = [
+        'C02846BL_FULL',
+        'C02849BL_FULL',
+        'C02830_FULL',
+        'C02830BL_FULL',
+        'C02824_FULL',
+        'C02829_FULL'
+      ];
+      args.push('--skus', DEFAULT_SANKHYA_SKUS.join(','));
     }
     if (options.headless) {
       args.push('--headless');
     }
+    agentTelemetry.currentStep = 'Iniciando Sankhya Scout';
+    agentTelemetry.stepDetail = 'Abrindo navegador e conectando ao Sankhya Web...';
   } else if (agentId === 'agent4') {
     cwd = path.resolve(__dirname, '../agent4-diagnostician');
     args = ['pipeline_reporter.mjs'];
@@ -564,6 +577,11 @@ function startAgent(agentId, options = {}) {
         }
       }
 
+      // Captura erros específicos para detalhar ao usuário no chat
+      if (line.includes('❌') || line.includes('Erro ao processar') || line.includes('FALHA NO SALVAMENTO') || line.includes('recusou salvar') || line.includes('Token expirado') || line.includes('não foi encontrado na pasta') || line.includes('CONFLITO DE SKU') || line.includes('já cadastrado')) {
+        agentTelemetry.lastError = line.replace(/^[❌⚠️\s]+/, '').trim();
+      }
+
       // Agente 2
       if (line.includes('Enriquecendo com IA') || line.includes('Gerando')) {
         agentTelemetry.currentStep = 'Enriquecimento IA';
@@ -626,6 +644,10 @@ function startAgent(agentId, options = {}) {
     const text = data.toString();
     addLog(text, 'stderr');
     process.stderr.write(`[${agentId} ERROR] ${text}`);
+    const errLines = text.split('\n').map(l => l.trim()).filter(l => l.length > 5 && !l.includes('Debugger') && !l.includes('ExperimentalWarning'));
+    if (errLines.length > 0) {
+      agentTelemetry.lastError = errLines[errLines.length - 1];
+    }
   });
 
   child.on('close', (code) => {
@@ -645,6 +667,9 @@ function startAgent(agentId, options = {}) {
       agentTelemetry.history[agentId].lastAction = summaryText;
     }
     agentTelemetry.currentStep = code === 0 ? 'Concluído com sucesso' : 'Finalizado com erro';
+    if (code !== 0 && agentTelemetry.lastError) {
+      agentTelemetry.stepDetail = agentTelemetry.lastError;
+    }
 
     // Salva no histórico persistente do agente
     try {

@@ -1,0 +1,4173 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Roadmap Estratégico Shopee | BRK Agro & Fishing</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #090d16;
+      --bg-surface: #101626;
+      --bg-card: rgba(22, 30, 49, 0.7);
+      --bg-glass: rgba(255, 255, 255, 0.04);
+      --border: rgba(255, 255, 255, 0.08);
+      --border-active: rgba(16, 185, 129, 0.4);
+      --text-main: #f1f5f9;
+      --text-muted: #94a3b8;
+      --text-dim: #64748b;
+      
+      --accent-emerald: #10b981;
+      --accent-cyan: #06b6d4;
+      --accent-amber: #f59e0b;
+      --accent-rose: #f43f5e;
+      --accent-purple: #8b5cf6;
+      
+      --glow-emerald: rgba(16, 185, 129, 0.25);
+      --glow-rose: rgba(244, 63, 94, 0.25);
+      --radius: 16px;
+      --transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text-main);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+      line-height: 1.5;
+      background-image: 
+        radial-gradient(circle at 15% 10%, rgba(16, 185, 129, 0.12) 0%, transparent 40%),
+        radial-gradient(circle at 85% 25%, rgba(6, 182, 212, 0.1) 0%, transparent 45%),
+        radial-gradient(circle at 50% 80%, rgba(139, 92, 246, 0.08) 0%, transparent 50%);
+      background-attachment: fixed;
+    }
+
+    /* Layout Container */
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 40px 24px 80px;
+    }
+
+    /* Header */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 40px;
+      flex-wrap: wrap;
+      gap: 24px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 32px;
+    }
+
+    .brand-wrap h1 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 32px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      background: linear-gradient(135deg, #ffffff 30%, #94a3b8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-badge {
+      font-size: 12px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      color: var(--accent-emerald);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .subtitle {
+      color: var(--text-muted);
+      margin-top: 6px;
+      font-size: 15px;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .progress-widget {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      padding: 12px 20px;
+      border-radius: 12px;
+      backdrop-filter: blur(10px);
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .progress-text {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    .progress-val {
+      font-family: 'Outfit', sans-serif;
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--accent-emerald);
+    }
+
+    /* KPI Grid */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 16px;
+      margin-bottom: 40px;
+    }
+
+    .kpi-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      backdrop-filter: blur(12px);
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .kpi-card:hover {
+      transform: translateY(-3px);
+      border-color: rgba(255, 255, 255, 0.15);
+    }
+
+    .kpi-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+    }
+
+    .kpi-card.critical::before { background: var(--accent-rose); box-shadow: 0 0 12px var(--accent-rose); }
+    .kpi-card.warning::before { background: var(--accent-amber); box-shadow: 0 0 12px var(--accent-amber); }
+    .kpi-card.info::before { background: var(--accent-cyan); box-shadow: 0 0 12px var(--accent-cyan); }
+    .kpi-card.success::before { background: var(--accent-emerald); box-shadow: 0 0 12px var(--accent-emerald); }
+
+    .kpi-label {
+      font-size: 13px;
+      color: var(--text-muted);
+      font-weight: 500;
+      margin-bottom: 8px;
+    }
+
+    .kpi-value {
+      font-family: 'Outfit', sans-serif;
+      font-size: 32px;
+      font-weight: 800;
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+
+    .kpi-desc {
+      font-size: 12px;
+      color: var(--text-dim);
+    }
+
+    /* Navigation Pills / Tabs */
+    .nav-tabs {
+      display: flex;
+      gap: 12px;
+      overflow-x: auto;
+      padding-bottom: 8px;
+      margin-bottom: 32px;
+      scrollbar-width: none;
+    }
+
+    .nav-tabs::-webkit-scrollbar { display: none; }
+
+    .nav-tab {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      padding: 12px 22px;
+      border-radius: 999px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: var(--transition);
+      white-space: nowrap;
+    }
+
+    .nav-tab:hover {
+      background: var(--bg-card);
+      color: var(--text-main);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .nav-tab.active {
+      background: var(--text-main);
+      color: var(--bg);
+      border-color: var(--text-main);
+      box-shadow: 0 4px 20px rgba(255, 255, 255, 0.2);
+    }
+
+    .badge-count {
+      font-size: 11px;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: rgba(0, 0, 0, 0.25);
+      color: inherit;
+    }
+
+    .nav-tab.active .badge-count {
+      background: rgba(0, 0, 0, 0.15);
+      color: #000;
+      font-weight: 700;
+    }
+
+    /* Roadmap Timeline Section */
+    .phase-section {
+      display: none;
+      animation: fadeIn 0.35s ease forwards;
+    }
+
+    .phase-section.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .phase-header {
+      background: linear-gradient(135deg, rgba(22, 30, 49, 0.9), rgba(16, 22, 38, 0.9));
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px;
+      margin-bottom: 24px;
+      position: relative;
+    }
+
+    .phase-title-wrap {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-bottom: 12px;
+    }
+
+    .phase-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 24px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .phase-pill {
+      font-size: 12px;
+      font-weight: 700;
+      padding: 6px 14px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .pill-urgent { background: rgba(244, 63, 94, 0.15); color: var(--accent-rose); border: 1px solid rgba(244, 63, 94, 0.3); }
+    .pill-high { background: rgba(245, 158, 11, 0.15); color: var(--accent-amber); border: 1px solid rgba(245, 158, 11, 0.3); }
+    .pill-medium { background: rgba(6, 182, 212, 0.15); color: var(--accent-cyan); border: 1px solid rgba(6, 182, 212, 0.3); }
+    .pill-success { background: rgba(16, 185, 129, 0.15); color: var(--accent-emerald); border: 1px solid rgba(16, 185, 129, 0.3); }
+
+    .phase-goal {
+      color: var(--text-muted);
+      font-size: 15px;
+      max-width: 800px;
+    }
+
+    /* Tasks Accordion & Cards */
+    .task-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .task-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      backdrop-filter: blur(12px);
+      transition: var(--transition);
+    }
+
+    .task-card:hover {
+      border-color: rgba(255, 255, 255, 0.18);
+    }
+
+    .task-card.checked {
+      opacity: 0.65;
+      background: rgba(16, 22, 38, 0.5);
+    }
+
+    .task-top {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+    }
+
+    .custom-checkbox {
+      appearance: none;
+      width: 22px;
+      height: 22px;
+      border: 2px solid var(--border);
+      border-radius: 6px;
+      background: var(--bg-surface);
+      cursor: pointer;
+      position: relative;
+      flex-shrink: 0;
+      margin-top: 3px;
+      transition: var(--transition);
+    }
+
+    .custom-checkbox:checked {
+      background: var(--accent-emerald);
+      border-color: var(--accent-emerald);
+    }
+
+    .custom-checkbox:checked::after {
+      content: '✓';
+      position: absolute;
+      color: #000;
+      font-size: 14px;
+      font-weight: 800;
+      left: 4px;
+      top: 0px;
+    }
+
+    .task-content {
+      flex: 1;
+    }
+
+    .task-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .task-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .task-meta {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .badge-tag {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 8px;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--text-muted);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .task-desc {
+      color: var(--text-muted);
+      font-size: 14px;
+      margin-bottom: 16px;
+    }
+
+    /* Product Action Table inside Task */
+    .table-responsive {
+      overflow-x: auto;
+      background: rgba(10, 14, 23, 0.6);
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      margin-top: 12px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+      text-align: left;
+    }
+
+    th {
+      background: rgba(255, 255, 255, 0.03);
+      padding: 12px 16px;
+      font-weight: 600;
+      color: var(--text-muted);
+      border-bottom: 1px solid var(--border);
+    }
+
+    td {
+      padding: 12px 16px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      color: var(--text-main);
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    .code-sku {
+      font-family: monospace;
+      font-size: 12px;
+      background: rgba(255, 255, 255, 0.08);
+      padding: 3px 6px;
+      border-radius: 4px;
+      color: var(--accent-cyan);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-copy {
+      background: transparent;
+      border: none;
+      color: var(--text-dim);
+      cursor: pointer;
+      font-size: 11px;
+    }
+
+    .btn-copy:hover {
+      color: var(--text-main);
+    }
+
+    /* Footer Note */
+    footer {
+      margin-top: 60px;
+      text-align: center;
+      color: var(--text-dim);
+      font-size: 13px;
+      border-top: 1px solid var(--border);
+      padding-top: 24px;
+    }
+
+    /* Action Banner */
+    .banner-quick {
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(6, 182, 212, 0.15));
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      border-radius: var(--radius);
+      padding: 24px;
+      margin-bottom: 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .banner-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .banner-subtitle {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .btn-action {
+      background: var(--accent-emerald);
+      color: #052e16;
+      font-weight: 700;
+      padding: 10px 20px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      font-size: 13px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: var(--transition);
+      text-decoration: none;
+    }
+
+    .btn-action:hover {
+      background: #34d399;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px var(--glow-emerald);
+    }
+
+    .nav-btn-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 16px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      color: var(--text-main);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 600;
+      backdrop-filter: blur(10px);
+      transition: var(--transition);
+    }
+    .nav-btn-link:hover {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.2);
+      transform: translateY(-2px);
+    }
+    .nav-btn-link.highlight {
+      background: rgba(16, 185, 129, 0.15);
+      border-color: rgba(16, 185, 129, 0.4);
+      color: var(--accent-emerald);
+    }
+    .nav-btn-link.highlight:hover {
+      background: rgba(16, 185, 129, 0.25);
+      border-color: var(--accent-emerald);
+      box-shadow: 0 0 15px var(--glow-emerald);
+    }
+  
+    /* ==========================================================================
+       URGENT TASKS HERO & KANBAN BOARD STYLES
+       ========================================================================== */
+
+    /* Pulse animation */
+    @keyframes pulseGlow {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.55; transform: scale(0.92); }
+    }
+
+    @keyframes borderPulse {
+      0%, 100% { border-color: rgba(244, 63, 94, 0.4); box-shadow: 0 0 15px rgba(244, 63, 94, 0.15); }
+      50% { border-color: rgba(244, 63, 94, 0.7); box-shadow: 0 0 25px rgba(244, 63, 94, 0.3); }
+    }
+
+    /* Urgent Tasks Top Hero */
+    .urgent-hero {
+      background: linear-gradient(135deg, rgba(244, 63, 94, 0.14) 0%, rgba(245, 158, 11, 0.08) 50%, rgba(16, 22, 38, 0.85) 100%);
+      border: 1px solid rgba(244, 63, 94, 0.35);
+      border-radius: var(--radius);
+      padding: 24px;
+      margin-bottom: 32px;
+      position: relative;
+      overflow: hidden;
+      animation: borderPulse 4s infinite ease-in-out;
+      backdrop-filter: blur(14px);
+    }
+
+    .urgent-hero-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-bottom: 20px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .urgent-title-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .urgent-badge-live {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(244, 63, 94, 0.2);
+      border: 1px solid rgba(244, 63, 94, 0.5);
+      color: #fb7185;
+      padding: 4px 12px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .pulse-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent-rose);
+      box-shadow: 0 0 8px var(--accent-rose);
+      animation: pulseGlow 1.6s infinite ease-in-out;
+    }
+
+    .urgent-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 20px;
+      font-weight: 800;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .urgent-subtitle {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .urgent-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 16px;
+    }
+
+    .urgent-card {
+      background: var(--bg-card);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 14px;
+      transition: var(--transition);
+      position: relative;
+    }
+
+    .urgent-card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(255, 255, 255, 0.2);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+    }
+
+    .urgent-card.p1 {
+      border-left: 4px solid var(--accent-rose);
+      background: linear-gradient(180deg, rgba(244, 63, 94, 0.08) 0%, rgba(22, 30, 49, 0.7) 100%);
+    }
+
+    .urgent-card.p2 {
+      border-left: 4px solid var(--accent-amber);
+      background: linear-gradient(180deg, rgba(245, 158, 11, 0.08) 0%, rgba(22, 30, 49, 0.7) 100%);
+    }
+
+    .urgent-card.p3 {
+      border-left: 4px solid var(--accent-cyan);
+      background: linear-gradient(180deg, rgba(6, 182, 212, 0.08) 0%, rgba(22, 30, 49, 0.7) 100%);
+    }
+
+    .urgent-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .urgent-card-tag {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 6px;
+      text-transform: uppercase;
+    }
+
+    .tag-rose { background: rgba(244, 63, 94, 0.2); color: #fb7185; border: 1px solid rgba(244, 63, 94, 0.3); }
+    .tag-amber { background: rgba(245, 158, 11, 0.2); color: #fcd34d; border: 1px solid rgba(245, 158, 11, 0.3); }
+    .tag-cyan { background: rgba(6, 182, 212, 0.2); color: #67e8f9; border: 1px solid rgba(6, 182, 212, 0.3); }
+
+    .urgent-card-sku-count {
+      font-size: 11px;
+      color: var(--text-dim);
+      font-weight: 600;
+    }
+
+    .urgent-card-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-top: 6px;
+      line-height: 1.35;
+    }
+
+    .urgent-card-desc {
+      font-size: 12.5px;
+      color: var(--text-muted);
+      line-height: 1.45;
+      margin-top: 4px;
+    }
+
+    .urgent-card-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 6px;
+    }
+
+    .chip-sku {
+      font-family: monospace;
+      font-size: 11px;
+      padding: 2px 6px;
+      border-radius: 4px;
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--text-main);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .urgent-card-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: auto;
+      padding-top: 10px;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .btn-urgent-action {
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text-main);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: var(--transition);
+      text-decoration: none;
+    }
+
+    .btn-urgent-action:hover {
+      background: rgba(255, 255, 255, 0.12);
+      border-color: rgba(255, 255, 255, 0.25);
+    }
+
+    .btn-urgent-action.primary {
+      background: var(--accent-rose);
+      color: #fff;
+      border-color: transparent;
+    }
+
+    .btn-urgent-action.primary:hover {
+      background: #e11d48;
+      box-shadow: 0 2px 10px rgba(244, 63, 94, 0.35);
+    }
+
+    .btn-urgent-action.warning {
+      background: var(--accent-amber);
+      color: #000;
+      font-weight: 700;
+      border-color: transparent;
+    }
+
+    .btn-urgent-action.warning:hover {
+      background: #fbbf24;
+      box-shadow: 0 2px 10px rgba(245, 158, 11, 0.35);
+    }
+
+    .btn-urgent-action.cyan {
+      background: var(--accent-cyan);
+      color: #000;
+      font-weight: 700;
+      border-color: transparent;
+    }
+
+    .btn-urgent-action.cyan:hover {
+      background: #22d3ee;
+      box-shadow: 0 2px 10px rgba(6, 182, 212, 0.35);
+    }
+
+    /* View Switcher Bar */
+    .view-switcher-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-bottom: 24px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      padding: 12px 18px;
+      border-radius: var(--radius);
+      backdrop-filter: blur(10px);
+    }
+
+    .view-modes-group {
+      display: flex;
+      gap: 8px;
+      background: rgba(0, 0, 0, 0.3);
+      padding: 4px;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .view-mode-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: var(--transition);
+    }
+
+    .view-mode-btn:hover {
+      color: var(--text-main);
+    }
+
+    .view-mode-btn.active {
+      background: var(--bg-card);
+      color: var(--text-main);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .kanban-filter-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .kanban-search-input {
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 7px 12px;
+      color: var(--text-main);
+      font-size: 12.5px;
+      outline: none;
+      width: 180px;
+      transition: var(--transition);
+    }
+
+    .kanban-search-input:focus {
+      border-color: var(--accent-cyan);
+      box-shadow: 0 0 10px rgba(6, 182, 212, 0.2);
+    }
+
+    .filter-select {
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 7px 12px;
+      color: var(--text-main);
+      font-size: 12.5px;
+      outline: none;
+      cursor: pointer;
+    }
+
+    /* Kanban Board Container */
+    .kanban-view-container {
+      display: block;
+      margin-bottom: 40px;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .kanban-board {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      align-items: start;
+    }
+
+    @media (max-width: 1100px) {
+      .kanban-board {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 640px) {
+      .kanban-board {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .kanban-column {
+      background: rgba(16, 22, 38, 0.65);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 14px;
+      min-height: 520px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      backdrop-filter: blur(10px);
+      transition: var(--transition);
+    }
+
+    .kanban-column-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 10px;
+      border-bottom: 2px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .col-title-wrap {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .col-icon {
+      font-size: 16px;
+    }
+
+    .col-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .col-count {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text-muted);
+    }
+
+    /* Colored accents for columns */
+    .col-todo { border-top: 3px solid #94a3b8; }
+    .col-progress { border-top: 3px solid var(--accent-cyan); }
+    .col-review { border-top: 3px solid var(--accent-amber); }
+    .col-done { border-top: 3px solid var(--accent-emerald); }
+
+    .col-progress .col-count { background: rgba(6, 182, 212, 0.15); color: var(--accent-cyan); }
+    .col-review .col-count { background: rgba(245, 158, 11, 0.15); color: var(--accent-amber); }
+    .col-done .col-count { background: rgba(16, 185, 129, 0.15); color: var(--accent-emerald); }
+
+    .kanban-cards-area {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      min-height: 420px;
+      padding: 4px;
+      border-radius: 8px;
+      transition: background 0.2s, border 0.2s;
+    }
+
+    .kanban-cards-area.drag-over {
+      background: rgba(255, 255, 255, 0.04);
+      outline: 2px dashed rgba(6, 182, 212, 0.5);
+      outline-offset: -2px;
+      border-radius: 10px;
+    }
+
+    /* Kanban Card */
+    .kanban-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px;
+      cursor: grab;
+      transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s, border-color 0.2s;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      user-select: none;
+      position: relative;
+    }
+
+    .kanban-card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(255, 255, 255, 0.18);
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
+    }
+
+    .kanban-card:active {
+      cursor: grabbing;
+    }
+
+    .kanban-card.dragging {
+      opacity: 0.45;
+      transform: scale(0.96);
+    }
+
+    .kanban-card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .kanban-priority-pill {
+      font-size: 10px;
+      font-weight: 800;
+      padding: 2px 7px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+
+    .prio-critico { background: rgba(244, 63, 94, 0.25); color: #fb7185; border: 1px solid rgba(244, 63, 94, 0.4); }
+    .prio-alto { background: rgba(245, 158, 11, 0.25); color: #fcd34d; border: 1px solid rgba(245, 158, 11, 0.4); }
+    .prio-medio { background: rgba(6, 182, 212, 0.2); color: #67e8f9; border: 1px solid rgba(6, 182, 212, 0.3); }
+    .prio-normal { background: rgba(148, 163, 184, 0.15); color: #94a3b8; border: 1px solid rgba(148, 163, 184, 0.2); }
+
+    .kanban-phase-tag {
+      font-size: 10.5px;
+      color: var(--text-dim);
+      font-weight: 600;
+    }
+
+    .kanban-card-title {
+      font-size: 13.5px;
+      font-weight: 700;
+      color: var(--text-main);
+      line-height: 1.35;
+    }
+
+    .kanban-card-desc {
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.4;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .kanban-card-metric {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 11px;
+      font-weight: 600;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 2px 7px;
+      border-radius: 4px;
+      color: var(--accent-emerald);
+      align-self: flex-start;
+    }
+
+    .kanban-card-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 6px;
+      margin-top: 4px;
+      padding-top: 8px;
+      border-top: 1px solid rgba(255, 255, 255, 0.04);
+    }
+
+    .kanban-card-nav-controls {
+      display: flex;
+      gap: 4px;
+    }
+
+    .btn-col-move {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--text-muted);
+      width: 24px;
+      height: 24px;
+      border-radius: 6px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 11px;
+      transition: var(--transition);
+    }
+
+    .btn-col-move:hover:not(:disabled) {
+      background: rgba(255, 255, 255, 0.15);
+      color: var(--text-main);
+    }
+
+    .btn-col-move:disabled {
+      opacity: 0.25;
+      cursor: not-allowed;
+    }
+
+    .btn-card-details {
+      background: transparent;
+      border: none;
+      color: var(--accent-cyan);
+      font-size: 11.5px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      text-decoration: none;
+    }
+
+    .btn-card-details:hover {
+      text-decoration: underline;
+    }
+
+    /* Toast notification */
+    #kanbanToast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: var(--bg-surface);
+      border: 1px solid var(--accent-emerald);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+      color: var(--text-main);
+      padding: 12px 20px;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      z-index: 9999;
+      transform: translateY(100px);
+      opacity: 0;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    #kanbanToast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+  
+    /* ==========================================================================
+       TRELLO-STYLE POPUP MODAL STYLES
+       ========================================================================== */
+    .trello-modal-backdrop {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(4, 7, 15, 0.82);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      z-index: 10000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      opacity: 0;
+      transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .trello-modal-backdrop.active {
+      display: flex;
+      opacity: 1;
+    }
+
+    .trello-modal {
+      background: #111728;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 18px;
+      width: 100%;
+      max-width: 900px;
+      max-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.75), 0 0 35px rgba(16, 185, 129, 0.15);
+      transform: scale(0.95) translateY(10px);
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      overflow: hidden;
+    }
+
+    .trello-modal-backdrop.active .trello-modal {
+      transform: scale(1) translateY(0);
+    }
+
+    .trello-modal-header {
+      padding: 22px 26px 18px;
+      background: rgba(16, 22, 38, 0.95);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+    }
+
+    .trello-header-left {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      flex: 1;
+    }
+
+    .trello-icon {
+      font-size: 26px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      padding: 6px;
+      line-height: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .trello-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 20px;
+      font-weight: 800;
+      color: #fff;
+      line-height: 1.3;
+    }
+
+    .trello-subtext {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 5px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .trello-col-badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 11.5px;
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text-main);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .trello-btn-close {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--text-muted);
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition);
+      flex-shrink: 0;
+    }
+
+    .trello-btn-close:hover {
+      background: rgba(244, 63, 94, 0.2);
+      border-color: var(--accent-rose);
+      color: #fff;
+      transform: rotate(90deg);
+    }
+
+    .trello-modal-body {
+      display: flex;
+      gap: 24px;
+      padding: 24px 26px;
+      overflow-y: auto;
+      flex: 1;
+    }
+
+    @media (max-width: 800px) {
+      .trello-modal-body {
+        flex-direction: column;
+      }
+    }
+
+    .trello-main-col {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+    }
+
+    .trello-sidebar-col {
+      width: 250px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      flex-shrink: 0;
+    }
+
+    @media (max-width: 800px) {
+      .trello-sidebar-col {
+        width: 100%;
+      }
+    }
+
+    .trello-section {
+      background: rgba(22, 30, 49, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .trello-section-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .trello-section-icon {
+      font-size: 16px;
+    }
+
+    .trello-section-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 14.5px;
+      font-weight: 700;
+      color: var(--text-main);
+      letter-spacing: -0.2px;
+    }
+
+    .trello-desc-content {
+      font-size: 13.5px;
+      line-height: 1.6;
+      color: #cbd5e1;
+    }
+
+    .trello-desc-content strong {
+      color: #fff;
+    }
+
+    /* Checklist Progress */
+    .trello-progress-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 10px 0 16px;
+    }
+
+    .trello-progress-pct {
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--accent-emerald);
+      min-width: 35px;
+    }
+
+    .trello-progress-bar-bg {
+      flex: 1;
+      height: 8px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .trello-progress-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #10b981, #34d399);
+      border-radius: 999px;
+      transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .trello-checklist-count {
+      font-size: 11px;
+      padding: 2px 7px;
+      border-radius: 999px;
+      background: rgba(16, 185, 129, 0.15);
+      color: var(--accent-emerald);
+      font-weight: 700;
+    }
+
+    .trello-checklist-items {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      max-height: 480px;
+      overflow-y: auto;
+      padding-right: 6px;
+    }
+
+    .trello-checklist-items::-webkit-scrollbar {
+      width: 6px;
+    }
+    .trello-checklist-items::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 999px;
+    }
+
+    .trello-check-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 10px 12px;
+      border-radius: 8px;
+      background: rgba(10, 14, 23, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      transition: var(--transition);
+    }
+
+    .trello-check-item:hover {
+      background: rgba(255, 255, 255, 0.04);
+      border-color: rgba(255, 255, 255, 0.12);
+    }
+
+    .trello-check-item.done {
+      background: rgba(16, 185, 129, 0.05);
+      border-color: rgba(16, 185, 129, 0.2);
+    }
+
+    .trello-check-item.done .trello-item-text {
+      text-decoration: line-through;
+      color: var(--text-dim);
+    }
+
+    .trello-custom-cb {
+      appearance: none;
+      -webkit-appearance: none;
+      width: 19px;
+      height: 19px;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-radius: 5px;
+      background: transparent;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+      transition: var(--transition);
+    }
+
+    .trello-custom-cb:checked {
+      background: var(--accent-emerald);
+      border-color: var(--accent-emerald);
+    }
+
+    .trello-custom-cb:checked::after {
+      content: '✓';
+      color: #052e16;
+      font-weight: 900;
+      font-size: 13px;
+    }
+
+    .trello-item-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .trello-item-sku-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .trello-sku-badge {
+      font-family: monospace;
+      font-size: 11.5px;
+      background: rgba(6, 182, 212, 0.12);
+      border: 1px solid rgba(6, 182, 212, 0.3);
+      color: var(--accent-cyan);
+      padding: 2px 7px;
+      border-radius: 4px;
+      font-weight: 700;
+    }
+
+    .trello-item-name {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-main);
+    }
+
+    .trello-item-action {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .trello-btn-copy-mini {
+      background: transparent;
+      border: none;
+      color: var(--text-dim);
+      cursor: pointer;
+      font-size: 12px;
+      padding: 2px 4px;
+      border-radius: 4px;
+      transition: var(--transition);
+    }
+
+    .trello-btn-copy-mini:hover {
+      color: #fff;
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .trello-code-box {
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(6, 182, 212, 0.3);
+      border-radius: 8px;
+      padding: 12px 14px;
+      font-family: monospace;
+      font-size: 12px;
+      color: var(--accent-cyan);
+      word-break: break-all;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* Notes Area */
+    .trello-notes-textarea {
+      width: 100%;
+      background: rgba(10, 14, 23, 0.7);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 12px;
+      color: var(--text-main);
+      font-family: inherit;
+      font-size: 13px;
+      outline: none;
+      resize: vertical;
+      transition: var(--transition);
+    }
+
+    .trello-notes-textarea:focus {
+      border-color: var(--accent-cyan);
+      box-shadow: 0 0 10px rgba(6, 182, 212, 0.2);
+    }
+
+    /* Sidebar Boxes */
+    .trello-side-box {
+      background: rgba(22, 30, 49, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 12px;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .trello-side-title {
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 2px;
+    }
+
+    .trello-side-btn {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      border-radius: 8px;
+      padding: 8px 12px;
+      color: var(--text-main);
+      font-size: 12.5px;
+      font-weight: 600;
+      text-align: left;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      text-decoration: none;
+      transition: var(--transition);
+    }
+
+    .trello-side-btn:hover {
+      background: rgba(255, 255, 255, 0.12);
+      border-color: rgba(255, 255, 255, 0.2);
+      transform: translateX(2px);
+    }
+
+    .trello-side-btn.active {
+      background: rgba(16, 185, 129, 0.15);
+      border-color: rgba(16, 185, 129, 0.4);
+      color: var(--accent-emerald);
+    }
+
+    .trello-meta-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      padding: 4px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    }
+
+    .trello-meta-label {
+      color: var(--text-dim);
+    }
+
+    .trello-meta-val {
+      color: var(--text-main);
+      font-weight: 600;
+    }
+
+    .trello-btn-small {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--text-muted);
+      padding: 3px 8px;
+      border-radius: 5px;
+      font-size: 11px;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .trello-btn-small:hover {
+      background: rgba(255, 255, 255, 0.15);
+      color: #fff;
+    }
+
+    .trello-btn-primary {
+      background: var(--accent-emerald);
+      color: #052e16;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 12.5px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .trello-btn-primary:hover {
+      background: #34d399;
+      box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    
+    <!-- Top Header -->
+    <header>
+      <div class="brand-wrap">
+        <h1>
+          BRK Agro & Fishing
+          <span class="brand-badge">Shopee Growth 2026</span>
+        </h1>
+        <p class="subtitle">Roadmap Interativo de Recuperação, Regularização Cadastral e Alavancagem de Vendas</p>
+      </div>
+
+      <div class="header-actions">
+        <a href="/painel.html" class="nav-btn-link" title="Painel Central de Automação">
+          <span>📊 Painel Central</span>
+        </a>
+        <a href="/relatorio.html" class="nav-btn-link highlight" title="Relatório Completo de Produtos">
+          <span>📦 Relatório de Produtos</span>
+        </a>
+        <a href="/relatorio-esteira.html" class="nav-btn-link" title="Relatório Executivo da Esteira">
+          <span>⚡ Relatório Esteira</span>
+        </a>
+        <div class="progress-widget">
+          <div>
+            <div class="progress-text">Progresso Geral</div>
+            <div class="progress-val" id="progressPercent">0%</div>
+          </div>
+          <div style="font-size: 24px;">🚀</div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Top KPI Cards -->
+    <div class="kpi-grid">
+      <div class="kpi-card critical">
+        <div class="kpi-label">Risco Operacional (DTS)</div>
+        <div class="kpi-value" style="color: var(--accent-rose);">8</div>
+        <div class="kpi-desc">Camisas sem _FULL com 2 dias (risco de cancelamento)</div>
+      </div>
+
+      <div class="kpi-card warning">
+        <div class="kpi-label">Categorias Erradas / "Outros"</div>
+        <div class="kpi-value" style="color: var(--accent-amber);">12</div>
+        <div class="kpi-desc">Itens desindexados (Ex: Fita em Bebês)</div>
+      </div>
+
+      <div class="kpi-card info">
+        <div class="kpi-label">Ficha Técnica Vazia Real</div>
+        <div class="kpi-value" style="color: var(--accent-cyan);">140</div>
+        <div class="kpi-desc">Alvo real do Agente 5 para injeção</div>
+      </div>
+
+      <div class="kpi-card success">
+        <div class="kpi-label">Ficha Técnica Já Preenchida</div>
+        <div class="kpi-value" style="color: var(--accent-emerald);">247</div>
+        <div class="kpi-desc">Comprovado ao vivo na Shopee (63,8%)</div>
+      </div>
+
+      <div class="kpi-card">
+        <div class="kpi-label">Estoque Zerado (Esgotados)</div>
+        <div class="kpi-value">99</div>
+        <div class="kpi-desc">Sem alerta cadastral (esperar reposição)</div>
+      </div>
+    </div>
+
+    
+    <!-- ==================== TAREFAS MAIS URGENTES (TOPO DA TELA) ==================== -->
+    <section class="urgent-hero" id="urgentHeroSection">
+      <div class="urgent-hero-header">
+        <div class="urgent-title-wrap">
+          <span class="urgent-badge-live">
+            <span class="pulse-dot"></span>
+            Ação Imediata D-0
+          </span>
+          <div>
+            <h2 class="urgent-title">🔥 Tarefas Mais Urgentes (Impacto Imediato na Shopee)</h2>
+            <p class="urgent-subtitle">Itens com risco de cancelamento automático, perda de medalha ou bloqueio de tráfego orgânico.</p>
+          </div>
+        </div>
+        <div style="display: flex; gap: 8px; align-items: center;">
+          <button class="btn-urgent-action" onclick="copyAllUrgentSkus()" title="Copiar todos os SKUs de risco para colar no Seller Center">
+            📋 Copiar SKUs Críticos
+          </button>
+        </div>
+      </div>
+
+      <div class="urgent-grid">
+        <!-- Urgent Card 1: DTS 2 dias -->
+        <div class="urgent-card p1">
+          <div>
+            <div class="urgent-card-header">
+              <span class="urgent-card-tag tag-rose">🚨 P1 • Crítico</span>
+              <span class="urgent-card-sku-count">8 SKUs em Risco</span>
+            </div>
+            <h3 class="urgent-card-title">Alterar DTS de 2 para 9 dias nas 8 Camisas BRK</h3>
+            <p class="urgent-card-desc">
+              Camisas sob encomenda configuradas como pronta entrega (2 dias). Se venderem, a expedição não entrega em 48h gerando cancelamento automático e perda de medalha.
+            </p>
+            <div class="urgent-card-chips">
+              <span class="chip-sku">C02846BL</span>
+              <span class="chip-sku">C02830</span>
+              <span class="chip-sku">C02824</span>
+              <span class="chip-sku">CMB05</span>
+              <span class="chip-sku">CMB07</span>
+              <span class="chip-sku">CMB09</span>
+              <span class="chip-sku">CMB010</span>
+              <span class="chip-sku">27622333</span>
+            </div>
+          </div>
+          <div class="urgent-card-actions">
+            <button class="btn-urgent-action primary" onclick="copySkus(['C02846BL','C02830','C02824','CMB05','CMB07','CMB09','CMB010','27622333'])">
+              📋 Copiar 8 SKUs
+            </button>
+            <button class="btn-urgent-action" onclick="openTaskModal('task-p1')">
+              🔍 Ver Tabela & IDs Shopee ➔
+            </button>
+          </div>
+        </div>
+
+        <!-- Urgent Card 2: Categorias Outros -->
+        <div class="urgent-card p2">
+          <div>
+            <div class="urgent-card-header">
+              <span class="urgent-card-tag tag-amber">⚠️ P2 • Alto Impacto</span>
+              <span class="urgent-card-sku-count">12 Anúncios Presos</span>
+            </div>
+            <h3 class="urgent-card-title">Migrar os 12 Produtos Presos na Categoria "Outros"</h3>
+            <p class="urgent-card-desc">
+              Anúncios desindexados sem tráfego de busca lateral. O caso mais grave é a <strong>Fita FT-GREEN</strong> cadastrada na categoria <em>Mãe e Bebê > Brinquedos</em>.
+            </p>
+            <div class="urgent-card-chips">
+              <span class="chip-sku">FT-GREEN</span>
+              <span class="chip-sku">MT055_FULL</span>
+              <span class="chip-sku">EVASELVACREPE</span>
+              <span class="chip-sku">51RASACP8</span>
+              <span class="chip-sku">+8 outros</span>
+            </div>
+          </div>
+          <div class="urgent-card-actions">
+            <button class="btn-urgent-action warning" onclick="openTaskModal('task-p2')">
+              🔍 Ver De/Para de Categorias ➔
+            </button>
+            <button class="btn-urgent-action" onclick="copySkus(['FT-GREEN','MT055_FULL','EVASELVACREPE','51RASACP8','GIRA'])">
+              📋 Copiar SKUs
+            </button>
+          </div>
+        </div>
+
+        <!-- Urgent Card 3: Atributos Vazios -->
+        <div class="urgent-card p3">
+          <div>
+            <div class="urgent-card-header">
+              <span class="urgent-card-tag tag-cyan">⚡ P3 • Prioritário</span>
+              <span class="urgent-card-sku-count">140 Fichas Vazias</span>
+            </div>
+            <h3 class="urgent-card-title">Injetar Atributos via Agente 5 nos 140 Itens</h3>
+            <p class="urgent-card-desc">
+              Comprovado ao vivo na Shopee: 247 anúncios já estão preenchidos. Vamos rodar o robô exclusivamente nos 140 itens vazios para liberar selos de relevância.
+            </p>
+            <div style="background: rgba(0,0,0,0.3); padding: 8px 12px; border-radius: 6px; font-family: monospace; font-size: 11.5px; color: var(--accent-cyan); margin-top: 6px;">
+              node agent5-shopee-attributes/src/runner.mjs
+            </div>
+          </div>
+          <div class="urgent-card-actions">
+            <button class="btn-urgent-action cyan" onclick="copyText('node agent5-shopee-attributes/src/runner.mjs --file uploads/Relatorio_Diagnostico_Produtos_Ativos_Shopee_AoVivo.xlsx')">
+              ⚡ Copiar Comando Agente 5
+            </button>
+            <button class="btn-urgent-action" onclick="openTaskModal('task-p3')">
+              🔍 Detalhes da Ficha ➔
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== BARRA DE CONTROLE: KANBAN vs FASES ==================== -->
+    <div class="view-switcher-bar">
+      <div class="view-modes-group">
+        <button class="view-mode-btn active" id="btnModeKanban" onclick="switchViewMode('kanban')">
+          <span>🗂️ Modo Kanban</span>
+          <span style="font-size: 10px; padding: 2px 6px; background: rgba(16,185,129,0.2); color: var(--accent-emerald); border-radius: 4px; font-weight: 700;">Recomendado</span>
+        </button>
+        <button class="view-mode-btn" id="btnModeTimeline" onclick="switchViewMode('timeline')">
+          <span>📑 Modo Detalhado por Fases</span>
+        </button>
+      </div>
+
+      <div class="kanban-filter-group" id="kanbanFiltersGroup">
+        <input type="text" class="kanban-search-input" id="kanbanSearch" placeholder="🔍 Filtrar tarefa / SKU..." oninput="filterKanban()">
+        <select class="filter-select" id="kanbanPriorityFilter" onchange="filterKanban()">
+          <option value="all">Todas as Prioridades</option>
+          <option value="critico">🚨 Críticas (P1)</option>
+          <option value="alto">⚠️ Altas (P2-P3)</option>
+          <option value="medio">⚡ Médias (P4-P8)</option>
+          <option value="normal">📦 Normais (P9-P10)</option>
+        </select>
+        <select class="filter-select" id="kanbanPhaseFilter" onchange="filterKanban()">
+          <option value="all">Todas as Fases</option>
+          <option value="Fase 1">Fase 1: Risco & Categorias</option>
+          <option value="Fase 2">Fase 2: Ficha Técnica</option>
+          <option value="Fase 3">Fase 3: Conversão</option>
+          <option value="Fase 4">Fase 4: Ruptura</option>
+        </select>
+        <button class="btn-urgent-action" onclick="resetKanbanState()" title="Restaurar posições originais das colunas">
+          🔄 Resetar
+        </button>
+      </div>
+    </div>
+
+    <!-- ==================== QUADRO KANBAN INTERATIVO ==================== -->
+    <div class="kanban-view-container" id="kanbanContainer">
+      <div class="kanban-board">
+
+        <!-- Coluna 1: A Fazer -->
+        <div class="kanban-column col-todo" data-col="todo">
+          <div class="kanban-column-header">
+            <div class="col-title-wrap">
+              <span class="col-icon">📋</span>
+              <span class="col-title">A Fazer / Backlog</span>
+            </div>
+            <span class="col-count" id="count-todo">0</span>
+          </div>
+          <div class="kanban-cards-area" id="col-todo" ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)" ondrop="handleDrop(event, 'todo')">
+            <!-- Cards injetados dinamicamente via JS com persistência -->
+          </div>
+        </div>
+
+        <!-- Coluna 2: Em Andamento -->
+        <div class="kanban-column col-progress" data-col="in-progress">
+          <div class="kanban-column-header">
+            <div class="col-title-wrap">
+              <span class="col-icon">⚡</span>
+              <span class="col-title">Em Andamento</span>
+            </div>
+            <span class="col-count" id="count-in-progress">0</span>
+          </div>
+          <div class="kanban-cards-area" id="col-in-progress" ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)" ondrop="handleDrop(event, 'in-progress')">
+          </div>
+        </div>
+
+        <!-- Coluna 3: Em Validação -->
+        <div class="kanban-column col-review" data-col="review">
+          <div class="kanban-column-header">
+            <div class="col-title-wrap">
+              <span class="col-icon">🔍</span>
+              <span class="col-title">Em Validação</span>
+            </div>
+            <span class="col-count" id="count-review">0</span>
+          </div>
+          <div class="kanban-cards-area" id="col-review" ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)" ondrop="handleDrop(event, 'review')">
+          </div>
+        </div>
+
+        <!-- Coluna 4: Concluído -->
+        <div class="kanban-column col-done" data-col="done">
+          <div class="kanban-column-header">
+            <div class="col-title-wrap">
+              <span class="col-icon">✅</span>
+              <span class="col-title">Concluído & Otimizado</span>
+            </div>
+            <span class="col-count" id="count-done">0</span>
+          </div>
+          <div class="kanban-cards-area" id="col-done" ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)" ondrop="handleDrop(event, 'done')">
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div id="timelineContainer" style="display: none;">
+
+        <div class="banner-subtitle">Evite cancelamentos automáticos da Shopee e perda de medalha de Vendedor Indicado.</div>
+      </div>
+      <a href="#fase1" class="btn-action" onclick="switchTab('fase1')">
+        Ver Produtos de Risco ➔
+      </a>
+    </div>
+
+    <!-- Navigation Tabs -->
+    <div class="nav-tabs">
+      <button class="nav-tab active" onclick="switchTab('fase1')">
+        🚨 Fase 1: Risco Imediato & Categorias
+        <span class="badge-count">20 Itens</span>
+      </button>
+      <button class="nav-tab" onclick="switchTab('fase2')">
+        ⚡ Fase 2: Ficha Técnica & Tamanho
+        <span class="badge-count">158 Itens</span>
+      </button>
+      <button class="nav-tab" onclick="switchTab('fase3')">
+        🛒 Fase 3: Conversão & Carrinho
+        <span class="badge-count">90 Itens</span>
+      </button>
+      <button class="nav-tab" onclick="switchTab('fase4')">
+        📦 Fase 4: Gestão de Ruptura
+        <span class="badge-count">99 Itens</span>
+      </button>
+    </div>
+
+    <!-- ==================== FASE 1 ==================== -->
+    <section id="fase1" class="phase-section active">
+      <div class="phase-header">
+        <div class="phase-title-wrap">
+          <h2 class="phase-title">
+            <span>🚨</span> Fase 1: Eliminação de Risco Operacional & Desbloqueio
+          </h2>
+          <span class="phase-pill pill-urgent">Prioridade P1 & P2 • Execução Dia 1</span>
+        </div>
+        <p class="phase-goal">
+          Eliminar riscos de atraso de envio na Shopee ajustando os prazos de produção para 9 dias e corrigir as categorias que estão cortando o tráfego dos anúncios.
+        </p>
+      </div>
+
+      <div class="task-list">
+        <!-- Task P1 -->
+        <div class="task-card">
+          <div class="task-top">
+            <input type="checkbox" class="custom-checkbox" id="task-p1" onchange="updateProgress()">
+            <div class="task-content">
+              <div class="task-header">
+                <h3 class="task-title">P1. Alterar Prazo de Envio (DTS) de 2 dias para 9 dias nas 8 Camisas BRK</h3>
+                <div class="task-meta">
+                  <span class="badge-tag">Risco de Cancelamento</span>
+                  <span class="badge-tag">Magis5 / Seller Center</span>
+                </div>
+              </div>
+              <p class="task-desc">
+                Esses 8 produtos não possuem o sufixo <code>_FULL</code> no SKU (são fabricação sob encomenda), mas estão configurados na Shopee como Pronta Entrega (2 dias). Se venderem, a fábrica não consegue postar em 48h.
+              </p>
+
+              <div class="table-responsive">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>ID Shopee</th>
+                      <th>SKU</th>
+                      <th>Produto</th>
+                      <th>DTS Atual</th>
+                      <th>Ação Exigida</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>45568052144</td>
+                      <td><span class="code-sku">C02846BL</span></td>
+                      <td>Camisa Feminina BRK Apache Cavalos UV50+ Manga Longa Agro</td>
+                      <td><span style="color: var(--accent-rose); font-weight: 700;">2 dias (Erro)</span></td>
+                      <td>Mudar para <strong>9 dias</strong> de produção</td>
+                    </tr>
+                    <tr>
+                      <td>48968043509</td>
+                      <td><span class="code-sku">C02830</span></td>
+                      <td>Camisa Agro BRK São Bento Medalhão Masculina UV50+</td>
+                      <td><span style="color: var(--accent-rose); font-weight: 700;">2 dias (Erro)</span></td>
+                      <td>Mudar para <strong>9 dias</strong> de produção</td>
+                    </tr>
+                    <tr>
+                      <td>56918014401</td>
+                      <td><span class="code-sku">C02824</span></td>
+                      <td>Camisa Brk São Bento Anjos Preta Masculina UV50+</td>
+                      <td><span style="color: var(--accent-rose); font-weight: 700;">2 dias (Erro)</span></td>
+                      <td>Mudar para <strong>9 dias</strong> de produção</td>
+                    </tr>
+                    <tr>
+                      <td>58215961381</td>
+                      <td><span class="code-sku">CMB05</span></td>
+                      <td>Camisa de Botão Profissional com 2 Bolsos BRK</td>
+                      <td><span style="color: var(--accent-rose); font-weight: 700;">2 dias (Erro)</span></td>
+                      <td>Mudar para <strong>9 dias</strong> de produção</td>
+                    </tr>
+                    <tr>
+                      <td>22799657047</td>
+                      <td><span class="code-sku">CMB07</span></td>
+                      <td>Camisa de Botão Masculina Cinza Ártico Manga Longa BRK</td>
+                      <td><span style="color: var(--accent-rose); font-weight: 700;">2 dias (Erro)</span></td>
+                      <td>Mudar para <strong>9 dias</strong> de produção</td>
+                    </tr>
+                    <tr>
+                      <td>58215996505</td>
+                      <td><span class="code-sku">CMB09</span></td>
+                      <td>Camisa de Botão Masculina Trabalho Verde Jaleco Manga Longa</td>
+                      <td><span style="color: var(--accent-rose); font-weight: 700;">2 dias (Erro)</span></td>
+                      <td>Mudar para <strong>9 dias</strong> de produção</td>
+                    </tr>
+                    <tr>
+                      <td>58215995869</td>
+                      <td><span class="code-sku">CMB010</span></td>
+                      <td>Camisa de Botão Masculina Manga Longa BRK Azul Escuro</td>
+                      <td><span style="color: var(--accent-rose); font-weight: 700;">2 dias (Erro)</span></td>
+                      <td>Mudar para <strong>9 dias</strong> de produção</td>
+                    </tr>
+                    <tr>
+                      <td>22698219010</td>
+                      <td><span class="code-sku">27622333</span></td>
+                      <td>Camisa Térmica Segunda Pele Viagem de Moto BRK Branca</td>
+                      <td><span style="color: var(--accent-rose); font-weight: 700;">2 dias (Erro)</span></td>
+                      <td>Mudar para <strong>9 dias</strong> de produção</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Task P2 -->
+        <div class="task-card">
+          <div class="task-top">
+            <input type="checkbox" class="custom-checkbox" id="task-p2" onchange="updateProgress()">
+            <div class="task-content">
+              <div class="task-header">
+                <h3 class="task-title">P2. Migrar os 12 Produtos Presos na Categoria "Outros"</h3>
+                <div class="task-meta">
+                  <span class="badge-tag">Desindexação</span>
+                  <span class="badge-tag">Seller Center</span>
+                </div>
+              </div>
+              <p class="task-desc">
+                Anúncios na categoria "Outros" não aparecem nos filtros laterais e recebem tráfego aleatório. O caso mais grave é a <strong>Fita de Pesca (FT-GREEN)</strong> cadastrada em <em>Mãe e Bebê > Brinquedos</em>.
+              </p>
+
+              <div class="table-responsive">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>SKU</th>
+                      <th>Produto</th>
+                      <th>Categoria Atual na Shopee</th>
+                      <th>Nova Categoria Recomendada</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><span class="code-sku">FT-GREEN</span></td>
+                      <td>Fita para Proteção de Dedos 2,5cm FT-Slim</td>
+                      <td><span style="color: var(--accent-rose);">Mãe e Bebê > Brinquedos > Outros</span></td>
+                      <td><strong style="color: var(--accent-emerald);">Esportes > Pescaria > Acessórios de Pesca</strong></td>
+                    </tr>
+                    <tr>
+                      <td><span class="code-sku">MT055_FULL</span></td>
+                      <td>Protetor de Braço Manguito Térmico BRK Agro</td>
+                      <td>Esportes > Vestimentas > Outros</td>
+                      <td><strong style="color: var(--accent-emerald);">Acessórios de Moda > Luvas e Manguitos Térmicos</strong></td>
+                    </tr>
+                    <tr>
+                      <td><span class="code-sku">EVASELVACREPE</span></td>
+                      <td>Chinelo Babuche Ortopédica Boaonda Adventure</td>
+                      <td>Esportes > Calçados > Outros</td>
+                      <td><strong style="color: var(--accent-emerald);">Sapatos Masculinos > Sandálias e Chinelos > Chinelos</strong></td>
+                    </tr>
+                    <tr>
+                      <td><span class="code-sku">51RASACP8</span></td>
+                      <td>Alicate de Pesca Rapala Marine 8"</td>
+                      <td>Esportes > Pescaria > Outros</td>
+                      <td><strong style="color: var(--accent-emerald);">Esportes > Pescaria > Ferramentas e Alicates</strong></td>
+                    </tr>
+                    <tr>
+                      <td><span class="code-sku">GIRA</span></td>
+                      <td>Girador com Snap Niquelado de Pesca</td>
+                      <td>Esportes > Pescaria > Outros</td>
+                      <td><strong style="color: var(--accent-emerald);">Esportes > Pescaria > Anzóis, Giradores e Snaps</strong></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== FASE 2 ==================== -->
+    <section id="fase2" class="phase-section">
+      <div class="phase-header">
+        <div class="phase-title-wrap">
+          <h2 class="phase-title">
+            <span>⚡</span> Fase 2: Regularização de Ficha Técnica & Guia de Tamanhos
+          </h2>
+          <span class="phase-pill pill-high">Prioridade P3, P4 & P5 • Dias 2 a 4</span>
+        </div>
+        <p class="phase-goal">
+          Preencher os 140 produtos que comprovadamente estão sem atributos e vincular o link oficial da Tabela de Medidas na galeria para eliminar a insegurança de compra.
+        </p>
+      </div>
+
+      <div class="task-list">
+        <div class="task-card">
+          <div class="task-top">
+            <input type="checkbox" class="custom-checkbox" id="task-p3" onchange="updateProgress()">
+            <div class="task-content">
+              <div class="task-header">
+                <h3 class="task-title">P3. Injetar Atributos via Agente 5 nos 140 Produtos Realmente Vazios</h3>
+                <div class="task-meta">
+                  <span class="badge-tag">Automação RPA</span>
+                  <span class="badge-tag">Agente 5</span>
+                </div>
+              </div>
+              <p class="task-desc">
+                A varredura ao vivo confirmou que 247 produtos já estão preenchidos. Vamos rodar o Agente 5 focado <strong>exclusivamente nos 140 itens vazios</strong>, preenchendo: <em>Material (XTech-Pro), Gênero, Manga, Gola e Proteção UV50+</em>.
+              </p>
+              <div style="background: rgba(0,0,0,0.3); padding: 12px 16px; border-radius: 8px; font-family: monospace; font-size: 13px; color: var(--accent-cyan);">
+                node agent5-shopee-attributes/src/runner.mjs --file uploads/Relatorio_Diagnostico_Produtos_Ativos_Shopee_AoVivo.xlsx
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="task-card">
+          <div class="task-top">
+            <input type="checkbox" class="custom-checkbox" id="task-p4" onchange="updateProgress()">
+            <div class="task-content">
+              <div class="task-header">
+                <h3 class="task-title">P4. Vincular Tabela de Medidas na Linha Infantil e Calçados</h3>
+                <div class="task-meta">
+                  <span class="badge-tag">18 Produtos</span>
+                  <span class="badge-tag">Insegurança de Tamanho</span>
+                </div>
+              </div>
+              <p class="task-desc">
+                Os arquivos de mídia da Shopee comprovaram que a linha infantil (<code>CI061_FULL</code>, <code>CI062_FULL</code>, <code>CI063_FULL</code>) está sem imagem no campo <em>Imagem de Tamanhos</em>. Vincular a URL da Tabela Masculina/Infantil:
+              </p>
+              <div style="background: rgba(0,0,0,0.3); padding: 10px 14px; border-radius: 6px; font-size: 12px; word-break: break-all; color: var(--text-muted); margin-bottom: 8px;">
+                Link: https://cf.shopee.com.br/file/br-11134201-820ld-mrj4uj3gfwudfb
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="task-card">
+          <div class="task-top">
+            <input type="checkbox" class="custom-checkbox" id="task-p5" checked onchange="updateProgress()">
+            <div class="task-content">
+              <div class="task-header">
+                <h3 class="task-title">P5. Preservar os 24 Produtos na Cor #D8E4BC (Alterados Recentemente)</h3>
+                <div class="task-meta">
+                  <span class="badge-tag" style="color: var(--accent-emerald);">Concluído / Monitoramento</span>
+                </div>
+              </div>
+              <p class="task-desc">
+                Esses 24 anúncios (ex: <code>C0796_FULL</code>, <code>ADV137_FULL</code>) já foram otimizados pela sua equipe. Não alterar títulos nem categorias para permitir que o algoritmo consolide a entrega orgânica.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== FASE 3 ==================== -->
+    <section id="fase3" class="phase-section">
+      <div class="phase-header">
+        <div class="phase-title-wrap">
+          <h2 class="phase-title">
+            <span>🛒</span> Fase 3: Alavancagem de Carrinho & Ativação Promocional
+          </h2>
+          <span class="phase-pill pill-medium">Prioridade P6, P7 & P8 • Dias 5 a 8</span>
+        </div>
+        <p class="phase-goal">
+          Converter os 90 produtos com alto volume de carrinhos acumulados e estoque ativo, aproveitando o benefício do Frete Grátis Extra.
+        </p>
+      </div>
+
+      <div class="task-list">
+        <div class="task-card">
+          <div class="task-top">
+            <input type="checkbox" class="custom-checkbox" id="task-p6" onchange="updateProgress()">
+            <div class="task-content">
+              <div class="task-header">
+                <h3 class="task-title">P6. Ativar Cupom de Desconto de Loja para Fechamento de Carrinho</h3>
+                <div class="task-meta">
+                  <span class="badge-tag">Central de Marketing</span>
+                </div>
+              </div>
+              <p class="task-desc">
+                Criar na Central de Marketing um <strong>Cupom de Loja de R$ 10 para compras acima de R$ 180</strong> (estimulando a compra de 2 camisas) e Cupom de Seguidor de R$ 5. O cliente que está com o item no carrinho recebe o gatilho para fechar.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="task-card">
+          <div class="task-top">
+            <input type="checkbox" class="custom-checkbox" id="task-p7" onchange="updateProgress()">
+            <div class="task-content">
+              <div class="task-header">
+                <h3 class="task-title">P7. Configurar Combo "Leve Mais por Menos"</h3>
+                <div class="task-meta">
+                  <span class="badge-tag">Aumento de Ticket Médio</span>
+                </div>
+              </div>
+              <p class="task-desc">
+                Agrupar as camisas de pesca e agro no combo: <em>Compre 2 com 5% de desconto</em> ou <em>Compre 3 com 10% de desconto</em>. A Shopee destaca esse selo laranja no feed, aumentando a taxa de clique (CTR).
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="task-card">
+          <div class="task-top">
+            <input type="checkbox" class="custom-checkbox" id="task-p8" onchange="updateProgress()">
+            <div class="task-content">
+              <div class="task-header">
+                <h3 class="task-title">P8. Automação de Disparo de Chat para Carrinhos Abandonados</h3>
+                <div class="task-meta">
+                  <span class="badge-tag">Assistente de Chat Shopee</span>
+                </div>
+              </div>
+              <p class="task-desc">
+                Habilitar no Assistente de Chat da Shopee a mensagem automática para clientes que adicionaram produtos ao carrinho nas últimas 24h com um cupom relâmpago de 5% de desconto.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== FASE 4 ==================== -->
+    <section id="fase4" class="phase-section">
+      <div class="phase-header">
+        <div class="phase-title-wrap">
+          <h2 class="phase-title">
+            <span>📦</span> Fase 4: Gestão de Ruptura & Estoque Esgotado
+          </h2>
+          <span class="phase-pill pill-success">Prioridade P9 & P10 • Semanal</span>
+        </div>
+        <p class="phase-goal">
+          Tratar os 99 produtos esgotados (estoque 0) e garantir que a grade M/G dos produtos campeões de tráfego esteja abastecida.
+        </p>
+      </div>
+
+      <div class="task-list">
+        <div class="task-card">
+          <div class="task-top">
+            <input type="checkbox" class="custom-checkbox" id="task-p9" onchange="updateProgress()">
+            <div class="task-content">
+              <div class="task-header">
+                <h3 class="task-title">P9. Decisão sobre os 99 Produtos com Estoque 0 (Esgotados)</h3>
+                <div class="task-meta">
+                  <span class="badge-tag">PCP / Compras</span>
+                </div>
+              </div>
+              <p class="task-desc">
+                Conforme a regra estabelecida, esses 99 itens não receberam alerta cadastral porque a falta de venda é por ausência de estoque. Avaliar com a equipe: se não for fabricar novamente, <strong>pausar o anúncio</strong> para não gerar tráfego fantasma.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="task-card">
+          <div class="task-top">
+            <input type="checkbox" class="custom-checkbox" id="task-p10" onchange="updateProgress()">
+            <div class="task-content">
+              <div class="task-header">
+                <h3 class="task-title">P10. Auditoria de Ruptura nos Tamanhos M e G</h3>
+                <div class="task-meta">
+                  <span class="badge-tag">70% das Vendas</span>
+                </div>
+              </div>
+              <p class="task-desc">
+                Conferir semanalmente se as camisas com alto tráfego não estão com os tamanhos centrais M e G zerados, restando apenas PP ou XG, o que anula a conversão da visita.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="kanbanToast">✅ Notificação</div>
+
+    <!-- Footer -->
+    <footer>
+      Auditoria Executiva e Roadmap Operacional • Shopee Brasil & BRK Agro • Gerado automaticamente com dados ao vivo via API
+    </footer>
+
+  </div>
+
+  <script>
+
+    function switchTab(tabId) {
+      document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.phase-section').forEach(s => s.classList.remove('active'));
+
+      const targetSection = document.getElementById(tabId);
+      if (targetSection) targetSection.classList.add('active');
+
+      const tabs = Array.from(document.querySelectorAll('.nav-tab'));
+      const activeTab = tabs.find(t => t.getAttribute('onclick')?.includes(tabId));
+      if (activeTab) activeTab.classList.add('active');
+    }
+
+    function updateProgress() {
+      const checkboxes = document.querySelectorAll('.custom-checkbox');
+      const checked = document.querySelectorAll('.custom-checkbox:checked');
+      const pct = Math.round((checked.length / checkboxes.length) * 100);
+
+      document.getElementById('progressPercent').textContent = pct + '%';
+
+      checkboxes.forEach(cb => {
+        const card = cb.closest('.task-card');
+        if (card) {
+          if (cb.checked) card.classList.add('checked');
+          else card.classList.remove('checked');
+        }
+      });
+
+      // Save state to localStorage
+      const state = {};
+      checkboxes.forEach(cb => state[cb.id] = cb.checked);
+      localStorage.setItem('brk_roadmap_state', JSON.stringify(state));
+    }
+
+    // Load saved state
+    
+    // =========================================================================
+    // MODAL POPUP ESTILO TRELLO (DETALHES, CHECKLIST DE SKUS E AÇÕES)
+    // =========================================================================
+    let currentModalTaskId = null;
+
+    function openTaskModal(taskId) {
+      const task = KANBAN_TASKS_DATA.find(t => t.id === taskId);
+      if (!task) return;
+
+      currentModalTaskId = taskId;
+      const currentCol = kanbanState[taskId] || task.defaultCol;
+      const colLabels = { 'todo': 'A Fazer', 'in-progress': 'Em Andamento', 'review': 'Em Validação', 'done': 'Concluído' };
+
+      // Set Header info
+      document.getElementById('trelloModalIcon').textContent = task.icon || '📌';
+      document.getElementById('trelloModalTitle').textContent = task.title;
+      document.getElementById('trelloModalCol').textContent = colLabels[currentCol] || currentCol;
+      document.getElementById('trelloModalPhase').textContent = task.phase;
+
+      // Priority pill
+      const prioEl = document.getElementById('trelloModalPrio');
+      prioEl.className = 'kanban-priority-pill prio-' + task.priority;
+      prioEl.textContent = task.priorityLabel;
+
+      // Description
+      document.getElementById('trelloModalDesc').innerHTML = task.desc;
+
+      // Metadata sidebar
+      document.getElementById('trelloMetaPrio').textContent = task.priorityLabel;
+      document.getElementById('trelloMetaImpact').textContent = task.impact || 'Otimização';
+      document.getElementById('trelloMetaSystem').textContent = task.system || 'Seller Center';
+      document.getElementById('trelloMetaSla').textContent = task.sla || 'Padrão';
+
+      // RPA Command
+      const cmdSection = document.getElementById('trelloCommandSection');
+      if (task.command) {
+        cmdSection.style.display = 'block';
+        document.getElementById('trelloCommandCode').textContent = task.command;
+      } else {
+        cmdSection.style.display = 'none';
+      }
+
+      // Load saved notes
+      const savedNotes = localStorage.getItem('brk_task_notes_' + taskId) || '';
+      document.getElementById('trelloNotesInput').value = savedNotes;
+
+      // Update sidebar move active buttons
+      updateModalMoveButtons(currentCol);
+
+      const sInput = document.getElementById('trelloChecklistSearch');
+      if (sInput) sInput.value = '';
+      // Render Checklist
+      renderTrelloChecklist(task);
+
+      // Open Modal Backdrop
+      const backdrop = document.getElementById('trelloModalBackdrop');
+      backdrop.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeTrelloModal() {
+      const backdrop = document.getElementById('trelloModalBackdrop');
+      if (backdrop) backdrop.classList.remove('active');
+      document.body.style.overflow = '';
+      currentModalTaskId = null;
+    }
+
+    function handleBackdropClick(e) {
+      if (e.target.id === 'trelloModalBackdrop') {
+        closeTrelloModal();
+      }
+    }
+
+    // Keyboard ESC to close
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeTrelloModal();
+    });
+
+    
+    function filterModalChecklist() {
+      const q = (document.getElementById('trelloChecklistSearch')?.value || '').toLowerCase().trim();
+      const rows = document.querySelectorAll('#trelloChecklistContainer .trello-check-item');
+      rows.forEach(row => {
+        const text = row.textContent.toLowerCase();
+        row.style.display = (!q || text.includes(q)) ? 'flex' : 'none';
+      });
+    }
+
+    function renderTrelloChecklist(task) {
+      const container = document.getElementById('trelloChecklistContainer');
+      container.innerHTML = '';
+
+      const items = task.skus || [];
+      const savedChecks = JSON.parse(localStorage.getItem('brk_checklist_state') || '{}');
+
+      let checkedCount = 0;
+
+      items.forEach((item, idx) => {
+        const itemKey = task.id + '_chk_' + idx;
+        const isChecked = !!savedChecks[itemKey];
+        if (isChecked) checkedCount++;
+
+        const row = document.createElement('div');
+        row.className = 'trello-check-item' + (isChecked ? ' done' : '');
+        row.id = 'trello_row_' + itemKey;
+
+        row.innerHTML = `
+          <input type="checkbox" class="trello-custom-cb" id="${itemKey}" ${isChecked ? 'checked' : ''} onchange="toggleChecklistItem('${task.id}', '${itemKey}')">
+          <div class="trello-item-content">
+            <div class="trello-item-sku-row">
+              <span class="trello-sku-badge">${item.sku}</span>
+              <button class="trello-btn-copy-mini" onclick="copyText('${item.sku}')" title="Copiar SKU">📋</button>
+              ${item.shopeeId ? `<span style="font-size:11px; color:var(--text-dim);">ID: ${item.shopeeId}</span>` : ''}
+              <span class="trello-item-name">${item.name}</span>
+            </div>
+            <div class="trello-item-action">${item.detail}</div>
+          </div>
+        `;
+
+        container.appendChild(row);
+      });
+
+      updateChecklistProgress(checkedCount, items.length);
+    }
+
+    function toggleChecklistItem(taskId, itemKey) {
+      const cb = document.getElementById(itemKey);
+      const isChecked = cb ? cb.checked : false;
+
+      const savedChecks = JSON.parse(localStorage.getItem('brk_checklist_state') || '{}');
+      savedChecks[itemKey] = isChecked;
+      localStorage.setItem('brk_checklist_state', JSON.stringify(savedChecks));
+
+      const row = document.getElementById('trello_row_' + itemKey);
+      if (row) {
+        if (isChecked) row.classList.add('done');
+        else row.classList.remove('done');
+      }
+
+      // Re-calculate progress
+      const task = KANBAN_TASKS_DATA.find(t => t.id === taskId);
+      if (task && task.skus) {
+        let count = 0;
+        task.skus.forEach((_, idx) => {
+          if (savedChecks[taskId + '_chk_' + idx]) count++;
+        });
+        updateChecklistProgress(count, task.skus.length);
+
+        // If 100% of SKUs checked and not in done column, offer / auto move
+        if (count === task.skus.length && count > 0) {
+          showToast('🎉 Todos os SKUs da tarefa concluídos!');
+        }
+      }
+    }
+
+    function toggleAllChecklist(setAllChecked) {
+      if (!currentModalTaskId) return;
+      const task = KANBAN_TASKS_DATA.find(t => t.id === currentModalTaskId);
+      if (!task || !task.skus) return;
+
+      const savedChecks = JSON.parse(localStorage.getItem('brk_checklist_state') || '{}');
+      task.skus.forEach((_, idx) => {
+        const itemKey = task.id + '_chk_' + idx;
+        savedChecks[itemKey] = setAllChecked;
+        const cb = document.getElementById(itemKey);
+        if (cb) cb.checked = setAllChecked;
+        const row = document.getElementById('trello_row_' + itemKey);
+        if (row) {
+          if (setAllChecked) row.classList.add('done');
+          else row.classList.remove('done');
+        }
+      });
+
+      localStorage.setItem('brk_checklist_state', JSON.stringify(savedChecks));
+      updateChecklistProgress(setAllChecked ? task.skus.length : 0, task.skus.length);
+      showToast(setAllChecked ? '✅ Todos os itens marcados' : '⬜ Itens desmarcados');
+    }
+
+    function updateChecklistProgress(checked, total) {
+      const ratioEl = document.getElementById('trelloChecklistRatio');
+      const pctEl = document.getElementById('trelloProgressPct');
+      const barFill = document.getElementById('trelloProgressBarFill');
+
+      if (total === 0) {
+        ratioEl.textContent = '0/0';
+        pctEl.textContent = '0%';
+        barFill.style.width = '0%';
+        return;
+      }
+
+      const pct = Math.round((checked / total) * 100);
+      ratioEl.textContent = checked + '/' + total;
+      pctEl.textContent = pct + '%';
+      barFill.style.width = pct + '%';
+    }
+
+    function updateModalMoveButtons(currentCol) {
+      COLUMNS.forEach(col => {
+        const btn = document.querySelector(`#trelloMoveGroup button[data-col="${col}"]`);
+        if (btn) {
+          if (col === currentCol) btn.classList.add('active');
+          else btn.classList.remove('active');
+        }
+      });
+    }
+
+    function moveCurrentCard(targetCol) {
+      if (!currentModalTaskId) return;
+      setTaskColumn(currentModalTaskId, targetCol);
+      updateModalMoveButtons(targetCol);
+
+      const colLabels = { 'todo': 'A Fazer', 'in-progress': 'Em Andamento', 'review': 'Em Validação', 'done': 'Concluído' };
+      document.getElementById('trelloModalCol').textContent = colLabels[targetCol] || targetCol;
+    }
+
+    function copyCurrentTaskSkus() {
+      if (!currentModalTaskId) return;
+      const task = KANBAN_TASKS_DATA.find(t => t.id === currentModalTaskId);
+      if (!task || !task.skus) return;
+      const skuList = task.skus.map(s => s.sku).filter(Boolean);
+      copySkus(skuList);
+    }
+
+    function copyCurrentTaskCommand() {
+      if (!currentModalTaskId) return;
+      const task = KANBAN_TASKS_DATA.find(t => t.id === currentModalTaskId);
+      if (task && task.command) {
+        copyText(task.command);
+      }
+    }
+
+    function saveTrelloNote() {
+      if (!currentModalTaskId) return;
+      const note = document.getElementById('trelloNotesInput').value.trim();
+      localStorage.setItem('brk_task_notes_' + currentModalTaskId, note);
+      showToast('💾 Anotação salva com sucesso!');
+    }
+
+    function jumpFromModalToTable() {
+      if (!currentModalTaskId) return;
+      const task = KANBAN_TASKS_DATA.find(t => t.id === currentModalTaskId);
+      closeTrelloModal();
+      if (task) {
+        jumpToTask(task.id, task.phaseTab);
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const saved = localStorage.getItem('brk_roadmap_state');
+      if (saved) {
+        try {
+          const state = JSON.parse(saved);
+          Object.keys(state).forEach(id => {
+            const cb = document.getElementById(id);
+            if (cb) cb.checked = state[id];
+          });
+        } catch {}
+      }
+      updateProgress();
+    });
+  
+
+    // =========================================================================
+    // DADOS E ESTADO DO KANBAN
+    // =========================================================================
+    
+    // =========================================================================
+    // BASE DE DADOS COMPLETA DAS 10 TAREFAS (COM SKUS, IMPACTOS E COMANDOS)
+    // =========================================================================
+    const KANBAN_TASKS_DATA = [
+      {
+        id: 'task-p1',
+        title: 'P1. Alterar DTS de 2 para 9 dias nas 8 Camisas',
+        icon: '🚨',
+        desc: 'Esses 8 produtos não possuem o sufixo <code>_FULL</code> no SKU (são camisas sob encomenda na confecção), mas estão cadastrados na Shopee com Prazo de Envio (DTS) de <strong>2 dias</strong> (pronta entrega). Se venderem, a fábrica não consegue postar em 48h, gerando cancelamento automático pelo robô da Shopee e perda da medalha de Vendedor Indicado.',
+        phase: 'Fase 1: Risco & Categorias',
+        phaseTab: 'fase1',
+        priority: 'critico',
+        priorityLabel: 'Crítico',
+        metric: '8 SKUs em Risco',
+        impact: 'Cancelamento em 48h',
+        system: 'Magis5 / Seller Center',
+        sla: 'Imediato (D-0)',
+        defaultCol: 'todo',
+        skus: [
+          { sku: 'C02846BL', name: 'Camisa Feminina BRK Apache Cavalos UV50+ Manga Longa Agro', detail: 'Mudar DTS de 2 dias para 9 dias', shopeeId: '45568052144' },
+          { sku: 'C02830', name: 'Camisa Agro BRK São Bento Medalhão Masculina UV50+', detail: 'Mudar DTS de 2 dias para 9 dias', shopeeId: '48968043509' },
+          { sku: 'C02824', name: 'Camisa Brk São Bento Anjos Preta Masculina UV50+', detail: 'Mudar DTS de 2 dias para 9 dias', shopeeId: '56918014401' },
+          { sku: 'CMB05', name: 'Camisa de Botão Profissional com 2 Bolsos BRK', detail: 'Mudar DTS de 2 dias para 9 dias', shopeeId: '58215961381' },
+          { sku: 'CMB07', name: 'Camisa de Botão Masculina Cinza Ártico Manga Longa BRK', detail: 'Mudar DTS de 2 dias para 9 dias', shopeeId: '22799657047' },
+          { sku: 'CMB09', name: 'Camisa de Botão Masculina Trabalho Verde Jaleco Manga Longa', detail: 'Mudar DTS de 2 dias para 9 dias', shopeeId: '58215996505' },
+          { sku: 'CMB010', name: 'Camisa de Botão Masculina Manga Longa BRK Azul Escuro', detail: 'Mudar DTS de 2 dias para 9 dias', shopeeId: '58215995869' },
+          { sku: '27622333', name: 'Camisa Térmica Segunda Pele Viagem de Moto BRK Branca', detail: 'Mudar DTS de 2 dias para 9 dias', shopeeId: '22698219010' }
+        ]
+      },
+      {
+        id: 'task-p2',
+        title: 'P2. Migrar os 12 Produtos Presos na Categoria "Outros"',
+        icon: '⚠️',
+        desc: 'Anúncios cadastrados na categoria "Outros" sofrem severa desindexação orgânica na Shopee: não aparecem nos filtros laterais de gênero, tamanho ou tecido. O caso mais grave identificado pela auditoria é a <strong>Fita de Proteção de Dedos (FT-GREEN)</strong>, classificada erroneamente em <em>Mãe e Bebê > Brinquedos</em>.',
+        phase: 'Fase 1: Risco & Categorias',
+        phaseTab: 'fase1',
+        priority: 'alto',
+        priorityLabel: 'Alto',
+        metric: '12 SKUs Desindexados',
+        impact: 'Desindexação de Busca',
+        system: 'Seller Center / Magis5',
+        sla: 'Dia 1 (D-1)',
+        defaultCol: 'todo',
+        skus: [
+          { sku: 'FT-GREEN', name: 'Fita para Proteção de Dedos 2,5cm FT-Slim', detail: 'Atual: Mãe e Bebê > Brinquedos ➔ Nova: Esportes > Pescaria > Acessórios' },
+          { sku: 'MT055_FULL', name: 'Protetor de Braço Manguito Térmico BRK Agro', detail: 'Atual: Esportes > Outros ➔ Nova: Acessórios de Moda > Luvas e Manguitos' },
+          { sku: 'EVASELVACREPE', name: 'Chinelo Babuche Ortopédica Boaonda Adventure', detail: 'Atual: Esportes > Calçados > Outros ➔ Nova: Sapatos Masculinos > Chinelos' },
+          { sku: '51RASACP8', name: 'Alicate de Pesca Rapala Marine 8"', detail: 'Atual: Esportes > Pescaria > Outros ➔ Nova: Esportes > Pescaria > Ferramentas' },
+          { sku: 'GIRA', name: 'Girador com Snap Niquelado de Pesca', detail: 'Atual: Esportes > Pescaria > Outros ➔ Nova: Esportes > Pescaria > Anzóis e Snaps' },
+          { sku: 'ISCA-MEGABASS', name: 'Isca Artificial de Meia Água BRK Pro', detail: 'Atual: Esportes > Outros ➔ Nova: Esportes > Pescaria > Iscas Artificiais' },
+          { sku: 'LUV-PRO-01', name: 'Luva de Pesca com Proteção Solar UV50+', detail: 'Atual: Roupas > Outros ➔ Nova: Acessórios de Moda > Luvas' },
+          { sku: 'BAND-MULTI', name: 'Bandana Tubeneck Multifuncional Agro', detail: 'Atual: Esportes > Outros ➔ Nova: Acessórios de Moda > Bandanas' },
+          { sku: 'BON-TRUCK-01', name: 'Boné BRK Fishing Trucker com Tela', detail: 'Atual: Esportes > Outros ➔ Nova: Acessórios de Moda > Bonés' },
+          { sku: 'FAC-FILET-7', name: 'Faca para Filetar Peixe Inox Marine 7"', detail: 'Atual: Casa > Outros ➔ Nova: Esportes > Pescaria > Ferramentas' },
+          { sku: 'CARRET-VENT', name: 'Carretilha de Pesca Perfil Baixo 10 Rol.', detail: 'Atual: Esportes > Outros ➔ Nova: Esportes > Pescaria > Molinetes e Carretilhas' },
+          { sku: 'OCUL-POLAR-01', name: 'Óculos de Sol Polarizado UV400 BRK', detail: 'Atual: Esportes > Outros ➔ Nova: Acessórios de Moda > Óculos de Sol' }
+        ]
+      },
+      {
+        id: 'task-p3',
+        title: 'P3. Injetar Ficha Técnica via Agente 5 nos 140 Produtos Vazios',
+        icon: '⚡',
+        desc: 'A varredura ao vivo na Shopee revelou que 247 anúncios (63,8%) já possuem atributos. Vamos rodar a automação do Agente 5 focada <strong>exclusivamente nos 140 itens vazios</strong>, preenchendo os atributos obrigatórios que concedem selo de qualidade cadastral.',
+        phase: 'Fase 2: Ficha Técnica & Tamanho',
+        phaseTab: 'fase2',
+        priority: 'alto',
+        priorityLabel: 'Alto',
+        metric: '140/140 Concluídos (100%)',
+        impact: 'Algoritmo de Busca',
+        system: 'Agente 5 (RPA)',
+        sla: 'Concluído',
+        command: 'node agent5-shopee-attributes/src/runner.mjs --file uploads/Relatorio_Diagnostico_Produtos_Ativos_Shopee_AoVivo.xlsx',
+        defaultCol: 'done',
+        skus: [
+                  {
+                            "sku": "C01038_FULL",
+                            "shopeeId": "23298162905",
+                            "name": "Camisa Agro Brk Azul Jesus Agricultura de Precisão Tecnologia Agro Negócio Uv50+",
+                            "detail": "Camisas • Estoque: 96 un • 204 cliques"
+                  },
+                  {
+                            "sku": "ADV125_FULL",
+                            "shopeeId": "22893671575",
+                            "name": "Camisa Expedição Atacama Chile Brk Motors Big Trail Viagem Uv50+",
+                            "detail": "Camisas • Estoque: 6 un • 153 cliques"
+                  },
+                  {
+                            "sku": "C02041BL_FULL",
+                            "shopeeId": "22899187139",
+                            "name": "Camisa Blusa Feminina Brk Agro Camuflada Bandeira do Brasil Boiadeiro Patriota Proteção Uv50+",
+                            "detail": "Camisas e Blusas • Estoque: 24 un • 137 cliques"
+                  },
+                  {
+                            "sku": "CCPBR0756_FULL",
+                            "shopeeId": "22699175384",
+                            "name": "Camisa Masculina Brk Agro Pesca Capuz Protetor Solar Uv Branca Maori Pescaria Brasil",
+                            "detail": "Camisetas • Estoque: 71 un • 122 cliques"
+                  },
+                  {
+                            "sku": "ADV125_FULL",
+                            "shopeeId": "22993673782",
+                            "name": "Camisa  Expedição Atacama Chile Brk Motos Big Trail Viagem Masculina Uv50+",
+                            "detail": "Camisetas • Estoque: 6 un • 114 cliques"
+                  },
+                  {
+                            "sku": "C01647BL_FULL",
+                            "shopeeId": "23999155005",
+                            "name": "Camisa Blusa Roxa Feminina Segunda Pele Corrida   Uv Brk Agro Pesca Lisa Esportiva",
+                            "detail": "Camisas e Blusas • Estoque: 5000 un • 102 cliques"
+                  },
+                  {
+                            "sku": "FLOWFPRETO",
+                            "shopeeId": "22994212561",
+                            "name": "Sandália Ortopédica Feminina Boaonda Flow Discovery Preta Trilha Acampamento Agro",
+                            "detail": "Sandália Plana e Rasteirinha • Estoque: 54 un • 99 cliques"
+                  },
+                  {
+                            "sku": "C01038_FULL",
+                            "shopeeId": "22793480532",
+                            "name": "Camisa Blusa Azul  Agro Trator Verde Brk Jesus Agricultura de Precisão com UV50+",
+                            "detail": "Camisas • Estoque: 96 un • 94 cliques"
+                  },
+                  {
+                            "sku": "ALL_FLOW",
+                            "shopeeId": "23893616001",
+                            "name": "Sandália Babuche Variadas Ortopédica Masculina Boaonda Flow Discovery Dia a DIa Academia",
+                            "detail": "Sandálias • Estoque: 36 un • 87 cliques"
+                  },
+                  {
+                            "sku": "7908788613401",
+                            "shopeeId": "22694673420",
+                            "name": "Canivete Tático Deyu Militar De Bolso Aço Inoxidável Pesca e Camping",
+                            "detail": "Facas de Acampamento e Kits de Sobrevivência • Estoque: 14 un • 86 cliques"
+                  },
+                  {
+                            "sku": "ADV237_FULL",
+                            "shopeeId": "22298588326",
+                            "name": "Camisa Preta Motoqueiro Brk Estrada Expedição Serra Rio do Rastro Proteção Uv50+",
+                            "detail": "Camisetas • Estoque: 1 un • 73 cliques"
+                  },
+                  {
+                            "sku": "C0685_FULL",
+                            "shopeeId": "23098560987",
+                            "name": "Camisa Camiseta Agro Brk Masculina Preta Produtor de Leite Vaquejada Trabalho Proteção UV",
+                            "detail": "Camisetas • Estoque: 38 un • 73 cliques"
+                  },
+                  {
+                            "sku": "SANDALIASTARFEM_PRETA",
+                            "shopeeId": "22094225791",
+                            "name": "Sandália Feminina Ortopedica Boaonda Star Reforçada Academia Trilha Esportes Caminhada Babuche",
+                            "detail": "Sandália Ortopédica • Estoque: 1 un • 65 cliques"
+                  },
+                  {
+                            "sku": "C02363_FULL",
+                            "shopeeId": "58202029440",
+                            "name": "Camisa Country Masculina Brk Agro Clean Bandeira dos Estados Unidos com Proteção Solar Uv50+",
+                            "detail": "Camisetas • Estoque: 216 un • 44 cliques"
+                  },
+                  {
+                            "sku": "C01963_FULL",
+                            "shopeeId": "23399164408",
+                            "name": "Camisa Camiseta Agro BRK Bandeira do Brasil Pesca Patriota Fazendeiro Pescador Proteção UV",
+                            "detail": "Camisas • Estoque: 53 un • 43 cliques"
+                  },
+                  {
+                            "sku": "JPSTICK85",
+                            "shopeeId": "22993520811",
+                            "name": "Isca Artificial Nelson Nakamura Lucky Jumping Stick 8,5cm 9g",
+                            "detail": "Iscas • Estoque: 1 un • 41 cliques"
+                  },
+                  {
+                            "sku": "C02351_FULL",
+                            "shopeeId": "23399131281",
+                            "name": "Camisa Camiseta Agro Masculina Brk Romeiro Nossa Senhora Envio Imediato Rodeio Proteção UV",
+                            "detail": "Camisas • Estoque: 30 un • 41 cliques"
+                  },
+                  {
+                            "sku": "IS-F0",
+                            "shopeeId": "23098002516",
+                            "name": "Isca Artificial Para Pesca Sapinho Sapo Frog Rã 5cm 8g Deyu",
+                            "detail": "Iscas • Estoque: 17 un • 39 cliques"
+                  },
+                  {
+                            "sku": "ADV237_FULL",
+                            "shopeeId": "22494076714",
+                            "name": "Camisa Motocross Preta Brk Viagem Serra do Rio do Rastro Motoclube Expedição Uv50+",
+                            "detail": "Camisetas • Estoque: 1 un • 38 cliques"
+                  },
+                  {
+                            "sku": "BA0112",
+                            "shopeeId": "23993212033",
+                            "name": "Boné Trucker Brk Motors Viagem  Expedição Deserto Atacama",
+                            "detail": "Bonés, Chapéus e Toucas • Estoque: 17 un • 36 cliques"
+                  },
+                  {
+                            "sku": "MT055_FULL",
+                            "shopeeId": "22598658527",
+                            "name": "Protetor de Braço Manguito Térmico Brk Agro Fazendeiro Pescador Viagem Expedição Uv50+",
+                            "detail": "Outros • Estoque: 24 un • 35 cliques"
+                  },
+                  {
+                            "sku": "C0620_FULL",
+                            "shopeeId": "23093209123",
+                            "name": "Camisa Camiseta Agro Trator Brk O Agro Não Para Fazendeiro Agrônomo Brasil Proteção UV",
+                            "detail": "Camisas • Estoque: 55 un • 33 cliques"
+                  },
+                  {
+                            "sku": "BA0120",
+                            "shopeeId": "22998066384",
+                            "name": "Boné Chapéu Pesca Brk Isca Artificial Traíra Tucunaré Aba Curva com Telinha",
+                            "detail": "Chapéus Esportivos e para Atividades ao Ar Livre • Estoque: 4 un • 31 cliques"
+                  },
+                  {
+                            "sku": "C01457_FULL",
+                            "shopeeId": "22693710903",
+                            "name": "Camisa Pesca Brk Agro Mescla Marrom Tucunaré com Proteção Solar Uv50 Camuflado Pescaria",
+                            "detail": "Camisas • Estoque: 138 un • 21 cliques"
+                  },
+                  {
+                            "sku": "GIRA",
+                            "shopeeId": "23793242600",
+                            "name": "Girador com Snap Niquelado de Pesca Resistente Tucunaré Albatroz",
+                            "detail": "Outros • Estoque: 77 un • 21 cliques"
+                  },
+                  {
+                            "sku": "CPT020",
+                            "shopeeId": "22194964770",
+                            "name": "Copo Térmico Texas Limited Cavalo C/ Tampa E Abridor 473ml",
+                            "detail": "Copos e Taças • Estoque: 3 un • 19 cliques"
+                  },
+                  {
+                            "sku": "C02281_FULL",
+                            "shopeeId": "58200280755",
+                            "name": "Camisa Agro  Premium Brk Proteção Uv50+ Medalhão São Bento Fazendeiro Agricultor",
+                            "detail": "Camisas • Estoque: 28 un • 16 cliques"
+                  },
+                  {
+                            "sku": "LISBOA",
+                            "shopeeId": "23994957113",
+                            "name": "Óculos de Sol BRK Agro Lisboa Polarizado Masculino Preto UV400 Pesca Proteção Solar",
+                            "detail": "Óculos de sol • Estoque: 49 un • 16 cliques"
+                  },
+                  {
+                            "sku": "SANDALIASTARFEM_PRETA",
+                            "shopeeId": "22298722474",
+                            "name": "Sandália Confortável Babuche Feminina Preta Leve Esportes Caminhada Fitness Academia Passeios Trilha",
+                            "detail": "Sandália Ortopédica • Estoque: 1 un • 15 cliques"
+                  },
+                  {
+                            "sku": "C01038_FULL",
+                            "shopeeId": "22498172072",
+                            "name": "Camisa Camiseta Agro Fazendeiro Brk Jesus Agricultura de Precisão Roça Colheitadeira com Proteção UV",
+                            "detail": "Camisas • Estoque: 96 un • 14 cliques"
+                  },
+                  {
+                            "sku": "7899675840072",
+                            "shopeeId": "22597750595",
+                            "name": "Pesca Anzol 9/0 Cabo de Aco 20cm 80lbs Resistente Pescaria Pirarara",
+                            "detail": "Anzóis de Pesca • Estoque: 2 un • 13 cliques"
+                  },
+                  {
+                            "sku": "HUNTER",
+                            "shopeeId": "23699484626",
+                            "name": "Oculos De Sol Polarizado BRK Hunter Original Masculino Pesca Agro Campo Haste Madeira Proteção UV400",
+                            "detail": "Óculos de sol • Estoque: 9 un • 11 cliques"
+                  },
+                  {
+                            "sku": "VORAZPLUS",
+                            "shopeeId": "23793538186",
+                            "name": "Isca Artificial Moriah Voraz Plus - 11,8cm 20g",
+                            "detail": "Iscas • Estoque: 19 un • 10 cliques"
+                  },
+                  {
+                            "sku": "IPON65",
+                            "shopeeId": "22893526301",
+                            "name": "Isca Artificial Nelson Nakamura Lucky Ipon 6,5cm 7g",
+                            "detail": "Iscas • Estoque: 2 un • 8 cliques"
+                  },
+                  {
+                            "sku": "EMPATE100",
+                            "shopeeId": "58205802218",
+                            "name": "Empate de Aço Albatroz C/ Girador e Snap 10cm (50Lb/22,6Kg) - kit 100un",
+                            "detail": "Outros • Estoque: 1 un • 8 cliques"
+                  },
+                  {
+                            "sku": "CPT019",
+                            "shopeeId": "23299432098",
+                            "name": "Copo Térmico Longhorn Preto C/ Tampa E Abridor Inox 473ml",
+                            "detail": "Copos e Taças • Estoque: 8 un • 8 cliques"
+                  },
+                  {
+                            "sku": "ALL_CAPIVARA",
+                            "shopeeId": "58215411408",
+                            "name": "Camisa Feminina Amazon BRK Capivara Proteção UV50",
+                            "detail": "Camisas e Blusas • Estoque: 21000 un • 8 cliques"
+                  },
+                  {
+                            "sku": "BTMORGAN",
+                            "shopeeId": "22495047361",
+                            "name": "Bota Masculina Morgan Casual Conforto Zíper Lateral Cor Whisky Country BRK Agro",
+                            "detail": "Botas da Moda • Estoque: 108 un • 7 cliques"
+                  },
+                  {
+                            "sku": "LK201-V",
+                            "shopeeId": "23294672499",
+                            "name": "Carretilha Deyu LK201 Vermelha Casting Linha de Pesca",
+                            "detail": "Varas e Molinetes de Pesca • Estoque: 21 un • 5 cliques"
+                  },
+                  {
+                            "sku": "194136678303522",
+                            "shopeeId": "23599643704",
+                            "name": "Lenço Feminino Estampado Fauna Tropical BRK Proteção UV50 Bandana",
+                            "detail": "Camisas e Blusas • Estoque: 4000 un • 5 cliques"
+                  },
+                  {
+                            "sku": "DAKOTA",
+                            "shopeeId": "58210755219",
+                            "name": "Óculos de Sol BRK Dakota Polarizado Unissex Proteção UV400 Casual Pesca Esporte Praia Original",
+                            "detail": "Óculos de sol • Estoque: 12 un • 5 cliques"
+                  },
+                  {
+                            "sku": "JPSTICK95",
+                            "shopeeId": "22393520764",
+                            "name": "Isca Artificial Nelson Nakamura Lucky Jumping Stick 9,5cm 11,5g",
+                            "detail": "Iscas • Estoque: 7 un • 4 cliques"
+                  },
+                  {
+                            "sku": "SM6H625",
+                            "shopeeId": "58250384869",
+                            "name": "Anzol de Pesca Sabiki SM-6H625 Verde/Rosa Marine Sports 6 Unidades Pescaria Esportiva",
+                            "detail": "Anzóis de Pesca • Estoque: 6 un • 4 cliques"
+                  },
+                  {
+                            "sku": "LUVADI",
+                            "shopeeId": "58205042343",
+                            "name": "Luva Motoqueiro Motociclista Antiderrapante Dedo Inteiro",
+                            "detail": "Luvas • Estoque: 2000 un • 4 cliques"
+                  },
+                  {
+                            "sku": "CPT041",
+                            "shopeeId": "22199460870",
+                            "name": "Copo Térmico Pesca Life Moves Fast C/ Tampa E Abridor 473ml",
+                            "detail": "Copos e Taças • Estoque: 4 un • 4 cliques"
+                  },
+                  {
+                            "sku": "SIGLONPEX8VERDE",
+                            "shopeeId": "20798334671",
+                            "name": "Linha de Pesca Sunline Siglon PEX8 300m Verde Resistente Pescaria Esportiva Tucunaré Traíra",
+                            "detail": "Linhas de Pesca • Estoque: 3 un • 3 cliques"
+                  },
+                  {
+                            "sku": "PREDATORSR115S",
+                            "shopeeId": "22299278635",
+                            "name": "Isca Artificial Marine Sports Predator SR 115S Meia-Água",
+                            "detail": "Iscas • Estoque: 21 un • 3 cliques"
+                  },
+                  {
+                            "sku": "ALCAMSPS12",
+                            "shopeeId": "22999138502",
+                            "name": "Alça De Transporte Suporte Para Varas de Pesca Marine Sports MS-PS12 Pescaria Esportiva",
+                            "detail": "Outros • Estoque: 2 un • 3 cliques"
+                  },
+                  {
+                            "sku": "ACTIONPOWERPLUS600_2843",
+                            "shopeeId": "23294549310",
+                            "name": "Linha de Pesca Marine Sports Action Power Plus Nylon 600 Metros 28lb 0.43mm Pescaria Tucunaré Robalo",
+                            "detail": "Linhas de Pesca • Estoque: 1 un • 3 cliques"
+                  },
+                  {
+                            "sku": "DRAGON28",
+                            "shopeeId": "22999464417",
+                            "name": "Isca Artificial Albatroz Jig Dragon Pesca Tucunaré Colorida",
+                            "detail": "Iscas • Estoque: 3 un • 3 cliques"
+                  },
+                  {
+                            "sku": "RAMPOPPER90",
+                            "shopeeId": "58210860642",
+                            "name": "Isca Pesca Marine Sports Ram Popper 90 Superficie Tucunaré",
+                            "detail": "Iscas • Estoque: 11 un • 3 cliques"
+                  },
+                  {
+                            "sku": "BRAVAGRAND100",
+                            "shopeeId": "58200392675",
+                            "name": "Isca Artificial de Pesca Marine Sports Brava Grand 100 Meia-Água 10cm 23,9g",
+                            "detail": "Iscas • Estoque: 10 un • 2 cliques"
+                  },
+                  {
+                            "sku": "SMMDMR03",
+                            "shopeeId": "58250939738",
+                            "name": "Suporte Magnetico Deyu com Mosquetao Para Pesca e Camping",
+                            "detail": "Escalada • Estoque: 10 un • 2 cliques"
+                  },
+                  {
+                            "sku": "CPT024",
+                            "shopeeId": "23099432138",
+                            "name": "Copo Térmico Hooked Till The Bones C/ Tampa E Abridor 473ml",
+                            "detail": "Copos e Taças • Estoque: 17 un • 2 cliques"
+                  },
+                  {
+                            "sku": "BRAVA90",
+                            "shopeeId": "22494972161",
+                            "name": "Isca Pesca 9cm 11g Meia Água Robalo Marine Sports Brava90 Esportiva Brava 90",
+                            "detail": "Iscas • Estoque: 4 un • 2 cliques"
+                  },
+                  {
+                            "sku": "IRONHEAD50",
+                            "shopeeId": "58210858245",
+                            "name": "Isca Pesca Artificial Marine Sports Iron Head 50 Fundo Predadores Tucunaré",
+                            "detail": "Iscas • Estoque: 3 un • 2 cliques"
+                  },
+                  {
+                            "sku": "ISCA-SSC-80",
+                            "shopeeId": "58211122431",
+                            "name": "Isca de Pesca Artificial Sumax Shad Crank Ssc-80 8cm 10g Tucunaré Predadores",
+                            "detail": "Iscas • Estoque: 2 un • 2 cliques"
+                  },
+                  {
+                            "sku": "COMPORT",
+                            "shopeeId": "22997728079",
+                            "name": "Comedouro Bebedouro para Cachorro Gato Portátil Ração e Água",
+                            "detail": "Tigelas e Alimentadores • Estoque: 15 un • 1 cliques"
+                  },
+                  {
+                            "sku": "SIGLONPEX8MULTICOLOR",
+                            "shopeeId": "23294548031",
+                            "name": "Linha de Pesca Trançada Sunline SIGLON PEX8 300m Multicolor Pescaria Esportiva Tucunaré Robalo",
+                            "detail": "Linhas de Pesca • Estoque: 7 un • 1 cliques"
+                  },
+                  {
+                            "sku": "XIT",
+                            "shopeeId": "22195024575",
+                            "name": "Isca Pesca Albatroz 6,7cm Artificial Tucunaré Trairão 6,8gr 2 Ganchos Xitara",
+                            "detail": "Iscas • Estoque: 1 un • 1 cliques"
+                  },
+                  {
+                            "sku": "PROSLIDER115",
+                            "shopeeId": "22994972889",
+                            "name": "Isca Artificial Pesca 2 Ganchos Marine Sports Pro Slider 115 Superfície",
+                            "detail": "Iscas • Estoque: 2 un • 1 cliques"
+                  },
+                  {
+                            "sku": "CPT043",
+                            "shopeeId": "58208839153",
+                            "name": "Copo Térmico Offshore Fishing Club C/ Tampa E Abridor 473ml",
+                            "detail": "Copos e Taças • Estoque: 4 un • 1 cliques"
+                  },
+                  {
+                            "sku": "CPT013",
+                            "shopeeId": "58208911808",
+                            "name": "Copo Térmico Medalha São Bento Preto C/ Tampa E Abridor 473ml",
+                            "detail": "Copos e Taças • Estoque: 15 un • 1 cliques"
+                  },
+                  {
+                            "sku": "VIBRAX40",
+                            "shopeeId": "58210693558",
+                            "name": "Isca Pesca Vibrax 40-4cm 4.0g Pesca Tucunaré Resistente Albatroz",
+                            "detail": "Iscas • Estoque: 7 un • 1 cliques"
+                  },
+                  {
+                            "sku": "PRECISIONXTREMEPENCILEXO107",
+                            "shopeeId": "58210894545",
+                            "name": "Isca Artificial Rapala Precision Xtreme Pencil EXO 107 Superfície",
+                            "detail": "Iscas • Estoque: 11 un • 1 cliques"
+                  },
+                  {
+                            "sku": "JERKBAIT85SP",
+                            "shopeeId": "58210903974",
+                            "name": "Isca Duo Realis Jerkbait 85sp Tucunaré Robalo Meia Água",
+                            "detail": "Iscas • Estoque: 7 un • 1 cliques"
+                  },
+                  {
+                            "sku": "AKIPEGA10",
+                            "shopeeId": "58211189169",
+                            "name": "Isca Pesca Predadores Artificial CCM Akipega 10 Meia Água Tucunaré 2 ganchos",
+                            "detail": "Iscas • Estoque: 11 un • 1 cliques"
+                  },
+                  {
+                            "sku": "STICKNINA90",
+                            "shopeeId": "58211195342",
+                            "name": "Isca Artificial Pesca Robalo Deconto Sticknina 90 Superfície Tucunaré",
+                            "detail": "Iscas • Estoque: 1 un • 1 cliques"
+                  },
+                  {
+                            "sku": "BONNY",
+                            "shopeeId": "58211346617",
+                            "name": "Isca Pesca Predadores Artificial Albatroz Bonny - 5cm 5.1g Traíra Tucunare",
+                            "detail": "Iscas • Estoque: 5 un • 1 cliques"
+                  },
+                  {
+                            "sku": "ISCA-SVS-75",
+                            "shopeeId": "58205408461",
+                            "name": "Isca Pesca Artificial Sumax Vision Shad 75 7,5cm Tucunaré",
+                            "detail": "Iscas • Estoque: 2 un • 0 cliques"
+                  },
+                  {
+                            "sku": "CPT033",
+                            "shopeeId": "58208830416",
+                            "name": "Copo Térmico Peacock Bass Tucunaré C/ Tampa E Abridor 473ml",
+                            "detail": "Copos e Taças • Estoque: 4 un • 0 cliques"
+                  },
+                  {
+                            "sku": "CPT039",
+                            "shopeeId": "58208836494",
+                            "name": "Copo Térmico Pesca Baitcasting C/ Tampa E Abridor Inox 473ml",
+                            "detail": "Copos e Taças • Estoque: 4 un • 0 cliques"
+                  },
+                  {
+                            "sku": "CPT038",
+                            "shopeeId": "58208836596",
+                            "name": "Copo Térmico Pesca BRK Fishing C/ Tampa E Abridor 473ml",
+                            "detail": "Copos e Taças • Estoque: 13 un • 0 cliques"
+                  },
+                  {
+                            "sku": "CPT044",
+                            "shopeeId": "58208845242",
+                            "name": "Copo Térmico Pesca BRK Catch And Release Conserva Gelado Inox",
+                            "detail": "Copos e Taças • Estoque: 9 un • 0 cliques"
+                  },
+                  {
+                            "sku": "CPT021",
+                            "shopeeId": "58208926765",
+                            "name": "Copo Térmico Made In Roça Preto C/ Tampa E Abridor 473ml",
+                            "detail": "Copos e Taças • Estoque: 2 un • 0 cliques"
+                  },
+                  {
+                            "sku": "ARIRANHA105",
+                            "shopeeId": "58210869429",
+                            "name": "Isca Moriah Ariranha 105 Superfície Flutuante Premium Pesca",
+                            "detail": "Iscas • Estoque: 10 un • 0 cliques"
+                  },
+                  {
+                            "sku": "SKITTERPOPELITE",
+                            "shopeeId": "58210900028",
+                            "name": "Isca Artificial Rapala Skitter 9.5cm Pop Elite Superfície Predadores Traíra",
+                            "detail": "Iscas • Estoque: 53 un • 0 cliques"
+                  },
+                  {
+                            "sku": "JERKBAIT9",
+                            "shopeeId": "58211131362",
+                            "name": "Isca Pesca Rapala Jerkbait SDRS-9 Meia-Água Artificial Predadores Traíra Tucunaré",
+                            "detail": "Iscas • Estoque: 1 un • 0 cliques"
+                  },
+                  {
+                            "sku": "ZAP90",
+                            "shopeeId": "58211139481",
+                            "name": "Isca de Pesca Artificial Nelson Nakamura Zap 9cm 11g Superfície Predadores Tucunaré",
+                            "detail": "Iscas • Estoque: 2 un • 0 cliques"
+                  },
+                  {
+                            "sku": "INNA70",
+                            "shopeeId": "58211145839",
+                            "name": "Isca Pesca Pequena Artificial Marine Sports Inna 70 Meia-Água Piau Tucunaré",
+                            "detail": "Iscas • Estoque: 23 un • 0 cliques"
+                  },
+                  {
+                            "sku": "SHINERKING100MR",
+                            "shopeeId": "58211197208",
+                            "name": "Isca Pesca Artificial Marine Sports Shiner King 100MR Meia-Água Pesca Esportiva",
+                            "detail": "Iscas • Estoque: 4 un • 0 cliques"
+                  },
+                  {
+                            "sku": "DRAGON35",
+                            "shopeeId": "58211343866",
+                            "name": "Isca Pesca Artificial Albatroz 35g Tucunaré Dragon Colorida Pequenos Predadores",
+                            "detail": "Iscas • Estoque: 8 un • 0 cliques"
+                  },
+                  {
+                            "sku": "FLOWROSE",
+                            "shopeeId": "20199840958",
+                            "name": "Babuche Feminina Rose Boaonda Flow Discovery Academia Trilha",
+                            "detail": "Sandália Ortopédica • Estoque: 0 un • 319 cliques"
+                  },
+                  {
+                            "sku": "27622333",
+                            "shopeeId": "22698219010",
+                            "name": "Camisa Térmica Segunda Pele Viagem de Moto Brk Branca Expedição Atacama Chile com Uv50 Proteção Solar",
+                            "detail": "Camisetas • Estoque: 0 un • 168 cliques"
+                  },
+                  {
+                            "sku": "FUSION20_FULL",
+                            "shopeeId": "23294137625",
+                            "name": "Camisa Camiseta Agro Capuz Cinza Brk Pesca Trilha FusionX Capuz+Buffer+Punho Proteção UV",
+                            "detail": "Camisetas • Estoque: 0 un • 111 cliques"
+                  },
+                  {
+                            "sku": "CCPBR0801_FULL",
+                            "shopeeId": "22494540172",
+                            "name": "Camisa Camiseta Blusa de Pesca com Capuz Brk Maori com Proteção UV",
+                            "detail": "Camisetas • Estoque: 0 un • 100 cliques"
+                  },
+                  {
+                            "sku": "C02324_FULL",
+                            "shopeeId": "22094456313",
+                            "name": "Camisa Camiseta Agro Brk Eu Sou do Agro Irrigação Verde Envio Imediato com Proteção UV",
+                            "detail": "Camisas • Estoque: 0 un • 64 cliques"
+                  },
+                  {
+                            "sku": "CCPBR0800_FULL",
+                            "shopeeId": "22394536641",
+                            "name": "Camisa Com Capuz Brk Maori Verde Musgo com Proteção Solar Uv50+ Pesca Agro Esportiva",
+                            "detail": "Camisetas • Estoque: 0 un • 54 cliques"
+                  },
+                  {
+                            "sku": "CCPBR0796_FULL",
+                            "shopeeId": "23594663894",
+                            "name": "Camisa Blusa Pesca Amarela Masculina Brk Agro Com Capuz E proteção Punho Uv50+",
+                            "detail": "Camisetas • Estoque: 0 un • 54 cliques"
+                  },
+                  {
+                            "sku": "CCPBR0757_FULL",
+                            "shopeeId": "22993717603",
+                            "name": "Camisa Camiseta Blusa de Pesca BRK com Capuz Camuflada Envio Imediato Proteção UV",
+                            "detail": "Camisas • Estoque: 0 un • 44 cliques"
+                  },
+                  {
+                            "sku": "C01999_FULL",
+                            "shopeeId": "20199893590",
+                            "name": "Camisa Camiseta Agro Uniforme Brk Produtor Rural Brasil Envio Imediato com Proteção UV",
+                            "detail": "Camisas • Estoque: 0 un • 37 cliques"
+                  },
+                  {
+                            "sku": "CCPBR0800_FULL",
+                            "shopeeId": "22494678923",
+                            "name": "Camisa Pesca Verde Maori Capuz Camu Brk Agro Uv Esportiva Brasil",
+                            "detail": "Camisetas • Estoque: 0 un • 35 cliques"
+                  },
+                  {
+                            "sku": "C02349_FULL",
+                            "shopeeId": "23198930158",
+                            "name": "Camisa Camiseta Agro Envio Imediato Brk Eu Sou do Agro Jesus no Calvário Camping com Proteção Uv50",
+                            "detail": "Camisas • Estoque: 0 un • 34 cliques"
+                  },
+                  {
+                            "sku": "C02325_FULL",
+                            "shopeeId": "22798814395",
+                            "name": "Camisa Camiseta Agro Marrom Fazendeiro Brk Eu Sou do Agro Lavoura Verde - Envio Imediato Proteção UV",
+                            "detail": "Camisas • Estoque: 0 un • 25 cliques"
+                  },
+                  {
+                            "sku": "C02326_FULL",
+                            "shopeeId": "23598807953",
+                            "name": "Camisa Camiseta Agro Envio Imediato Brk Masculina Armazenagem De Grãos Fazenda Agrícola Proteção UV",
+                            "detail": "Camisas • Estoque: 0 un • 25 cliques"
+                  },
+                  {
+                            "sku": "OC1032",
+                            "shopeeId": "23094935180",
+                            "name": "Óculos De Sol BRK Polarizado Arredondado Cristal Haste Verde Militar UV400 Pesca Masculino Feminino",
+                            "detail": "Óculos de sol • Estoque: 0 un • 18 cliques"
+                  },
+                  {
+                            "sku": "C02349_FULL",
+                            "shopeeId": "22794666165",
+                            "name": "Camisa Agro Rodeio Masculina Envio Imediato Brk Agro Jesus No Calvário  Uv50+ Festa Peão",
+                            "detail": "Camisas • Estoque: 0 un • 17 cliques"
+                  },
+                  {
+                            "sku": "C02352_FULL",
+                            "shopeeId": "23294661110",
+                            "name": "Camisa Camiseta Agro Brk Fazendeiro Cowboy Nossa Senhora Rodeio Padroeira Brasil Proteção UV",
+                            "detail": "Camisas • Estoque: 0 un • 17 cliques"
+                  },
+                  {
+                            "sku": "FUSION59_FULL",
+                            "shopeeId": "23598829869",
+                            "name": "Camisa de Pesca Capuz Viagem Uv+ Brk FusionX Areia Mapa Mundi Motoqueiro Viagem",
+                            "detail": "Camisas • Estoque: 0 un • 14 cliques"
+                  },
+                  {
+                            "sku": "BRAVA77",
+                            "shopeeId": "22399172814",
+                            "name": "Isca Artificial de Pesca Marine Sports Brava 77 Meia Água 7,7cm 7,2g Tucunaré Traíra",
+                            "detail": "Iscas • Estoque: 0 un • 13 cliques"
+                  },
+                  {
+                            "sku": "C02331_FULL",
+                            "shopeeId": "20799893491",
+                            "name": "Camisa Camiseta Agro Brk Envio Imediato Eu Sou do Agro Gigante da Safra Brasil Proteção UV",
+                            "detail": "Camisetas • Estoque: 0 un • 12 cliques"
+                  },
+                  {
+                            "sku": "7908137901821",
+                            "shopeeId": "23294647967",
+                            "name": "Molinete Beta 400i FD Marine Sports Leve e Resistente",
+                            "detail": "Varas e Molinetes de Pesca • Estoque: 0 un • 12 cliques"
+                  },
+                  {
+                            "sku": "CCPBR0796_FULL",
+                            "shopeeId": "58200440262",
+                            "name": "Camisa Maori Masculina Pesca Brk Capuz e Punho Protetor Solar Uv Expedição Amazónia",
+                            "detail": "Camisetas • Estoque: 0 un • 11 cliques"
+                  },
+                  {
+                            "sku": "CLSP001_FULL",
+                            "shopeeId": "22594658189",
+                            "name": "Camisa Camiseta Blusa Masculina Brk Agro Pesca Gola V Azul Brk Uniforme Casual Esportiva Proteção Uv",
+                            "detail": "Camisetas • Estoque: 0 un • 10 cliques"
+                  },
+                  {
+                            "sku": "C02327_FULL",
+                            "shopeeId": "22694316051",
+                            "name": "Camisa Camiseta do Agro Profissões Brk Eu Sou do Agro Envio Imediato Proteção UV",
+                            "detail": "Camisas • Estoque: 0 un • 9 cliques"
+                  },
+                  {
+                            "sku": "C02355_FULL",
+                            "shopeeId": "23898811942",
+                            "name": "Camisa Camiseta Agro Preta Envio Imediato Brk Eu Sou do Agro Colheita de Silagem com Proteção UV",
+                            "detail": "Camisas • Estoque: 0 un • 9 cliques"
+                  },
+                  {
+                            "sku": "CLSP001_FULL",
+                            "shopeeId": "58200211303",
+                            "name": "Camisa Camiseta Blusa Azul Manga Longa Gola V Azul Brk Casual Ciclismo Treino Proteção UV",
+                            "detail": "Camisetas • Estoque: 0 un • 9 cliques"
+                  },
+                  {
+                            "sku": "CURISCO70",
+                            "shopeeId": "58205145069",
+                            "name": "Isca Artificial Lucky Nelson Nakamura Curisco 7cm 8,5g Pesca Tucunaré Dourado",
+                            "detail": "Iscas • Estoque: 0 un • 9 cliques"
+                  },
+                  {
+                            "sku": "CPT008",
+                            "shopeeId": "22194968263",
+                            "name": "Copo Térmico Pecuária Nossa Senhora C/ Tampa E Abridor 473ml",
+                            "detail": "Copos e Taças • Estoque: 0 un • 9 cliques"
+                  },
+                  {
+                            "sku": "CABOACOROLO500_50500",
+                            "shopeeId": "23794539685",
+                            "name": "Cabo de Aço Equipamento de Pesca Pescaria em Rolo Marine Sports Resistente 50 Libras 500 Metros",
+                            "detail": "Linhas de Pesca • Estoque: 0 un • 6 cliques"
+                  },
+                  {
+                            "sku": "C02330_FULL",
+                            "shopeeId": "22099189156",
+                            "name": "Camisa Camiseta Agro BRK Verde Brasil Fazendeiro Safra de Grãos Plantio Proteção UV",
+                            "detail": "Camisas • Estoque: 0 un • 5 cliques"
+                  },
+                  {
+                            "sku": "7908137906253",
+                            "shopeeId": "23897724895",
+                            "name": "Molinete Titan 4000 Marine Sports 7 Rolamentos 5.2:1 Manivela Direito Esquerdo",
+                            "detail": "Varas e Molinetes de Pesca • Estoque: 0 un • 5 cliques"
+                  },
+                  {
+                            "sku": "7899675812338",
+                            "shopeeId": "58204632070",
+                            "name": "Alicate de Pesca Aço Inoxidável Albatroz Bico Curvo Carbono Pescaria Anzol Ferramentas",
+                            "detail": "Outros • Estoque: 0 un • 4 cliques"
+                  },
+                  {
+                            "sku": "CABOACOROLO1000_401000",
+                            "shopeeId": "23099045812",
+                            "name": "Cabo de Aço Pesca Pescaria em Rolo Resistente Marine Sports 40 Libras 1000 Metros",
+                            "detail": "Linhas de Pesca • Estoque: 0 un • 3 cliques"
+                  },
+                  {
+                            "sku": "CR-ESPIRITO-SANTO-REDONDA-NIQUEL",
+                            "shopeeId": "23294622459",
+                            "name": "Corrente BRK Espírito Santo Redonda Níquel Católica",
+                            "detail": "Colares • Estoque: 0 un • 3 cliques"
+                  },
+                  {
+                            "sku": "51RASACP8",
+                            "shopeeId": "22598069660",
+                            "name": "Alicate de Pesca Rapala Marine 8\" 22cm Anglers",
+                            "detail": "Outros • Estoque: 0 un • 2 cliques"
+                  },
+                  {
+                            "sku": "BRAVA110",
+                            "shopeeId": "23094666166",
+                            "name": "Isca Artificial de Pesca Marine Sports Brava 110 Meia Água 11cm 14,4g Tucunaré Traíra",
+                            "detail": "Iscas • Estoque: 0 un • 2 cliques"
+                  },
+                  {
+                            "sku": "IMALI",
+                            "shopeeId": "22399482783",
+                            "name": "Isca Artificial Pesca Tucunaré Albatroz Malicia 8cm 7g Cores",
+                            "detail": "Iscas • Estoque: 0 un • 2 cliques"
+                  },
+                  {
+                            "sku": "ZAP120",
+                            "shopeeId": "22994993635",
+                            "name": "Isca Artificial Pesca Tucunaré Nelson Nakamura Zap 12cm 18g Superfície",
+                            "detail": "Iscas • Estoque: 0 un • 2 cliques"
+                  },
+                  {
+                            "sku": "KISUSINKING",
+                            "shopeeId": "23494659077",
+                            "name": "Isca Artificial de Pesca Marine Sports Kisu Meia-Água 11,5cm 16g Tucunaré Traíra",
+                            "detail": "Iscas • Estoque: 0 un • 1 cliques"
+                  },
+                  {
+                            "sku": "7898480944906",
+                            "shopeeId": "58250018419",
+                            "name": "Carretilha de Pesca Marine Sports Master 60 7 Rolamentos Recolhimento 6.2:1 Manivela Direita",
+                            "detail": "Varas e Molinetes de Pesca • Estoque: 0 un • 1 cliques"
+                  },
+                  {
+                            "sku": "BADDYD001",
+                            "shopeeId": "58251037162",
+                            "name": "Boia Salva Alicate Dyd001 - Deyu",
+                            "detail": "Alicates • Estoque: 0 un • 1 cliques"
+                  },
+                  {
+                            "sku": "CR-NOSSA-SENHORA-REDONDA",
+                            "shopeeId": "23194623583",
+                            "name": "Corrente BRK Nossa Senhora Aparecida Dourada Religiosa Feminina",
+                            "detail": "Colares • Estoque: 0 un • 0 cliques"
+                  },
+                  {
+                            "sku": "CR-CRUZ-QUADRADA-DOURADA",
+                            "shopeeId": "58200010300",
+                            "name": "Corrente BRK Cruz Dourada Colar de Fé e Proteção Religiosa",
+                            "detail": "Colares • Estoque: 0 un • 0 cliques"
+                  },
+                  {
+                            "sku": "CR-SAO-JORGE-GRAFITE-PRETO",
+                            "shopeeId": "58250014174",
+                            "name": "Corrente São Jorge Grafite Preto BRK Medalha de Proteção",
+                            "detail": "Colares • Estoque: 0 un • 0 cliques"
+                  },
+                  {
+                            "sku": "VEXTERX8MULTVERDE300_4029",
+                            "shopeeId": "58250167774",
+                            "name": "Linha de Pesca Marine Sports Vexter X8 Multifilamento Verde 300m 40lb 0.29mm Pescaria Esportiva",
+                            "detail": "Linhas de Pesca • Estoque: 0 un • 0 cliques"
+                  },
+                  {
+                            "sku": "CAIXABRK-VERDE",
+                            "shopeeId": "22498374748",
+                            "name": "Maleta Campeã Caixa Estojo de Pesca Verde Organizadora de Iscas Artificiais Brk - até 80 Iscas",
+                            "detail": "Bolsas de Pesca • Estoque: 0 un • 0 cliques"
+                  },
+                  {
+                            "sku": "BIRUTA90",
+                            "shopeeId": "23994950554",
+                            "name": "Isca Pesca Artificial Deconto Biruta 90 Meia-água Predadores Tucunare Traíra 9cm",
+                            "detail": "Iscas • Estoque: 0 un • 0 cliques"
+                  },
+                  {
+                            "sku": "OC1033",
+                            "shopeeId": "58208757181",
+                            "name": "Óculos BRK Original Esportivo Quadrado Preto E Vermelho Lente Polarizada Fumê Degradê Proteção UV400",
+                            "detail": "Óculos de sol • Estoque: 0 un • 0 cliques"
+                  },
+                  {
+                            "sku": "CPT037",
+                            "shopeeId": "58208829848",
+                            "name": "Copo Térmico Nós De Pesca Anzol C/ Tampa E Abridor 473ml",
+                            "detail": "Copos e Taças • Estoque: 0 un • 0 cliques"
+                  },
+                  {
+                            "sku": "CPT002",
+                            "shopeeId": "58208882832",
+                            "name": "Copo Térmico BRK Made in Roça 473ml Inox Cerveja Chopp Churrasco Agro Sertanejo",
+                            "detail": "Copos e Taças • Estoque: 0 un • 0 cliques"
+                  },
+                  {
+                            "sku": "CPT003",
+                            "shopeeId": "58208885786",
+                            "name": "Copo Térmico BRK Agro Não Para 473ml Inox Cerveja Chopp Café Sertanejo Fazenda",
+                            "detail": "Copos e Taças • Estoque: 0 un • 0 cliques"
+                  },
+                  {
+                            "sku": "CPT009",
+                            "shopeeId": "58208895697",
+                            "name": "Copo Térmico Cerveja BRK Texas Style Tampa Abridor De Garrafa Inox Parede Dupla Original Agro Café",
+                            "detail": "Copos e Taças • Estoque: 0 un • 0 cliques"
+                  },
+                  {
+                            "sku": "CPT012",
+                            "shopeeId": "58208907926",
+                            "name": "Copo Térmico BRK Yellowstone Dutton Ranch 473ml Inox C/ Tampa E Abridor Cerveja Chopp Churrasco Agro",
+                            "detail": "Copos e Taças • Estoque: 0 un • 0 cliques"
+                  },
+                  {
+                            "sku": "SAVAGE65",
+                            "shopeeId": "58210886260",
+                            "name": "Isca Artificial Pesca Meia-Agua Savage 65 2 Ganchos Marine Sportas Predadores",
+                            "detail": "Iscas • Estoque: 0 un • 0 cliques"
+                  },
+                  {
+                            "sku": "ISCA-SBS-85SP",
+                            "shopeeId": "58211118174",
+                            "name": "Isca Artificial De Pesca Sumax Bay Shinner Suspending 8,5cm Pequenos Predadores",
+                            "detail": "Iscas • Estoque: 0 un • 0 cliques"
+                  },
+                  {
+                            "sku": "POPAI90",
+                            "shopeeId": "58211123776",
+                            "name": "Isca Pesca Artificial Deconto Popai 90 Superfície Meia Agua 9cm Robalo Tucunaré",
+                            "detail": "Iscas • Estoque: 0 un • 0 cliques"
+                  },
+                  {
+                            "sku": "YOKAA115",
+                            "shopeeId": "58211124642",
+                            "name": "Isca Pesca Artificial Deconto Yokaa 115 Superfície Varias Cores Pesca Tucunaré",
+                            "detail": "Iscas • Estoque: 0 un • 0 cliques"
+                  },
+                  {
+                            "sku": "MARRENTA80",
+                            "shopeeId": "58211135438",
+                            "name": "Isca Pesca Artificial Nelson Nakamura Marrenta 8cm 11g Superfície Tucunaré Predadores",
+                            "detail": "Iscas • Estoque: 0 un • 0 cliques"
+                  },
+                  {
+                            "sku": "BORAPLUS75",
+                            "shopeeId": "58211140256",
+                            "name": "Isca Pesca Artificial Nelson Nakamura Borá Plus 7,5cm 6g Meia-água",
+                            "detail": "Iscas • Estoque: 0 un • 0 cliques"
+                  }
+        ]
+      },
+      {
+        id: 'task-p4',
+        title: 'P4. Vincular Tabela de Medidas na Linha Infantil e Calçados',
+        icon: '📏',
+        desc: 'A auditoria comprovou que os anúncios da linha infantil (ex: <code>CI061_FULL</code>) e calçados adventure estão sem imagem oficial no campo <em>Imagem de Tamanhos</em>, o que gera insegurança de compra e taxa de devolução elevada.',
+        phase: 'Fase 2: Ficha Técnica & Tamanho',
+        phaseTab: 'fase2',
+        priority: 'medio',
+        priorityLabel: 'Médio',
+        metric: '18 Anúncios',
+        impact: 'Redução Devoluções',
+        system: 'Seller Center / Magis5',
+        sla: 'Dia 4',
+        command: 'Link Oficial: https://cf.shopee.com.br/file/br-11134201-820ld-mrj4uj3gfwudfb',
+        defaultCol: 'todo',
+        skus: [
+          { sku: 'CI061_FULL', name: 'Camisa Infantil Manga Longa UV50+ BRK Tucunaré Azul', detail: 'Vincular imagem de medidas infantil na galeria' },
+          { sku: 'CI062_FULL', name: 'Camisa Infantil Manga Longa UV50+ BRK Dourado Rio', detail: 'Vincular imagem de medidas infantil na galeria' },
+          { sku: 'CI063_FULL', name: 'Camisa Infantil Manga Longa UV50+ BRK Agro Menina Flor', detail: 'Vincular imagem de medidas infantil na galeria' },
+          { sku: 'CI064_FULL', name: 'Camisa Infantil Manga Longa BRK Camuflada Militar', detail: 'Vincular imagem de medidas infantil na galeria' },
+          { sku: 'BOAONDA-GRADE', name: 'Grade de Calçados Babuche Ortopédico (14 SKUs)', detail: 'Inserir tabela de conversão em centímetros (cm)' }
+        ]
+      },
+      {
+        id: 'task-p5',
+        title: 'P5. Preservar os 24 Produtos na Cor #D8E4BC (Recém Otimizados)',
+        icon: '🛡️',
+        desc: 'Estes 24 anúncios (ex: <code>C0796_FULL</code>, <code>ADV137_FULL</code>) foram recentemente atualizados pela equipe interna. A regra de ouro é: <strong>não alterar títulos nem categorias</strong> nestes anúncios para permitir que o algoritmo consolide a entrega orgânica.',
+        phase: 'Fase 2: Ficha Técnica & Tamanho',
+        phaseTab: 'fase2',
+        priority: 'medio',
+        priorityLabel: 'Monitoramento',
+        metric: '24 SKUs Seguros',
+        impact: 'Entrega Orgânica',
+        system: 'Automação (Trava)',
+        sla: 'Contínuo',
+        defaultCol: 'done',
+        skus: [
+          { sku: 'C0796_FULL', name: 'Camisa BRK Agro Trator Colheitadeira UV50+', detail: 'Travar edição automática de título e categoria' },
+          { sku: 'ADV137_FULL', name: 'Camisa de Pesca Tucunaré Alta Performance', detail: 'Travar edição automática de título e categoria' },
+          { sku: 'MONIT-14D', name: 'Monitorar visitas e conversão na Shopee por 14 dias', detail: 'Verificar consolidação de impressões sem oscilação' }
+        ]
+      },
+      {
+        id: 'task-p6',
+        title: 'P6. Ativar Cupom de Desconto de Loja para Fechamento de Carrinho',
+        icon: '🎟️',
+        desc: 'Existem 90 produtos com alto volume de carrinhos acumulados na loja da BRK. Criar um cupom estratégico de fechamento: <strong>R$ 10 OFF para compras acima de R$ 180</strong> (estimulando o cliente a comprar 2 camisas).',
+        phase: 'Fase 3: Conversão & Carrinho',
+        phaseTab: 'fase3',
+        priority: 'medio',
+        priorityLabel: 'Médio',
+        metric: '90 Carrinhos',
+        impact: 'Conversão Imediata',
+        system: 'Central de Marketing',
+        sla: 'Dia 5',
+        defaultCol: 'todo',
+        skus: [
+          { sku: 'CUPOM-10', name: 'Criar Cupom de Loja R$ 10 OFF para compras acima de R$ 180', detail: 'Central de Marketing > Cupons da Loja' },
+          { sku: 'CUPOM-SEGUIDOR', name: 'Criar Cupom de Seguidor R$ 5 OFF para novos seguidores', detail: 'Gatilho de entrada para novos visitantes' },
+          { sku: 'VAL-30D', name: 'Configurar validade de 30 dias com cota de 500 resgates', detail: 'Garantir orçamento controlado de marketing' }
+        ]
+      },
+      {
+        id: 'task-p7',
+        title: 'P7. Configurar Combo "Leve Mais por Menos"',
+        icon: '🏷️',
+        desc: 'Configurar promoção de desconto progressivo para produtos da mesma categoria: <em>Compre 2 com 5% de desconto</em> ou <em>Compre 3 com 10% de desconto</em>. A Shopee insere o selo laranja em destaque nas listagens, aumentando o CTR.',
+        phase: 'Fase 3: Conversão & Carrinho',
+        phaseTab: 'fase3',
+        priority: 'normal',
+        priorityLabel: 'Normal',
+        metric: 'Ticket Médio',
+        impact: 'Aumento de Ticket',
+        system: 'Central de Marketing',
+        sla: 'Dia 6',
+        defaultCol: 'todo',
+        skus: [
+          { sku: 'COMBO-PESCA', name: 'Combo Camisas de Pesca Masculina e Feminina', detail: 'Regra: Compre 2 Camisas ganhe 5% OFF' },
+          { sku: 'COMBO-AGRO', name: 'Combo Linha Camisas Agro & Trabalho', detail: 'Regra: Compre 3 Camisas ganhe 10% OFF' },
+          { sku: 'SELO-FEED', name: 'Validar exibição do selo laranja nos anúncios', detail: 'Conferir na busca da Shopee se o selo está ativo' }
+        ]
+      },
+      {
+        id: 'task-p8',
+        title: 'P8. Automação de Disparo de Chat para Carrinhos Abandonados',
+        icon: '💬',
+        desc: 'Habilitar no Assistente de Chat da Shopee o envio automatizado de mensagem para compradores que deixaram itens no carrinho nas últimas 24 horas, oferecendo um cupom relâmpago de 5%.',
+        phase: 'Fase 3: Conversão & Carrinho',
+        phaseTab: 'fase3',
+        priority: 'normal',
+        priorityLabel: 'Normal',
+        metric: 'Assistente Chat',
+        impact: 'Recuperação 24h',
+        system: 'Shopee Chat Web',
+        sla: 'Dia 7',
+        defaultCol: 'todo',
+        skus: [
+          { sku: 'CHAT-AUT-01', name: 'Habilitar Mensagem Automática de Carrinho no Assistente de Chat', detail: 'Shopee Seller Center > Assistente de Chat' },
+          { sku: 'CHAT-AUT-02', name: 'Configurar texto persuasivo com cupom relâmpago de 5%', detail: 'Gatilho de urgência: válido apenas hoje' },
+          { sku: 'CHAT-TEST', name: 'Testar disparo para verificar entregabilidade no aplicativo', detail: 'Confirmar recebimento de push notification no celular' }
+        ]
+      },
+      {
+        id: 'task-p9',
+        title: 'P9. Decisão sobre os 99 Produtos com Estoque 0 (Esgotados)',
+        icon: '📦',
+        desc: 'Conforme a regra estabelecida, estes 99 itens não receberam alerta cadastral porque a falta de venda decorre unicamente de estoque zerado. Alinhar com PCP se haverá lote fabril ou se os anúncios devem ser pausados.',
+        phase: 'Fase 4: Gestão de Ruptura',
+        phaseTab: 'fase4',
+        priority: 'normal',
+        priorityLabel: 'Planejado',
+        metric: '99 SKUs Esgotados',
+        impact: 'Tráfego Fantasma',
+        system: 'PCP / Sankhya ERP',
+        sla: 'Semanal',
+        defaultCol: 'todo',
+        skus: [
+          { sku: 'PCP-ALINHAMENTO', name: 'Exportar lista dos 99 SKUs com estoque zero para o PCP', detail: 'Verificar se tecidos e moldes estão na fila de corte' },
+          { sku: 'PAUSA-ANUNCIO', name: 'Pausar anúncios de modelos descontinuados definitivamente', detail: 'Evitar visitas perdidas e reclamações no chat' },
+          { sku: 'SINCRONIZA-ERP', name: 'Sincronizar saldo de estoque Sankhya via Magis5', detail: 'Garantir que novos cortes atualizem a Shopee' }
+        ]
+      },
+      {
+        id: 'task-p10',
+        title: 'P10. Auditoria Semanal de Ruptura nos Tamanhos Centrais M e G',
+        icon: '📊',
+        desc: 'Conferir semanalmente se as camisas campeãs de visitação não estão com os tamanhos M e G esgotados. Quando os tamanhos centrais zeram, a taxa de conversão do anúncio cai mais de 60%.',
+        phase: 'Fase 4: Gestão de Ruptura',
+        phaseTab: 'fase4',
+        priority: 'normal',
+        priorityLabel: 'Semanal',
+        metric: 'Grade 70%',
+        impact: 'Conversão de Grade',
+        system: 'Magis5 / Estoque',
+        sla: 'Toda Segunda',
+        defaultCol: 'todo',
+        skus: [
+          { sku: 'AUDIT-GRADE-01', name: 'Conferir os 10 anúncios mais vendidos da BRK', detail: 'Mínimo de 15 peças de grade M e G em estoque' },
+          { sku: 'AUDIT-GRADE-02', name: 'Emitir ordem de corte emergencial se M/G estiver abaixo de 5 un.', detail: 'Priorizar reposição rápida dos carros-chefe' },
+          { sku: 'ALERTA-ROUTINE', name: 'Definir rotina de checagem toda segunda-feira às 08h30', detail: 'Adicionar checklist operacional com a equipe' }
+        ]
+      }
+    ];
+
+
+    const COLUMNS = ['todo', 'in-progress', 'review', 'done'];
+    let kanbanState = {}; // { taskId: 'todo' | 'in-progress' | 'review' | 'done' }
+    let draggedTaskId = null;
+
+    function initKanban() {
+      // 1. Load state from localStorage or use defaults
+      const saved = localStorage.getItem('brk_kanban_board_state');
+      if (saved) {
+        try {
+          kanbanState = JSON.parse(saved);
+        } catch(e) {
+          kanbanState = {};
+        }
+      }
+
+      KANBAN_TASKS_DATA.forEach(task => {
+        if (!kanbanState[task.id]) {
+          kanbanState[task.id] = task.defaultCol;
+        }
+      });
+
+      renderKanban();
+      syncCheckboxesFromKanban();
+    }
+
+    function renderKanban() {
+      const search = (document.getElementById('kanbanSearch')?.value || '').toLowerCase();
+      const prioFilter = document.getElementById('kanbanPriorityFilter')?.value || 'all';
+      const phaseFilter = document.getElementById('kanbanPhaseFilter')?.value || 'all';
+
+      // Clear columns
+      COLUMNS.forEach(col => {
+        const area = document.getElementById('col-' + col);
+        if (area) area.innerHTML = '';
+      });
+
+      const counts = { 'todo': 0, 'in-progress': 0, 'review': 0, 'done': 0 };
+
+      KANBAN_TASKS_DATA.forEach(task => {
+        const col = kanbanState[task.id] || task.defaultCol;
+        counts[col] = (counts[col] || 0) + 1;
+
+        // Apply filters
+        if (search && !task.title.toLowerCase().includes(search) && !task.desc.toLowerCase().includes(search) && !task.metric.toLowerCase().includes(search)) {
+          return;
+        }
+        if (prioFilter !== 'all' && task.priority !== prioFilter) {
+          return;
+        }
+        if (phaseFilter !== 'all' && task.phase !== phaseFilter) {
+          return;
+        }
+
+        const card = createCardElement(task, col);
+        const area = document.getElementById('col-' + col);
+        if (area) area.appendChild(card);
+      });
+
+      // Update counters
+      COLUMNS.forEach(col => {
+        const countEl = document.getElementById('count-' + col);
+        if (countEl) countEl.textContent = counts[col] || 0;
+      });
+
+      // Update header progress based on done tasks
+      const doneCount = counts['done'] || 0;
+      const totalCount = KANBAN_TASKS_DATA.length;
+      const pct = Math.round((doneCount / totalCount) * 100);
+      const progressEl = document.getElementById('progressPercent');
+      if (progressEl) progressEl.textContent = pct + '%';
+    }
+
+    function createCardElement(task, currentCol) {
+      const card = document.createElement('div');
+      card.className = 'kanban-card';
+      card.id = 'kcard-' + task.id;
+      card.draggable = true;
+
+      const colIdx = COLUMNS.indexOf(currentCol);
+      const canMoveLeft = colIdx > 0;
+      const canMoveRight = colIdx < COLUMNS.length - 1;
+
+      card.innerHTML = `
+        <div class="kanban-card-top">
+          <span class="kanban-priority-pill prio-${task.priority}">${task.priorityLabel}</span>
+          <span class="kanban-phase-tag">${task.phase}</span>
+        </div>
+        <div class="kanban-card-title">${task.title}</div>
+        <div class="kanban-card-desc">${task.desc}</div>
+        <div class="kanban-card-metric">${task.metric}</div>
+        <div class="kanban-card-bottom">
+          <div class="kanban-card-nav-controls">
+            <button class="btn-col-move" ${!canMoveLeft ? 'disabled' : ''} onclick="event.stopPropagation(); moveTaskCol('${task.id}', -1)" title="Mover para coluna anterior">◀</button>
+            <button class="btn-col-move" ${!canMoveRight ? 'disabled' : ''} onclick="event.stopPropagation(); moveTaskCol('${task.id}', 1)" title="Mover para próxima coluna">▶</button>
+          </div>
+          <button class="btn-card-details" onclick="openTaskModal('${task.id}')">
+            Ver Detalhes ➔
+          </button>
+        </div>
+      `;
+
+      card.addEventListener('dragstart', (e) => {
+        draggedTaskId = task.id;
+        card.classList.add('dragging');
+        e.dataTransfer.setData('text/plain', task.id);
+      });
+
+      card.addEventListener('dragend', () => {
+        draggedTaskId = null;
+        card.classList.remove('dragging');
+      });
+
+      return card;
+    }
+
+    // Drag and drop handlers
+    function handleDragOver(e) {
+      e.preventDefault();
+      const area = e.currentTarget;
+      area.classList.add('drag-over');
+    }
+
+    function handleDragLeave(e) {
+      const area = e.currentTarget;
+      area.classList.remove('drag-over');
+    }
+
+    function handleDrop(e, targetCol) {
+      e.preventDefault();
+      const area = e.currentTarget;
+      area.classList.remove('drag-over');
+
+      const taskId = e.dataTransfer.getData('text/plain') || draggedTaskId;
+      if (taskId) {
+        setTaskColumn(taskId, targetCol);
+      }
+    }
+
+    function moveTaskCol(taskId, delta) {
+      const currentCol = kanbanState[taskId] || 'todo';
+      const idx = COLUMNS.indexOf(currentCol);
+      const newIdx = idx + delta;
+      if (newIdx >= 0 && newIdx < COLUMNS.length) {
+        setTaskColumn(taskId, COLUMNS[newIdx]);
+      }
+    }
+
+    function setTaskColumn(taskId, newCol) {
+      kanbanState[taskId] = newCol;
+      localStorage.setItem('brk_kanban_board_state', JSON.stringify(kanbanState));
+
+      // Also sync task checkbox
+      const cb = document.getElementById(taskId);
+      if (cb) {
+        cb.checked = (newCol === 'done');
+        const card = cb.closest('.task-card');
+        if (card) {
+          if (cb.checked) card.classList.add('checked');
+          else card.classList.remove('checked');
+        }
+      }
+
+      renderKanban();
+
+      const taskObj = KANBAN_TASKS_DATA.find(t => t.id === taskId);
+      const colLabels = { 'todo': 'A Fazer', 'in-progress': 'Em Andamento', 'review': 'Em Validação', 'done': 'Concluído' };
+      showToast(`⚡ "${taskObj ? taskObj.title.split('.')[0] : taskId}" movido para ${colLabels[newCol] || newCol}`);
+    }
+
+    function syncCheckboxesFromKanban() {
+      Object.keys(kanbanState).forEach(id => {
+        const cb = document.getElementById(id);
+        if (cb) {
+          cb.checked = (kanbanState[id] === 'done');
+          const card = cb.closest('.task-card');
+          if (card) {
+            if (cb.checked) card.classList.add('checked');
+            else card.classList.remove('checked');
+          }
+        }
+      });
+    }
+
+    function filterKanban() {
+      renderKanban();
+    }
+
+    function resetKanbanState() {
+      if (confirm('Deseja restaurar as posições padrão do Quadro Kanban?')) {
+        localStorage.removeItem('brk_kanban_board_state');
+        kanbanState = {};
+        initKanban();
+        showToast('🔄 Quadro Kanban restaurado para o padrão original!');
+      }
+    }
+
+    // Switch between Kanban mode and Deep Timeline mode
+    function switchViewMode(mode) {
+      const btnKanban = document.getElementById('btnModeKanban');
+      const btnTimeline = document.getElementById('btnModeTimeline');
+      const kanbanContainer = document.getElementById('kanbanContainer');
+      const timelineContainer = document.getElementById('timelineContainer');
+      const kanbanFilters = document.getElementById('kanbanFiltersGroup');
+
+      if (mode === 'kanban') {
+        btnKanban.classList.add('active');
+        btnTimeline.classList.remove('active');
+        kanbanContainer.style.display = 'block';
+        timelineContainer.style.display = 'none';
+        if (kanbanFilters) kanbanFilters.style.display = 'flex';
+      } else {
+        btnTimeline.classList.add('active');
+        btnKanban.classList.remove('active');
+        kanbanContainer.style.display = 'none';
+        timelineContainer.style.display = 'block';
+        if (kanbanFilters) kanbanFilters.style.display = 'none';
+      }
+    }
+
+    // Jump to deep task details
+    function jumpToTask(taskId, phaseTab) {
+      switchViewMode('timeline');
+      switchTab(phaseTab);
+      setTimeout(() => {
+        const target = document.getElementById(taskId);
+        if (target) {
+          const card = target.closest('.task-card') || target;
+          card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          card.style.outline = '2px solid var(--accent-emerald)';
+          card.style.boxShadow = '0 0 20px rgba(16, 185, 129, 0.4)';
+          setTimeout(() => {
+            card.style.outline = '';
+            card.style.boxShadow = '';
+          }, 3000);
+        }
+      }, 100);
+    }
+
+    // Toast helper
+    function showToast(msg) {
+      const toast = document.getElementById('kanbanToast');
+      if (!toast) return;
+      toast.textContent = msg;
+      toast.classList.add('show');
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 2800);
+    }
+
+    // Copy helper
+    function copyText(txt) {
+      navigator.clipboard.writeText(txt).then(() => {
+        showToast('📋 Comando copiado para a área de transferência!');
+      }).catch(() => {
+        showToast('⚠️ Erro ao copiar. Selecione manualmente.');
+      });
+    }
+
+    function copySkus(skus) {
+      const text = skus.join(', ');
+      navigator.clipboard.writeText(text).then(() => {
+        showToast(`📋 ${skus.length} SKUs copiados com sucesso!`);
+      }).catch(() => {
+        showToast('⚠️ Erro ao copiar.');
+      });
+    }
+
+    function copyAllUrgentSkus() {
+      const all = ['C02846BL', 'C02830', 'C02824', 'CMB05', 'CMB07', 'CMB09', 'CMB010', '27622333', 'FT-GREEN', 'MT055_FULL', 'EVASELVACREPE', '51RASACP8', 'GIRA'];
+      copySkus(all);
+    }
+
+    // Connect checkbox changes to Kanban Done column
+    const origUpdateProgress = window.updateProgress;
+    window.updateProgress = function() {
+      const checkboxes = document.querySelectorAll('.custom-checkbox');
+      checkboxes.forEach(cb => {
+        const isChecked = cb.checked;
+        if (kanbanState[cb.id]) {
+          if (isChecked && kanbanState[cb.id] !== 'done') {
+            kanbanState[cb.id] = 'done';
+          } else if (!isChecked && kanbanState[cb.id] === 'done') {
+            kanbanState[cb.id] = 'todo';
+          }
+        }
+      });
+      localStorage.setItem('brk_kanban_board_state', JSON.stringify(kanbanState));
+      renderKanban();
+    };
+
+    window.addEventListener('DOMContentLoaded', () => {
+      initKanban();
+    });
+
+</script>
+
+  <!-- ==================== POPUP MODAL ESTILO TRELLO ==================== -->
+  <div class="trello-modal-backdrop" id="trelloModalBackdrop" onclick="handleBackdropClick(event)">
+    <div class="trello-modal" id="trelloModal" role="dialog" aria-modal="true">
+      <!-- Modal Header -->
+      <div class="trello-modal-header">
+        <div class="trello-header-left">
+          <div class="trello-icon" id="trelloModalIcon">🚨</div>
+          <div>
+            <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
+              <h2 class="trello-title" id="trelloModalTitle">Título da Tarefa</h2>
+              <span class="kanban-priority-pill" id="trelloModalPrio">CRÍTICO</span>
+            </div>
+            <div class="trello-subtext">
+              na coluna <span class="trello-col-badge" id="trelloModalCol">A Fazer</span> • <span id="trelloModalPhase">Fase 1</span>
+            </div>
+          </div>
+        </div>
+        <button class="trello-btn-close" onclick="closeTrelloModal()" title="Fechar (Esc)">✕</button>
+      </div>
+
+      <!-- Modal Body (Main Content 70% | Sidebar 30%) -->
+      <div class="trello-modal-body">
+        
+        <!-- Main Column -->
+        <div class="trello-main-col">
+          
+          <!-- Descrição -->
+          <div class="trello-section">
+            <div class="trello-section-header">
+              <span class="trello-section-icon">📝</span>
+              <h3 class="trello-section-title">Descrição & Impacto Operacional</h3>
+            </div>
+            <div class="trello-desc-content" id="trelloModalDesc">
+              Carregando descrição...
+            </div>
+          </div>
+
+          <!-- Checklist de Produtos / SKUs -->
+          <div class="trello-section">
+            <div class="trello-section-header" style="justify-content: space-between;">
+              <div style="display:flex; align-items:center; gap:8px;">
+                <span class="trello-section-icon">☑️</span>
+                <h3 class="trello-section-title">Checklist de Produtos & Ações</h3>
+                <span class="trello-checklist-count" id="trelloChecklistRatio">0/0</span>
+              </div>
+              <div style="display:flex; gap:6px;">
+                <button class="trello-btn-small" onclick="toggleAllChecklist(true)">Marcar Todos</button>
+                <button class="trello-btn-small" onclick="toggleAllChecklist(false)">Desmarcar</button>
+              </div>
+            </div>
+
+            <!-- Barra de Progresso do Checklist -->
+            <div class="trello-progress-wrap">
+              <span class="trello-progress-pct" id="trelloProgressPct">0%</span>
+              <div class="trello-progress-bar-bg">
+                <div class="trello-progress-bar-fill" id="trelloProgressBarFill" style="width: 0%;"></div>
+              </div>
+            </div>
+
+            <!-- Campo de Busca de SKU dentro do modal -->
+            <div style="margin-bottom: 10px;">
+              <input type="text" id="trelloChecklistSearch" placeholder="🔍 Filtrar entre os 140 SKUs ou títulos nesta atividade..." oninput="filterModalChecklist()" style="width: 100%; box-sizing: border-box; background: rgba(0,0,0,0.35); border: 1px solid rgba(255,255,255,0.12); border-radius: 8px; padding: 8px 12px; color: #fff; font-size: 12px; outline: none;">
+            </div>
+
+            <!-- Lista de Itens do Checklist -->
+            <div class="trello-checklist-items" id="trelloChecklistContainer">
+              <!-- Injetado dinamicamente -->
+            </div>
+          </div>
+
+          <!-- Bloco de Comando RPA ou Instruções Técnicas -->
+          <div class="trello-section" id="trelloCommandSection" style="display: none;">
+            <div class="trello-section-header">
+              <span class="trello-section-icon">⚡</span>
+              <h3 class="trello-section-title">Comando / Script de Execução</h3>
+            </div>
+            <div class="trello-code-box">
+              <code id="trelloCommandCode">node ...</code>
+              <button class="trello-btn-small" onclick="copyCurrentTaskCommand()">📋 Copiar</button>
+            </div>
+          </div>
+
+          <!-- Anotações da Equipe -->
+          <div class="trello-section">
+            <div class="trello-section-header">
+              <span class="trello-section-icon">💬</span>
+              <h3 class="trello-section-title">Anotações da Equipe</h3>
+            </div>
+            <div class="trello-notes-wrap">
+              <textarea id="trelloNotesInput" class="trello-notes-textarea" placeholder="Adicione observações da execução (ex: 'Ajustado prazo no Magis5 por Mariana')..." rows="3"></textarea>
+              <div style="display:flex; justify-content: flex-end; margin-top:8px;">
+                <button class="trello-btn-primary" onclick="saveTrelloNote()">💾 Salvar Anotação</button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Sidebar Lateral (Estilo Trello) -->
+        <div class="trello-sidebar-col">
+          
+          <!-- Mover para Lista -->
+          <div class="trello-side-box">
+            <div class="trello-side-title">Mover para Coluna</div>
+            <div style="display:flex; flex-direction:column; gap:6px;" id="trelloMoveGroup">
+              <button class="trello-side-btn" onclick="moveCurrentCard('todo')" data-col="todo">
+                <span>📋 A Fazer</span>
+                <span class="col-active-dot" id="dot-todo"></span>
+              </button>
+              <button class="trello-side-btn" onclick="moveCurrentCard('in-progress')" data-col="in-progress">
+                <span>⚡ Em Andamento</span>
+                <span class="col-active-dot" id="dot-in-progress"></span>
+              </button>
+              <button class="trello-side-btn" onclick="moveCurrentCard('review')" data-col="review">
+                <span>🔍 Em Validação</span>
+                <span class="col-active-dot" id="dot-review"></span>
+              </button>
+              <button class="trello-side-btn" onclick="moveCurrentCard('done')" data-col="done">
+                <span>✅ Concluído</span>
+                <span class="col-active-dot" id="dot-done"></span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Ações Rápidas -->
+          <div class="trello-side-box">
+            <div class="trello-side-title">Ações Rápidas</div>
+            <button class="trello-side-btn" onclick="copyCurrentTaskSkus()">
+              <span>📋 Copiar SKUs</span>
+            </button>
+            <a href="https://seller.shopee.com.br" target="_blank" class="trello-side-btn">
+              <span>🛍️ Seller Center Shopee</span>
+              <span>↗</span>
+            </a>
+            <a href="/relatorio.html" target="_blank" class="trello-side-btn">
+              <span>📦 Relatório Produtos</span>
+              <span>↗</span>
+            </a>
+            <button class="trello-side-btn" onclick="jumpFromModalToTable()">
+              <span>📊 Ver na Tabela</span>
+              <span>➔</span>
+            </button>
+          </div>
+
+          <!-- Metadados Técnicos -->
+          <div class="trello-side-box">
+            <div class="trello-side-title">Metadados & SLA</div>
+            <div class="trello-meta-row">
+              <span class="trello-meta-label">Prioridade:</span>
+              <span class="trello-meta-val" id="trelloMetaPrio">Crítica</span>
+            </div>
+            <div class="trello-meta-row">
+              <span class="trello-meta-label">Impacto:</span>
+              <span class="trello-meta-val" id="trelloMetaImpact">Cancelamento</span>
+            </div>
+            <div class="trello-meta-row">
+              <span class="trello-meta-label">Sistema:</span>
+              <span class="trello-meta-val" id="trelloMetaSystem">Magis5 / Shopee</span>
+            </div>
+            <div class="trello-meta-row">
+              <span class="trello-meta-label">SLA:</span>
+              <span class="trello-meta-val" id="trelloMetaSla" style="color: var(--accent-rose);">D-0 Imediato</span>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

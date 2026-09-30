@@ -52,3 +52,6 @@ desktop.ini
 # IDE / Antigravity Agent local
 .agents/
 .system_generated/
+
+.vercel
+.env*

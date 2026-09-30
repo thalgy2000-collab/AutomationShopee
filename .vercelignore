@@ -1,0 +1,73 @@
+# Ignorar Docker (deploy Vercel Serverless / Static Web)
+Dockerfile
+docker-compose.yml
+**/Dockerfile
+**/docker-compose.yml
+
+# Dependências (Vercel instala do package.json)
+node_modules/
+**/node_modules/
+
+# Segredos e Sessões
+.env
+*.env
+**/.env
+**/.env.*
+!**/.env.example
+**/session.json
+session_sankhya.json
+
+# Perfis de Navegador (pesado / local)
+browser_profile/
+**/browser_profile/
+browser_profile_shopee/
+**/browser_profile_shopee/
+bin/
+
+# Backend e RPA dos Agentes (executam localmente)
+agent0-sankhya/
+agent1-scraper/
+agent3-rpa-magis5/
+agent5-shopee-attributes/
+agent4-diagnostician/
+agent2-enricher/node_modules/
+agent2-enricher/produtos/
+agent2-enricher/*.mjs
+agent2-enricher/*.js
+agent2-enricher/*.json
+agent2-enricher/*.csv
+
+# Downloads e Screenshots locais (pesado / gerados em runtime)
+**/downloads/
+**/screenshots/
+screenshots/
+uploads/
+
+# Scratch / Temporários
+**/scratch/
+scratch/
+scratch_*
+**/scratch_*
+test_*.png
+*.png.bak
+*.bak
+
+# Arquivos de diagnóstico e teste pesados
+shopify_prices.json
+**/shopify_prices.json
+*.zip
+
+# Logs
+*.log
+npm-debug.log*
+
+# IDE / System
+.git/
+.agents/
+.system_generated/
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Produtos JSON (gerados em runtime)
+produtos/

@@ -1222,10 +1222,11 @@ function enforceMax60Title(t) {
 
   if (!isSaved) {
     if (lastServerInsertError === "SKU_ALREADY_EXISTS") {
-      console.log(`ℹ️ [JÁ EXISTE NO MAGIS5] O produto ${sku} já possui rascunho cadastrado com variações na Magis5. Marcando como concluído.`);
+      const errMsg = `SKU já cadastrado em outro produto na Magis5. Exclua o produto/rascunho existente que contém os códigos Sankhya do ${sku} antes de recadastrar.`;
+      console.error(`❌ [CONFLITO DE SKU] ${errMsg}`);
       return {
-        success: true,
-        dryRun: false,
+        success: false,
+        error: errMsg,
         alreadyExists: true,
         screenshot: screenshotPath,
         sku,
