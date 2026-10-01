@@ -2,14 +2,20 @@ import { existsSync, readdirSync, statSync } from "node:fs";
 import { resolve, join, basename, dirname } from "node:path";
 import { DOWNLOADS_DIR } from "./config.mjs";
 
-const KNOWN_SUBDIRS = [
-  "",
-  "Planilha",
-  "Revenda",
-  join("Revenda", "Full"),
-  "São Bento",
-  "SaoBento"
-];
+function getSubdirs() {
+  const subs = ["", "Planilha", "Revenda", join("Revenda", "Full"), "São Bento", "SaoBento"];
+  try {
+    if (existsSync(DOWNLOADS_DIR)) {
+      const entries = readdirSync(DOWNLOADS_DIR, { withFileTypes: true });
+      for (const entry of entries) {
+        if (entry.isDirectory() && !subs.includes(entry.name)) {
+          subs.push(entry.name);
+        }
+      }
+    }
+  } catch {}
+  return subs;
+}
 
 /**
  * Normaliza e localiza um arquivo de imagem física no disco de maneira resiliente.
@@ -27,15 +33,17 @@ export function resolveLocalImage(declaredPath, parentSku = null) {
   const fileName = basename(clean);
   const folderName = basename(dirname(clean));
 
+  const subdirs = getSubdirs();
+
   // 1. Tenta correspondência com folderName/fileName em todas as subpastas conhecidas
-  for (const sub of KNOWN_SUBDIRS) {
+  for (const sub of subdirs) {
     const cand = join(DOWNLOADS_DIR, sub, folderName, fileName);
     if (existsSync(cand)) return resolve(cand);
   }
 
   // 2. Tenta com parentSku/fileName
   if (parentSku) {
-    for (const sub of KNOWN_SUBDIRS) {
+    for (const sub of subdirs) {
       const cand = join(DOWNLOADS_DIR, sub, parentSku, fileName);
       if (existsSync(cand)) return resolve(cand);
     }
@@ -45,7 +53,7 @@ export function resolveLocalImage(declaredPath, parentSku = null) {
   const dMatch = clean.match(/downloads\/(.+)$/i);
   if (dMatch) {
     const relPart = dMatch[1];
-    for (const sub of KNOWN_SUBDIRS) {
+    for (const sub of subdirs) {
       const cand = join(DOWNLOADS_DIR, sub, relPart);
       if (existsSync(cand)) return resolve(cand);
     }
@@ -87,8 +95,9 @@ export function resolveAllProductImages(product) {
   // 3. Varredura direta em pastas vinculadas aos SKUs
   if (images.size === 0) {
     const targetSkus = [sku, ...(product.variacoes || []).map(v => v.sku)].filter(Boolean);
+    const subdirs = getSubdirs();
     for (const s of targetSkus) {
-      for (const sub of KNOWN_SUBDIRS) {
+      for (const sub of subdirs) {
         const targetDir = join(DOWNLOADS_DIR, sub, s);
         if (existsSync(targetDir)) {
           try {
@@ -126,7 +135,8 @@ export function resolveVariantImage(product, variant, productImages = []) {
 
   // 2. Se a variação tem pasta própria no disco, busca a 01.jpg
   if (variant?.sku) {
-    for (const sub of KNOWN_SUBDIRS) {
+    const subdirs = getSubdirs();
+    for (const sub of subdirs) {
       const targetDir = join(DOWNLOADS_DIR, sub, variant.sku);
       if (existsSync(targetDir)) {
         try {

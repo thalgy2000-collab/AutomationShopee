@@ -113,24 +113,45 @@ export function generatePipelineReport() {
   const photoFoldersMap = new Map();
 
   if (fs.existsSync(DOWNLOADS_DIR)) {
-    const folders = fs.readdirSync(DOWNLOADS_DIR);
-    for (const f of folders) {
+    const scanFolder = (dirPath, folderName) => {
       try {
-        const fPath = path.join(DOWNLOADS_DIR, f);
-        if (fs.statSync(fPath).isDirectory()) {
-          const imgs = fs.readdirSync(fPath).filter(x => /\.(jpe?g|png|webp)$/i.test(x));
-          if (imgs.length > 0) {
-            totalPhotoFolders++;
-            totalPhotos += imgs.length;
-            photoFoldersMap.set(f.toUpperCase(), {
-              folder: f,
-              count: imgs.length,
-              sample: imgs[0],
-              hasVariations: imgs.length > 1
-            });
+        const entries = fs.readdirSync(dirPath, { withFileTypes: true });
+        const imgs = entries.filter(e => e.isFile() && /\.(jpe?g|png|webp)$/i.test(e.name));
+        if (imgs.length > 0) {
+          totalPhotoFolders++;
+          totalPhotos += imgs.length;
+          photoFoldersMap.set(folderName.toUpperCase(), {
+            folder: folderName,
+            count: imgs.length,
+            sample: imgs[0].name,
+            hasVariations: imgs.length > 1
+          });
+        }
+        // Subpastas (ex: downloads/CAX/CAX028)
+        for (const e of entries) {
+          if (e.isDirectory()) {
+            const subDirPath = path.join(dirPath, e.name);
+            const subImgs = fs.readdirSync(subDirPath).filter(x => /\.(jpe?g|png|webp)$/i.test(x));
+            if (subImgs.length > 0 && !photoFoldersMap.has(e.name.toUpperCase())) {
+              totalPhotoFolders++;
+              totalPhotos += subImgs.length;
+              photoFoldersMap.set(e.name.toUpperCase(), {
+                folder: e.name,
+                count: subImgs.length,
+                sample: subImgs[0],
+                hasVariations: subImgs.length > 1
+              });
+            }
           }
         }
       } catch {}
+    };
+
+    const folders = fs.readdirSync(DOWNLOADS_DIR, { withFileTypes: true });
+    for (const f of folders) {
+      if (f.isDirectory()) {
+        scanFolder(path.join(DOWNLOADS_DIR, f.name), f.name);
+      }
     }
   }
 
@@ -403,6 +424,9 @@ export function generatePipelineReport() {
   try {
     fs.writeFileSync(OUTPUT_HTML, htmlContent, 'utf8');
     console.log(`✅ Relatório Visual HTML gerado em: ${OUTPUT_HTML}`);
+    const rootEsteiraHtml = path.join(ROOT_DIR, 'relatorio-esteira.html');
+    fs.writeFileSync(rootEsteiraHtml, htmlContent, 'utf8');
+    console.log(`✅ Relatório Visual HTML sincronizado na raiz em: ${rootEsteiraHtml}`);
   } catch (err) {
     console.error('Erro ao salvar HTML de relatório:', err.message);
   }
@@ -711,7 +735,7 @@ function renderExecutiveReportHtml(data) {
         </tr>
       </thead>
       <tbody>
-        ${funnel.slice(0, 50).map(item => `
+        ${funnel.map(item => `
           <tr>
             <td><strong style="font-family: 'JetBrains Mono', monospace;">${item.parentSku}</strong></td>
             <td style="max-width: 320px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="${item.title}">${item.title}</td>
@@ -727,7 +751,6 @@ function renderExecutiveReportHtml(data) {
         `).join('')}
       </tbody>
     </table>
-    ${funnel.length > 50 ? `<div style="text-align: center; margin-top: 12px; font-size: 0.8rem; color: var(--text-muted);">+ ${funnel.length - 50} produtos no lote ativo</div>` : ''}
   </div>
 
   <!-- Galeria de Evidências Recentes -->

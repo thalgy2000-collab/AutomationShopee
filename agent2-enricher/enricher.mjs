@@ -21,7 +21,7 @@ import { stringify } from "csv-stringify/sync";
 import sharp from "sharp";
 import dotenv from "dotenv";
 import { GoogleGenerativeAI } from "@google/generative-ai";
-import { getSystemPrompt, getUserPrompt } from "./prompt.mjs";
+import { getSystemPrompt, getUserPrompt, getCompactGroqPrompts } from "./prompt.mjs";
 import { validateAndNormalize, parseGeminiResponse } from "./schemas.mjs";
 import {
   groupRecordsByParent,
@@ -633,19 +633,33 @@ async function enrichProductWithGroq(sku, tituloBruto, images, variacoesList = [
   const modelName = process.env.GROQ_MODEL || "qwen/qwen3.8-27b";
   log(`  🦙 Processando via Groq (${modelName})...`);
 
-  const systemPrompt = getSystemPrompt() + "\n\nIMPORTANTE: Retorne APENAS o JSON válido no formato solicitado, sem blocos markdown.";
-  const userPrompt = getUserPrompt(sku, tituloBruto, images.length, variacoesList);
+  // Usa prompts compactos otimizados em tokens para Groq (evita estourar o limite de 7000 ITPM)
+  const compactPrompts = getCompactGroqPrompts(sku, tituloBruto, variacoesList);
+  const systemPrompt = compactPrompts.system;
+  const userPrompt = compactPrompts.user;
 
-  // Groq tier gratuito tem limite de 7000 ITPM: 1 foto de capa é ideal e consome ~2500 tokens no total
+  // Groq tier gratuito tem limite de 7000 ITPM: 1 foto de capa redimensionada a 256px consome apenas ~600 tokens
   const maxGroqImages = images.slice(0, 1);
   const contentParts = [{ type: "text", text: userPrompt }];
   for (const img of maxGroqImages) {
     if (img.inlineData?.data) {
-      const mime = img.inlineData.mimeType || "image/jpeg";
-      contentParts.push({
-        type: "image_url",
-        image_url: { url: `data:${mime};base64,${img.inlineData.data}` }
-      });
+      try {
+        const rawBuf = Buffer.from(img.inlineData.data, "base64");
+        const smallBuf = await sharp(rawBuf)
+          .resize(256, 256, { fit: "inside", withoutEnlargement: true })
+          .jpeg({ quality: 65 })
+          .toBuffer();
+        contentParts.push({
+          type: "image_url",
+          image_url: { url: `data:image/jpeg;base64,${smallBuf.toString("base64")}` }
+        });
+      } catch (sharpErr) {
+        const mime = img.inlineData.mimeType || "image/jpeg";
+        contentParts.push({
+          type: "image_url",
+          image_url: { url: `data:${mime};base64,${img.inlineData.data}` }
+        });
+      }
     }
   }
 
@@ -665,7 +679,7 @@ async function enrichProductWithGroq(sku, tituloBruto, images, variacoesList = [
             { role: "user", content: contentParts }
           ],
           response_format: { type: "json_object" },
-          max_tokens: 850,
+          max_tokens: 1500,
           temperature: 0.2
         })
       });

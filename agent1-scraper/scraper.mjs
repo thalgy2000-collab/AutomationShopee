@@ -114,6 +114,52 @@ function parseArgs() {
   return { inputFile: resolve(inputFile), limit, targetSku, collection };
 }
 
+export function getModelCategory(skuOrModel) {
+  if (!skuOrModel) return "OUTROS";
+  const up = String(skuOrModel).trim().toUpperCase();
+  if (up.startsWith("C0")) return "C0";
+  if (up.startsWith("CAX")) return "CAX";
+  if (up.startsWith("FUSION")) return "FUSION";
+  if (up.startsWith("ADV")) return "ADV";
+  if (up.startsWith("BA")) return "BA";
+  if (up.startsWith("BT")) return "BT";
+  if (up.startsWith("CI")) return "CI";
+  if (up.startsWith("CMB")) return "CMB";
+  if (up.startsWith("CCPBR")) return "CCPBR";
+  if (up.startsWith("CPT")) return "CPT";
+  if (up.startsWith("CR")) return "CR";
+  if (up.startsWith("T") && /^T\d/i.test(up)) return "T";
+  if (up.startsWith("ISCA")) return "ISCA";
+  if (up.startsWith("ANZOL")) return "ANZOL";
+  if (up.startsWith("CALCA") || up.startsWith("CALÇA")) return "CALCAS";
+  if (up.startsWith("SANDALIA")) return "CALCADOS";
+  if (up.startsWith("OC")) return "OC";
+  if (up.startsWith("RAGLAN")) return "RAGLAN";
+  if (up.startsWith("SM")) return "SM";
+  return "OUTROS";
+}
+
+export async function findExistingModelDir(baseDir, sku, parentSku) {
+  const candidates = [
+    join(baseDir, sku),
+    join(baseDir, getModelCategory(sku), sku),
+  ];
+  if (parentSku && parentSku !== sku) {
+    candidates.push(join(baseDir, parentSku));
+    candidates.push(join(baseDir, getModelCategory(parentSku), parentSku));
+  }
+
+  for (const cand of candidates) {
+    if (existsSync(cand)) {
+      try {
+        const files = (await readdir(cand)).filter(f => /\.(jpe?g|png|webp)$/i.test(f));
+        if (files.length > 0) return cand;
+      } catch {}
+    }
+  }
+  return null;
+}
+
 const SHOPIFY_DOMAINS = [
   "https://brkfishing.com.br",
   "https://www.brkagro.com.br",
@@ -265,7 +311,9 @@ async function main() {
     const parentSku = extractParentSku(sku, item.titulo_bruto || "");
     const variation = extractVariationSuffix(sku, item.titulo_bruto || "");
     const isShirtSize = isShirtOrClothingSize(item, parentSku, variation);
-    const skuDir = join(targetBaseDir, sku);
+    const categoryFolder = getModelCategory(parentSku || sku);
+    const categoryBaseDir = collection ? targetBaseDir : join(targetBaseDir, categoryFolder);
+    const skuDir = join(categoryBaseDir, sku);
 
     // REGRA 1: Se for variação de tamanho da mesma camisa e já baixamos uma variação deste modelo nesta execução
     if (isShirtSize && downloadedShirtModels.has(parentSku)) {
@@ -274,6 +322,7 @@ async function main() {
 
       try {
         if (!existsSync(skuDir)) {
+          await mkdir(categoryBaseDir, { recursive: true });
           try {
             symlinkSync(parentInfo.sourceDir, skuDir, "junction");
           } catch {
@@ -296,22 +345,10 @@ async function main() {
       continue;
     }
 
-    // REGRA 2: Se fotos para este modelo ou SKU já existem no disco de execuções anteriores
-    let existingImagesDir = null;
-    if (isShirtSize) {
-      const parentDir = join(targetBaseDir, parentSku);
-      if (existsSync(parentDir)) {
-        try {
-          const pFiles = (await readdir(parentDir)).filter(f => f.toLowerCase().endsWith(".jpg"));
-          if (pFiles.length > 0) existingImagesDir = parentDir;
-        } catch {}
-      }
-    }
-    if (!existingImagesDir && existsSync(skuDir)) {
-      try {
-        const sFiles = (await readdir(skuDir)).filter(f => f.toLowerCase().endsWith(".jpg"));
-        if (sFiles.length > 0) existingImagesDir = skuDir;
-      } catch {}
+    // REGRA 2: Se fotos para este modelo ou SKU já existem no disco de execuções anteriores (busca direta ou em subpastas de categorias)
+    let existingImagesDir = await findExistingModelDir(targetBaseDir, sku, parentSku);
+    if (!existingImagesDir && !collection) {
+      existingImagesDir = await findExistingModelDir(DOWNLOADS_DIR, sku, parentSku);
     }
 
     if (existingImagesDir) {
@@ -375,7 +412,7 @@ async function main() {
 
       // Se for camisa com variação de tamanho, vincula também à pasta do código pai
       if (isShirtSize) {
-        const parentDir = join(targetBaseDir, parentSku);
+        const parentDir = join(categoryBaseDir, parentSku);
         if (!existsSync(parentDir)) {
           try {
             symlinkSync(skuDir, parentDir, "junction");
@@ -387,7 +424,7 @@ async function main() {
         console.log(`   📌 [REGRA CAMISA] Fotos salvas para o modelo ${parentSku}. Próximos tamanhos deste modelo reutilizarão estas fotos automaticamente.`);
       }
 
-      const relativeFolder = collection ? `downloads/${collection}/${sku}/` : `downloads/${sku}/`;
+      const relativeFolder = collection ? `downloads/${collection}/${sku}/` : `downloads/${categoryFolder}/${sku}/`;
       console.log(`${progresso} ✅ ${images.length} fotos salvas e aprimoradas com sucesso em ${relativeFolder}`);
       item.status = "scraped";
       sucessos++;

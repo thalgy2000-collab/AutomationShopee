@@ -408,8 +408,8 @@ export function validateAndNormalize(data, sku, parentSku = null) {
   } else if (isIsca) {
     data.categoria_sugerida = CATEGORIA_PADRAO_ISCAS;
   } else if (isCamisa) {
-    const isFem = /feminin|mulher|starfem|flowf|baby\s*look/i.test(data.titulo_shopee || "") || /bl$/i.test(data.sku || "") || /bl_/i.test(data.sku || "") || /bl/i.test(data.sku || "");
-    const isInfantil = (/\binfantil\b|\binfantis\b|\bcrian[çc]a\b|\bkids\b|\bjuvenil\b/i.test(data.titulo_shopee || "") || /inf$/i.test(data.sku || "") || /i$/i.test(data.sku || "")) && !isFem && !/masculin/i.test(data.titulo_shopee || "");
+    const isFem = /feminin|mulher|starfem|flowf|baby\s*look/i.test(data.titulo_shopee || "") || /_bl$|-bl$|bl$/i.test(data.sku || "");
+    const isInfantil = (/\binfantil\b|\binfantis\b|\bcrian[çc]a\b|\bkids\b|\bjuvenil\b/i.test(data.titulo_shopee || "") || /_inf$|-inf$/i.test(data.sku || "")) && !isFem && !/masculin/i.test(data.titulo_shopee || "");
     if (isInfantil) {
       data.categoria_sugerida = "Moda Infantil > Roupas Infantis > Blusas";
     } else if (isFem) {

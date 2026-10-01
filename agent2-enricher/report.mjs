@@ -139,17 +139,32 @@ async function loadProductImages(product, maxImages = 3) {
     if (images.length > 0) return images;
   }
 
-  // 3. Fallback: buscar na pasta downloads/{sku} ou em suas subpastas de variação
-  const skuDir = join(DOWNLOADS_DIR, product.sku);
-  if (existsSync(skuDir)) {
-    const entries = await readdir(skuDir, { withFileTypes: true });
+  // 3. Fallback: buscar na pasta downloads/{sku} ou em subpastas categorizadas (ex: downloads/CAX/{sku})
+  let targetSkuDir = join(DOWNLOADS_DIR, product.sku);
+  if (!existsSync(targetSkuDir)) {
+    try {
+      const catEntries = await readdir(DOWNLOADS_DIR, { withFileTypes: true });
+      for (const cat of catEntries) {
+        if (cat.isDirectory()) {
+          const cand = join(DOWNLOADS_DIR, cat.name, product.sku);
+          if (existsSync(cand)) {
+            targetSkuDir = cand;
+            break;
+          }
+        }
+      }
+    } catch {}
+  }
+
+  if (existsSync(targetSkuDir)) {
+    const entries = await readdir(targetSkuDir, { withFileTypes: true });
     const directFiles = entries
       .filter((e) => e.isFile() && e.name.toLowerCase().endsWith(".jpg"))
       .sort((a, b) => a.name.localeCompare(b.name))
       .slice(0, maxImages);
 
     for (const file of directFiles) {
-      const dataUri = await imageToDataUri(join(skuDir, file.name));
+      const dataUri = await imageToDataUri(join(targetSkuDir, file.name));
       if (dataUri) images.push(dataUri);
     }
 
@@ -157,11 +172,11 @@ async function loadProductImages(product, maxImages = 3) {
       const subdirs = entries.filter((e) => e.isDirectory());
       for (const sub of subdirs) {
         try {
-          const subFiles = (await readdir(join(skuDir, sub.name)))
+          const subFiles = (await readdir(join(targetSkuDir, sub.name)))
             .filter((f) => f.toLowerCase().endsWith(".jpg"))
             .sort();
           if (subFiles.length > 0) {
-            const dataUri = await imageToDataUri(join(skuDir, sub.name, subFiles[0]));
+            const dataUri = await imageToDataUri(join(targetSkuDir, sub.name, subFiles[0]));
             if (dataUri && !images.includes(dataUri)) images.push(dataUri);
           }
         } catch {}
@@ -250,6 +265,16 @@ export async function generateReport(
   const html = buildHtml(productCards);
   await writeFile(OUTPUT_HTML, html, "utf-8");
   console.log(`Relatório salvo em: ${OUTPUT_HTML}`);
+
+  // Sincroniza também com a raiz do projeto (para onde os painéis HTML apontam /relatorio.html)
+  const rootReportPath = resolve(__dirname, "../relatorio.html");
+  try {
+    await writeFile(rootReportPath, html, "utf-8");
+    console.log(`Relatório raiz sincronizado em: ${rootReportPath}`);
+  } catch (err) {
+    console.warn(`Aviso: Falha ao sincronizar relatório na raiz: ${err.message}`);
+  }
+
   return OUTPUT_HTML;
 }
 
@@ -1075,9 +1100,6 @@ function buildHtml(products) {
           </a>
           <a href="/painel.html" target="_blank" style="display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px; background: rgba(79, 140, 255, 0.15); border: 1px solid rgba(79, 140, 255, 0.3); border-radius: 8px; color: #60a5fa; text-decoration: none; font-weight: 600; font-size: 0.85rem;">
             <span>📊 Painel Principal</span>
-          </a>
-          <a href="/relatorio-esteira.html" target="_blank" style="display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 8px; color: #e2e8f0; text-decoration: none; font-weight: 600; font-size: 0.85rem;">
-            <span>⚡ Relatório Esteira</span>
           </a>
         </div>
       </div>

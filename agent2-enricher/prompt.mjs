@@ -461,3 +461,47 @@ ${atributosExemplo}
   ]
 }`;
 }
+
+/**
+ * Prompts ultra-concisos otimizados em tokens para a API Groq (evita estourar o limite de 7000 ITPM).
+ */
+export function getCompactGroqPrompts(sku, tituloBruto, variacoesList = []) {
+  const isCamisa = /camisa|camiseta|armorx|uv50|manga/i.test(tituloBruto);
+  const isBandana = /bandana|tubeneck|balaclava|touca/i.test(tituloBruto);
+  const isIsca = /isca/i.test(tituloBruto);
+
+  const system = `Você é especialista em copywriting e cadastro Shopee Brasil.
+Retorne EXCLUSIVAMENTE um objeto JSON válido (sem markdown, sem \`\`\`json) no seguinte formato:
+{
+  "sku": "${sku}",
+  "titulo_shopee": "Título SEO comercial Title Case max 120 caracteres sem SKU",
+  "titulos_alternativos": [
+    "Opção 2 de título max 120 chars sem SKU",
+    "Opção 3 de título max 120 chars sem SKU"
+  ],
+  "marca": "BRK",
+  "modelo": "Nome comercial amigável sem SKU (ex: ARMORX AZUL)",
+  "categoria_sugerida": "${isBandana ? 'Acessórios de Moda > Bonés, Chapéus e Toucas' : isCamisa ? 'Roupas Masculinas > Tops > Camisetas' : isIsca ? 'Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Iscas' : 'Roupas Masculinas > Tops > Camisetas'}",
+  "descricao": "Texto da descrição profissional sem emojis, sem asteriscos, sem SKUs e sem tamanhos/medidas no texto",
+  "atributos": {
+    "pais_de_origem": "Brasil",
+    "condicao": "Novo",
+    "material": "${isCamisa ? 'XTech-Pro' : isBandana ? 'Poliéster' : isIsca ? 'Plástico ABS' : 'Poliéster'}",
+    "quantidade_por_pacote": 1,
+    "quantidade_da_embalagem": 1,
+    "produto_personalizado": "Não"${isCamisa ? ',\n    "gola": "Gola Alta",\n    "comprimento_da_manga": "Manga Comprida",\n    "estilo": "Agro / Pesca",\n    "ocasiao": "Fazenda / Pesca"' : ''}
+  },
+  "variacoes": [],
+  "palavras_chave": ["pesca", "brk", "protecao solar"]
+}
+
+REGRAS CRÍTICAS:
+1. TÍTULO: Max 120 caracteres. PROIBIDO colocar SKU (ex: "${sku}") no título ou modelo.
+2. DESCRIÇÃO: ZERO emojis, ZERO asteriscos (*), ZERO SKUs, ZERO tamanhos (tamanhos são variações).
+3. Se for camisa BRK, inclua diferenciais (Tecido XTech Pro, Proteção UV50+, secagem rápida) e cuidados de conservação.`;
+
+  const varText = variacoesList.length > 0 ? `\nVariações disponíveis: ${variacoesList.join(", ")}` : "";
+  const user = `Produto: "${tituloBruto}"\nSKU Pai: "${sku}"${varText}\n\nGere o JSON completo do anúncio Shopee.`;
+
+  return { system, user };
+}

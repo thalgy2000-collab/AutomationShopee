@@ -40,11 +40,12 @@ export function resolveCorrectShopeeCategory(product) {
   // -1. Camisas e Vestuário
   const isCamisa = /camisa|camiseta|baby\s*look|vestu[aá]rio|agro/i.test(fullText) || /^c0/i.test(product.sku || "");
   if (isCamisa) {
-    const isInfantil = /infantil|infantis|crian[çc]a|kids|juvenil/i.test(fullText) || /i$/i.test(product.sku || "");
+    const headerText = `${product.titulo_shopee || ""} ${product.modelo || ""} ${product.marca || ""}`.toLowerCase();
+    const isInfantil = /infantil|infantis|crian[çc]a|kids|juvenil/i.test(headerText) || /_inf$|-inf$/i.test(product.sku || "");
     if (isInfantil) {
       return SHOPEE_OFFICIAL_CATEGORIES.camisas_infantis;
     }
-    const isFem = /feminin|mulher|starfem|flowf|baby\s*look|babylook|\bbl\b/i.test(fullText) || /bl/i.test(product.sku || "");
+    const isFem = /feminin|mulher|starfem|flowf|baby\s*look|babylook|\bbl\b/i.test(headerText) || /_BL$|-BL$|BL$/i.test(product.sku || "");
     if (isFem) {
       return SHOPEE_OFFICIAL_CATEGORIES.camisas_femininas;
     }
