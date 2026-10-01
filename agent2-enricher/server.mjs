@@ -260,6 +260,7 @@ function startAgent(agentId, options = {}) {
 
   agentTelemetry.currentAgent = agentId;
   agentTelemetry.status = 'running';
+  agentTelemetry.lastError = null;
   agentTelemetry.startTime = Date.now();
   agentTelemetry.elapsedSeconds = 0;
   agentTelemetry.currentSku = options.sku || null;
@@ -644,16 +645,47 @@ function startAgent(agentId, options = {}) {
     const text = data.toString();
     addLog(text, 'stderr');
     process.stderr.write(`[${agentId} ERROR] ${text}`);
-    const errLines = text.split('\n').map(l => l.trim()).filter(l => l.length > 5 && !l.includes('Debugger') && !l.includes('ExperimentalWarning'));
+    // Filtra mensagens informativas que não são erros reais
+    // O PowerShell trata QUALQUER saída no stderr como erro, mesmo quando são apenas avisos informativos
+    // dos agentes que possuem fallback interno. Isso causava falsos positivos de erro no painel.
+    const ignoredPatterns = [
+      'Debugger', 'ExperimentalWarning', 'DEP0', 'DeprecationWarning',
+      'Migrando para Groq', 'Migrando automaticamente', 'Chave Gemini',
+      'Token OAuth', 'aistudio.google.com', '[401]', 'fallback',
+      'punycode', 'node --trace-deprecation',
+      // Playwright / navegador - avisos não-fatais com fallback
+      'Timeout', 'timeout', 'locator.waitFor', 'locator.click',
+      'waiting for locator', 'Call log:', '- waiting for',
+      'Instabilidade', 'instabilidade',
+      // Sankhya warnings com fallback interno
+      'Nenhuma variação encontrada', 'Mantendo código pai',
+      'Erro ao interagir com campo de busca',
+      'SimplePopupGlass', 'popup', 'Popup',
+      'Aviso ao ler session', 'session_sankhya',
+      // Node.js internals
+      'NativeCommandError', 'RemoteException', 'FullyQualifiedErrorId',
+      'CategoryInfo', 'ParentContainsErrorRecordException',
+      'No linha:', 'caractere:',
+      // General informational prefixes
+      '⚠️', '⏳', '🔄', '💡', '👉',
+    ];
+    const errLines = text.split('\n').map(l => l.trim()).filter(l => {
+      if (l.length <= 5) return false;
+      return !ignoredPatterns.some(p => l.includes(p));
+    });
     if (errLines.length > 0) {
       agentTelemetry.lastError = errLines[errLines.length - 1];
     }
+
   });
 
   child.on('close', (code) => {
     addLog(`🏁 ${agentId.toUpperCase()} finalizou com código de saída: ${code}`, code === 0 ? 'stdout' : 'stderr');
     agentStatus = code === 0 ? 'done' : 'error';
     agentTelemetry.status = code === 0 ? 'done' : 'error';
+    if (code === 0) {
+      agentTelemetry.lastError = null;
+    }
     if (agentTelemetry.startTime) {
       agentTelemetry.elapsedSeconds = Math.round((Date.now() - agentTelemetry.startTime) / 1000);
     }
@@ -1096,10 +1128,11 @@ const server = http.createServer(async (req, res) => {
   // 4.5 API: Lote / Planilha Ativa Compartilhada
   if (req.method === 'GET' && urlPath === '/api/active-batch') {
     const active = resolveActiveSpreadsheet();
+    const base = active ? path.basename(active) : null;
     return sendJson(200, {
       activeSpreadsheet: active,
-      filename: active ? path.basename(active) : null,
-      downloadUrl: active && active.startsWith(UPLOADS_DIR) ? `/uploads/${encodeURIComponent(path.basename(active))}` : null
+      filename: base,
+      downloadUrl: base ? `/uploads/${encodeURIComponent(base)}` : null
     });
   }
 
@@ -1753,10 +1786,14 @@ const server = http.createServer(async (req, res) => {
           targetFile = qPath;
           fileName = path.basename(qPath);
         } else {
-          const candidate = path.join(UPLOADS_DIR, path.basename(qPath));
-          if (fs.existsSync(candidate)) {
-            targetFile = candidate;
-            fileName = path.basename(candidate);
+          const inUploads = path.join(UPLOADS_DIR, path.basename(qPath));
+          const inScraper = path.join(SCRAPER_DIR, path.basename(qPath));
+          if (fs.existsSync(inUploads)) {
+            targetFile = inUploads;
+            fileName = path.basename(inUploads);
+          } else if (fs.existsSync(inScraper)) {
+            targetFile = inScraper;
+            fileName = path.basename(inScraper);
           }
         }
       } else {
@@ -1767,8 +1804,17 @@ const server = http.createServer(async (req, res) => {
         }
       }
     } else {
-      fileName = path.basename(urlPath);
-      targetFile = path.join(UPLOADS_DIR, fileName);
+      const reqName = decodeURIComponent(urlPath.replace(/^\/uploads\/?/, ''));
+      fileName = path.basename(reqName);
+      const inUploads = path.join(UPLOADS_DIR, fileName);
+      const inScraper = path.join(SCRAPER_DIR, fileName);
+      if (fs.existsSync(inUploads)) {
+        targetFile = inUploads;
+      } else if (fs.existsSync(inScraper)) {
+        targetFile = inScraper;
+      } else if (activeSpreadsheetPath && fs.existsSync(activeSpreadsheetPath) && path.basename(activeSpreadsheetPath) === fileName) {
+        targetFile = activeSpreadsheetPath;
+      }
     }
 
     if (targetFile && fs.existsSync(targetFile) && fs.statSync(targetFile).isFile()) {

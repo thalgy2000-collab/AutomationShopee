@@ -526,8 +526,12 @@ async function enrichProduct(genAI, sku, tituloBruto, images, preferredModel, va
       } catch (err) {
         const isAuthError = err.status === 401 || err.message?.includes("401") || err.message?.includes("ACCESS_TOKEN_TYPE_UNSUPPORTED") || err.message?.includes("API_KEY_INVALID");
         if (isAuthError) {
-          logError(`  ❌ [401 Unauthorized] Falha de autenticação no Gemini: A chave GEMINI_API_KEY no .env é inválida ou expirou.`);
-          if (process.env.GEMINI_API_KEY?.startsWith("AQ.")) {
+          // Usa log() (stdout) em vez de logError() (stderr) para não causar exit code 1 no PowerShell
+          // quando o fallback Groq está disponível e vai funcionar normalmente
+          const groqAvailable = process.env.GROQ_API_KEY || process.env.LLAMA_API_KEY;
+          const logFn = groqAvailable ? log : logError;
+          logFn(`  ⚠️ [401] Chave Gemini inválida ou expirada. ${groqAvailable ? 'Migrando para Groq automaticamente...' : 'Sem fallback disponível.'}`);
+          if (process.env.GEMINI_API_KEY?.startsWith("AQ.") && !groqAvailable) {
             logError(`  💡 O valor configurado começa com 'AQ.', o que indica ser um token OAuth temporário, e NÃO uma chave de API do Google AI Studio (que começa com 'AIzaSy...').`);
             logError(`  👉 Obtenha sua chave oficial gratuita em: https://aistudio.google.com/app/apikey`);
           }
@@ -1165,9 +1169,14 @@ async function main() {
 // Execução
 const isDirectRun = process.argv[1] && resolve(process.argv[1]) === resolve(fileURLToPath(import.meta.url));
 if (isDirectRun) {
-  main().catch((err) => {
-    logError(`Erro fatal: ${err.message}`);
-    console.error(err);
-    process.exit(1);
-  });
+  main()
+    .then(() => {
+      // Sucesso: garante exit code 0 mesmo que avisos tenham sido emitidos no stderr
+      process.exit(0);
+    })
+    .catch((err) => {
+      logError(`Erro fatal: ${err.message}`);
+      console.error(err);
+      process.exit(1);
+    });
 }

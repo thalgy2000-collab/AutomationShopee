@@ -5497,7 +5497,13 @@
         // Se for explicitamente coleção OU contiver espaços OU não se parecer com um SKU de produto (geralmente começa com C0, BA, FUSION, etc, ou tem sufixo de tamanho)
         const isSingleWordCollection = parts.length === 1 && !/^(C\d{4,}|BA\d+|BORAPLUS|FUSION\d+|BT\d+|[A-Z]\d{5})/i.test(parts[0]);
 
-        if (isCollectionExplicit || isSingleWordCollection || (parts.length > 0 && cleaned.includes(' '))) {
+        const hasCommas = raw.includes(',');
+        const isSkuLike = (s) => /^[A-Z0-9_-]{3,20}$/i.test(s);
+        const allLookLikeSkus = parts.length > 0 && parts.every(isSkuLike);
+
+        if (!isCollectionExplicit && (allLookLikeSkus || hasCommas) && parts.length > 0) {
+          startAgent0(parts);
+        } else if (isCollectionExplicit || isSingleWordCollection || (parts.length > 0 && cleaned.includes(' '))) {
           startAgent0Collection(cleaned, filterFull);
         } else if (parts.length > 0) {
           startAgent0(parts);
@@ -5825,6 +5831,26 @@
           btnElement.style.color = '';
         }, 2000);
       }
+    }
+
+    async function startAgent1Manual(skuOrSkus) {
+      const isArray = Array.isArray(skuOrSkus);
+      const skus = isArray ? skuOrSkus : [skuOrSkus];
+      const skuLabel = skus.join(', ');
+      appendBotMessage(
+        'agent1',
+        `🔍 Buscando produto **\`${skuLabel}\`** nos sites oficiais (BRK Fishing, Agro, Motors) e baixando fotos em alta resolução...`
+      );
+      sendAgent1FolderCard(`📂 As fotos do produto **\`${skuLabel}\`** serão salvas aqui:`);
+
+      const payload = {
+        agent: 'agent1',
+        options: {
+          action: 'scraper',
+          sku: isArray ? skus.join(',') : String(skuOrSkus).trim()
+        }
+      };
+      await sendAgentStartRequest(payload);
     }
 
     async function startAgent2Manual(sku) {
