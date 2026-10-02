@@ -2,16 +2,20 @@ import http from 'node:http';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { spawn, exec, execSync } from 'node:child_process';
+import { spawn, exec, execSync, execFileSync } from 'node:child_process';
 import { parse } from 'csv-parse/sync';
 import { stringify } from 'csv-stringify/sync';
 import { extractParentSku } from './grouping.mjs';
 import { runDiagnostics, applySolution, applyAllCategoryFixes } from '../agent4-diagnostician/diagnose.mjs';
 import { getQuotaData, isModelBlocked, resetAllQuotas, formatResetTime } from './quota_manager.mjs';
 import { loadHistory, recordExecution } from './history_manager.mjs';
+import { acquireAgentLock, releaseLock, checkAndCleanOrphanLock, LOCK_FILE } from './lock_manager.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const PORT = process.env.PORT ? parseInt(process.env.PORT, 10) : 80;
+const PORT = process.env.PORT ? parseInt(process.env.PORT, 10) : 3000;
+const PANEL_TOKEN = process.env.PANEL_TOKEN || null;
+const MIN_MANUAL_PRICE = process.env.MIN_MANUAL_PRICE ? parseFloat(process.env.MIN_MANUAL_PRICE) : 1.00;
+const MAX_MANUAL_PRICE = process.env.MAX_MANUAL_PRICE ? parseFloat(process.env.MAX_MANUAL_PRICE) : 5000.00;
 const NGROK_URL = process.env.NGROK_URL || process.env.SYSTEM_URL || 'https://daredevil-splashy-scrawny.ngrok-free.dev';
 const RELATORIO_PATH = path.join(__dirname, 'relatorio.html');
 const PAINEL_PATH = path.join(__dirname, 'painel.html');
@@ -67,6 +71,64 @@ const MAX_LOGS = 500;
 // Estado do Lote / Planilha Ativa compartilhada continuamente entre todos os agentes
 const ACTIVE_BATCH_STATE_FILE = path.resolve(__dirname, '.active_batch.json');
 
+// Solicitações de preço pendentes (Decisão de Negócio D1)
+const pendingPriceRequests = new Map();
+
+function isAgentLocked() {
+  return checkAndCleanOrphanLock();
+}
+
+function releaseAgentLock() {
+  releaseLock(true);
+}
+
+/**
+ * Validação de autenticação para endpoints protegidos via PANEL_TOKEN.
+ * Detecta confiavelmente requisições vindas de túneis (ngrok, cloudflare)
+ * inspecionando X-Forwarded-For, CF-Connecting-IP e Host.
+ */
+function authenticateRequest(req, res) {
+  const forwardedFor = req.headers['x-forwarded-for'];
+  const cfConnectingIp = req.headers['cf-connecting-ip'];
+  const host = req.headers['host'] || '';
+  const isHostLocal = host.startsWith('localhost') || host.startsWith('127.0.0.1');
+
+  // Se tiver headers de proxy reverso ou o Host não for localhost, veio de túnel/externo
+  const isFromTunnelOrExternal = Boolean(forwardedFor || cfConnectingIp || !isHostLocal);
+
+  const socketIp = req.socket?.remoteAddress || '';
+  const isSocketLocal = socketIp === '127.0.0.1' || socketIp === '::1' || socketIp === '::ffff:127.0.0.1';
+
+  const isActuallyLocal = isSocketLocal && !isFromTunnelOrExternal;
+
+  if (!PANEL_TOKEN) {
+    if (!isActuallyLocal) {
+      console.warn(`⚠️ [AUTH] Requisição externa/túnel bloqueada para ${req.url} (Host: ${host}, sem PANEL_TOKEN configurado).`);
+      res.writeHead(401, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ error: 'Acesso externo/túnel bloqueado. Configure a variável PANEL_TOKEN no servidor.' }));
+      return false;
+    }
+    return true;
+  }
+
+  const authHeader = req.headers['x-panel-token'] || req.headers['authorization'];
+  const token = authHeader ? authHeader.replace(/^Bearer\s+/i, '').trim() : null;
+
+  if (token !== PANEL_TOKEN) {
+    console.warn(`🔒 [AUTH] Token inválido ou ausente para ${req.url} (Host: ${host}, IP: ${forwardedFor || socketIp})`);
+    res.writeHead(401, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify({ error: 'Não autorizado. Token de autenticação ausente ou inválido.' }));
+    return false;
+  }
+  return true;
+}
+
+export function atomicWriteFileSync(filePath, content) {
+  const tmpPath = `${filePath}.${Date.now()}.tmp`;
+  fs.writeFileSync(tmpPath, content, 'utf-8');
+  fs.renameSync(tmpPath, filePath);
+}
+
 function saveActiveBatchState(p) {
   try {
     fs.writeFileSync(ACTIVE_BATCH_STATE_FILE, JSON.stringify({ path: p, updatedAt: new Date().toISOString() }, null, 2));
@@ -106,7 +168,8 @@ function resolveActiveSpreadsheet(preferredQuery = null) {
       }
     }
     // 3. Busca em Downloads do usuário
-    const dlDir = path.join(process.env.USERPROFILE || 'C:\\Users\\marke', 'Downloads');
+    const userHome = process.env.USERPROFILE || process.env.HOME || '.';
+    const dlDir = path.join(userHome, 'Downloads');
     if (fs.existsSync(dlDir)) {
       const dFiles = fs.readdirSync(dlDir).filter(f => f.toLowerCase().includes(q));
       if (dFiles.length > 0) {
@@ -236,6 +299,7 @@ function stopCurrentAgent() {
     }
 
     currentProcess = null;
+    releaseAgentLock();
     agentStatus = 'idle';
     agentTelemetry.status = 'idle';
     agentTelemetry.currentAgent = null;
@@ -249,8 +313,10 @@ function stopCurrentAgent() {
 }
 
 function startAgent(agentId, options = {}) {
-  if (currentProcess) {
-    throw new Error(`Um agente já está em execução (${currentAgent}). Aguarde ou interrompa antes.`);
+  const existingLock = isAgentLocked();
+  if (currentProcess || existingLock) {
+    const runningId = currentAgent || existingLock?.agentId || 'agente';
+    throw new Error(`Um agente já está em execução (${runningId}). Aguarde ou interrompa antes.`);
   }
 
   currentAgentOptions = { ...options };
@@ -349,7 +415,7 @@ function startAgent(agentId, options = {}) {
         const lotePath = path.resolve(SCRAPER_DIR, 'lote_d1fae5.csv');
         try {
           const script = path.join(SCRAPER_DIR, 'create_lote.mjs');
-          execSync(`node "${script}" --input "${fullPath}" --output "${lotePath}" --color TODAS`, { cwd: SCRAPER_DIR });
+          execFileSync(process.execPath, [script, '--input', fullPath, '--output', lotePath, '--color', 'TODAS'], { cwd: SCRAPER_DIR });
           addLog(`⚡ [LOTE SINCRONIZADO] Planilha ${path.basename(fullPath)} extraída para ${path.basename(lotePath)} (todos os produtos).`);
         } catch (e) {
           console.error('Erro ao extrair lote para Agente 2:', e.message);
@@ -417,7 +483,7 @@ function startAgent(agentId, options = {}) {
           const lotePath = path.resolve(SCRAPER_DIR, 'lote_d1fae5.csv');
           try {
             const script = path.join(SCRAPER_DIR, 'create_lote.mjs');
-            execSync(`node "${script}" --input "${fullPath}" --output "${lotePath}"`, { cwd: SCRAPER_DIR });
+            execFileSync(process.execPath, [script, '--input', fullPath, '--output', lotePath], { cwd: SCRAPER_DIR });
             addLog(`⚡ [LOTE SINCRONIZADO] Planilha ${path.basename(fullPath)} extraída para ${path.basename(lotePath)}.`);
           } catch (e) {
             console.error('Erro ao extrair lote para Agente 3:', e.message);
@@ -502,6 +568,9 @@ function startAgent(agentId, options = {}) {
   });
 
   currentProcess = child;
+  if (child.pid) {
+    acquireAgentLock(agentId, child.pid);
+  }
 
   child.stdout.on('data', (data) => {
     const text = data.toString();
@@ -630,7 +699,7 @@ function startAgent(agentId, options = {}) {
             try {
               const script = path.join(SCRAPER_DIR, 'create_lote.mjs');
               const lotePath = path.join(SCRAPER_DIR, 'lote_d1fae5.csv');
-              execSync(`node "${script}" --input "${activeSpreadsheetPath}" --output "${lotePath}"`, { cwd: SCRAPER_DIR });
+              execFileSync(process.execPath, [script, '--input', activeSpreadsheetPath, '--output', lotePath], { cwd: SCRAPER_DIR });
               addLog(`⚡ [LOTE EXTRAÍDO] Produtos extraídos para ${path.basename(lotePath)} (Pronto para Agente 1, 2 e 3).`);
             } catch (e) {
               console.error('Erro ao extrair lote do Agente 0:', e.message);
@@ -680,6 +749,7 @@ function startAgent(agentId, options = {}) {
   });
 
   child.on('close', (code) => {
+    releaseAgentLock();
     addLog(`🏁 ${agentId.toUpperCase()} finalizou com código de saída: ${code}`, code === 0 ? 'stdout' : 'stderr');
     agentStatus = code === 0 ? 'done' : 'error';
     agentTelemetry.status = code === 0 ? 'done' : 'error';
@@ -1065,6 +1135,7 @@ const server = http.createServer(async (req, res) => {
 
   // 4. API: Upload de Nova Planilha / Fonte de Dados
   if (req.method === 'POST' && urlPath === '/api/upload') {
+    if (!authenticateRequest(req, res)) return;
     let body = '';
     req.on('data', chunk => { body += chunk; });
     req.on('end', () => {
@@ -1094,7 +1165,17 @@ const server = http.createServer(async (req, res) => {
           try {
             const script = path.join(SCRAPER_DIR, 'create_lote.mjs');
             const outCsv = path.join(SCRAPER_DIR, 'lote_d1fae5.csv');
-            execSync(`node "${script}" --input "${targetPath}" --output "${outCsv}"`, { cwd: SCRAPER_DIR });
+
+            // Arquiva lote anterior se existir para não sobrescrever sem histórico
+            if (fs.existsSync(outCsv)) {
+              try {
+                const bakPath = path.join(SCRAPER_DIR, `lote_d1fae5_${Date.now()}.csv.bak`);
+                fs.copyFileSync(outCsv, bakPath);
+                addLog(`📦 [BACKUP LOTE] Lote anterior arquivado em: ${path.basename(bakPath)}`);
+              } catch {}
+            }
+
+            execFileSync(process.execPath, [script, '--input', targetPath, '--output', outCsv], { cwd: SCRAPER_DIR });
             if (fs.existsSync(outCsv)) {
               const lines = fs.readFileSync(outCsv, 'utf-8').trim().split('\n');
               extractedCount = Math.max(0, lines.length - 1);
@@ -1137,6 +1218,7 @@ const server = http.createServer(async (req, res) => {
   }
 
   if (req.method === 'POST' && urlPath === '/api/active-batch') {
+    if (!authenticateRequest(req, res)) return;
     let body = '';
     req.on('data', chunk => { body += chunk; });
     req.on('end', () => {
@@ -1154,7 +1236,7 @@ const server = http.createServer(async (req, res) => {
             try {
               const lotePath = path.resolve(SCRAPER_DIR, 'lote_d1fae5.csv');
               const script = path.join(SCRAPER_DIR, 'create_lote.mjs');
-              execSync(`node "${script}" --input "${activeSpreadsheetPath}" --output "${lotePath}"`, { cwd: SCRAPER_DIR });
+              execFileSync(process.execPath, [script, '--input', activeSpreadsheetPath, '--output', lotePath], { cwd: SCRAPER_DIR });
               addLog(`⚡ [LOTE SINCRONIZADO] Planilha ${path.basename(activeSpreadsheetPath)} extraída para ${path.basename(lotePath)}.`);
             } catch (e) {
               console.error('Erro ao extrair lote:', e.message);
@@ -1174,6 +1256,7 @@ const server = http.createServer(async (req, res) => {
 
   // 5. API: Iniciar Agente
   if (req.method === 'POST' && urlPath === '/api/agents/start') {
+    if (!authenticateRequest(req, res)) return;
     let body = '';
     req.on('data', chunk => { body += chunk; });
     req.on('end', () => {
@@ -1194,6 +1277,7 @@ const server = http.createServer(async (req, res) => {
 
   // 5b. API: Gerar Kit / Combo de Múltiplos Produtos (Agente 2)
   if (req.method === 'POST' && urlPath === '/api/agents/create-kit') {
+    if (!authenticateRequest(req, res)) return;
     let body = '';
     req.on('data', chunk => { body += chunk; });
     req.on('end', async () => {
@@ -1235,6 +1319,7 @@ const server = http.createServer(async (req, res) => {
 
   // 5c. API: Gerar Anúncio Multi-Modelo (Estrutura 1 com SKU Pai e Grade de Tamanhos)
   if (req.method === 'POST' && urlPath === '/api/agents/create-multi-model') {
+    if (!authenticateRequest(req, res)) return;
     let body = '';
     req.on('data', chunk => { body += chunk; });
     req.on('end', async () => {
@@ -1302,6 +1387,7 @@ const server = http.createServer(async (req, res) => {
 
   // 5d. API: Edição em Massa — Pré-visualização (Bulk Preview)
   if (req.method === 'POST' && urlPath === '/api/bulk/preview') {
+    if (!authenticateRequest(req, res)) return;
     let body = '';
     req.on('data', chunk => { body += chunk; });
     req.on('end', async () => {
@@ -1320,6 +1406,7 @@ const server = http.createServer(async (req, res) => {
 
   // 5e. API: Edição em Massa — Aplicar (Bulk Apply)
   if (req.method === 'POST' && urlPath === '/api/bulk/apply') {
+    if (!authenticateRequest(req, res)) return;
     let body = '';
     req.on('data', chunk => { body += chunk; });
     req.on('end', async () => {
@@ -1339,6 +1426,7 @@ const server = http.createServer(async (req, res) => {
 
   // 5f. API: Preset de Medidas FUSION
   if (req.method === 'POST' && urlPath === '/api/bulk/preset/fusion-measurements') {
+    if (!authenticateRequest(req, res)) return;
     try {
       const { applyFusionMeasurementsPreset } = await import('./bulk_editor.mjs');
       const result = applyFusionMeasurementsPreset();
@@ -1352,6 +1440,7 @@ const server = http.createServer(async (req, res) => {
 
   // 6. API: Parar Agente
   if (req.method === 'POST' && urlPath === '/api/agents/stop') {
+    if (!authenticateRequest(req, res)) return;
     const stopped = stopCurrentAgent();
     return sendJson(200, { success: true, stopped });
   }
@@ -1532,6 +1621,7 @@ const server = http.createServer(async (req, res) => {
 
   // 7. API: Atualização manual de status de produto (existente)
   if (req.method === 'POST' && urlPath === '/api/status') {
+    if (!authenticateRequest(req, res)) return;
     let body = '';
     req.on('data', chunk => { body += chunk; });
     req.on('end', () => {
@@ -1558,7 +1648,7 @@ const server = http.createServer(async (req, res) => {
             }
           }
           const updatedCsv = stringify(records, { header: true });
-          fs.writeFileSync(CSV_PATH, updatedCsv, 'utf-8');
+          atomicWriteFileSync(CSV_PATH, updatedCsv);
         }
 
         const jsonPath = path.join(PRODUTOS_DIR, `${sku}.json`);
@@ -1594,6 +1684,7 @@ const server = http.createServer(async (req, res) => {
 
   // 9. API: Resetar Limites de Quota de IA
   if (req.method === 'POST' && urlPath === '/api/quotas/reset') {
+    if (!authenticateRequest(req, res)) return;
     resetAllQuotas();
     addLog('🔄 Todas as quotas e limites diários de IA foram resetados manualmente.');
     return sendJson(200, { success: true, message: 'Quotas resetadas com sucesso' });
@@ -1614,6 +1705,7 @@ const server = http.createServer(async (req, res) => {
 
   // 9.2 API: Mudar Rapidamente de Modelo (com Hot-Swap se estiver rodando)
   if (req.method === 'POST' && urlPath === '/api/agents/change-model') {
+    if (!authenticateRequest(req, res)) return;
     let body = '';
     req.on('data', chunk => { body += chunk; });
     req.on('end', () => {
@@ -1676,6 +1768,7 @@ const server = http.createServer(async (req, res) => {
 
   // 9. API: Aplicar Solução Automática a Produto Rejeitado (Agente 4)
   if (req.method === 'POST' && urlPath === '/api/diagnostics/fix') {
+    if (!authenticateRequest(req, res)) return;
     let body = '';
     req.on('data', chunk => { body += chunk; });
     req.on('end', async () => {
@@ -1695,12 +1788,165 @@ const server = http.createServer(async (req, res) => {
 
   // 9.5. API: Aplicar Correção em Massa de Categorias (Agente 4)
   if (req.method === 'POST' && urlPath === '/api/diagnostics/fix-all') {
+    if (!authenticateRequest(req, res)) return;
     try {
       const result = await applyAllCategoryFixes();
       return sendJson(200, result);
     } catch (err) {
       return sendJson(500, { error: err.message });
     }
+  }
+
+  // 9.6. API: Solicitação e Resposta de Preços Interativos (Decisão D1)
+  if (req.method === 'GET' && urlPath === '/api/price-requests/pending') {
+    if (!authenticateRequest(req, res)) return;
+    const list = Array.from(pendingPriceRequests.values()).map(req => ({
+      sku: req.sku,
+      title: req.title || req.sku,
+      requestedAt: req.requestedAt,
+      timeoutAt: req.timeoutAt,
+      status: req.status
+    }));
+    return sendJson(200, { success: true, pending: list });
+  }
+
+  if (req.method === 'POST' && urlPath === '/api/price-requests/create') {
+    if (!authenticateRequest(req, res)) return;
+    let body = '';
+    req.on('data', chunk => { body += chunk; });
+    req.on('end', () => {
+      try {
+        const { sku, title, timeoutSec = 60 } = JSON.parse(body || '{}');
+        if (!sku) return sendJson(400, { error: 'SKU é obrigatório' });
+        const cleanSku = sku.trim().toUpperCase();
+        const reqItem = {
+          sku: cleanSku,
+          title: title || cleanSku,
+          requestedAt: new Date().toISOString(),
+          timeoutAt: new Date(Date.now() + timeoutSec * 1000).toISOString(),
+          status: 'pending',
+          price: null,
+          responded: false
+        };
+        pendingPriceRequests.set(cleanSku, reqItem);
+        addLog(`💬 [PREÇO D1] Solicitação de preço aberta para SKU "${cleanSku}". Aguardando humano via painel...`);
+        return sendJson(200, { success: true, request: reqItem });
+      } catch (err) {
+        return sendJson(500, { error: err.message });
+      }
+    });
+    return;
+  }
+
+  if (req.method === 'GET' && urlPath.startsWith('/api/price-requests/status/')) {
+    if (!authenticateRequest(req, res)) return;
+    const skuParam = decodeURIComponent(urlPath.replace('/api/price-requests/status/', '')).trim().toUpperCase();
+    const reqItem = pendingPriceRequests.get(skuParam);
+    if (!reqItem) {
+      return sendJson(404, { error: 'Solicitação não encontrada' });
+    }
+    return sendJson(200, { success: true, request: reqItem });
+  }
+
+  if (req.method === 'POST' && urlPath === '/api/price-requests/respond') {
+    if (!authenticateRequest(req, res)) return;
+    let body = '';
+    req.on('data', chunk => { body += chunk; });
+    req.on('end', () => {
+      try {
+        const { sku, price } = JSON.parse(body || '{}');
+        if (!sku || price === undefined || price === null) {
+          return sendJson(400, { error: 'Campos sku e price são obrigatórios' });
+        }
+        const cleanSku = sku.trim().toUpperCase();
+        const numPrice = typeof price === 'string' ? parseFloat(price.replace(',', '.')) : Number(price);
+        if (isNaN(numPrice) || numPrice <= 0) {
+          return sendJson(400, { error: 'Preço inválido. Deve ser um número maior que zero.' });
+        }
+        if (numPrice < MIN_MANUAL_PRICE || numPrice > MAX_MANUAL_PRICE) {
+          return sendJson(400, { error: `Preço fora dos limites permitidos (mínimo: R$ ${MIN_MANUAL_PRICE.toFixed(2)}, máximo: R$ ${MAX_MANUAL_PRICE.toFixed(2)}).` });
+        }
+
+        const responderIp = req.socket?.remoteAddress || 'local';
+        const answeredAt = new Date().toISOString();
+
+        const existing = pendingPriceRequests.get(cleanSku) || {
+          sku: cleanSku,
+          title: cleanSku,
+          requestedAt: new Date().toISOString(),
+        };
+
+        existing.price = numPrice;
+        existing.status = 'answered';
+        existing.responded = true;
+        existing.answeredAt = answeredAt;
+        existing.answeredByIp = responderIp;
+        pendingPriceRequests.set(cleanSku, existing);
+
+        // Se o produto já possui JSON gerado em produtos/, atualiza o preço diretamente
+        const jsonPath = path.join(PRODUTOS_DIR, `${cleanSku}.json`);
+        if (fs.existsSync(jsonPath)) {
+          try {
+            const pData = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
+            pData.preco = {
+              preco_sem_promocao: numPrice,
+              preco_com_promocao: null,
+              preco_atual: numPrice,
+              em_promocao: false,
+              desconto_percentual: 0,
+              manual: true,
+              answeredAt,
+              answeredBy: responderIp,
+            };
+            if (Array.isArray(pData.variacoes)) {
+              for (const v of pData.variacoes) {
+                if (!v.preco_sem_promocao) {
+                  v.preco_sem_promocao = numPrice;
+                  v.preco_atual = numPrice;
+                }
+              }
+            }
+            pData.status = 'enriched';
+            fs.writeFileSync(jsonPath, JSON.stringify(pData, null, 2), 'utf-8');
+            addLog(`📝 [JSON ATUALIZADO] Preço manual gravado com sucesso em ${cleanSku}.json.`);
+          } catch (e) {
+            console.error(`Erro ao atualizar JSON com preço manual: ${e.message}`);
+          }
+        }
+
+        // Atualiza status no CSV ativo de "aguardando preço" para "enriched"
+        if (fs.existsSync(CSV_PATH)) {
+          try {
+            const content = fs.readFileSync(CSV_PATH, 'utf-8');
+            const records = parse(content, { columns: true, skip_empty_lines: true, trim: true, bom: true });
+            let updated = 0;
+            for (const r of records) {
+              const pSku = extractParentSku(r.sku);
+              if (r.sku === cleanSku || pSku === cleanSku || r.sku?.startsWith(cleanSku + '_') || r.sku?.startsWith(cleanSku)) {
+                if (r.status === 'aguardando preço' || !r.status) {
+                  r.status = 'enriched';
+                  r.cor = '#D1FAE5';
+                  updated++;
+                }
+              }
+            }
+            if (updated > 0) {
+              const updatedCsv = stringify(records, { header: true });
+              atomicWriteFileSync(CSV_PATH, updatedCsv);
+              addLog(`📝 [LOTE ATUALIZADO] ${updated} linha(s) de ${cleanSku} atualizadas para 'enriched' no lote CSV.`);
+            }
+          } catch (e) {
+            console.error(`Erro ao atualizar CSV de lote com preço respondido: ${e.message}`);
+          }
+        }
+
+        addLog(`💰 [PREÇO INFORMADO] SKU "${cleanSku}" recebeu preço regular R$ ${numPrice.toFixed(2)} via painel (${responderIp}) em ${answeredAt}.`);
+        return sendJson(200, { success: true, request: existing });
+      } catch (err) {
+        return sendJson(500, { error: err.message });
+      }
+    });
+    return;
   }
 
   // 10. Servir screenshots do Agente 3
@@ -2049,6 +2295,11 @@ server.listen(PORT, '0.0.0.0', () => {
   const currentPort = server.address()?.port || PORT;
   console.log(`\n=============================================================`);
   console.log(`🚀 Painel de Automação ativo em: http://localhost:${currentPort}`);
+  if (!PANEL_TOKEN) {
+    console.warn(`⚠️ [AVISO DE SEGURANÇA] PANEL_TOKEN não configurado. Endpoints protegidos funcionarão apenas a partir de localhost.`);
+  } else {
+    console.log(`🔒 [AUTH] Autenticação por token ativada.`);
+  }
   console.log(`🌐 Link Permanente Ngrok:        ${NGROK_URL}`);
   console.log(`📊 Relatório de Auditoria:       ${NGROK_URL}/relatorio.html`);
   console.log(`🗺️ Roadmap Estratégico Shopee:   ${NGROK_URL}/roadmap.html`);

@@ -3906,6 +3906,15 @@
       </div>
 
       <div class="shopee-topbar-right">
+
+        <!-- Token de Autenticação / Acesso Remoto -->
+        <button class="btn-header" id="btn-panel-auth" onclick="promptPanelAuthToken()" title="Configurar Token de Autenticação (Acesso Remoto/Túnel)">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+          </svg>
+          <span id="panel-auth-label">Auth Token</span>
+        </button>
         <!-- Indicador de Lote Ativo -->
         <div class="header-batch-pill" id="header-batch-pill" title="Lote / Planilha ativa da esteira">
           <span class="batch-pill-label">LOTE ATIVO:</span>
@@ -6952,6 +6961,114 @@
         }
       } catch (err) {
         // Erro silencioso de conexão
+      }
+
+      // Checagem de solicitações de preço pendentes (Decisão D1)
+      checkPendingPriceRequests();
+    }
+
+    const promptedPriceSkus = new Set();
+        function getPanelAuthHeaders() {
+      const token = sessionStorage.getItem('PANEL_TOKEN') || '';
+      const headers = { 'Content-Type': 'application/json' };
+      if (token) headers['x-panel-token'] = token;
+      return headers;
+    }
+
+    function promptPanelAuthToken() {
+      const current = sessionStorage.getItem('PANEL_TOKEN') || '';
+      const entered = window.prompt('🔒 Digite o PANEL_TOKEN configurado no servidor (necessário apenas para acesso externo ou túnel Cloudflare/Ngrok):', current);
+      if (entered !== null) {
+        const trimmed = entered.trim();
+        if (trimmed) {
+          sessionStorage.setItem('PANEL_TOKEN', trimmed);
+          updateAuthButtonState();
+          showToast('🔑 Token de autenticação salvo na sessão do navegador!');
+        } else {
+          sessionStorage.removeItem('PANEL_TOKEN');
+          updateAuthButtonState();
+          showToast('ℹ️ Token removido da sessão.');
+        }
+      }
+    }
+
+    function updateAuthButtonState() {
+      const btn = document.getElementById('btn-panel-auth');
+      const label = document.getElementById('panel-auth-label');
+      if (!btn || !label) return;
+      const token = sessionStorage.getItem('PANEL_TOKEN');
+      if (token) {
+        btn.classList.add('notif-active');
+        btn.style.borderColor = 'rgba(16, 185, 129, 0.4)';
+        btn.style.color = '#10B981';
+        label.textContent = 'Token: Ativo';
+      } else {
+        btn.classList.remove('notif-active');
+        btn.style.borderColor = '';
+        btn.style.color = '';
+        label.textContent = 'Auth Token';
+      }
+    }
+    async function checkPendingPriceRequests() {
+      try {
+        const res = await fetch('/api/price-requests/pending', { headers: getPanelAuthHeaders() });
+        if (!res.ok) return;
+        const data = await res.json();
+        if (data.pending && data.pending.length > 0) {
+          for (const item of data.pending) {
+            if (item.status === 'pending' && !promptedPriceSkus.has(item.sku)) {
+              promptedPriceSkus.add(item.sku);
+              showPricePromptCard(item);
+            }
+          }
+        }
+      } catch {}
+    }
+
+    function showPricePromptCard(item) {
+      const cardHtml = `
+        <div style="background: rgba(238, 77, 45, 0.08); border: 1px solid rgba(238, 77, 45, 0.35); border-radius: 8px; padding: 12px; margin-top: 8px;">
+          <div style="font-weight: 700; color: #FFF; font-size: 0.85rem; margin-bottom: 4px;">
+            💰 SKU sem preço na Shopify: <span style="color: #EE4D2D;">${item.sku}</span>
+          </div>
+          <div style="font-size: 0.78rem; color: var(--text-muted); margin-bottom: 8px;">
+            "${item.title}". Informe o preço regular (ex: 189,90 ou 199.90):
+          </div>
+          <div style="display: flex; gap: 8px; align-items: center;">
+            <input type="text" id="price-input-${item.sku}" placeholder="R$ 0,00" style="width: 110px; padding: 6px 10px; background: #0D121E; border: 1px solid rgba(255,255,255,0.15); border-radius: 6px; color: #FFF; font-size: 0.82rem;" />
+            <button class="chip-btn chip-highlight" onclick="submitPriceResponse('${item.sku}')" style="padding: 6px 12px; font-size: 0.8rem;">
+              Salvar Preço
+            </button>
+          </div>
+        </div>
+      `;
+      appendBotMessage('agent2', `❓ **Preço regular obrigatório para SKU ${item.sku}**`, cardHtml);
+      showToast(`Atenção: SKU ${item.sku} aguardando definição de preço`);
+    }
+
+    async function submitPriceResponse(sku) {
+      const input = document.getElementById(`price-input-${sku}`);
+      if (!input) return;
+      const val = input.value.trim();
+      if (!val) {
+        showToast('Digite o preço antes de salvar');
+        return;
+      }
+      try {
+        const res = await fetch('/api/price-requests/respond', {
+          method: 'POST',
+          headers: getPanelAuthHeaders(),
+          body: JSON.stringify({ sku, price: val })
+        });
+        const data = await res.json();
+        if (data.success) {
+          showToast(`Preço do SKU ${sku} salvo com sucesso!`);
+          appendBotMessage('agent2', `✅ Preço R$ ${data.request.price.toFixed(2)} registrado para o SKU **${sku}**. O enriquecimento continuará.`);
+        } else {
+          showToast(`Erro: ${data.error || 'Preço inválido'}`);
+        }
+      } catch (err) {
+        showToast(`Erro ao enviar preço: ${err.message}`);
       }
     }
 

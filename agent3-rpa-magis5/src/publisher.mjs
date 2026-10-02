@@ -692,19 +692,30 @@ function enforceMax60Title(t) {
           const tagName = await field.evaluate((el) => el.tagName);
           if (tagName === "SELECT") {
             const valStr = String(attrVal);
-            await field.selectOption({ label: valStr }).catch(async () => {
-              await field.selectOption(valStr).catch(async () => {
+            let matched = false;
+            try {
+              await field.selectOption({ label: valStr });
+              matched = true;
+            } catch {
+              try {
+                await field.selectOption(valStr);
+                matched = true;
+              } catch {
                 const options = await field.locator('option').all();
                 for (const opt of options) {
                   const optText = (await opt.innerText()).trim();
                   if (normalize(optText) === normalize(valStr)) {
                     const optVal = await opt.getAttribute('value');
-                    await field.selectOption(optVal).catch(() => {});
+                    await field.selectOption(optVal);
+                    matched = true;
                     break;
                   }
                 }
-              });
-            });
+              }
+            }
+            if (!matched) {
+              console.warn(`  ⚠️ Campo '${labelText}': valor '${valStr}' não encontrado entre as opções disponíveis do formulário.`);
+            }
           } else {
             await field.fill(String(attrVal));
           }
@@ -935,12 +946,16 @@ function enforceMax60Title(t) {
   for (let i = 0; i < variationsToCreate.length; i++) {
     const v = variationsToCreate[i];
     const skuInput = page.locator(`#variationSKU-${i}`);
-    if (await skuInput.isVisible().catch(() => false)) {
-      const skuVal = v.cod_sankhya || product.cod_sankhya || v.sku || product.sku;
+      let rawCandidate = (v.cod_sankhya && /^\d{1,16}$/.test(String(v.cod_sankhya).trim()))
+        ? String(v.cod_sankhya).trim()
+        : ((product.cod_sankhya && /^\d{1,16}$/.test(String(product.cod_sankhya).trim()))
+          ? String(product.cod_sankhya).trim()
+          : (v.sku || product.sku || ""));
+      const skuVal = String(rawCandidate).trim().slice(0, 16);
       if (skuVal) {
         await skuInput.scrollIntoViewIfNeeded();
         await skuInput.fill(skuVal);
-        console.log(`  • Variação ${i} (${v.nome}): SKU preenchido com código do Sankhya: "${skuVal}"`);
+        console.log(`  • Variação ${i} (${v.nome}): SKU preenchido com código do Sankhya/SKU: "${skuVal}"`);
         await page.waitForTimeout(500);
       }
     }

@@ -19,8 +19,8 @@ import { resolve, join, basename, extname, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import { parse } from "csv-parse/sync";
 import { stringify } from "csv-stringify/sync";
-import { enhanceImage } from "./imageEnhancer.mjs";
 import { extractParentSku, extractVariationSuffix } from "../agent2-enricher/grouping.mjs";
+import { setupLockAutoRelease } from "../agent2-enricher/lock_manager.mjs";
 
 const SCRIPT_DIR = dirname(fileURLToPath(import.meta.url));
 const DEFAULT_INPUT = resolve(SCRIPT_DIR, "lote_d1fae5.csv");
@@ -171,49 +171,65 @@ const SHOPIFY_DOMAINS = [
  * Tenta pelo SKU da variação e, se não encontrar, tenta pelo parentSku.
  */
 async function fetchProductFromShopify(sku, fallbackParentSku = null) {
-  const skusToTry = [sku];
-  if (fallbackParentSku && fallbackParentSku !== sku) {
-    skusToTry.push(fallbackParentSku);
+  const cleanSku = String(sku).trim();
+  const searchCandidates = [cleanSku];
+  if (cleanSku.includes("_")) searchCandidates.push(cleanSku.split("_")[0]);
+  if (fallbackParentSku && !searchCandidates.includes(fallbackParentSku)) {
+    searchCandidates.push(fallbackParentSku);
+    if (fallbackParentSku.includes("_")) searchCandidates.push(fallbackParentSku.split("_")[0]);
   }
+  // Remove sufixos comuns de tamanho/modelo ex: C01060_G -> C01060
+  const baseSku = cleanSku.replace(/[_\-](PP|P|M|G|GG|XG|G1|G2|G3|G4|3[4-9]|4[0-8])$/i, "");
+  if (!searchCandidates.includes(baseSku)) searchCandidates.push(baseSku);
 
-  for (const currentSku of skusToTry) {
-    const cleanSku = String(currentSku).trim();
-    const searchSku = cleanSku.includes("_") ? cleanSku.split("_")[0] : cleanSku;
+  let lastNetworkError = null;
 
+  for (const currentSku of searchCandidates) {
     for (const domain of SHOPIFY_DOMAINS) {
-      try {
-        const suggestUrl = `${domain}/search/suggest.json?q=${encodeURIComponent(searchSku)}&resources[type]=product`;
-        const res = await fetch(suggestUrl, {
-          headers: { "User-Agent": USER_AGENT },
-          signal: AbortSignal.timeout(6000),
-        });
+      for (let attempt = 0; attempt < 2; attempt++) {
+        try {
+          const suggestUrl = `${domain}/search/suggest.json?q=${encodeURIComponent(currentSku)}&resources[type]=product`;
+          const res = await fetch(suggestUrl, {
+            headers: { "User-Agent": USER_AGENT },
+            signal: AbortSignal.timeout(6000),
+          });
 
-        if (!res.ok) continue;
+          if (res.status === 429) {
+            console.warn(`  ⚠️ Rate limit (429) em ${domain}. Aguardando 2s antes de tentar novamente...`);
+            await new Promise(r => setTimeout(r, 2000));
+            continue;
+          }
 
-        const data = await res.json();
-        const products = data?.resources?.results?.products || [];
-        if (products.length === 0) continue;
+          if (!res.ok) continue;
 
-        const handle = products[0].handle;
-        const productRes = await fetch(`${domain}/products/${handle}.js`, {
-          headers: { "User-Agent": USER_AGENT },
-          signal: AbortSignal.timeout(6000),
-        });
+          const data = await res.json();
+          const products = data?.resources?.results?.products || [];
+          if (products.length === 0) break; // Sem produtos para esse candidato
 
-        if (!productRes.ok) continue;
+          const handle = products[0].handle;
+          const productRes = await fetch(`${domain}/products/${handle}.js`, {
+            headers: { "User-Agent": USER_AGENT },
+            signal: AbortSignal.timeout(6000),
+          });
 
-        const product = await productRes.json();
-        if (product) {
-          product._sourceDomain = domain;
-          return product;
+          if (!productRes.ok) continue;
+
+          const product = await productRes.json();
+          if (product) {
+            product._sourceDomain = domain;
+            return { product, networkError: false };
+          }
+        } catch (err) {
+          lastNetworkError = err.message;
+          if (attempt === 0) {
+            await new Promise(r => setTimeout(r, 1000));
+          }
         }
-      } catch {
-        // Tenta próximo domínio
       }
     }
   }
 
-  return null;
+  return { product: null, networkError: Boolean(lastNetworkError), errorDetail: lastNetworkError };
 }
 
 /**
@@ -241,6 +257,7 @@ async function downloadAndEnhanceImage(url, destPath) {
 }
 
 async function main() {
+  setupLockAutoRelease("agent1");
   const { inputFile, limit, targetSku, collection: argCollection } = parseArgs();
 
   console.log("═══════════════════════════════════════════════════════════════");
@@ -381,10 +398,17 @@ async function main() {
     console.log(`${progresso} 🔍 Buscando produto: ${sku} - ${item.titulo_bruto || ""}`);
 
     try {
-      const shopifyData = await fetchProductFromShopify(sku, parentSku);
+      const searchRes = await fetchProductFromShopify(sku, parentSku);
+      const shopifyData = searchRes?.product;
+
       if (!shopifyData) {
-        console.warn(`${progresso} ⚠️ Produto não encontrado nos sites BRK (Fishing / Agro / Motors).`);
-        item.status = "erro: produto nao encontrado no site";
+        if (searchRes?.networkError) {
+          console.warn(`${progresso} ⚠️ Erro de rede ou timeout ao consultar sites BRK (${searchRes.errorDetail || "falha de conexão"}).`);
+          item.status = "erro: falha de rede ao consultar sites BRK";
+        } else {
+          console.warn(`${progresso} ⚠️ SKU ${sku} não está publicado nos sites BRK; sem fotos.`);
+          item.status = `erro: SKU ${sku} não está publicado nos sites BRK; sem fotos`;
+        }
         erros++;
         continue;
       }
@@ -392,8 +416,8 @@ async function main() {
 
       const images = shopifyData.images || [];
       if (images.length === 0) {
-        console.warn(`${progresso} ⚠️ Nenhuma foto encontrada para o produto.`);
-        item.status = "erro: sem fotos";
+        console.warn(`${progresso} ⚠️ SKU ${sku} não está publicado nos sites BRK; sem fotos.`);
+        item.status = `erro: SKU ${sku} não está publicado nos sites BRK; sem fotos`;
         erros++;
         continue;
       }

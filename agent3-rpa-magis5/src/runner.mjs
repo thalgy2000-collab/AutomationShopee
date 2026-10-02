@@ -16,6 +16,7 @@ import { loadAndValidateAll } from "./checkpoint.mjs";
 import { getAuthenticatedContext } from "./auth.mjs";
 import { publishProductToMagis5 } from "./publisher.mjs";
 import { extractParentSku } from "../../agent2-enricher/grouping.mjs";
+import { setupLockAutoRelease } from "../../agent2-enricher/lock_manager.mjs";
 
 /**
  * Parsing de argumentos CLI:
@@ -73,6 +74,7 @@ function parseCliArgs() {
 }
 
 async function main() {
+  setupLockAutoRelease("agent3");
   const { targetSku, limit, headed, dryRun, inputFile, onlyVaras, force } = parseCliArgs();
 
   console.log("═══════════════════════════════════════════════════════════");
@@ -222,14 +224,21 @@ async function main() {
       console.log(`\n${progresso} Iniciando processamento do produto ${item.sku}...`);
 
       try {
-        const res = await publishProductToMagis5(page, item.product, { dryRun });
+        const isRevisaoCategoria = Boolean(item.product.revisao_categoria);
+        const effectiveDryRun = dryRun || isRevisaoCategoria;
+
+        if (isRevisaoCategoria) {
+          console.warn(`⚠️ [DECISÃO D3] SKU ${item.sku} possui 'revisao_categoria: true' (${item.product.motivo_revisao_categoria || 'categoria incerta'}). Mantido como RASCUNHO seguro, sem publicação definitiva.`);
+        }
+
+        const res = await publishProductToMagis5(page, item.product, { dryRun: effectiveDryRun });
         if (!res.success) {
           throw new Error(res.error || "Magis5 recusou salvar o anúncio");
         }
         results.sucesso.push(res);
 
         // Se foi publicação real, atualiza na planilha com a cor #83E28E e status 'publicado'
-        if (!dryRun) {
+        if (!effectiveDryRun) {
           let updatedCount = 0;
           for (const r of csvRecords) {
             const pSku = extractParentSku(r.sku);
@@ -260,6 +269,26 @@ async function main() {
         const errScreenshot = join(SCREENSHOTS_DIR, `erro-${item.sku}-${Date.now()}.png`);
         await page.screenshot({ path: errScreenshot, fullPage: true }).catch(() => {});
         results.erros.push({ sku: item.sku, erro: err.message, screenshot: errScreenshot });
+
+        // Propaga erro com etapa e motivo para a planilha
+        const errMsg = `erro: magis5: ${err.message.slice(0, 80)}`;
+        for (const r of csvRecords) {
+          const pSku = extractParentSku(r.sku);
+          if (r.sku === item.sku || pSku === item.sku || r.sku?.startsWith(item.sku + "_") || r.sku?.startsWith(item.sku)) {
+            r.status = errMsg;
+          }
+        }
+        try {
+          await writeFile(activeCsvPath, stringify(csvRecords, { header: true }), "utf-8");
+        } catch {}
+
+        try {
+          await fetch("http://localhost:3000/api/status", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ sku: item.sku, status: errMsg }),
+          });
+        } catch {}
       }
     }
 

@@ -171,3 +171,56 @@ export function getProductPrices(priceCache, sku) {
   return null;
 }
 
+/**
+ * Busca preço sob demanda na API Shopify para um único SKU ou pai.
+ */
+export async function fetchSingleProductPrice(sku) {
+  if (!sku) return null;
+  const clean = sku.trim().toUpperCase();
+  const searchSku = clean.includes("_") ? clean.split("_")[0] : clean;
+  const domains = [
+    "https://brkfishing.com.br",
+    "https://www.brkagro.com.br",
+    "https://www.brkmotors.com.br",
+  ];
+
+  for (const domain of domains) {
+    try {
+      const suggestUrl = `${domain}/search/suggest.json?q=${encodeURIComponent(searchSku)}&resources[type]=product`;
+      const res = await fetch(suggestUrl, { signal: AbortSignal.timeout(6000) });
+      if (!res.ok) continue;
+      const data = await res.json();
+      const products = data?.resources?.results?.products || [];
+      if (products.length === 0) continue;
+
+      const handle = products[0].handle;
+      const productRes = await fetch(`${domain}/products/${handle}.js`, { signal: AbortSignal.timeout(6000) });
+      if (!productRes.ok) continue;
+
+      const p = await productRes.json();
+      if (!p || !p.variants || p.variants.length === 0) continue;
+
+      // Procura match de variante ou usa a primeira
+      const matchedVariant = p.variants.find((v) => (v.sku || "").toUpperCase().trim() === clean) || p.variants[0];
+      const price = (parseFloat(matchedVariant.price) || 0) / (matchedVariant.price > 1000 && !String(matchedVariant.price).includes(".") ? 100 : 1);
+      const compareAt = matchedVariant.compare_at_price
+        ? (parseFloat(matchedVariant.compare_at_price) || 0) / (matchedVariant.compare_at_price > 1000 && !String(matchedVariant.compare_at_price).includes(".") ? 100 : 1)
+        : 0;
+
+      const hasPromo = compareAt > price && compareAt > 0;
+      return {
+        preco_sem_promocao: hasPromo ? compareAt : price,
+        preco_com_promocao: hasPromo ? price : null,
+        preco_atual: price,
+        em_promocao: hasPromo,
+        desconto_percentual: hasPromo ? Math.round(((compareAt - price) / compareAt) * 100) : 0,
+        origem: domain,
+      };
+    } catch {
+      // Ignora erro e tenta próximo domínio
+    }
+  }
+
+  return null;
+}
+

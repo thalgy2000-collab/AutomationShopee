@@ -185,6 +185,8 @@ export function generatePipelineReport() {
           variationsCount: (pData.variacoes || []).length,
           price: pData.preco?.preco_atual || pData.preco_atual || null,
           hasFullSpecs: Boolean(pData.atributos && Object.keys(pData.atributos).length > 5),
+          revisao_categoria: Boolean(pData.revisao_categoria),
+          motivo_revisao_categoria: pData.motivo_revisao_categoria || null,
           filePath: pPath
         });
       } catch {}
@@ -298,9 +300,15 @@ export function generatePipelineReport() {
           stageLabel = '✓ Publicado Magis5';
           stageColor = '#10B981';
         } else if (isEnriched) {
-          currentStage = '2_enriquecido';
-          stageLabel = '⚡ Pronto para Publicar';
-          stageColor = '#8B5CF6';
+          if (enrichedInfo?.revisao_categoria) {
+            currentStage = '2_revisar_categoria';
+            stageLabel = '⚠️ Revisar Categoria (Rascunho)';
+            stageColor = '#F59E0B';
+          } else {
+            currentStage = '2_enriquecido';
+            stageLabel = '⚡ Pronto para Publicar';
+            stageColor = '#8B5CF6';
+          }
         } else if (hasPhotos) {
           currentStage = '1_fotos';
           stageLabel = '📸 Fotos Coletadas';

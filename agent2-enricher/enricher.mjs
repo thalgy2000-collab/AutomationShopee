@@ -29,9 +29,11 @@ import {
   extractVariationSuffix,
   extractBaseTitle,
 } from "./grouping.mjs";
-import { fetchAndCacheShopifyPrices, getProductPrices } from "./shopify_prices.mjs";
+import { fetchAndCacheShopifyPrices, getProductPrices, fetchSingleProductPrice } from "./shopify_prices.mjs";
 import { fetchProductFromAnyStore, downloadProductImages } from "./shopify_fetcher.mjs";
 import { resolveCorrectShopeeCategory } from "../agent4-diagnostician/rules.mjs";
+import { sanitizeSankhyaCode } from "../agent1-scraper/colorFilter.mjs";
+import { setupLockAutoRelease } from "./lock_manager.mjs";
 import {
   isModelBlocked,
   blockModelUntilNextDay,
@@ -90,6 +92,56 @@ function logError(msg) {
 function logSuccess(msg) {
   const now = new Date().toLocaleTimeString("pt-BR", { hour12: false });
   console.log(`[${now}] ✅ ${msg}`);
+}
+
+/**
+ * Solicita preço ao usuário através do endpoint local do painel (Decisão D1).
+ * Não bloqueia o lote: registra a solicitação no painel e retorna null imediatamente
+ * para que o SKU fique como "aguardando preço" e o robô continue o lote sem pausa.
+ */
+async function promptUserForPrice(sku, title = "") {
+  const serverPort = process.env.PORT || 3000;
+  const baseUrl = `http://localhost:${serverPort}`;
+  const headers = { "Content-Type": "application/json" };
+  if (process.env.PANEL_TOKEN) headers["x-panel-token"] = process.env.PANEL_TOKEN;
+
+  log(`💬 [D1] Registrando solicitação de preço regular para SKU ${sku} no painel...`);
+
+  try {
+    // 1. Checa se o usuário já havia respondido previamente via painel
+    const statusRes = await fetch(`${baseUrl}/api/price-requests/status/${encodeURIComponent(sku)}`, {
+      headers,
+      signal: AbortSignal.timeout(2000),
+    }).catch(() => null);
+
+    if (statusRes && statusRes.ok) {
+      const data = await statusRes.json().catch(() => null);
+      if (data?.request?.responded && data.request.price > 0) {
+        logSuccess(`Preço já registrado via painel para ${sku}: R$ ${data.request.price.toFixed(2)}`);
+        return {
+          preco_sem_promocao: data.request.price,
+          preco_com_promocao: null,
+          preco_atual: data.request.price,
+          em_promocao: false,
+          desconto_percentual: 0,
+          manual: true,
+        };
+      }
+    }
+
+    // 2. Abre solicitação pendente no painel sem bloquear o lote
+    await fetch(`${baseUrl}/api/price-requests/create`, {
+      method: "POST",
+      headers,
+      body: JSON.stringify({ sku, title }),
+      signal: AbortSignal.timeout(3000),
+    }).catch(() => null);
+  } catch (err) {
+    log(`⚠️ Não foi possível comunicar com o endpoint do painel: ${err.message}`);
+  }
+
+  log(`⏩ [D1] SKU ${sku} registrado no painel como pendente de preço. Lote prossegue sem travar.`);
+  return null;
 }
 
 /**
@@ -766,6 +818,7 @@ async function enrichProductWithGroq(sku, tituloBruto, images, variacoesList = [
 // ─────────────────────────────────────────────────────────────────────────────
 
 async function main() {
+  setupLockAutoRelease("agent2");
   const { inputFile, limit, targetSku, force, startLine, offset, batchSize, batchPause, preferredModel } = parseArgs();
 
   log(`═══════════════════════════════════════════════════`);
@@ -1029,30 +1082,57 @@ async function main() {
     }
 
     // 3. Obter Preços da Shopify (preço normal e promocional)
-    const parentPrice = getProductPrices(priceCache, parentSku);
-    result.data.preco = parentPrice
-      ? {
-          preco_sem_promocao: parentPrice.preco_sem_promocao ?? null,
-          preco_com_promocao: parentPrice.preco_com_promocao ?? null,
-          preco_atual: parentPrice.preco_atual ?? null,
-          em_promocao: Boolean(parentPrice.em_promocao),
-          desconto_percentual: parentPrice.desconto_percentual || 0,
+    let parentPrice = getProductPrices(priceCache, parentSku);
+    if (!parentPrice || !parentPrice.preco_sem_promocao) {
+      // Tenta busca em tempo real na Shopify
+      log(`🔍 Preço de ${parentSku} não encontrado no catálogo estático. Buscando sob demanda nas lojas BRK...`);
+      const onlinePrice = await fetchSingleProductPrice(parentSku);
+      if (onlinePrice) {
+        parentPrice = onlinePrice;
+        logSuccess(`Preço online localizado para ${parentSku}: R$ ${onlinePrice.preco_sem_promocao}`);
+      } else {
+        // Solicita ao humano via painel (Decisão D1)
+        const userPrice = await promptUserForPrice(parentSku, result.data.titulo_shopee || baseTitle);
+        if (userPrice) {
+          parentPrice = userPrice;
         }
-      : null;
+      }
+    }
+
+    if (!parentPrice || !parentPrice.preco_sem_promocao) {
+      const motivo = "aguardando preço regular (solicitado via painel)";
+      log(`⚠️ ${progresso} SKU ${parentSku}: ${motivo}. Prosseguindo com os demais produtos do lote.`);
+      for (const it of items) {
+        it.record.status = "aguardando preço";
+      }
+      report.erros.push({ sku: parentSku, motivo });
+      await writeCsv(activeCsvFile, records);
+      continue;
+    }
+
+    result.data.preco = {
+      preco_sem_promocao: parentPrice.preco_sem_promocao ?? null,
+      preco_com_promocao: parentPrice.preco_com_promocao ?? null,
+      preco_atual: parentPrice.preco_atual ?? null,
+      em_promocao: Boolean(parentPrice.em_promocao),
+      desconto_percentual: parentPrice.desconto_percentual || 0,
+      manual: Boolean(parentPrice.manual),
+    };
 
     result.data.sku = parentSku;
     result.data.parent_sku = parentSku;
     result.data.is_parent = isGroup;
 
-    const sankhyaCodes = items.map((it) => it.record?.cod_sankhya).filter(Boolean);
-    result.data.cod_sankhya = items[0]?.record?.cod_sankhya || (sankhyaCodes.length > 0 ? sankhyaCodes.join(", ") : "");
+    const sankhyaCodes = items.map((it) => sanitizeSankhyaCode(it.record?.cod_sankhya)).filter(Boolean);
+    const primarySankhya = sanitizeSankhyaCode(items[0]?.record?.cod_sankhya);
+    result.data.cod_sankhya = primarySankhya || (sankhyaCodes.length > 0 ? sankhyaCodes[0] : "");
 
     if (isGroup) {
       result.data.variacoes = items.map((it) => {
         const vPrice = getProductPrices(priceCache, it.sku);
         return {
           sku: it.sku,
-          cod_sankhya: it.record?.cod_sankhya || "",
+          cod_sankhya: sanitizeSankhyaCode(it.record?.cod_sankhya) || "",
           nome: it.variationName, // Apenas o nome do sufixo! (ex: SAKURAP, MATT, A, B)
           preco_sem_promocao: vPrice?.preco_sem_promocao ?? parentPrice?.preco_sem_promocao ?? null,
           preco_com_promocao: vPrice?.preco_com_promocao ?? parentPrice?.preco_com_promocao ?? null,

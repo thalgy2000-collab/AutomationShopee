@@ -5,6 +5,8 @@
  * obrigatórios e esteja no formato correto para o pipeline.
  */
 
+import { resolveCorrectShopeeCategory } from "../agent4-diagnostician/rules.mjs";
+
 // Medidas fixas de embalagem (definidas no plano original)
 const MEDIDAS_FIXAS = {
   altura_cm: 3,
@@ -315,109 +317,12 @@ export function validateAndNormalize(data, sku, parentSku = null) {
     }
   }
 
-  // Normalizar Categoria Padrão Shopee (Bandanas, Iscas, Anzóis, Sandálias, Varas)
-  const CATEGORIA_PADRAO_BANDANAS =
-    "Acessórios de Moda > Bonés, Chapéus e Toucas";
-  const CATEGORIA_PADRAO_ISCAS =
-    "Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Iscas";
-  const CATEGORIA_PADRAO_ANZOIS =
-    "Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Anzóis";
-  const CATEGORIA_PADRAO_SANDALIAS_MASC =
-    "Sapatos Masculinos > Sandalia e Chinelos > Chinelos";
-  const CATEGORIA_PADRAO_VARAS =
-    "Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Varas e Molinetes de Pesca";
+  // Normalizar Categoria Oficial Shopee (fonte única de verdade com D3)
+  if (!data.sku) data.sku = sku;
+  data.categoria_sugerida = resolveCorrectShopeeCategory(data);
 
-  const fullTextNorm = `${data.titulo_shopee || ""} ${data.modelo || ""} ${data.descricao || ""} ${data.categoria_sugerida || ""} ${data.sku || ""}`.toLowerCase();
-
-  const isBandana =
-    /bandana|tubeneck|tube\s*neck|balaclava|pescoceira|faixa\s*de\s*pesco[çc]o|len[çc]o|\bbuff\b/i.test(fullTextNorm) ||
-    /^[Tt]\d{2,4}/i.test(data.sku || "") ||
-    /^BM\d+/i.test(data.sku || "") ||
-    /^(CAMU_T|LISAS_T)/i.test(data.sku || "") ||
-    (Array.isArray(data.skus_componentes) &&
-      data.skus_componentes.some((s) => /^[Tt]\d{2,4}|^BM|^(CAMU_T|LISAS_T)/i.test(s)));
-
-  const isAnzol =
-    !isBandana && (
-      /anzol|encastoado|hook/i.test(data.titulo_shopee || "") ||
-      /anzol|encastoado|hook/i.test(data.modelo || "")
-    );
-
-  const isSandaliaOuChinelo =
-    !isBandana && (
-      /sand[aá]lia|chinelo|babuche|croc|clog|tamanco|\bslides?\b/i.test(data.titulo_shopee || "") ||
-      /sand[aá]lia|chinelo|babuche|croc|clog|tamanco|\bslides?\b/i.test(data.modelo || "") ||
-      /sand[aá]lia|chinelo|babuche|croc|clog|tamanco|\bslides?\b/i.test(data.categoria_sugerida || "") ||
-      /colt|brave|boaonda/i.test(data.sku || "")
-    );
-
-  const isFeminina =
-    /feminin|mulher|starfem|flowf/i.test(data.titulo_shopee || "") ||
-    /feminin|mulher|starfem|flowf/i.test(data.sku || "");
-
-  const isSandaliaMasculina = isSandaliaOuChinelo && !isFeminina;
-
-  const isVara =
-    !isBandana &&
-    !isSandaliaOuChinelo &&
-    !/suporte|salva\s*vara|porta\s*vara/i.test(data.titulo_shopee || "") &&
-    !/suporte|salva\s*vara|porta\s*vara/i.test(data.modelo || "") &&
-    (
-      /\bvara\b|blank|\bvaras\b/i.test(data.titulo_shopee || "") ||
-      /\bvara\b|blank|\bvaras\b/i.test(data.modelo || "") ||
-      /varas/i.test(data.categoria_sugerida || "") ||
-      /^VP/i.test(data.sku || "")
-    );
-
-  const isIsca =
-    !isBandana &&
-    !isAnzol &&
-    !isSandaliaOuChinelo &&
-    !isVara && (
-      /isca/i.test(data.categoria_sugerida || "") ||
-      /isca/i.test(data.titulo_shopee || "") ||
-      /popper|minnow|zara|stick|crank|shad|frog|sapo|jumping/i.test(data.titulo_shopee || "") ||
-      /popper|minnow|zara|stick|crank|shad|frog|sapo|jumping/i.test(data.modelo || "")
-    );
-
-  const isCamisa =
-    !isBandana &&
-    !isSandaliaOuChinelo &&
-    !isVara &&
-    (
-      /camisa|camiseta|vestu[aá]rio|baby\s*look|infantil|manga\s*longa|manga\s*curta|agro/i.test(fullTextNorm) ||
-      (data.categoria_sugerida && /camisa|roupa|vestu[aá]rio/i.test(data.categoria_sugerida)) ||
-      /^[Cc]0\d+/i.test(data.sku || "") ||
-      /^CAX/i.test(data.sku || "") ||
-      /^FUSION/i.test(data.sku || "") ||
-      /^CBT/i.test(data.sku || "") ||
-      /^CMB/i.test(data.sku || "") ||
-      /^APC/i.test(data.sku || "") ||
-      /^ADV/i.test(data.sku || "") ||
-      /BL/i.test(data.sku || "")
-    );
-
-  if (isBandana) {
-    data.categoria_sugerida = CATEGORIA_PADRAO_BANDANAS;
-  } else if (isSandaliaMasculina) {
-    data.categoria_sugerida = CATEGORIA_PADRAO_SANDALIAS_MASC;
-  } else if (isVara) {
-    data.categoria_sugerida = CATEGORIA_PADRAO_VARAS;
-  } else if (isAnzol) {
-    data.categoria_sugerida = CATEGORIA_PADRAO_ANZOIS;
-  } else if (isIsca) {
-    data.categoria_sugerida = CATEGORIA_PADRAO_ISCAS;
-  } else if (isCamisa) {
-    const isFem = /feminin|mulher|starfem|flowf|baby\s*look/i.test(data.titulo_shopee || "") || /_bl$|-bl$|bl$/i.test(data.sku || "");
-    const isInfantil = (/\binfantil\b|\binfantis\b|\bcrian[çc]a\b|\bkids\b|\bjuvenil\b/i.test(data.titulo_shopee || "") || /_inf$|-inf$/i.test(data.sku || "")) && !isFem && !/masculin/i.test(data.titulo_shopee || "");
-    if (isInfantil) {
-      data.categoria_sugerida = "Moda Infantil > Roupas Infantis > Blusas";
-    } else if (isFem) {
-      data.categoria_sugerida = "Roupas Femininas > Blusas > Camisas e Blusas";
-    } else {
-      data.categoria_sugerida = "Roupas Masculinas > Blusas > Camisas";
-    }
-  }
+  const isCamisa = (data.categoria_sugerida || "").includes("Camisas") ||
+    (data.categoria_sugerida || "").includes("Blusas");
 
   // 1. Verificar campos obrigatórios
   for (const field of REQUIRED_FIELDS) {

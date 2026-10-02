@@ -4,7 +4,8 @@ import { writeFile } from "node:fs/promises";
 import { resolve, join } from "node:path";
 import { stringify } from "csv-stringify/sync";
 
-const DEFAULT_XLS = "C:\\Users\\marke\\Downloads\\Estoque Douglas IMP.xls";
+const userHome = process.env.USERPROFILE || process.env.HOME || ".";
+const DEFAULT_XLS = join(userHome, "Downloads", "Estoque Douglas IMP.xls");
 const DEFAULT_COLOR = "#D1FAE5";
 
 function parseArgs() {

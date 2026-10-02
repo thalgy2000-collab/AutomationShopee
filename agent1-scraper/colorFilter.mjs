@@ -127,20 +127,45 @@ export function extractProductsFromXls(filePath, targetColor = null) {
     }
   }
 
+  // Sanitização estrita do código Sankhya (ponto único de validação)
+  const isHeaderFound = headerRowIdx >= 0;
+  if (!isHeaderFound) {
+    console.warn(`⚠️ [colorFilter] Cabeçalho padrão não detectado em "${filePath}". Assumindo colunas: SKU=${colSku}, Sankhya=${colSankhya}, Desc=${colDesc}, Class=${colClass}`);
+  }
+
   // Fallbacks para formato Douglas caso não localize os nomes
   if (colSku === -1) colSku = 1;
   if (colSankhya === -1) colSankhya = 2;
   if (colDesc === -1) colDesc = 3;
   if (colClass === -1) colClass = 6;
-  const startRow = headerRowIdx >= 0 ? headerRowIdx + 1 : 1;
+  const startRow = isHeaderFound ? headerRowIdx + 1 : 1;
 
   for (let r = startRow; r < sheetData.length; r++) {
     const row = sheetData[r];
     if (!row) continue;
 
     const rawSku = String(row[colSku] || "").trim();
-    const rawSankhya = String(row[colSankhya] || "").trim();
+    let rawSankhyaCandidate = String(row[colSankhya] || "").trim();
     const rawDesc = String(row[colDesc] || "").trim();
+
+    // Validação estrita por conteúdo: cod_sankhya deve ser numérico de até 16 dígitos
+    let validSankhya = "";
+    if (/^\d{1,16}$/.test(rawSankhyaCandidate)) {
+      validSankhya = rawSankhyaCandidate;
+    } else {
+      // Se a coluna assumida continha texto, busca em outras colunas por um código numérico legítimo
+      for (let c = 0; c < row.length; c++) {
+        if (c === colSku || c === colDesc) continue;
+        const cellVal = String(row[c] || "").trim();
+        if (/^\d{3,16}$/.test(cellVal)) {
+          validSankhya = cellVal;
+          break;
+        }
+      }
+      if (rawSankhyaCandidate && !validSankhya) {
+        console.warn(`⚠️ [colorFilter] Linha ${r + 1} da planilha: valor não numérico descartado de cod_sankhya: "${rawSankhyaCandidate.substring(0, 30)}..."`);
+      }
+    }
 
     // Se SKU estiver vazio ou for string genérica de sistema, tenta extrair da descrição ou do código
     let finalSku = rawSku;
@@ -148,8 +173,8 @@ export function extractProductsFromXls(filePath, targetColor = null) {
       const match = rawDesc.match(/^([A-Z0-9_-]+)\s*-\s*/i);
       if (match) {
         finalSku = match[1].trim();
-      } else if (rawSankhya && /^\d+$/.test(rawSankhya)) {
-        finalSku = rawSankhya;
+      } else if (validSankhya) {
+        finalSku = validSankhya;
       }
     }
 
@@ -162,8 +187,8 @@ export function extractProductsFromXls(filePath, targetColor = null) {
 
     items.push({
       linha: r,
-      sku: finalSku || rawSankhya,
-      cod_sankhya: rawSankhya,
+      sku: finalSku || validSankhya,
+      cod_sankhya: validSankhya,
       titulo_bruto: rawDesc,
       status: "pendente",
       cor: rowColor,
@@ -172,4 +197,21 @@ export function extractProductsFromXls(filePath, targetColor = null) {
   }
 
   return items;
+}
+
+export function sanitizeSankhyaCode(val) {
+  if (!val) return "";
+  const str = String(val).trim();
+  const requiredLen = parseInt(process.env.SANKHYA_CODE_LENGTH || "5", 10);
+  const regex = new RegExp(`^\\d{${requiredLen}}$`);
+
+  if (regex.test(str)) {
+    return str;
+  }
+
+  // Se for puramente numérico mas tiver tamanho diferente, avisa no log
+  if (/^\d+$/.test(str)) {
+    console.warn(`⚠️ [sanitizeSankhyaCode] Código Sankhya '${str}' tem ${str.length} dígitos (esperado: ${requiredLen} dígitos). Descartado por segurança.`);
+  }
+  return "";
 }

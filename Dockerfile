@@ -10,14 +10,18 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 # Copia arquivos de dependências para aproveitar o cache do Docker
 COPY package.json ./
+COPY agent0-sankhya/package*.json ./agent0-sankhya/
 COPY agent1-scraper/package*.json ./agent1-scraper/
 COPY agent2-enricher/package*.json ./agent2-enricher/
 COPY agent3-rpa-magis5/package*.json ./agent3-rpa-magis5/
+COPY agent5-shopee-attributes/package*.json ./agent5-shopee-attributes/
 
 # Instala todas as dependências dos submódulos
+RUN cd agent0-sankhya && (npm ci || npm install)
 RUN cd agent1-scraper && (npm ci || npm install)
 RUN cd agent2-enricher && (npm ci || npm install)
 RUN cd agent3-rpa-magis5 && (npm ci || npm install)
+RUN cd agent5-shopee-attributes && (npm ci || npm install)
 
 # Copia todo o código do projeto
 COPY . .

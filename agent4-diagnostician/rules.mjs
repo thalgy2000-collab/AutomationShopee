@@ -2,7 +2,7 @@
  * Regras de Diagnóstico e Catálogo de Soluções para Rejeições na Magis5/Shopee.
  */
 
-// Catálogo oficial de categorias válidas da Shopee para Pesca e Pet
+// Catálogo oficial de categorias válidas da Shopee para Pesca, Vestuário, Calçados e Pet
 export const SHOPEE_OFFICIAL_CATEGORIES = {
   iscas: "Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Iscas",
   linhas: "Esportes e Atividades ao Ar Livre > Equipamentos Esportivos e Recreação ao Ar Livre > Pescaria > Linhas de Pesca",
@@ -12,7 +12,9 @@ export const SHOPEE_OFFICIAL_CATEGORIES = {
   pet_caes_coleiras: "Animais Domésticos > Cães > Coleiras, Guias e Peitorais",
   pet_geral: "Animais Domésticos > Cães > Acessórios para Cães",
   copos_termicos: "Esportes e Atividades ao Ar Livre > Acessórios Esportivos e Atividades ao Ar Livre > Garrafas e Copos Térmicos",
+  botas_masculinas: "Sapatos Masculinos > Botas",
   sandalias_masculinas: "Sapatos Masculinos > Sandalia e Chinelos > Chinelos",
+  bones: "Acessórios de Moda > Bonés, Chapéus e Toucas",
   bandanas: "Acessórios de Moda > Bonés, Chapéus e Toucas",
   camisas: "Roupas Masculinas > Blusas > Camisas",
   camisas_femininas: "Roupas Femininas > Blusas > Camisas e Blusas",
@@ -20,80 +22,90 @@ export const SHOPEE_OFFICIAL_CATEGORIES = {
 };
 
 /**
- * Identifica a categoria oficial exata com base nas palavras-chave do produto.
+ * Identifica a categoria oficial exata com base nas características do produto (Regras + Decisão D3).
  */
 export function resolveCorrectShopeeCategory(product) {
   const fullText = `${product.titulo_shopee || ""} ${product.modelo || ""} ${product.descricao || ""} ${product.marca || ""} ${product.sku || ""}`.toLowerCase();
+  const sku = (product.sku || "").toUpperCase();
 
-  // -2. Bandanas, Tubeneck, Balaclavas e Toucas
-  const isBandana =
-    /bandana|tubeneck|tube\s*neck|balaclava|pescoceira|faixa\s*de\s*pesco[çc]o|len[çc]o|\bbuff\b/i.test(fullText) ||
-    /^[Tt]\d{2,4}/i.test(product.sku || "") ||
-    /^BM\d+/i.test(product.sku || "") ||
-    /^(CAMU_T|LISAS_T)/i.test(product.sku || "") ||
-    (Array.isArray(product.skus_componentes) &&
-      product.skus_componentes.some((s) => /^[Tt]\d{2,4}|^BM|^(CAMU_T|LISAS_T)/i.test(s)));
-  if (isBandana) {
-    return SHOPEE_OFFICIAL_CATEGORIES.bandanas;
+  // 1. Calçados (Botas, Botinas, Chinelos, Sandálias) - precede vestuário
+  const isFootwear = /bota|botina|coturno|calcado|calçado|sapato|sand[aá]lia|chinelo|babuche|croc|clog|tamanco|\bslides?\b/i.test(fullText) ||
+    /^(BT|COLT|BRAVE|BOAONDA)/i.test(sku);
+  if (isFootwear) {
+    const isBota = /bota|botina|coturno|country|trabalho|couro/i.test(fullText) || /^BT/i.test(sku);
+    if (isBota) {
+      return SHOPEE_OFFICIAL_CATEGORIES.botas_masculinas;
+    }
+    return SHOPEE_OFFICIAL_CATEGORIES.sandalias_masculinas;
   }
 
-  // -1. Camisas e Vestuário
-  const isCamisa = /camisa|camiseta|baby\s*look|vestu[aá]rio|agro/i.test(fullText) || /^c0/i.test(product.sku || "");
+  // 2. Bonés, Chapéus, Balaclavas e Bandanas - precede vestuário
+  const isHeadwear = /bon[eé]|bone|trucker|snapback|strapback|aba\s*curva|chap[eé]u|chapeu|gorro|boina|bandana|tubeneck|tube\s*neck|balaclava|pescoceira|\bbuff\b/i.test(fullText) ||
+    /^(BA\d|T\d|BM\d|CAMU_T|LISAS_T)/i.test(sku) ||
+    (Array.isArray(product.skus_componentes) && product.skus_componentes.some((s) => /^[Tt]\d{2,4}|^BM|^(CAMU_T|LISAS_T)|^BA/i.test(s)));
+  if (isHeadwear) {
+    return SHOPEE_OFFICIAL_CATEGORIES.bones;
+  }
+
+  // 3. Vestuário (Camisas, Camisetas, Baby Look)
+  const isCamisa = /camisa|camiseta|baby\s*look|manga\s*longa|manga\s*curta|regata|polo|blusa|vestu[aá]rio/i.test(fullText) ||
+    /^(C0|CAX|FUSION|CBT|CMB|APC|ADV)/i.test(sku);
   if (isCamisa) {
     const headerText = `${product.titulo_shopee || ""} ${product.modelo || ""} ${product.marca || ""}`.toLowerCase();
-    const isInfantil = /infantil|infantis|crian[çc]a|kids|juvenil/i.test(headerText) || /_inf$|-inf$/i.test(product.sku || "");
+    const isInfantil = (/\binfantil\b|\binfantis\b|\bcrian[çc]a\b|\bkids\b|\bjuvenil\b/i.test(headerText) || /_inf$|-inf$/i.test(sku)) &&
+      !/masculin|adulto|homem/i.test(headerText);
     if (isInfantil) {
       return SHOPEE_OFFICIAL_CATEGORIES.camisas_infantis;
     }
-    const isFem = /feminin|mulher|starfem|flowf|baby\s*look|babylook|\bbl\b/i.test(headerText) || /_BL$|-BL$|BL$/i.test(product.sku || "");
+    const isFem = /feminin|mulher|starfem|flowf|baby\s*look|babylook|\bbl\b/i.test(headerText) || /_BL$|-BL$|BL$/i.test(sku);
     if (isFem) {
       return SHOPEE_OFFICIAL_CATEGORIES.camisas_femininas;
     }
     return SHOPEE_OFFICIAL_CATEGORIES.camisas;
   }
 
-  // 0. Sandálias e Chinelos Masculinos
-  const isFootwear = /sand[aá]lia|chinelo|babuche|croc|clog|tamanco|\bslides?\b/i.test(fullText) || /colt|brave|adventure|flow|star/i.test(product.sku || "");
-  const isFem = /feminin|mulher|starfem|flowf/i.test(fullText);
-  if (isFootwear && !isFem) {
-    return SHOPEE_OFFICIAL_CATEGORIES.sandalias_masculinas;
+  // 4. Varas e Molinetes de Pesca
+  const isVara = !/suporte|salva\s*vara|porta\s*vara/i.test(fullText) &&
+    (/\bvara\b|blank|\bvaras\b|molinete|carretilha/i.test(fullText) || /^VP/i.test(sku));
+  if (isVara) {
+    return SHOPEE_OFFICIAL_CATEGORIES.varas;
   }
 
-  // 1. Linhas de Pesca
+  // 5. Linhas de Pesca
   if (/linha|monofilamento|multifilamento|fluorocarbono|fluorcarbon/i.test(fullText)) {
     return SHOPEE_OFFICIAL_CATEGORIES.linhas;
   }
 
-  // 2. Iscas Artificiais
+  // 6. Iscas Artificiais
   if (/isca|popper|minnow|zara|stick|crank|shad|frog|sapo|jumping|is-f009|crayfish/i.test(fullText)) {
     return SHOPEE_OFFICIAL_CATEGORIES.iscas;
   }
 
-  // 3. Varas e Molinetes
-  if (/vara|carretilha|molinete|blank/i.test(fullText)) {
-    return SHOPEE_OFFICIAL_CATEGORIES.varas;
-  }
-
-  // 4. Anzóis
+  // 7. Anzóis
   if (/anzol|encastoado|garat[eé]ia|hook/i.test(fullText)) {
     return SHOPEE_OFFICIAL_CATEGORIES.anzois;
   }
 
-  // 5. Acessórios de Pesca (alicates, canivetes, suportes, bolsas, estojos)
-  if (/alicate|canivete|suporte|porta isca|fita de prote|estojo|tesoura|boga/i.test(fullText)) {
+  // 8. Acessórios de Pesca (alicates, canivetes, suportes, bolsas, estojos)
+  if (/alicate|canivete|suporte|porta\s*isca|fita\s*de\s*prote|estojo|tesoura|boga/i.test(fullText) || /pesca|pescaria/i.test(fullText)) {
     return SHOPEE_OFFICIAL_CATEGORIES.acessorios_pesca;
   }
 
-  // 6. Artigos Pet (coleiras, peitorais, guias)
+  // 9. Artigos Pet (coleiras, peitorais, guias)
   if (/coleira|peitoral|guia|c[aã]o|c[aã]es|pet|cachorro|ezydog/i.test(fullText)) {
     return SHOPEE_OFFICIAL_CATEGORIES.pet_caes_coleiras;
   }
 
-  // 7. Copos Térmicos
+  // 10. Copos Térmicos
   if (/copo|t[eé]rmico|garrafa|caneca/i.test(fullText)) {
     return SHOPEE_OFFICIAL_CATEGORIES.copos_termicos;
   }
 
+  // D3: Fallback quando o classificador não tiver certeza - marca para revisão e usa o mais próximo
+  if (product && typeof product === "object") {
+    product.revisao_categoria = true;
+    product.motivo_revisao_categoria = "Classificador não encontrou correspondência exata de categoria. Requer revisão manual em rascunho.";
+  }
   return SHOPEE_OFFICIAL_CATEGORIES.acessorios_pesca;
 }
 
