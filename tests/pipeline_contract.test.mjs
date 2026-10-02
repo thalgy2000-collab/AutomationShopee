@@ -6,7 +6,7 @@ import { createRequire } from "node:module";
 const require = createRequire(import.meta.url);
 const XLSX = require("../agent1-scraper/node_modules/xlsx");
 
-import { extractProductsFromXls } from "../agent1-scraper/colorFilter.mjs";
+import { extractProductsFromXls, sanitizeSankhyaCode } from "../agent1-scraper/colorFilter.mjs";
 import { validateAndNormalize } from "../agent2-enricher/schemas.mjs";
 import { getProductPrices } from "../agent2-enricher/shopify_prices.mjs";
 import { validateProduct } from "../agent3-rpa-magis5/src/checkpoint.mjs";
@@ -263,4 +263,80 @@ test("SKU NOVO PESCA FORA DO CACHE: Isca ou anzol novo tem categoria e validaç�
   const emptyCache = { por_sku: {}, por_pai: {} };
   const price = getProductPrices(emptyCache, "ISCA_ZARA_NEW_99");
   assert.strictEqual(price, null, "Preço fora do cache deve ser null de forma tratada");
+});
+
+test("BUG SANITIZESANKHYACODE: Validação estrita de códigos numéricos inteiros e rejeição de texto", () => {
+  // Casos que DEVEM passar retornando apenas a parte inteira de 5 dígitos:
+  assert.strictEqual(sanitizeSankhyaCode("53863"), "53863", "String de 5 dígitos deve passar");
+  assert.strictEqual(sanitizeSankhyaCode("53863.0"), "53863", "Número decimal .0 deve retornar parte inteira");
+  assert.strictEqual(sanitizeSankhyaCode("53863.000"), "53863", "Número decimal .000 deve retornar parte inteira");
+  assert.strictEqual(sanitizeSankhyaCode(53863), "53863", "Tipo Number 53863 deve passar");
+  assert.strictEqual(sanitizeSankhyaCode(" 53863 "), "53863", "String com espaços em volta deve passar após trim");
+
+  // Casos que DEVEM ser descartados retornando "":
+  assert.strictEqual(sanitizeSankhyaCode("Camisa Brk 12345"), "", "Texto com números embutidos NÃO pode ser extraído");
+  assert.strictEqual(sanitizeSankhyaCode("ABC-12345"), "", "Prefixo texto NÃO pode ser aceito");
+  assert.strictEqual(sanitizeSankhyaCode("5386 3"), "", "Espaço no meio dos dígitos deve ser descartado");
+  assert.strictEqual(sanitizeSankhyaCode("538"), "", "Menos de 5 dígitos deve ser descartado");
+  assert.strictEqual(sanitizeSankhyaCode("538631"), "", "Mais de 5 dígitos deve ser descartado");
+  assert.strictEqual(sanitizeSankhyaCode(""), "", "Vazio deve retornar vazio");
+  assert.strictEqual(sanitizeSankhyaCode(null), "", "Null deve retornar vazio");
+  assert.strictEqual(sanitizeSankhyaCode(undefined), "", "Undefined deve retornar vazio");
+});
+
+test("REGRESSÃO DE CATEGORIAS: Isca, Anzol, Vara, Molinete, Botas e Camisas históricas", () => {
+  // 1. Anzol
+  const anzol = validateAndNormalize({
+    sku: "ANZ_CHINU_05",
+    titulo_shopee: "Anzol Marine Sports Chinu Black Nickel Resistente Pesca",
+    modelo: "Chinu Black Nickel",
+    descricao: "Anzol de aço carbono de alta resistência para pesca de piaus e piaparas.",
+    categoria_sugerida: "",
+    atributos: {}
+  }, "ANZ_CHINU_05").data;
+  assert.ok(anzol.categoria_sugerida.includes("Anzóis"), `Anzol deve estar em Anzóis: ${anzol.categoria_sugerida}`);
+
+  // 2. Vara de Pesca
+  const vara = validateAndNormalize({
+    sku: "VP_LUMIS_60",
+    titulo_shopee: "Vara Para Carretilha Lumis Infinity 6'0 17lbs Carbono",
+    modelo: "Infinity Carbono",
+    descricao: "Vara de pesca esportiva fabricada em carbono japonês IM8 de ação rápida.",
+    categoria_sugerida: "",
+    atributos: {}
+  }, "VP_LUMIS_60").data;
+  assert.ok(vara.categoria_sugerida.includes("Varas"), `Vara deve estar em Varas: ${vara.categoria_sugerida}`);
+
+  // 3. Molinete
+  const molinete = validateAndNormalize({
+    sku: "MOL_DAIWA_2500",
+    titulo_shopee: "Molinete Daiwa Crossfire 2500 Drag 4kg Pescaria",
+    modelo: "Crossfire 2500",
+    descricao: "Molinete com carretel de alumínio e engrenagens reforçadas para pesca média.",
+    categoria_sugerida: "",
+    atributos: {}
+  }, "MOL_DAIWA_2500").data;
+  assert.ok(molinete.categoria_sugerida.includes("Varas e Molinetes"), `Molinete deve estar em Varas e Molinetes: ${molinete.categoria_sugerida}`);
+
+  // 4. Bota / Calçado Masculino
+  const bota = validateAndNormalize({
+    sku: "BT_TEXAS_01",
+    titulo_shopee: "Botina Bota Country BRK Agro Couro Nobuck Legitimo",
+    modelo: "Texas Agro",
+    descricao: "Botina de trabalho e campo com solado bidensidade antiderrapante e couro legítimo.",
+    categoria_sugerida: "",
+    atributos: {}
+  }, "BT_TEXAS_01").data;
+  assert.ok(bota.categoria_sugerida.includes("Botas"), `Bota deve estar em Botas: ${bota.categoria_sugerida}`);
+
+  // 5. Camisa Feminina
+  const femCamisa = validateAndNormalize({
+    sku: "C0299_BL",
+    titulo_shopee: "Camisa Feminina BRK Pesca Baby Look Proteção Solar UV50+",
+    modelo: "Starfem Rosa",
+    descricao: "Camisa manga longa baby look feminina para pesca e atividades ao ar livre.",
+    categoria_sugerida: "",
+    atributos: {}
+  }, "C0299_BL").data;
+  assert.ok(femCamisa.categoria_sugerida.includes("Roupas Femininas"), `Baby Look deve ser Roupas Femininas: ${femCamisa.categoria_sugerida}`);
 });

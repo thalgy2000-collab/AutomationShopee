@@ -200,18 +200,18 @@ export function extractProductsFromXls(filePath, targetColor = null) {
 }
 
 export function sanitizeSankhyaCode(val) {
-  if (!val) return "";
+  if (val === undefined || val === null) return "";
   const str = String(val).trim();
+  if (!str) return "";
   const requiredLen = parseInt(process.env.SANKHYA_CODE_LENGTH || "5", 10);
-  const regex = new RegExp(`^\\d{${requiredLen}}$`);
+  const regex = new RegExp(`^(\\d{${requiredLen}})(\\.0+)?$`);
+  const match = str.match(regex);
 
-  if (regex.test(str)) {
-    return str;
+  if (match) {
+    return match[1]; // Retorna apenas a parte inteira de N dígitos
   }
 
-  // Se for puramente numérico mas tiver tamanho diferente, avisa no log
-  if (/^\d+$/.test(str)) {
-    console.warn(`⚠️ [sanitizeSankhyaCode] Código Sankhya '${str}' tem ${str.length} dígitos (esperado: ${requiredLen} dígitos). Descartado por segurança.`);
-  }
+  // Qualquer outra coisa é descartada com aviso no log
+  console.warn(`⚠️ [sanitizeSankhyaCode] Código Sankhya '${str}' inválido (esperado exatamente ${requiredLen} dígitos numéricos). Descartado por segurança.`);
   return "";
 }

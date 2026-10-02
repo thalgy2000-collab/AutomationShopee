@@ -1,6 +1,7 @@
 import http from 'node:http';
 import fs from 'node:fs';
 import path from 'node:path';
+import crypto from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 import { spawn, exec, execSync, execFileSync } from 'node:child_process';
 import { parse } from 'csv-parse/sync';
@@ -14,6 +15,7 @@ import { acquireAgentLock, releaseLock, checkAndCleanOrphanLock, LOCK_FILE } fro
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const PORT = process.env.PORT ? parseInt(process.env.PORT, 10) : 3000;
 const PANEL_TOKEN = process.env.PANEL_TOKEN || null;
+const CORS_ORIGIN = process.env.CORS_ORIGIN || 'http://localhost:3000';
 const MIN_MANUAL_PRICE = process.env.MIN_MANUAL_PRICE ? parseFloat(process.env.MIN_MANUAL_PRICE) : 1.00;
 const MAX_MANUAL_PRICE = process.env.MAX_MANUAL_PRICE ? parseFloat(process.env.MAX_MANUAL_PRICE) : 5000.00;
 const NGROK_URL = process.env.NGROK_URL || process.env.SYSTEM_URL || 'https://daredevil-splashy-scrawny.ngrok-free.dev';
@@ -114,7 +116,16 @@ function authenticateRequest(req, res) {
   const authHeader = req.headers['x-panel-token'] || req.headers['authorization'];
   const token = authHeader ? authHeader.replace(/^Bearer\s+/i, '').trim() : null;
 
-  if (token !== PANEL_TOKEN) {
+  let isValid = false;
+  if (token && typeof token === 'string' && typeof PANEL_TOKEN === 'string') {
+    const tokenBuf = Buffer.from(token);
+    const panelTokenBuf = Buffer.from(PANEL_TOKEN);
+    if (tokenBuf.length === panelTokenBuf.length) {
+      isValid = crypto.timingSafeEqual(tokenBuf, panelTokenBuf);
+    }
+  }
+
+  if (!isValid) {
     console.warn(`🔒 [AUTH] Token inválido ou ausente para ${req.url} (Host: ${host}, IP: ${forwardedFor || socketIp})`);
     res.writeHead(401, { 'Content-Type': 'application/json' });
     res.end(JSON.stringify({ error: 'Não autorizado. Token de autenticação ausente ou inválido.' }));
@@ -1033,6 +1044,7 @@ function getBatchPreview(csvFilePath, limit = 10) {
       variacoesNomes: p.variacoes ? p.variacoes.map(v => v.nome || v.sku).slice(0, 5) : [],
       preco: priceStr,
       precoPromocional: promoStr,
+      precoManual: Boolean(p.preco?.manual),
       isPublished,
       status: isPublished ? (csvRow.status || p.status || 'publicado') : 'pendente',
       cor: csvRow.cor || '#D1FAE5'
@@ -1072,10 +1084,22 @@ const server = http.createServer(async (req, res) => {
   const urlPath = req.url.split('?')[0];
   const parsedUrl = new URL(req.url, `http://${req.headers.host || 'localhost'}`);
 
+  // Tratamento de Preflight CORS (OPTIONS)
+  if (req.method === 'OPTIONS') {
+    res.writeHead(204, {
+      'Access-Control-Allow-Origin': CORS_ORIGIN,
+      'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type, Authorization, x-panel-token',
+      'Access-Control-Max-Age': '86400'
+    });
+    res.end();
+    return;
+  }
+
   const sendJson = (status, data) => {
     res.writeHead(status, {
       'Content-Type': 'application/json; charset=utf-8',
-      'Access-Control-Allow-Origin': '*'
+      'Access-Control-Allow-Origin': CORS_ORIGIN
     });
     res.end(JSON.stringify(data));
   };
@@ -1447,6 +1471,7 @@ const server = http.createServer(async (req, res) => {
 
   // 6b. API: Histórico de Ações por Agente
   if (req.method === 'GET' && urlPath === '/api/agents/history') {
+    if (!authenticateRequest(req, res)) return;
     try {
       const history = loadHistory();
       const queryAgent = parsedUrl.searchParams.get('agent');
@@ -1752,6 +1777,7 @@ const server = http.createServer(async (req, res) => {
 
   // 10. API: Obter Diagnóstico de Rejeições (Agente 4)
   if (req.method === 'GET' && urlPath === '/api/diagnostics') {
+    if (!authenticateRequest(req, res)) return;
     try {
       const diagResultPath = path.resolve(__dirname, '../agent4-diagnostician/diagnostics_result.json');
       const shouldRefresh = req.url.includes('refresh=true') || !fs.existsSync(diagResultPath);
@@ -2257,10 +2283,27 @@ const server = http.createServer(async (req, res) => {
     return;
   }
 
-  // 12. Arquivos estáticos gerais
-  const filePath = path.join(__dirname, urlPath);
-  if (fs.existsSync(filePath) && fs.statSync(filePath).isFile()) {
-    const ext = path.extname(filePath).toLowerCase();
+  // 12. Arquivos estáticos gerais estritamente protegidos (apenas assets da interface web)
+  const normalizedPath = path.normalize(urlPath).replace(/^(\.\.[\/\\])+/, '');
+  const filePath = path.resolve(__dirname, '.' + normalizedPath);
+
+  // Trava anti path-traversal: deve permanecer dentro de __dirname
+  if (!filePath.startsWith(__dirname)) {
+    res.writeHead(403, { 'Content-Type': 'text/plain; charset=utf-8' });
+    res.end('Acesso proibido');
+    return;
+  }
+
+  // Lista branca de arquivos públicos do painel
+  const allowedPublicFiles = new Set(['favicon.ico', 'favicon.png', 'favicon.svg']);
+  const baseName = path.basename(filePath);
+  const ext = path.extname(filePath).toLowerCase();
+  const isAllowedExt = ['.css', '.js', '.png', '.jpg', '.jpeg', '.svg', '.ico', '.webp'].includes(ext);
+
+  // Proibir expressamente arquivos sensíveis (.env, .json, .mjs, etc)
+  const isSensitive = baseName.startsWith('.') || ['.env', '.json', '.mjs', '.csv', '.lock'].includes(ext) || baseName === 'package.json';
+
+  if (!isSensitive && (allowedPublicFiles.has(baseName) || isAllowedExt) && fs.existsSync(filePath) && fs.statSync(filePath).isFile()) {
     const contentType = MIME_TYPES[ext] || 'application/octet-stream';
     res.writeHead(200, { 'Content-Type': contentType });
     fs.createReadStream(filePath).pipe(res);

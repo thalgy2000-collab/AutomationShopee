@@ -255,7 +255,10 @@ async function main() {
 
           // Notifica servidor local de dashboard se estiver ativo
           try {
-            await fetch("http://localhost:3000/api/status", {
+            const statusUrl = process.env.STATUS_API_URL || `http://localhost:${process.env.PORT || 3000}/api/status`;
+            const reqHeaders = { "Content-Type": "application/json" };
+            if (process.env.PANEL_TOKEN) reqHeaders["x-panel-token"] = process.env.PANEL_TOKEN;
+            await fetch(statusUrl, {
               method: "POST",
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify({ sku: item.sku, status: "publicado" }),
@@ -283,7 +286,10 @@ async function main() {
         } catch {}
 
         try {
-          await fetch("http://localhost:3000/api/status", {
+          const statusUrl = process.env.STATUS_API_URL || `http://localhost:${process.env.PORT || 3000}/api/status`;
+            const reqHeaders = { "Content-Type": "application/json" };
+            if (process.env.PANEL_TOKEN) reqHeaders["x-panel-token"] = process.env.PANEL_TOKEN;
+            await fetch(statusUrl, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ sku: item.sku, status: errMsg }),
