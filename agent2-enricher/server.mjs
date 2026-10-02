@@ -244,6 +244,8 @@ const agentTelemetry = {
   currentSku: null,
   currentStep: null,
   stepDetail: null,
+  lastError: null,
+  lastStderrLines: [],
   progress: { current: 0, total: 0 },
   history: {
     agent0: { lastRun: null, status: 'idle', lastAction: 'Pronto para consultar produtos no Sankhya Web e gerar planilhas', count: 0 },
@@ -324,6 +326,17 @@ function stopCurrentAgent() {
 }
 
 function startAgent(agentId, options = {}) {
+  // Garantia contra execução em ambiente Vercel / AWS Lambda
+  const isVercelServerless = Boolean(
+    process.env.VERCEL ||
+    process.env.AWS_LAMBDA_FUNCTION_NAME ||
+    process.cwd().startsWith('/var/task') ||
+    __dirname.startsWith('/var/task')
+  );
+  if (isVercelServerless) {
+    throw new Error('Os agentes de RPA não rodam na Vercel. Use o servidor local/VPS.');
+  }
+
   const existingLock = isAgentLocked();
   if (currentProcess || existingLock) {
     const runningId = currentAgent || existingLock?.agentId || 'agente';
@@ -338,6 +351,7 @@ function startAgent(agentId, options = {}) {
   agentTelemetry.currentAgent = agentId;
   agentTelemetry.status = 'running';
   agentTelemetry.lastError = null;
+  agentTelemetry.lastStderrLines = [];
   agentTelemetry.startTime = Date.now();
   agentTelemetry.elapsedSeconds = 0;
   agentTelemetry.currentSku = options.sku || null;
@@ -755,6 +769,11 @@ function startAgent(agentId, options = {}) {
     });
     if (errLines.length > 0) {
       agentTelemetry.lastError = errLines[errLines.length - 1];
+      if (!agentTelemetry.lastStderrLines) agentTelemetry.lastStderrLines = [];
+      agentTelemetry.lastStderrLines.push(...errLines);
+      if (agentTelemetry.lastStderrLines.length > 5) {
+        agentTelemetry.lastStderrLines = agentTelemetry.lastStderrLines.slice(-5);
+      }
     }
 
   });
@@ -780,8 +799,12 @@ function startAgent(agentId, options = {}) {
       agentTelemetry.history[agentId].lastAction = summaryText;
     }
     agentTelemetry.currentStep = code === 0 ? 'Concluído com sucesso' : 'Finalizado com erro';
-    if (code !== 0 && agentTelemetry.lastError) {
-      agentTelemetry.stepDetail = agentTelemetry.lastError;
+    if (code !== 0) {
+      if (agentTelemetry.lastStderrLines && agentTelemetry.lastStderrLines.length > 0) {
+        agentTelemetry.stepDetail = agentTelemetry.lastStderrLines.join('\n');
+      } else if (agentTelemetry.lastError) {
+        agentTelemetry.stepDetail = agentTelemetry.lastError;
+      }
     }
 
     // Salva no histórico persistente do agente

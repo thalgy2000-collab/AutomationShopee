@@ -9,7 +9,7 @@
     "login": "node src/runner.mjs --only-login"
   },
   "dependencies": {
-    "playwright": "^1.42.1",
+    "playwright": "^1.49.0",
     "xlsx": "^0.18.5"
   }
 }

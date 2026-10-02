@@ -5917,7 +5917,7 @@
 
         const res = await fetch('/api/agents/start', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: getPanelAuthHeaders(),
           body: JSON.stringify(payload)
         });
         const data = await res.json();
@@ -7077,7 +7077,8 @@
       if (!isSuccess) {
         showToast(`⚠️ O ${AGENT_CONFIGS[agentId]?.name || agentId} finalizou com erro.`, true);
         const errDetailText = detail ? `\n\n📌 **Detalhe:** ` + detail : '';
-        appendBotMessage(agentId, `❌ **A execução do ${AGENT_CONFIGS[agentId]?.name || agentId} encerrou com erro ou pendência.**${errDetailText}\n\nConfira o terminal de logs para verificar os detalhes antes de prosseguir.`);
+        const detailBlock = detail ? '\n\n' + (detail.includes('\n') ? '```\n' + detail + '\n```' : '📌 **Detalhe:** ' + detail) : '';
+        appendBotMessage(agentId, `❌ **A execução do ${AGENT_CONFIGS[agentId]?.name || agentId} encerrou com erro ou pendência.**${detailBlock}`);
         triggerAgentNotification(agentId, false, `A execução do ${AGENT_CONFIGS[agentId]?.name || agentId} encerrou com falha ou pendência.`);
         return;
       }

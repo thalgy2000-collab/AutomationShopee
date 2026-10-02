@@ -24,24 +24,32 @@ browser_profile_shopee/
 **/browser_profile_shopee/
 bin/
 
-# Backend e RPA dos Agentes (executam localmente)
+# Backend e RPA de TODOS os Agentes (executam estritamente local ou VPS)
 agent0-sankhya/
 agent1-scraper/
+agent2-enricher/
 agent3-rpa-magis5/
-agent5-shopee-attributes/
 agent4-diagnostician/
-agent2-enricher/node_modules/
-agent2-enricher/produtos/
-agent2-enricher/*.mjs
-agent2-enricher/*.js
-agent2-enricher/*.json
-agent2-enricher/*.csv
+agent5-shopee-attributes/
+*.mjs
+*.cjs
+*.js
 
-# Downloads e Screenshots locais (pesado / gerados em runtime)
+# Testes, scripts e auditorias internas
+tests/
+**/tests/
+scripts/
+**/scripts/
+audit_*.json
+*.test.*
+
+# Downloads, Uploads e Screenshots locais (gerados em runtime)
 **/downloads/
 **/screenshots/
 screenshots/
 uploads/
+**/uploads/
+downloads/
 
 # Scratch / Temporários
 **/scratch/
@@ -52,10 +60,11 @@ test_*.png
 *.png.bak
 *.bak
 
-# Arquivos de diagnóstico e teste pesados
+# Arquivos de diagnóstico e dados pesados
 shopify_prices.json
 **/shopify_prices.json
 *.zip
+*.lock
 
 # Logs
 *.log
@@ -71,3 +80,4 @@ desktop.ini
 
 # Produtos JSON (gerados em runtime)
 produtos/
+**/produtos/

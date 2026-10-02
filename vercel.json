@@ -13,11 +13,11 @@
     }
   ],
   "rewrites": [
-    { "source": "/api/(.*)", "destination": "https://communicate-verde-counters-jane.trycloudflare.com/api/$1" },
-    { "source": "/screenshots/(.*)", "destination": "https://communicate-verde-counters-jane.trycloudflare.com/screenshots/$1" },
-    { "source": "/uploads/(.*)", "destination": "https://communicate-verde-counters-jane.trycloudflare.com/uploads/$1" },
-    { "source": "/produtos/(.*)", "destination": "https://communicate-verde-counters-jane.trycloudflare.com/produtos/$1" },
-    { "source": "/downloads/(.*)", "destination": "https://communicate-verde-counters-jane.trycloudflare.com/downloads/$1" },
+    { "source": "/api/(.*)", "destination": "https://BACKEND-URL-OU-TUNEL.exemplo.com/api/$1" },
+    { "source": "/screenshots/(.*)", "destination": "https://BACKEND-URL-OU-TUNEL.exemplo.com/screenshots/$1" },
+    { "source": "/uploads/(.*)", "destination": "https://BACKEND-URL-OU-TUNEL.exemplo.com/uploads/$1" },
+    { "source": "/produtos/(.*)", "destination": "https://BACKEND-URL-OU-TUNEL.exemplo.com/produtos/$1" },
+    { "source": "/downloads/(.*)", "destination": "https://BACKEND-URL-OU-TUNEL.exemplo.com/downloads/$1" },
 
     { "source": "/", "destination": "/agent0.html" },
     { "source": "/roadmap", "destination": "/roadmap.html" },

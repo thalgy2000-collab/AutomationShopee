@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "build": "echo 'Vercel build complete'",
-    "postinstall": "node -e \"if (process.env.VERCEL) process.exit(0); const cp = require('child_process'); cp.execSync('cd agent1-scraper && npm install && cd ../agent2-enricher && npm install && cd ../agent3-rpa-magis5 && npm install', { stdio: 'inherit' });\"",
+    "postinstall": "node -e \"if (process.env.VERCEL) process.exit(0); const cp = require('child_process'); cp.execSync('cd agent0-sankhya && npm install && cd ../agent1-scraper && npm install && cd ../agent2-enricher && npm install && cd ../agent3-rpa-magis5 && npm install && cd ../agent5-shopee-attributes && npm install', { stdio: 'inherit' });\"",
     "start": "node agent2-enricher/server.mjs",
     "serve": "node agent2-enricher/server.mjs",
     "tunnel": "node ngrok_tunnel.mjs",

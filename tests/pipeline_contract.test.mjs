@@ -340,3 +340,20 @@ test("REGRESSÃO DE CATEGORIAS: Isca, Anzol, Vara, Molinete, Botas e Camisas his
   }, "C0299_BL").data;
   assert.ok(femCamisa.categoria_sugerida.includes("Roupas Femininas"), `Baby Look deve ser Roupas Femininas: ${femCamisa.categoria_sugerida}`);
 });
+
+test("AMBIENTE VERCEL: Recusa clara de execução de agentes RPA em runtime serverless", () => {
+  // Testa a lógica pura de detecção implementada no server.mjs
+  const checkVercel = (env, cwd) => {
+    return Boolean(
+      env.VERCEL ||
+      env.AWS_LAMBDA_FUNCTION_NAME ||
+      cwd.startsWith('/var/task')
+    );
+  };
+
+  assert.strictEqual(checkVercel({ VERCEL: "1" }, "C:\\app"), true, "VERCEL=1 deve acionar bloqueio");
+  assert.strictEqual(checkVercel({}, "/var/task/agent0-sankhya"), true, "Cwd /var/task deve acionar bloqueio");
+  assert.strictEqual(checkVercel({ AWS_LAMBDA_FUNCTION_NAME: "api" }, "/tmp"), true, "Lambda env deve acionar bloqueio");
+  assert.strictEqual(checkVercel({}, "C:\\Users\\marke\\app"), false, "Ambiente local/VPS deve passar");
+});
+

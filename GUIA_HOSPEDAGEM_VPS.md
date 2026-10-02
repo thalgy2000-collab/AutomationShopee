@@ -53,6 +53,7 @@ nano .env
 Preencha suas credenciais do **Magis5** e chave da **API Gemini**:
 ```env
 PORT=3000
+PANEL_TOKEN=seu_token_secreto_super_seguro
 MAGIS5_EMAIL=seu_email@brkfishing.com.br
 MAGIS5_PASSWORD=sua_senha
 MAGIS5_INTEGRATION_NAME=Shopee BRK Fishing
@@ -139,3 +140,31 @@ Se você quiser acessar através de um domínio (ex: `painel.brkfishing.com.br`)
    ```
 
 A partir desse momento, todo o painel e os agentes estarão protegidos e acessíveis publicamente via **`https://painel.seu-dominio.com.br`**!
+
+---
+
+## 6. Integração com o Painel Hospedado na Vercel (Frontend Estático + Backend Remoto)
+
+Se você optar por manter o frontend estático servido pela Vercel e o processamento pesado de RPA rodando na VPS ou PC local:
+
+### Passo A: Configurar a URL de Rewrite no `vercel.json`
+Edite o arquivo `vercel.json` no repositório apontando para o seu domínio estável:
+```json
+  "rewrites": [
+    { "source": "/api/(.*)", "destination": "https://api-shopee.SEUDOMINIO.com.br/api/$1" },
+    { "source": "/screenshots/(.*)", "destination": "https://api-shopee.SEUDOMINIO.com.br/screenshots/$1" },
+    { "source": "/uploads/(.*)", "destination": "https://api-shopee.SEUDOMINIO.com.br/uploads/$1" },
+    { "source": "/produtos/(.*)", "destination": "https://api-shopee.SEUDOMINIO.com.br/produtos/$1" },
+    { "source": "/downloads/(.*)", "destination": "https://api-shopee.SEUDOMINIO.com.br/downloads/$1" }
+  ]
+```
+
+### Passo B: Autenticação via `PANEL_TOKEN`
+1. No seu servidor VPS (arquivo `.env`), defina uma senha forte:
+   ```env
+   PANEL_TOKEN=minha_senha_super_secreta_123
+   ```
+2. No painel web hospedado na Vercel, clique no botão **"Auth Token"** no cabeçalho superior.
+3. Cole a mesma senha configurada no `.env` e clique em OK. O botão mudará para **"Token: Ativo"** (verde).
+4. Todas as requisições (`/api/agents/start`, `/api/upload`, `/api/price-requests`, etc.) enviarão o cabeçalho `x-panel-token`, liberando o tráfego com total segurança contra acessos externos não autorizados.
+
