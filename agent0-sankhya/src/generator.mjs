@@ -31,7 +31,7 @@ export function generateSpreadsheet(items, outputPath = null) {
       item.sku || "",
       item.cod_sankhya || "",
       item.descricao || "",
-      item.classificacao || "Camisas",
+      item.classificacao || "",
     ]);
   }
 

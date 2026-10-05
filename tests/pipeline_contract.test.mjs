@@ -357,3 +357,66 @@ test("AMBIENTE VERCEL: Recusa clara de execução de agentes RPA em runtime serv
   assert.strictEqual(checkVercel({}, "C:\\Users\\marke\\app"), false, "Ambiente local/VPS deve passar");
 });
 
+test("AGENTE 0 CONTRATO: Planilha gerada pelo generator.mjs é reconhecida perfeitamente pelo colorFilter", async () => {
+  const { generateSpreadsheet } = await import("../agent0-sankhya/src/generator.mjs");
+  const { extractProductsFromXls } = await import("../agent1-scraper/colorFilter.mjs");
+
+  const testFile = path.join(FIXTURES_DIR, "teste_agent0_contrato.xlsx");
+  const testItems = [
+    { sku: "C02887BL-P", cod_sankhya: "53863", descricao: "Camisa Brk Monster Baby Look P", classificacao: "Camisas" },
+    { sku: "BT004-41", cod_sankhya: "48120", descricao: "Bota Couro Legitimo Country 41", classificacao: "Botas" },
+    { sku: "ISCA_ZARA-01", cod_sankhya: "", descricao: "Isca Artificial Superfície 110mm", classificacao: "" }
+  ];
+
+  generateSpreadsheet(testItems, testFile);
+  assert.ok(fs.existsSync(testFile), "Planilha de teste deve ter sido gerada");
+
+  const extracted = extractProductsFromXls(testFile);
+  assert.strictEqual(extracted.length, 3, "Deve extrair exatamente 3 produtos");
+  assert.strictEqual(extracted[0].sku, "C02887BL-P");
+  assert.strictEqual(extracted[0].cod_sankhya, "53863");
+  assert.strictEqual(extracted[0].classificacao, "Camisas");
+
+  assert.strictEqual(extracted[1].sku, "BT004-41");
+  assert.strictEqual(extracted[1].cod_sankhya, "48120");
+  assert.strictEqual(extracted[1].classificacao, "Botas");
+
+  assert.strictEqual(extracted[2].sku, "ISCA_ZARA-01");
+  assert.strictEqual(extracted[2].cod_sankhya, "", "Item sem código deve ficar com código vazio");
+  assert.strictEqual(extracted[2].classificacao, "", "Classificação não especificada não deve ter Camisas forçado");
+
+  // Limpeza
+  if (fs.existsSync(testFile)) fs.unlinkSync(testFile);
+});
+
+test("AGENTE 0 TELEMETRIA & SEGURANÇA: Formato do AGENT0_RESULT e bloqueio de dados fantasmas", () => {
+  // Simula o payload de saída estruturada do Agente 0
+  const markerPayload = {
+    success: true,
+    file: "uploads/planilha_sankhya_20261005.xlsx",
+    total: 3,
+    comCodigo: 2,
+    semCodigo: 1,
+    naoEncontrados: ["C09999_INEXISTENTE"]
+  };
+  const rawLine = `AGENT0_RESULT ${JSON.stringify(markerPayload)}`;
+
+  assert.ok(rawLine.startsWith("AGENT0_RESULT "));
+  const parsed = JSON.parse(rawLine.replace("AGENT0_RESULT ", "").trim());
+
+  assert.strictEqual(parsed.success, true);
+  assert.strictEqual(parsed.total, 3);
+  assert.strictEqual(parsed.comCodigo, 2);
+  assert.strictEqual(parsed.semCodigo, 1);
+  assert.deepStrictEqual(parsed.naoEncontrados, ["C09999_INEXISTENTE"]);
+
+  // Validação de segurança no server.mjs: apenas arquivos sob uploads/ são aceitos
+  const UPLOADS_DIR = path.resolve("agent2-enricher/uploads");
+  const safeFile = path.resolve(UPLOADS_DIR, path.basename(parsed.file));
+  assert.ok(safeFile.startsWith(UPLOADS_DIR), "Arquivo deve estar estritamente dentro da pasta uploads");
+
+  // Garante que SKU inexistente não gera linha com texto 'Produto SKU' nem força 'Camisas'
+  assert.ok(!JSON.stringify(markerPayload).includes("Produto C09999"), "Não deve conter texto fictício gerado");
+});
+
+

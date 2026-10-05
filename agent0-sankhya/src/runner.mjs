@@ -1,5 +1,6 @@
 import { SankhyaClient, getCatalogVariations } from "./sankhya_client.mjs";
 import { generateSpreadsheet } from "./generator.mjs";
+import XLSX from "xlsx";
 import { readFileSync, existsSync } from "node:fs";
 import { resolve } from "node:path";
 
@@ -172,18 +173,13 @@ export async function runAgent0(options = {}) {
           if (items && items.length > 0) {
             allItems.push(...items);
           } else {
-            // Se o grid não detalhou, tenta catálogo oficial antes de fallback vazio
+            // Se o grid não detalhou, tenta catálogo oficial antes de marcar não encontrado
             const cat = getCatalogVariations(sku);
             if (cat && cat.length > 0) {
               console.log(`   ⚡ Utilizando ${cat.length} variações oficiais do catálogo para ${sku}.`);
               allItems.push(...cat);
             } else {
-              allItems.push({
-                sku,
-                cod_sankhya: "",
-                descricao: `Produto ${sku}`,
-                classificacao: "Camisas",
-              });
+              console.warn(`   ⚠️ SKU ${sku} não encontrado no Sankhya (sem variações válidas). Ignorado do lote.`);
             }
           }
         } catch (err) {
@@ -193,12 +189,7 @@ export async function runAgent0(options = {}) {
             console.log(`   ⚡ Utilizando ${cat.length} variações oficiais do catálogo para ${sku}.`);
             allItems.push(...cat);
           } else {
-            allItems.push({
-              sku,
-              cod_sankhya: "",
-              descricao: `Produto ${sku}`,
-              classificacao: "Camisas",
-            });
+            console.warn(`   ⚠️ SKU ${sku} ignorado por falha na consulta.`);
           }
         }
       }
@@ -211,16 +202,33 @@ export async function runAgent0(options = {}) {
       console.log(`\n🔄 Deduplicação: ${allItems.length} → ${uniqueItems.length} itens únicos`);
     }
 
+    // Calcula SKUs não encontrados em relação ao pedido inicial
+    const foundSkusSet = new Set(uniqueItems.map(it => (it.sku || "").toUpperCase()));
+    const naoEncontrados = (options.skus || []).filter(requestedSku => {
+      const reqUpper = requestedSku.trim().toUpperCase();
+      // Verifica se o SKU ou algum SKU filho com o prefixo dele foi encontrado
+      return !Array.from(foundSkusSet).some(f => f === reqUpper || f.startsWith(reqUpper));
+    });
+
     console.log(`\n📊 Total de registros coletados: ${uniqueItems.length}`);
+    if (naoEncontrados.length > 0) {
+      console.warn(`⚠️ SKUs não encontrados no Sankhya (${naoEncontrados.length}): ${naoEncontrados.join(', ')}`);
+    }
+
     if (uniqueItems.length === 0) {
       console.warn("⚠️ Nenhum produto foi localizado no Sankhya para os termos ou SKUs consultados.");
       await client.close();
-      return {
+      const emptyResult = {
         success: false,
-        error: "Nenhum produto foi localizado no Sankhya para os termos ou SKUs consultados.",
+        file: null,
         total: 0,
-        items: []
+        comCodigo: 0,
+        semCodigo: 0,
+        naoEncontrados,
+        error: "Nenhum produto foi localizado no Sankhya para os termos ou SKUs consultados."
       };
+      console.log(`AGENT0_RESULT ${JSON.stringify(emptyResult)}`);
+      return emptyResult;
     }
     console.log("📑 Gerando planilha Excel (.xlsx)...");
 
@@ -239,16 +247,54 @@ export async function runAgent0(options = {}) {
     const outputPath = options.output || defaultOutput;
     const generatedFile = generateSpreadsheet(uniqueItems, outputPath);
 
-    console.log(`\n✅ Planilha gerada com sucesso em:`);
-    console.log(`   📂 ${generatedFile}`);
+    // Validação pós-geração: reabre o .xlsx e audita cabeçalho e contagens
+    let totalLinhas = 0;
+    let comCodigo = 0;
+    let semCodigo = 0;
+    try {
+      const wbVal = XLSX.readFile(generatedFile);
+      const wsVal = wbVal.Sheets[wbVal.SheetNames[0]];
+      const sheetData = XLSX.utils.sheet_to_json(wsVal, { header: 1 });
+      if (!sheetData || sheetData.length < 2) {
+        throw new Error("Planilha gerada está vazia ou sem linhas de dados.");
+      }
+      const headerRow = sheetData[0].map(h => String(h || "").trim());
+      if (!headerRow.includes("Cód. Referência (SKU)") || !headerRow.includes("Código (Sankhya)")) {
+        throw new Error("Cabeçalho inválido na planilha gerada.");
+      }
+      totalLinhas = sheetData.length - 1;
+      for (let r = 1; r < sheetData.length; r++) {
+        const row = sheetData[r] || [];
+        const cod = String(row[1] || "").trim();
+        if (/^\d{5}$/.test(cod)) {
+          comCodigo++;
+        } else {
+          semCodigo++;
+        }
+      }
+    } catch (valErr) {
+      console.error(`❌ Falha na validação pós-geração da planilha: ${valErr.message}`);
+      await client.close().catch(() => {});
+      throw valErr;
+    }
 
-    await client.close();
-    return {
+    console.log(`\n✅ Planilha gerada e validada com sucesso:`);
+    console.log(`   📂 Arquivo: ${generatedFile}`);
+    console.log(`   📊 Total de linhas: ${totalLinhas} | Códigos 5 dígitos: ${comCodigo} | Sem código: ${semCodigo}`);
+
+    const resultPayload = {
       success: true,
       file: generatedFile,
-      total: uniqueItems.length,
-      items: uniqueItems,
+      total: totalLinhas,
+      comCodigo,
+      semCodigo,
+      naoEncontrados,
     };
+
+    console.log(`AGENT0_RESULT ${JSON.stringify(resultPayload)}`);
+
+    await client.close();
+    return resultPayload;
   } catch (error) {
     console.error(`\n❌ Erro no Agente 0:`, error.message);
     await client.close().catch(() => {});
@@ -259,5 +305,9 @@ export async function runAgent0(options = {}) {
 // Execução direta via terminal
 if (process.argv[1] && process.argv[1].endsWith("runner.mjs")) {
   const opts = parseArgs();
-  runAgent0(opts).catch(() => process.exit(1));
+  runAgent0(opts).then((res) => {
+    if (!res || !res.success || res.total === 0) {
+      process.exit(1);
+    }
+  }).catch(() => process.exit(1));
 }

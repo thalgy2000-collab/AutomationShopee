@@ -5502,17 +5502,15 @@
           cleaned = cleaned.replace(/\b(sem\s*full|padrao|padrão|fabrica[çc][ãa]o)\b/gi, '').trim();
         }
 
-        const parts = cleaned.split(/[\s,\n\r]+/).map(s => s.trim()).filter(Boolean);
-        // Se for explicitamente coleção OU contiver espaços OU não se parecer com um SKU de produto (geralmente começa com C0, BA, FUSION, etc, ou tem sufixo de tamanho)
-        const isSingleWordCollection = parts.length === 1 && !/^(C\d{4,}|BA\d+|BORAPLUS|FUSION\d+|BT\d+|[A-Z]\d{5})/i.test(parts[0]);
-
+        const parts = cleaned.split(/[\s,\n\r]+/).map(s => s.trim().toUpperCase()).filter(Boolean);
+        const isSkuPattern = (s) => /^[A-Z0-9_-]{3,25}$/i.test(s);
+        const allLookLikeSkus = parts.length > 0 && parts.every(isSkuPattern);
         const hasCommas = raw.includes(',');
-        const isSkuLike = (s) => /^[A-Z0-9_-]{3,20}$/i.test(s);
-        const allLookLikeSkus = parts.length > 0 && parts.every(isSkuLike);
 
-        if (!isCollectionExplicit && (allLookLikeSkus || hasCommas) && parts.length > 0) {
+        // Se o usuário digitou múltiplos códigos (ex: C02887BL, C02877BL, C02883) OU separou com vírgulas, é sempre lista de SKUs
+        if (!isCollectionExplicit && (allLookLikeSkus || (parts.length > 1 && !cleaned.includes('"')))) {
           startAgent0(parts);
-        } else if (isCollectionExplicit || isSingleWordCollection || (parts.length > 0 && cleaned.includes(' '))) {
+        } else if (isCollectionExplicit || (!allLookLikeSkus && parts.length === 1)) {
           startAgent0Collection(cleaned, filterFull);
         } else if (parts.length > 0) {
           startAgent0(parts);
@@ -6941,19 +6939,40 @@
               terminalContent.scrollTop = terminalContent.scrollHeight;
             }
 
-            // Detecção da planilha gerada pelo Agente 0
-            if (txt.includes('Planilha gerada com sucesso') || txt.includes('planilha_sankhya_') || (txt.includes('.xlsx') && txt.includes('LOTE VINCULADO'))) {
-              const match = txt.match(/([A-Za-z]:\\[^\s\r\n]+\.xlsx|\/[^\s\r\n]+\.xlsx|planilha_sankhya_[0-9]+\.xlsx|[a-zA-Z0-9_\-]+\.xlsx)/i);
-              if (match && !isTransitioning) {
+            // Detecção de AGENT0_RESULT ou planilha gerada pelo Agente 0
+            if (txt.includes('AGENT0_RESULT ')) {
+              try {
+                const markerIdx = txt.indexOf('AGENT0_RESULT ');
+                const jsonStr = txt.slice(markerIdx + 'AGENT0_RESULT '.length).trim();
+                const resJson = JSON.parse(jsonStr);
+                if (resJson.file && !isTransitioning) {
+                  const fileName = resJson.file.split(/[/\]/).pop();
+                  latestSpreadsheetFile = {
+                    path: resJson.file,
+                    name: fileName,
+                    downloadUrl: '/uploads/' + encodeURIComponent(fileName),
+                    metrics: {
+                      total: resJson.total || 0,
+                      comCodigo: resJson.comCodigo || 0,
+                      semCodigo: resJson.semCodigo || 0,
+                      naoEncontrados: resJson.naoEncontrados || []
+                    }
+                  };
+                  showSpreadsheetReadyCard(latestSpreadsheetFile);
+                }
+              } catch (e) {
+                console.warn('Erro ao decodificar AGENT0_RESULT:', e);
+              }
+            } else if (txt.includes('Planilha gerada com sucesso') || txt.includes('planilha_sankhya_') || (txt.includes('.xlsx') && txt.includes('LOTE VINCULADO'))) {
+              const match = txt.match(/([A-Za-z]:\[^\s\r\n]+\.xlsx|\/[^\s\r\n]+\.xlsx|planilha_sankhya_[0-9]+\.xlsx|[a-zA-Z0-9_\-]+\.xlsx)/i);
+              if (match && !isTransitioning && !latestSpreadsheetFile?.metrics) {
                 const rawMatch = match[1];
-                const fileName = rawMatch.split(/[/\\]/).pop();
+                const fileName = rawMatch.split(/[/\]/).pop();
                 latestSpreadsheetFile = {
                   path: rawMatch,
                   name: fileName,
-                  downloadUrl: `/uploads/${encodeURIComponent(fileName)}`
+                  downloadUrl: '/uploads/' + encodeURIComponent(fileName)
                 };
-
-                // Exibe card interativo de sucesso com botão de download no chat do Agente 0
                 showSpreadsheetReadyCard(latestSpreadsheetFile);
               }
             }
@@ -7361,14 +7380,22 @@
           <div style="font-size: 0.83rem; color: #d1d5db; margin-bottom: 8px; line-height: 1.4;">
             As variações de produtos foram consultadas no Sankhya e salvas na pasta uploads:
           </div>
+          ${file.metrics ? `
+            <div style="display: flex; gap: 10px; margin-bottom: 10px; flex-wrap: wrap;">
+              <span style="background: rgba(59,130,246,0.15); border: 1px solid rgba(59,130,246,0.3); border-radius: 4px; padding: 2px 8px; font-size: 0.75rem; color: #93c5fd;"><strong>Total:</strong> ${file.metrics.total} itens</span>
+              <span style="background: rgba(16,185,129,0.15); border: 1px solid rgba(16,185,129,0.3); border-radius: 4px; padding: 2px 8px; font-size: 0.75rem; color: #6ee7b7;"><strong>Com Cód Sankhya:</strong> ${file.metrics.comCodigo}</span>
+              <span style="background: rgba(245,158,11,0.15); border: 1px solid rgba(245,158,11,0.3); border-radius: 4px; padding: 2px 8px; font-size: 0.75rem; color: #fde68a;"><strong>Sem Cód:</strong> ${file.metrics.semCodigo}</span>
+              ${file.metrics.naoEncontrados && file.metrics.naoEncontrados.length > 0 ? `<span style="background: rgba(239,68,68,0.15); border: 1px solid rgba(239,68,68,0.3); border-radius: 4px; padding: 2px 8px; font-size: 0.75rem; color: #fca5a5;"><strong>Não encontrados:</strong> ${file.metrics.naoEncontrados.join(', ')}</span>` : ''}
+            </div>
+          ` : ''}
           <div style="font-family: monospace; font-size: 0.78rem; color: #93C5FD; background: rgba(0,0,0,0.3); padding: 6px 10px; border-radius: 6px; margin-bottom: 12px; word-break: break-all;">
             📄 ${escapeHtml(fileName)}
           </div>
           <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-            <a href="${dlUrl}" download="${escapeHtml(fileName)}" class="btn-action-primary" style="background: #2563EB; border-color: #1D4ED8; padding: 8px 16px; font-size: 0.85rem; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; color: #fff; border-radius: 6px; font-weight: 600;">
+            <button type="button" class="btn-action-primary" style="background: #2563EB; border-color: #1D4ED8; padding: 8px 16px; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 6px; color: #fff; border-radius: 6px; font-weight: 600; cursor: pointer;" onclick="downloadFileWithAuth('${dlUrl}', '${escapeHtml(fileName)}')">
               <span>📥</span> Baixar Planilha (.xlsx)
-            </a>
-            <button class="btn-action-secondary" style="background: #10B981; border-color: #059669; padding: 8px 16px; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 6px; color: #fff; border-radius: 6px; font-weight: 600;" onclick="goToNextAgent('agent1', 'runAgent1Auto')">
+            </button>
+            <button type="button" class="btn-action-secondary" style="background: #10B981; border-color: #059669; padding: 8px 16px; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 6px; color: #fff; border-radius: 6px; font-weight: 600; cursor: pointer;" onclick="advanceToAgent1WithBatch('${escapeHtml(file.path || file.name)}')">
               <span>⚡</span> Avançar e Baixar Fotos (Agente 1)
             </button>
           </div>
@@ -7416,6 +7443,52 @@
       } catch { }
     }
 
+    async function downloadFileWithAuth(url, suggestedFileName = 'planilha.xlsx') {
+      try {
+        const token = sessionStorage.getItem('PANEL_TOKEN') || '';
+        let fetchUrl = url;
+        if (token && !fetchUrl.includes('token=')) {
+          fetchUrl += (fetchUrl.includes('?') ? '&' : '?') + 'token=' + encodeURIComponent(token);
+        }
+        const headers = {};
+        if (token) headers['x-panel-token'] = token;
+
+        showToast(`⏳ Baixando ${suggestedFileName}...`);
+        const res = await fetch(fetchUrl, { headers });
+        if (!res.ok) {
+          const errText = await res.text().catch(() => '');
+          throw new Error(errText || ('HTTP ' + res.status));
+        }
+        const blob = await res.blob();
+        const blobUrl = window.URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = blobUrl;
+        link.download = suggestedFileName;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        setTimeout(() => window.URL.revokeObjectURL(blobUrl), 10000);
+        showToast(`📥 Download concluído: ${suggestedFileName}`);
+      } catch (err) {
+        showToast(`Erro ao baixar arquivo: ${err.message}`, true);
+      }
+    }
+
+    async function advanceToAgent1WithBatch(batchPath) {
+      if (batchPath) {
+        try {
+          await fetch('/api/active-batch', {
+            method: 'POST',
+            headers: getPanelAuthHeaders(),
+            body: JSON.stringify({ path: batchPath })
+          });
+        } catch (e) {
+          console.warn('Falha ao definir lote ativo para Agente 1:', e);
+        }
+      }
+      goToNextAgent('agent1', 'runAgent1Auto');
+    }
+
     async function downloadLatestSpreadsheet() {
       try {
         let file = latestSpreadsheetFile;
@@ -7430,13 +7503,7 @@
         if (file && (file.downloadUrl || file.name)) {
           const dlUrl = file.downloadUrl || `/uploads/${encodeURIComponent(file.name)}`;
           const fileName = file.name || (file.path ? file.path.split(/[/\\]/).pop() : 'planilha_sankhya.xlsx');
-          const link = document.createElement('a');
-          link.href = dlUrl;
-          link.download = fileName;
-          document.body.appendChild(link);
-          link.click();
-          document.body.removeChild(link);
-          showToast(`📥 Baixando planilha: ${fileName}`);
+          await downloadFileWithAuth(dlUrl, fileName);
         } else {
           showToast('Nenhuma planilha disponível para download no momento.', true);
         }
@@ -7947,9 +8014,9 @@
                         </div>
                       </div>
                       <div class="hist-file-actions">
-                        <a href="${dUrl}" download="${fName}" class="btn-action-primary" title="Baixar esta planilha para o seu computador">
+                        <button type="button" class="btn-action-primary" style="cursor: pointer;" onclick="downloadFileWithAuth('${dUrl}', '${fName}')" title="Baixar esta planilha para o seu computador">
                           <span>📥</span> Baixar Planilha (.xlsx)
-                        </a>
+                        </button>
                         <button type="button" class="btn-action-secondary" onclick="setActiveBatchFromHistory('${escapeHtml(f.path || f.name)}')" title="Definir esta planilha como o lote ativo para os Agentes 1, 2 e 3">
                           <span>⚡</span> Usar como Lote
                         </button>

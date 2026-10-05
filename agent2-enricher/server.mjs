@@ -113,8 +113,16 @@ function authenticateRequest(req, res) {
     return true;
   }
 
+  let token = null;
   const authHeader = req.headers['x-panel-token'] || req.headers['authorization'];
-  const token = authHeader ? authHeader.replace(/^Bearer\s+/i, '').trim() : null;
+  if (authHeader) {
+    token = authHeader.replace(/^Bearer\s+/i, '').trim();
+  } else {
+    try {
+      const parsedUrl = new URL(req.url, `http://${req.headers.host || 'localhost'}`);
+      token = parsedUrl.searchParams.get('token');
+    } catch {}
+  }
 
   let isValid = false;
   if (token && typeof token === 'string' && typeof PANEL_TOKEN === 'string') {
@@ -246,6 +254,7 @@ const agentTelemetry = {
   stepDetail: null,
   lastError: null,
   lastStderrLines: [],
+  agent0Result: null,
   progress: { current: 0, total: 0 },
   history: {
     agent0: { lastRun: null, status: 'idle', lastAction: 'Pronto para consultar produtos no Sankhya Web e gerar planilhas', count: 0 },
@@ -352,6 +361,7 @@ function startAgent(agentId, options = {}) {
   agentTelemetry.status = 'running';
   agentTelemetry.lastError = null;
   agentTelemetry.lastStderrLines = [];
+  agentTelemetry.agent0Result = null;
   agentTelemetry.startTime = Date.now();
   agentTelemetry.elapsedSeconds = 0;
   agentTelemetry.currentSku = options.sku || null;
@@ -710,27 +720,36 @@ function startAgent(agentId, options = {}) {
         if (sMatch) agentTelemetry.currentSku = sMatch[1];
         agentTelemetry.currentStep = 'Extração Sankhya';
         agentTelemetry.stepDetail = `Buscando dados de ${agentTelemetry.currentSku || ''}`;
+      } else if (line.startsWith('AGENT0_RESULT ')) {
+        try {
+          const resJson = JSON.parse(line.replace('AGENT0_RESULT ', '').trim());
+          agentTelemetry.agent0Result = resJson;
+          if (resJson.success && resJson.file) {
+            const rawFile = resJson.file;
+            const resolvedPath = path.isAbsolute(rawFile) ? rawFile : path.resolve(UPLOADS_DIR, rawFile);
+            const normUploads = path.normalize(UPLOADS_DIR);
+            const normResolved = path.normalize(resolvedPath);
+            if (normResolved.startsWith(normUploads) && fs.existsSync(resolvedPath)) {
+              activeSpreadsheetPath = resolvedPath;
+              saveActiveBatchState(activeSpreadsheetPath);
+              agentTelemetry.activeSpreadsheet = activeSpreadsheetPath;
+              addLog(`📄 [LOTE VINCULADO] Planilha oficial ${path.basename(activeSpreadsheetPath)} definida como lote ativo.`);
+              try {
+                const script = path.join(SCRAPER_DIR, 'create_lote.mjs');
+                const lotePath = path.join(SCRAPER_DIR, 'lote_d1fae5.csv');
+                execFileSync(process.execPath, [script, '--input', activeSpreadsheetPath, '--output', lotePath], { cwd: SCRAPER_DIR });
+                addLog(`⚡ [LOTE EXTRAÍDO] Produtos extraídos para ${path.basename(lotePath)} (Pronto para Agente 1, 2 e 3).`);
+              } catch (e) {
+                console.error('Erro ao extrair lote do Agente 0:', e.message);
+              }
+            }
+          }
+        } catch (e) {
+          console.warn('Erro ao interpretar AGENT0_RESULT:', e.message);
+        }
       } else if (line.includes('Planilha gerada com sucesso') || line.includes('planilha_sankhya_') || (line.includes('.xlsx') && line.includes('uploads'))) {
         agentTelemetry.currentStep = 'Concluído';
         agentTelemetry.stepDetail = 'Planilha .xlsx gerada e vinculada a todos os agentes';
-        const match = line.match(/([A-Za-z]:\\[^\s\r\n]+\.xlsx|\/[^\s\r\n]+\.xlsx|\.\.?[/\\]uploads[/\\][^\s\r\n]+\.xlsx)/i);
-        if (match) {
-          const resolvedPath = path.isAbsolute(match[1]) ? match[1] : path.resolve(SANKHYA_DIR, match[1]);
-          if (fs.existsSync(resolvedPath)) {
-            activeSpreadsheetPath = resolvedPath;
-            saveActiveBatchState(activeSpreadsheetPath);
-            agentTelemetry.activeSpreadsheet = activeSpreadsheetPath;
-            addLog(`📄 [LOTE VINCULADO] Nova planilha ${path.basename(activeSpreadsheetPath)} definida como lote ativo.`);
-            try {
-              const script = path.join(SCRAPER_DIR, 'create_lote.mjs');
-              const lotePath = path.join(SCRAPER_DIR, 'lote_d1fae5.csv');
-              execFileSync(process.execPath, [script, '--input', activeSpreadsheetPath, '--output', lotePath], { cwd: SCRAPER_DIR });
-              addLog(`⚡ [LOTE EXTRAÍDO] Produtos extraídos para ${path.basename(lotePath)} (Pronto para Agente 1, 2 e 3).`);
-            } catch (e) {
-              console.error('Erro ao extrair lote do Agente 0:', e.message);
-            }
-          }
-        }
       }
     }
   });
@@ -810,17 +829,24 @@ function startAgent(agentId, options = {}) {
     // Salva no histórico persistente do agente
     try {
       let executionFiles = [];
-      if (agentId === 'agent0' && activeSpreadsheetPath && fs.existsSync(activeSpreadsheetPath)) {
-        try {
-          const st = fs.statSync(activeSpreadsheetPath);
-          const bname = path.basename(activeSpreadsheetPath);
-          executionFiles.push({
-            name: bname,
-            path: activeSpreadsheetPath,
-            size: st.size,
-            downloadUrl: `/uploads/${encodeURIComponent(bname)}`
-          });
-        } catch {}
+      if (agentId === 'agent0') {
+        const candidateFile = agentTelemetry.agent0Result?.file || (activeSpreadsheetPath && activeSpreadsheetPath.endsWith('.xlsx') ? activeSpreadsheetPath : null);
+        if (candidateFile && fs.existsSync(candidateFile)) {
+          const normUploads = path.normalize(UPLOADS_DIR);
+          const normCandidate = path.normalize(candidateFile);
+          if (normCandidate.startsWith(normUploads)) {
+            try {
+              const st = fs.statSync(candidateFile);
+              const bname = path.basename(candidateFile);
+              executionFiles.push({
+                name: bname,
+                path: candidateFile,
+                size: st.size,
+                downloadUrl: `/uploads/${encodeURIComponent(bname)}`
+              });
+            } catch {}
+          }
+        }
       }
 
       recordExecution({
@@ -2071,24 +2097,33 @@ const server = http.createServer(async (req, res) => {
 
   // 11.5 Rota para download direto de planilhas geradas e /api/download
   if (urlPath.startsWith('/uploads/') || urlPath === '/api/download') {
+    if (!authenticateRequest(req, res)) return;
+
     let targetFile = null;
     let fileName = null;
 
     if (urlPath === '/api/download') {
       const qPath = parsedUrl.searchParams.get('path') || parsedUrl.searchParams.get('file');
       if (qPath) {
+        const safeBase = path.basename(qPath);
         if (path.isAbsolute(qPath) && fs.existsSync(qPath)) {
-          targetFile = qPath;
-          fileName = path.basename(qPath);
-        } else {
-          const inUploads = path.join(UPLOADS_DIR, path.basename(qPath));
-          const inScraper = path.join(SCRAPER_DIR, path.basename(qPath));
+          const normP = path.normalize(qPath);
+          const normUp = path.normalize(UPLOADS_DIR);
+          const normSc = path.normalize(SCRAPER_DIR);
+          if (normP.startsWith(normUp) || normP.startsWith(normSc) || (activeSpreadsheetPath && normP === path.normalize(activeSpreadsheetPath))) {
+            targetFile = qPath;
+            fileName = safeBase;
+          }
+        }
+        if (!targetFile) {
+          const inUploads = path.join(UPLOADS_DIR, safeBase);
+          const inScraper = path.join(SCRAPER_DIR, safeBase);
           if (fs.existsSync(inUploads)) {
             targetFile = inUploads;
-            fileName = path.basename(inUploads);
+            fileName = safeBase;
           } else if (fs.existsSync(inScraper)) {
             targetFile = inScraper;
-            fileName = path.basename(inScraper);
+            fileName = safeBase;
           }
         }
       } else {
@@ -2113,17 +2148,27 @@ const server = http.createServer(async (req, res) => {
     }
 
     if (targetFile && fs.existsSync(targetFile) && fs.statSync(targetFile).isFile()) {
+      const normTarget = path.normalize(targetFile);
+      const normUp = path.normalize(UPLOADS_DIR);
+      const normSc = path.normalize(SCRAPER_DIR);
+      if (!normTarget.startsWith(normUp) && !normTarget.startsWith(normSc) && (!activeSpreadsheetPath || normTarget !== path.normalize(activeSpreadsheetPath))) {
+        res.writeHead(403, { 'Content-Type': 'text/plain; charset=utf-8' });
+        res.end('Acesso negado.');
+        return;
+      }
+
       const ext = path.extname(targetFile).toLowerCase();
       const contentType = ext === '.csv' ? 'text/csv; charset=utf-8' : 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
       res.writeHead(200, {
         'Content-Type': contentType,
-        'Content-Disposition': `attachment; filename="${fileName}"`
+        'Content-Disposition': `attachment; filename="${fileName}"`,
+        'Access-Control-Allow-Origin': CORS_ORIGIN
       });
       fs.createReadStream(targetFile).pipe(res);
       return;
     } else {
       res.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8' });
-      res.end('Arquivo não encontrado para download.');
+      res.end(`Arquivo não encontrado para download: ${fileName || 'indefinido'}`);
       return;
     }
   }
