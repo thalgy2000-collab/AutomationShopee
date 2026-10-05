@@ -88,6 +88,7 @@ function parseArgs() {
   let limit = null;
   let targetSku = null;
   let collection = null;
+  let retryErrors = false;
 
   for (let i = 0; i < args.length; i++) {
     if (args[i] === "--input") {
@@ -108,10 +109,12 @@ function parseArgs() {
     } else if ((args[i] === "--sku" || args[i] === "--skus") && args[i + 1]) {
       targetSku = args[i + 1];
       i++;
+    } else if (args[i] === "--retry-errors" || args[i] === "--retry") {
+      retryErrors = true;
     }
   }
 
-  return { inputFile: resolve(inputFile), limit, targetSku, collection };
+  return { inputFile: resolve(inputFile), limit, targetSku, collection, retryErrors };
 }
 
 export function getModelCategory(skuOrModel) {
@@ -166,76 +169,201 @@ const SHOPIFY_DOMAINS = [
   "https://www.brkmotors.com.br",
 ];
 
+// Cache em memória durante a execução do script: normalParentCode -> { product, ambiguous, notFound, sourceDomain }
+const parentProductCache = new Map();
+
+// Contadores de requisições de rede
+let totalShopifyRequests = 0;
+
 /**
- * Busca produto na API da BRK Fishing, BRK Agro ou BRK Motors por SKU ou termo.
- * Tenta pelo SKU da variação e, se não encontrar, tenta pelo parentSku.
+ * Normaliza o código pai para chave canônica de comparação:
+ * Remove canais (_FULL, _SHOPEE, etc.) e sufixos de tamanho colados ou separados por hífen/underscore.
  */
-async function fetchProductFromShopify(sku, fallbackParentSku = null) {
-  const cleanSku = String(sku).trim();
-  const searchCandidates = [cleanSku];
-  if (cleanSku.includes("_")) searchCandidates.push(cleanSku.split("_")[0]);
-  if (fallbackParentSku && !searchCandidates.includes(fallbackParentSku)) {
-    searchCandidates.push(fallbackParentSku);
-    if (fallbackParentSku.includes("_")) searchCandidates.push(fallbackParentSku.split("_")[0]);
+export function normalizeParentCode(sku, rawTitle = "") {
+  if (!sku) return "";
+  let s = String(sku).trim().replace(/_(?:FULL|SHOPEE|ML|MAGIS5|BRK)$/i, "");
+  s = s.replace(/[-_](PP|P|M|G|GG|XG|XXG|EXG|EGG|EG|G[1-5]|[0-9]{1,2})$/i, "");
+  const p = extractParentSku(s, rawTitle);
+  return (p || s).toUpperCase();
+}
+
+/**
+ * Busca produto na API da BRK Fishing, BRK Agro ou BRK Motors com casamento estrito por código pai.
+ * Nunca casa por prefixo ("C02883" não casa com "C02883BL" nem "C02883I").
+ */
+export async function fetchProductFromShopify(sku, fallbackParentSku = null, rawTitle = "") {
+  const normTargetParent = normalizeParentCode(fallbackParentSku || sku, rawTitle);
+  const cleanSku = String(sku).trim().toUpperCase();
+
+  // Verifica cache em memória por código pai
+  if (parentProductCache.has(normTargetParent)) {
+    const cached = parentProductCache.get(normTargetParent);
+    if (cached.ambiguous) {
+      return { product: null, ambiguous: true, networkError: false, fromCache: true };
+    }
+    if (cached.notFound) {
+      return { product: null, notFound: true, networkError: false, fromCache: true };
+    }
+    return { product: cached.product, ambiguous: false, networkError: false, fromCache: true };
   }
-  // Remove sufixos comuns de tamanho/modelo ex: C01060_G -> C01060
-  const baseSku = cleanSku.replace(/[_\-](PP|P|M|G|GG|XG|G1|G2|G3|G4|3[4-9]|4[0-8])$/i, "");
-  if (!searchCandidates.includes(baseSku)) searchCandidates.push(baseSku);
+
+  // Termos de busca na API suggest
+  const searchTerms = [normTargetParent];
+  if (cleanSku !== normTargetParent && !searchTerms.includes(cleanSku)) {
+    searchTerms.push(cleanSku);
+  }
 
   let lastNetworkError = null;
 
-  for (const currentSku of searchCandidates) {
+  for (const searchTerm of searchTerms) {
     for (const domain of SHOPIFY_DOMAINS) {
-      for (let attempt = 0; attempt < 2; attempt++) {
+      await sleep(150); // Pausa curta entre domínios para respeitar o servidor
+
+      let attempt = 0;
+      let backoffMs = 1000;
+      const maxAttempts = 3;
+
+      while (attempt < maxAttempts) {
+        attempt++;
+        const suggestUrl = `${domain}/search/suggest.json?q=${encodeURIComponent(searchTerm)}&resources[type]=product`;
+        const t0 = Date.now();
+        totalShopifyRequests++;
+
         try {
-          const suggestUrl = `${domain}/search/suggest.json?q=${encodeURIComponent(currentSku)}&resources[type]=product`;
           const res = await fetch(suggestUrl, {
             headers: { "User-Agent": USER_AGENT },
             signal: AbortSignal.timeout(6000),
           });
+          const dur = Date.now() - t0;
+          console.log(`  🌐 [HTTP ${res.status}] ${domain} (${dur}ms) - busca: "${searchTerm}"`);
 
           if (res.status === 429) {
-            console.warn(`  ⚠️ Rate limit (429) em ${domain}. Aguardando 2s antes de tentar novamente...`);
-            await new Promise(r => setTimeout(r, 2000));
+            console.warn(`  ⚠️ Rate limit (429) em ${domain}. Backoff aguardando ${backoffMs}ms...`);
+            await sleep(backoffMs);
+            backoffMs *= 2;
             continue;
           }
 
-          if (!res.ok) continue;
+          if (!res.ok) {
+            break;
+          }
 
           const data = await res.json();
-          const products = data?.resources?.results?.products || [];
-          if (products.length === 0) break; // Sem produtos para esse candidato
-
-          const handle = products[0].handle;
-          const productRes = await fetch(`${domain}/products/${handle}.js`, {
-            headers: { "User-Agent": USER_AGENT },
-            signal: AbortSignal.timeout(6000),
-          });
-
-          if (!productRes.ok) continue;
-
-          const product = await productRes.json();
-          if (product) {
-            product._sourceDomain = domain;
-            return { product, networkError: false };
+          const rawProducts = data?.resources?.results?.products || [];
+          if (rawProducts.length === 0) {
+            break;
           }
+
+          // Limita candidatos a no máximo 5 para inspecionar
+          const candidateProducts = rawProducts.slice(0, 5);
+          const matchedProducts = [];
+
+          for (const cand of candidateProducts) {
+            if (!cand.handle) continue;
+            await sleep(100);
+            totalShopifyRequests++;
+            const tProduct0 = Date.now();
+
+            try {
+              const productRes = await fetch(`${domain}/products/${cand.handle}.js`, {
+                headers: { "User-Agent": USER_AGENT },
+                signal: AbortSignal.timeout(6000),
+              });
+              const durProd = Date.now() - tProduct0;
+              console.log(`  🌐 [HTTP ${productRes.status}] ${domain}/products/${cand.handle}.js (${durProd}ms)`);
+
+              if (productRes.status === 429) {
+                console.warn(`  ⚠️ Rate limit (429) no produto ${cand.handle}. Backoff aguardando 2s...`);
+                await sleep(2000);
+                continue;
+              }
+
+              if (!productRes.ok) continue;
+
+              const fullProduct = await productRes.json();
+              if (!fullProduct || !fullProduct.variants) continue;
+
+              // Verifica se alguma variante possui exatamente o SKU buscado ou o mesmo código pai normalizado
+              const exactVariantMatch = fullProduct.variants.some(v => {
+                const vSku = String(v.sku || "").trim().toUpperCase();
+                const vSkuClean = vSku.replace(/_(?:FULL|SHOPEE|ML|MAGIS5|BRK)$/i, "");
+                return vSku === cleanSku || vSkuClean === cleanSku;
+              });
+
+              const parentCodeMatch = fullProduct.variants.some(v => {
+                const vParent = normalizeParentCode(v.sku);
+                return vParent === normTargetParent;
+              });
+
+              if (exactVariantMatch || parentCodeMatch) {
+                fullProduct._sourceDomain = domain;
+                fullProduct._exactVariant = exactVariantMatch;
+                matchedProducts.push(fullProduct);
+              }
+            } catch (pErr) {
+              lastNetworkError = pErr.message;
+            }
+          }
+
+          if (matchedProducts.length > 0) {
+            // Se houver mais de um produto diferente que casou
+            if (matchedProducts.length > 1) {
+              // Verifica se um deles casou com exatidão da variante
+              const exactOnly = matchedProducts.filter(p => p._exactVariant);
+              if (exactOnly.length === 1) {
+                parentProductCache.set(normTargetParent, { product: exactOnly[0] });
+                return { product: exactOnly[0], ambiguous: false, networkError: false };
+              }
+
+              // Múltiplos produtos distintos casaram -> Marca ambíguo e NÃO baixa
+              console.warn(`  ⚠️ Ambiguidade detectada para ${normTargetParent}: ${matchedProducts.length} produtos casaram nos sites BRK.`);
+              parentProductCache.set(normTargetParent, { ambiguous: true });
+              return { product: null, ambiguous: true, networkError: false };
+            }
+
+            // Exatamente 1 produto casou
+            const singleMatch = matchedProducts[0];
+            parentProductCache.set(normTargetParent, { product: singleMatch });
+            return { product: singleMatch, ambiguous: false, networkError: false };
+          }
+
+          // Nenhum produto dos candidatos casou com o código pai exato
+          break;
         } catch (err) {
           lastNetworkError = err.message;
-          if (attempt === 0) {
-            await new Promise(r => setTimeout(r, 1000));
+          if (attempt < maxAttempts) {
+            console.warn(`  ⚠️ Falha na tentativa ${attempt}/${maxAttempts} para ${domain}: ${err.message}. Tentando novamente em ${backoffMs}ms...`);
+            await sleep(backoffMs);
+            backoffMs *= 2;
           }
         }
       }
     }
   }
 
-  return { product: null, networkError: Boolean(lastNetworkError), errorDetail: lastNetworkError };
+  // Registra notFound no cache para não repetir buscas infrutíferas para o mesmo pai
+  if (!lastNetworkError) {
+    parentProductCache.set(normTargetParent, { notFound: true });
+  }
+
+  return {
+    product: null,
+    ambiguous: false,
+    networkError: Boolean(lastNetworkError),
+    errorDetail: lastNetworkError,
+  };
 }
 
 /**
- * Baixa uma imagem e aplica o aprimoramento de qualidade da Opção A
+ * Baixa uma imagem e valida se o buffer gravado é válido (> 0 bytes).
+ * Suporta URL direta como string ou objeto contendo { src: string }.
  */
-async function downloadAndEnhanceImage(url, destPath) {
+export async function downloadAndEnhanceImage(imgItem, destPath) {
+  let url = typeof imgItem === "string" ? imgItem : (imgItem?.src || "");
+  if (!url) {
+    throw new Error("URL de imagem vazia ou objeto inválido");
+  }
+
   // Garante URL com protocolo HTTPS e máxima resolução
   let fullUrl = url.startsWith("//") ? `https:${url}` : url;
   fullUrl = fullUrl.replace(/(_\d+x\d+|\.compact|\.medium|\.large|\.grande)\./g, ".");
@@ -252,7 +380,11 @@ async function downloadAndEnhanceImage(url, destPath) {
   const arrayBuffer = await response.arrayBuffer();
   const buffer = Buffer.from(arrayBuffer);
 
-  // Salva a imagem original direta do site, sem qualquer filtro
+  if (!buffer || buffer.length === 0) {
+    throw new Error("Imagem baixada com tamanho 0 bytes (arquivo corrompido ou vazio)");
+  }
+
+  // Salva a imagem no disco
   await writeFile(destPath, buffer);
 }
 
@@ -307,17 +439,63 @@ async function main() {
       console.error(`❌ Arquivo de lote não encontrado ou vazio: ${inputFile}`);
       process.exit(1);
     }
-    pendentes = records.filter(r => r.status === "pendente" || !r.status);
+    if (retryErrors) {
+      pendentes = records.filter(r => r.status === "pendente" || !r.status || (typeof r.status === "string" && r.status.startsWith("erro")));
+    } else {
+      pendentes = records.filter(r => r.status === "pendente" || !r.status);
+    }
+  }
+
+  // Contadores para o relatório AGENT1_RESULT
+  let totalPendentesEncontrados = pendentes.length;
+  let sucessos = 0;
+  let reutilizados = 0;
+  let erros = 0;
+  const naoEncontrados = [];
+  const errosRede = [];
+  const semFotos = [];
+  const ambiguos = [];
+
+  if (pendentes.length === 0) {
+    // Estatísticas da distribuição atual do lote
+    const totalRecords = records.length;
+    const scrapedCount = records.filter(r => r.status === "scraped").length;
+    const errorCount = records.filter(r => typeof r.status === "string" && r.status.startsWith("erro")).length;
+    const otherCount = totalRecords - scrapedCount - errorCount;
+
+    console.log("═══════════════════════════════════════════════════════════════");
+    console.log("ℹ️ Nenhum produto pendente para download no lote atual.");
+    console.log(`   Total no arquivo: ${totalRecords}`);
+    console.log(`   Já baixados (scraped): ${scrapedCount}`);
+    console.log(`   Com erro anteriormente: ${errorCount}`);
+    if (otherCount > 0) console.log(`   Outros status: ${otherCount}`);
+    if (errorCount > 0) {
+      console.log("👉 Dica: Para reprocessar os produtos que falharam, use a opção '--retry-errors'.");
+    }
+    console.log("═══════════════════════════════════════════════════════════════\n");
+
+    const zeroResult = {
+      processados: 0,
+      scraped: scrapedCount,
+      reutilizados: 0,
+      erros: errorCount,
+      naoEncontrados: [],
+      errosRede: [],
+      semFotos: [],
+      ambiguos: [],
+      pendentesEncontrados: 0,
+      totalLote: totalRecords
+    };
+    console.log(`AGENT1_RESULT ${JSON.stringify(zeroResult)}`);
+    process.exit(2);
   }
 
   if (limit && limit > 0) {
     pendentes = pendentes.slice(0, limit);
   }
 
-  console.log(`Encontrados ${pendentes.length} produtos pendentes para download.\n`);
+  console.log(`Encontrados ${pendentes.length} produtos para processar nesta execução.\n`);
 
-  let sucessos = 0;
-  let erros = 0;
   const downloadedShirtModels = new Map(); // parentSku -> { sourceDir, sku, count }
 
   for (let i = 0; i < pendentes.length; i++) {
@@ -348,6 +526,7 @@ async function main() {
         }
         item.status = "scraped";
         sucessos++;
+        reutilizados++;
       } catch (linkErr) {
         console.warn(`  ⚠️ Falha ao vincular imagens para ${sku}: ${linkErr.message}`);
       }
@@ -383,6 +562,7 @@ async function main() {
         }
         item.status = "scraped";
         sucessos++;
+        reutilizados++;
 
         if (records.length > 0 && existsSync(inputFile)) {
           try {
@@ -398,40 +578,47 @@ async function main() {
     console.log(`${progresso} 🔍 Buscando produto: ${sku} - ${item.titulo_bruto || ""}`);
 
     try {
-      const searchRes = await fetchProductFromShopify(sku, parentSku);
+      const searchRes = await fetchProductFromShopify(sku, parentSku, item.titulo_bruto || "");
       const shopifyData = searchRes?.product;
 
       if (!shopifyData) {
-        if (searchRes?.networkError) {
+        if (searchRes?.ambiguous) {
+          console.warn(`${progresso} ⚠️ Múltiplos produtos distintos casaram com ${sku}. Marcado como ambíguo.`);
+          item.status = `erro: produto ambíguo nos sites BRK (múltiplos modelos coincidentes)`;
+          ambiguos.push(sku);
+        } else if (searchRes?.networkError) {
           console.warn(`${progresso} ⚠️ Erro de rede ou timeout ao consultar sites BRK (${searchRes.errorDetail || "falha de conexão"}).`);
           item.status = "erro: falha de rede ao consultar sites BRK";
+          errosRede.push(sku);
         } else {
           console.warn(`${progresso} ⚠️ SKU ${sku} não está publicado nos sites BRK; sem fotos.`);
           item.status = `erro: SKU ${sku} não está publicado nos sites BRK; sem fotos`;
+          naoEncontrados.push(sku);
         }
         erros++;
         continue;
       }
-      console.log(`${progresso} 🌐 Encontrado em: ${shopifyData._sourceDomain}`);
+      console.log(`${progresso} 🌐 Encontrado em: ${shopifyData._sourceDomain}${searchRes.fromCache ? ' (via cache)' : ''}`);
 
       const images = shopifyData.images || [];
       if (images.length === 0) {
-        console.warn(`${progresso} ⚠️ SKU ${sku} não está publicado nos sites BRK; sem fotos.`);
-        item.status = `erro: SKU ${sku} não está publicado nos sites BRK; sem fotos`;
+        console.warn(`${progresso} ⚠️ SKU ${sku} publicado mas sem imagens cadastradas nos sites BRK.`);
+        item.status = `erro: SKU ${sku} não possui fotos cadastradas nos sites BRK`;
+        semFotos.push(sku);
         erros++;
         continue;
       }
 
       await mkdir(skuDir, { recursive: true });
 
-      console.log(`${progresso} 📥 Baixando e aprimorando ${images.length} fotos para ${sku}...`);
+      console.log(`${progresso} 📥 Baixando e validando ${images.length} fotos para ${sku}...`);
 
       for (let idx = 0; idx < images.length; idx++) {
-        const imgUrl = images[idx];
+        const imgItem = images[idx];
         const numStr = String(idx + 1).padStart(2, "0");
         const destPath = join(skuDir, `${numStr}.jpg`);
 
-        await downloadAndEnhanceImage(imgUrl, destPath);
+        await downloadAndEnhanceImage(imgItem, destPath);
       }
 
       // Se for camisa com variação de tamanho, vincula também à pasta do código pai
@@ -449,7 +636,7 @@ async function main() {
       }
 
       const relativeFolder = collection ? `downloads/${collection}/${sku}/` : `downloads/${categoryFolder}/${sku}/`;
-      console.log(`${progresso} ✅ ${images.length} fotos salvas e aprimoradas com sucesso em ${relativeFolder}`);
+      console.log(`${progresso} ✅ ${images.length} fotos salvas e validadas com sucesso em ${relativeFolder}`);
       item.status = "scraped";
       sucessos++;
     } catch (err) {
@@ -466,12 +653,30 @@ async function main() {
       } catch {}
     }
 
-    await sleep(600);
+    await sleep(400);
   }
 
+  const scrapedNovo = sucessos - reutilizados;
+  const resultPayload = {
+    processados: pendentes.length,
+    scraped: sucessos,
+    baixadosNovos: scrapedNovo,
+    reutilizados,
+    erros,
+    naoEncontrados,
+    errosRede,
+    semFotos,
+    ambiguos,
+    pendentesEncontrados: totalPendentesEncontrados,
+    totalRequisicoesRede: totalShopifyRequests
+  };
+
   console.log("\n═══════════════════════════════════════════════════════════════");
-  console.log(`  🎉 Concluído! Sucessos: ${sucessos} | Erros: ${erros}`);
+  console.log(`  🎉 Concluído! Sucessos: ${sucessos} (Novos baixados: ${scrapedNovo}, Reutilizados/Cache: ${reutilizados}) | Erros: ${erros}`);
+  console.log(`  🌐 Total de requisições Shopify realizadas: ${totalShopifyRequests}`);
   console.log("═══════════════════════════════════════════════════════════════\n");
+
+  console.log(`AGENT1_RESULT ${JSON.stringify(resultPayload)}`);
 }
 
 const isDirectRun = process.argv[1] && resolve(process.argv[1]) === resolve(fileURLToPath(import.meta.url));

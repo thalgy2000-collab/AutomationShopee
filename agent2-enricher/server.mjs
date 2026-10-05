@@ -148,9 +148,13 @@ export function atomicWriteFileSync(filePath, content) {
   fs.renameSync(tmpPath, filePath);
 }
 
+const REPO_ROOT = path.resolve(__dirname, '..');
+
 function saveActiveBatchState(p) {
   try {
-    fs.writeFileSync(ACTIVE_BATCH_STATE_FILE, JSON.stringify({ path: p, updatedAt: new Date().toISOString() }, null, 2));
+    if (!p) return;
+    const relPath = path.isAbsolute(p) ? path.relative(REPO_ROOT, p).replace(/\\/g, '/') : p;
+    fs.writeFileSync(ACTIVE_BATCH_STATE_FILE, JSON.stringify({ path: relPath, updatedAt: new Date().toISOString() }, null, 2));
   } catch {}
 }
 
@@ -158,8 +162,11 @@ function loadActiveBatchState() {
   try {
     if (fs.existsSync(ACTIVE_BATCH_STATE_FILE)) {
       const data = JSON.parse(fs.readFileSync(ACTIVE_BATCH_STATE_FILE, 'utf8'));
-      if (data.path && fs.existsSync(data.path)) {
-        return data.path;
+      if (data.path) {
+        const absPath = path.isAbsolute(data.path) ? data.path : path.resolve(REPO_ROOT, data.path);
+        if (fs.existsSync(absPath)) {
+          return absPath;
+        }
       }
     }
   } catch {}
@@ -255,6 +262,7 @@ const agentTelemetry = {
   lastError: null,
   lastStderrLines: [],
   agent0Result: null,
+  agent1Result: null,
   progress: { current: 0, total: 0 },
   history: {
     agent0: { lastRun: null, status: 'idle', lastAction: 'Pronto para consultar produtos no Sankhya Web e gerar planilhas', count: 0 },
@@ -362,6 +370,7 @@ function startAgent(agentId, options = {}) {
   agentTelemetry.lastError = null;
   agentTelemetry.lastStderrLines = [];
   agentTelemetry.agent0Result = null;
+  agentTelemetry.agent1Result = null;
   agentTelemetry.startTime = Date.now();
   agentTelemetry.elapsedSeconds = 0;
   agentTelemetry.currentSku = options.sku || null;
@@ -395,6 +404,9 @@ function startAgent(agentId, options = {}) {
       if (options.collection) {
         args.push('--collection', options.collection.trim());
       }
+      if (options.retryErrors) {
+        args.push('--retry-errors');
+      }
     } else if (action === 'auto') {
       args = ['pipeline_agent1.mjs'];
       if (inputFile) args.push('--input', inputFile);
@@ -406,6 +418,9 @@ function startAgent(agentId, options = {}) {
       }
       if (options.limit && parseInt(options.limit, 10) > 0) {
         args.push('--limit', options.limit.toString());
+      }
+      if (options.retryErrors) {
+        args.push('--retry-errors');
       }
     } else if (action === 'extract') {
       args = ['create_lote.mjs'];
@@ -427,6 +442,9 @@ function startAgent(agentId, options = {}) {
       }
       if (options.limit && parseInt(options.limit, 10) > 0) {
         args.push('--limit', options.limit.toString());
+      }
+      if (options.retryErrors) {
+        args.push('--retry-errors');
       }
     } else if (action === 'restore-all') {
       args = ['restore_all_physical_folders.mjs'];
@@ -747,6 +765,13 @@ function startAgent(agentId, options = {}) {
         } catch (e) {
           console.warn('Erro ao interpretar AGENT0_RESULT:', e.message);
         }
+      } else if (line.startsWith('AGENT1_RESULT ')) {
+        try {
+          const resJson = JSON.parse(line.replace('AGENT1_RESULT ', '').trim());
+          agentTelemetry.agent1Result = resJson;
+        } catch (e) {
+          console.warn('Erro ao interpretar AGENT1_RESULT:', e.message);
+        }
       } else if (line.includes('Planilha gerada com sucesso') || line.includes('planilha_sankhya_') || (line.includes('.xlsx') && line.includes('uploads'))) {
         agentTelemetry.currentStep = 'Concluído';
         agentTelemetry.stepDetail = 'Planilha .xlsx gerada e vinculada a todos os agentes';
@@ -799,26 +824,47 @@ function startAgent(agentId, options = {}) {
 
   child.on('close', (code) => {
     releaseAgentLock();
-    addLog(`🏁 ${agentId.toUpperCase()} finalizou com código de saída: ${code}`, code === 0 ? 'stdout' : 'stderr');
-    agentStatus = code === 0 ? 'done' : 'error';
-    agentTelemetry.status = code === 0 ? 'done' : 'error';
-    if (code === 0) {
+    addLog(`🏁 ${agentId.toUpperCase()} finalizou com código de saída: ${code}`, (code === 0 || (agentId === 'agent1' && code === 2)) ? 'stdout' : 'stderr');
+
+    const isAgent1ZeroPending = agentId === 'agent1' && code === 2;
+    const isSuccess = code === 0 || isAgent1ZeroPending;
+
+    agentStatus = isSuccess ? 'done' : 'error';
+    agentTelemetry.status = isSuccess ? 'done' : 'error';
+    if (isSuccess) {
       agentTelemetry.lastError = null;
     }
     if (agentTelemetry.startTime) {
       agentTelemetry.elapsedSeconds = Math.round((Date.now() - agentTelemetry.startTime) / 1000);
     }
-    const summaryText = code === 0
-      ? `Execução concluída com sucesso (${agentTelemetry.currentSku ? 'SKU ' + agentTelemetry.currentSku : 'Concluído'})`
-      : `Execução finalizou com erro (código ${code})`;
+
+    let summaryText = '';
+    if (code === 0) {
+      summaryText = `Execução concluída com sucesso (${agentTelemetry.currentSku ? 'SKU ' + agentTelemetry.currentSku : 'Concluído'})`;
+    } else if (isAgent1ZeroPending) {
+      summaryText = '0 produtos pendentes para download no lote atual';
+    } else {
+      summaryText = `Execução finalizou com erro (código ${code})`;
+    }
 
     if (agentTelemetry.history[agentId]) {
-      agentTelemetry.history[agentId].status = code === 0 ? 'done' : 'error';
+      agentTelemetry.history[agentId].status = isSuccess ? 'done' : 'error';
       agentTelemetry.history[agentId].lastRun = new Date().toISOString();
       agentTelemetry.history[agentId].lastAction = summaryText;
     }
-    agentTelemetry.currentStep = code === 0 ? 'Concluído com sucesso' : 'Finalizado com erro';
-    if (code !== 0) {
+
+    if (code === 0) {
+      agentTelemetry.currentStep = 'Concluído com sucesso';
+    } else if (isAgent1ZeroPending) {
+      agentTelemetry.currentStep = '0 pendentes no lote';
+      if (agentTelemetry.agent1Result) {
+        const r = agentTelemetry.agent1Result;
+        agentTelemetry.stepDetail = `Lote sem pendências: ${r.scraped || 0} já baixados, ${r.erros || 0} com erro. Ative 'Reprocessar erros' se desejar tentar novamente.`;
+      } else {
+        agentTelemetry.stepDetail = "Todos os itens já foram processados anteriormente. Para tentar baixar os itens que falharam, marque 'Reprocessar erros'.";
+      }
+    } else {
+      agentTelemetry.currentStep = 'Finalizado com erro';
       if (agentTelemetry.lastStderrLines && agentTelemetry.lastStderrLines.length > 0) {
         agentTelemetry.stepDetail = agentTelemetry.lastStderrLines.join('\n');
       } else if (agentTelemetry.lastError) {

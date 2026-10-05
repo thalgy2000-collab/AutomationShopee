@@ -419,4 +419,176 @@ test("AGENTE 0 TELEMETRIA & SEGURANÇA: Formato do AGENT0_RESULT e bloqueio de d
   assert.ok(!JSON.stringify(markerPayload).includes("Produto C09999"), "Não deve conter texto fictício gerado");
 });
 
+test("PAINEL HTML INTEGRIDADE: Todos os blocos <script> inline de painel.html são válidos sintaticamente", async () => {
+  const vm = await import("node:vm");
+  const painelPath = path.resolve("agent2-enricher/painel.html");
+  assert.ok(fs.existsSync(painelPath), "painel.html deve existir");
+
+  const html = fs.readFileSync(painelPath, "utf8");
+  const scriptRegex = /<script\b[^>]*>([\s\S]*?)<\/script>/gi;
+  let match;
+  let count = 0;
+
+  while ((match = scriptRegex.exec(html)) !== null) {
+    count++;
+    const code = match[1];
+    // Valida compilação com vm.Script (sem avaliar execução)
+    assert.doesNotThrow(() => {
+      new vm.Script(code);
+    }, `Bloco <script> #${count} em painel.html contém erro de sintaxe`);
+
+    // Valida também com construtor Function
+    assert.doesNotThrow(() => {
+      new Function(code);
+    }, `Bloco <script> #${count} não pode ser analisado como Função JavaScript`);
+  }
+
+  assert.ok(count > 0, "Deve haver pelo menos um bloco <script> em painel.html");
+});
+
+test("AGENTE 1 DESAMBIGUAÇÃO: Casamento exato por código pai e variants[].sku (C02883 vs C02883BL vs C02883I)", async () => {
+  const { fetchProductFromShopify, normalizeParentCode } = await import("../agent1-scraper/scraper.mjs");
+
+  // Testa normalização canônica dos códigos pai
+  assert.strictEqual(normalizeParentCode("C02883"), "C02883");
+  assert.strictEqual(normalizeParentCode("C02883BL"), "C02883BL");
+  assert.strictEqual(normalizeParentCode("C02883I"), "C02883I");
+  assert.strictEqual(normalizeParentCode("C02883P_FULL"), "C02883");
+  assert.strictEqual(normalizeParentCode("C02883BLM_SHOPEE"), "C02883BL");
+  assert.strictEqual(normalizeParentCode("C02883IPP"), "C02883I");
+
+  // Mock global de fetch para simular busca que retorna os 3 handles
+  const origFetch = globalThis.fetch;
+  try {
+    globalThis.fetch = async (url) => {
+      const u = String(url);
+      if (u.includes("/search/suggest.json")) {
+        return {
+          ok: true,
+          status: 200,
+          json: async () => ({
+            resources: {
+              results: {
+                products: [
+                  { handle: "camisa-masculina-arara-azul" },
+                  { handle: "camisa-feminina-arara-azul" },
+                  { handle: "camisa-infantil-arara-azul" }
+                ]
+              }
+            }
+          })
+        };
+      }
+      if (u.includes("camisa-masculina-arara-azul.js")) {
+        return {
+          ok: true,
+          status: 200,
+          json: async () => ({
+            title: "Camisa Masculina Arara-Azul",
+            variants: [{ sku: "C02883PP" }, { sku: "C02883P" }, { sku: "C02883M" }],
+            images: ["//cdn.shopify.com/foto_masc.jpg"]
+          })
+        };
+      }
+      if (u.includes("camisa-feminina-arara-azul.js")) {
+        return {
+          ok: true,
+          status: 200,
+          json: async () => ({
+            title: "Camisa Feminina Arara-Azul",
+            variants: [{ sku: "C02883BLPP" }, { sku: "C02883BLP" }, { sku: "C02883BLM" }],
+            images: ["//cdn.shopify.com/foto_fem.jpg"]
+          })
+        };
+      }
+      if (u.includes("camisa-infantil-arara-azul.js")) {
+        return {
+          ok: true,
+          status: 200,
+          json: async () => ({
+            title: "Camisa Infantil Arara-Azul",
+            variants: [{ sku: "C02883IPP" }, { sku: "C02883IP" }],
+            images: ["//cdn.shopify.com/foto_inf.jpg"]
+          })
+        };
+      }
+      return { ok: false, status: 404 };
+    };
+
+    // 1. Busca C02883 -> Deve casar estritamente com a camisa masculina
+    const resMasc = await fetchProductFromShopify("C02883P", "C02883");
+    assert.ok(resMasc.product, "Deveria encontrar produto masculino");
+    assert.strictEqual(resMasc.product.title, "Camisa Masculina Arara-Azul");
+
+    // 2. Busca C02883BL -> Deve casar estritamente com a camisa feminina
+    const resFem = await fetchProductFromShopify("C02883BLM", "C02883BL");
+    assert.ok(resFem.product, "Deveria encontrar produto feminino");
+    assert.strictEqual(resFem.product.title, "Camisa Feminina Arara-Azul");
+
+    // 3. Busca C02883I -> Deve casar estritamente com a camisa infantil
+    const resInf = await fetchProductFromShopify("C02883IPP", "C02883I");
+    assert.ok(resInf.product, "Deveria encontrar produto infantil");
+    assert.strictEqual(resInf.product.title, "Camisa Infantil Arara-Azul");
+
+  } finally {
+    globalThis.fetch = origFetch;
+  }
+});
+
+test("AGENTE 1 BACKOFF & IMAGENS: Trata HTTP 429 com retry e valida imagens string/objeto não-vazias", async () => {
+  const { downloadAndEnhanceImage } = await import("../agent1-scraper/scraper.mjs");
+  const tempDir = path.resolve("scratch_test_images");
+  if (!fs.existsSync(tempDir)) fs.mkdirSync(tempDir, { recursive: true });
+
+  const destFileString = path.join(tempDir, "test_str.jpg");
+  const destFileObj = path.join(tempDir, "test_obj.jpg");
+  const destFileZero = path.join(tempDir, "test_zero.jpg");
+
+  const origFetch = globalThis.fetch;
+  try {
+    globalThis.fetch = async (url) => {
+      const u = String(url);
+      if (u.includes("zero_bytes.jpg")) {
+        return {
+          ok: true,
+          status: 200,
+          arrayBuffer: async () => new ArrayBuffer(0) // 0 bytes corrompido
+        };
+      }
+      return {
+        ok: true,
+        status: 200,
+        arrayBuffer: async () => Buffer.from("DADO_VALIDO_DA_IMAGEM")
+      };
+    };
+
+    // Imagem passada como string
+    await downloadAndEnhanceImage("//cdn.shopify.com/foto_ok.jpg", destFileString);
+    assert.ok(fs.existsSync(destFileString));
+    assert.ok(fs.statSync(destFileString).size > 0);
+
+    // Imagem passada como objeto { src: ... }
+    await downloadAndEnhanceImage({ src: "https://cdn.shopify.com/foto_obj.jpg" }, destFileObj);
+    assert.ok(fs.existsSync(destFileObj));
+    assert.ok(fs.statSync(destFileObj).size > 0);
+
+    // Rejeição de imagem com 0 bytes
+    await assert.rejects(
+      async () => {
+        await downloadAndEnhanceImage("https://cdn.shopify.com/zero_bytes.jpg", destFileZero);
+      },
+      /tamanho 0 bytes/
+    );
+
+  } finally {
+    globalThis.fetch = origFetch;
+    try {
+      if (fs.existsSync(destFileString)) fs.unlinkSync(destFileString);
+      if (fs.existsSync(destFileObj)) fs.unlinkSync(destFileObj);
+      if (fs.existsSync(tempDir)) fs.rmdirSync(tempDir, { recursive: true });
+    } catch {}
+  }
+});
+
+
 

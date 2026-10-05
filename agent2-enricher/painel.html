@@ -4640,7 +4640,7 @@
         },
         chips: [
           { label: 'Iniciar Coleta Completa (Auto)', action: 'runAgent1Auto' },
-          { label: 'Baixar FUSION123', action: 'downloadFusion' },
+          { label: '🔄 Reprocessar Erros', action: 'runAgent1RetryErrors' },
           { label: 'Apenas Download de Imagens', action: 'runAgent1ScraperOnly' },
           { label: 'Ver Pasta de Fotos', action: 'openAgent1Folder' }
         ]
@@ -5085,7 +5085,7 @@
       const pathMatch = window.location.pathname.match(/\/agent([0-4])/i);
       const urlParams = new URLSearchParams(window.location.search);
       if (pathMatch) {
-        initialAgent = gent\;
+        initialAgent = "agent" + (pathMatch[1] || "0");
       } else if (urlParams.get('agent') && ['agent0','agent1','agent2','agent3','agent4'].includes(urlParams.get('agent'))) {
         initialAgent = urlParams.get('agent');
       } else if (window.location.hash) {
@@ -5191,7 +5191,7 @@
         if (window.history && window.history.replaceState) {
           const currentPath = window.location.pathname;
           if (currentPath === '/' || currentPath.startsWith('/agent') || currentPath === '/painel') {
-            const newPath = /\;
+            const newPath = "/" + agentId;
             if (currentPath !== newPath) {
               window.history.replaceState({ agent: agentId }, '', newPath + window.location.search);
             }
@@ -5977,6 +5977,21 @@
               action: 'auto',
               inputFile: latestSpreadsheetFile ? latestSpreadsheetFile.path : null,
               collection: 'Planilha'
+            }
+          });
+          break;
+
+        case 'runAgent1RetryErrors':
+          appendUserMessage('Reprocessar itens com erro no Agente 1');
+          appendBotMessage('agent1', 'Reprocessando produtos com erro anterior para buscar fotos oficiais...');
+          sendAgent1FolderCard('📂 **Destino das fotos:**');
+          sendAgentStartRequest({
+            agent: 'agent1',
+            options: {
+              action: 'auto',
+              inputFile: latestSpreadsheetFile ? latestSpreadsheetFile.path : null,
+              collection: 'Planilha',
+              retryErrors: true
             }
           });
           break;
@@ -6946,7 +6961,7 @@
                 const jsonStr = txt.slice(markerIdx + 'AGENT0_RESULT '.length).trim();
                 const resJson = JSON.parse(jsonStr);
                 if (resJson.file && !isTransitioning) {
-                  const fileName = resJson.file.split(/[/\]/).pop();
+                  const fileName = resJson.file.split(/[\\/]/).pop();
                   latestSpreadsheetFile = {
                     path: resJson.file,
                     name: fileName,
@@ -6963,11 +6978,20 @@
               } catch (e) {
                 console.warn('Erro ao decodificar AGENT0_RESULT:', e);
               }
+            } else if (txt.includes('AGENT1_RESULT ')) {
+              try {
+                const markerIdx = txt.indexOf('AGENT1_RESULT ');
+                const jsonStr = txt.slice(markerIdx + 'AGENT1_RESULT '.length).trim();
+                const resJson = JSON.parse(jsonStr);
+                showAgent1ResultCard(resJson);
+              } catch (e) {
+                console.warn('Erro ao decodificar AGENT1_RESULT:', e);
+              }
             } else if (txt.includes('Planilha gerada com sucesso') || txt.includes('planilha_sankhya_') || (txt.includes('.xlsx') && txt.includes('LOTE VINCULADO'))) {
               const match = txt.match(/([A-Za-z]:\[^\s\r\n]+\.xlsx|\/[^\s\r\n]+\.xlsx|planilha_sankhya_[0-9]+\.xlsx|[a-zA-Z0-9_\-]+\.xlsx)/i);
               if (match && !isTransitioning && !latestSpreadsheetFile?.metrics) {
                 const rawMatch = match[1];
-                const fileName = rawMatch.split(/[/\]/).pop();
+                const fileName = rawMatch.split(/[\\/]/).pop();
                 latestSpreadsheetFile = {
                   path: rawMatch,
                   name: fileName,
@@ -7409,6 +7433,68 @@
         setTimeout(() => {
           goToNextAgent('agent1', 'runAgent1Auto');
         }, 3000);
+      }
+    }
+
+    function showAgent1ResultCard(res) {
+      if (!res) return;
+      const isZeroPending = res.pendentesEncontrados === 0;
+
+      let cardHtml = '';
+      if (isZeroPending) {
+        cardHtml = `
+          <div class="chat-action-card" style="border-left: 4px solid #F59E0B; background: linear-gradient(135deg, rgba(15,23,42,0.95), rgba(30,41,59,0.95)); border: 1px solid rgba(245,158,11,0.3); border-radius: 10px; padding: 14px; margin-top: 10px;">
+            <div style="font-weight: 700; color: #F59E0B; margin-bottom: 6px; display: flex; align-items: center; gap: 8px;">
+              <span>ℹ️</span> 0 Produtos Pendentes no Lote
+            </div>
+            <div style="font-size: 0.83rem; color: #d1d5db; margin-bottom: 10px; line-height: 1.4;">
+              Todos os itens deste lote já foram processados anteriormente.
+            </div>
+            <div style="display: flex; gap: 10px; margin-bottom: 12px; flex-wrap: wrap;">
+              <span style="background: rgba(16,185,129,0.15); border: 1px solid rgba(16,185,129,0.3); border-radius: 4px; padding: 2px 8px; font-size: 0.75rem; color: #6ee7b7;"><strong>Já Baixados:</strong> ${res.scraped || 0}</span>
+              <span style="background: rgba(239,68,68,0.15); border: 1px solid rgba(239,68,68,0.3); border-radius: 4px; padding: 2px 8px; font-size: 0.75rem; color: #fca5a5;"><strong>Com Erro:</strong> ${res.erros || 0}</span>
+              <span style="background: rgba(59,130,246,0.15); border: 1px solid rgba(59,130,246,0.3); border-radius: 4px; padding: 2px 8px; font-size: 0.75rem; color: #93c5fd;"><strong>Total Lote:</strong> ${res.totalLote || 0}</span>
+            </div>
+            <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+              <button type="button" class="btn-action-primary" style="background: #D97706; border-color: #B45309; padding: 8px 16px; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 6px; color: #fff; border-radius: 6px; font-weight: 600; cursor: pointer;" onclick="executeChipAction('runAgent1RetryErrors')">
+                <span>🔄</span> Reprocessar Erros do Lote
+              </button>
+              <button type="button" class="btn-action-secondary" style="background: #8B5CF6; border-color: #7C3AED; padding: 8px 16px; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 6px; color: #fff; border-radius: 6px; font-weight: 600; cursor: pointer;" onclick="goToNextAgent('agent2', 'enrichLot')">
+                <span>⚡</span> Avançar para Agente 2 (IA Vision)
+              </button>
+            </div>
+          </div>
+        `;
+        appendBotMessage('agent1', 'Relatório de execução do Agente 1:', cardHtml);
+      } else {
+        const novos = res.baixadosNovos != null ? res.baixadosNovos : (res.scraped - (res.reutilizados || 0));
+        cardHtml = `
+          <div class="chat-action-card" style="border-left: 4px solid #10B981; background: linear-gradient(135deg, rgba(15,23,42,0.95), rgba(30,41,59,0.95)); border: 1px solid rgba(16,185,129,0.3); border-radius: 10px; padding: 14px; margin-top: 10px;">
+            <div style="font-weight: 700; color: #10B981; margin-bottom: 6px; display: flex; align-items: center; gap: 8px;">
+              <span>🎉</span> Download de Fotos Concluído!
+            </div>
+            <div style="font-size: 0.83rem; color: #d1d5db; margin-bottom: 10px; line-height: 1.4;">
+              Imagens coletadas e validadas dos sites da BRK:
+            </div>
+            <div style="display: flex; gap: 10px; margin-bottom: 12px; flex-wrap: wrap;">
+              <span style="background: rgba(16,185,129,0.15); border: 1px solid rgba(16,185,129,0.3); border-radius: 4px; padding: 2px 8px; font-size: 0.75rem; color: #6ee7b7;"><strong>Fotos Novas:</strong> ${novos}</span>
+              <span style="background: rgba(59,130,246,0.15); border: 1px solid rgba(59,130,246,0.3); border-radius: 4px; padding: 2px 8px; font-size: 0.75rem; color: #93c5fd;"><strong>Reutilizados (Cache):</strong> ${res.reutilizados || 0}</span>
+              <span style="background: rgba(239,68,68,0.15); border: 1px solid rgba(239,68,68,0.3); border-radius: 4px; padding: 2px 8px; font-size: 0.75rem; color: #fca5a5;"><strong>Falhas:</strong> ${res.erros || 0}</span>
+              ${res.ambiguos && res.ambiguos.length > 0 ? `<span style="background: rgba(245,158,11,0.15); border: 1px solid rgba(245,158,11,0.3); border-radius: 4px; padding: 2px 8px; font-size: 0.75rem; color: #fde68a;"><strong>Ambíguos:</strong> ${res.ambiguos.length}</span>` : ''}
+            </div>
+            <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+              <button type="button" class="btn-action-primary" style="background: #8B5CF6; border-color: #7C3AED; padding: 8px 16px; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 6px; color: #fff; border-radius: 6px; font-weight: 600; cursor: pointer;" onclick="goToNextAgent('agent2', 'enrichLot')">
+                <span>⚡</span> Avançar e Enriquecer com IA (Agente 2)
+              </button>
+              ${res.erros > 0 ? `
+                <button type="button" class="btn-action-secondary" style="background: #D97706; border-color: #B45309; padding: 8px 16px; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 6px; color: #fff; border-radius: 6px; font-weight: 600; cursor: pointer;" onclick="executeChipAction('runAgent1RetryErrors')">
+                  <span>🔄</span> Reprocessar Erros
+                </button>
+              ` : ''}
+            </div>
+          </div>
+        `;
+        appendBotMessage('agent1', 'Coleta de fotos finalizada com sucesso:', cardHtml);
       }
     }
 

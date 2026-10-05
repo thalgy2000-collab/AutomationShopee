@@ -47,10 +47,12 @@ function parseArgs() {
     } else if (args[i] === "--sku" && args[i + 1]) {
       sku = args[i + 1];
       i++;
+    } else if (args[i] === "--retry-errors" || args[i] === "--retry") {
+      retryErrors = true;
     }
   }
 
-  return { inputFile, color, limit, sku, collection };
+  return { inputFile, color, limit, sku, collection, retryErrors };
 }
 
 function runScript(scriptName, scriptArgs) {
@@ -68,9 +70,14 @@ function runScript(scriptName, scriptArgs) {
 
     child.on("close", (code) => {
       if (code === 0) {
-        resolvePromise();
+        resolvePromise(0);
+      } else if (code === 2) {
+        // Código 2 = 0 produtos pendentes no lote
+        resolvePromise(2);
       } else {
-        reject(new Error(`${scriptName} encerrou com código de erro ${code}`));
+        const err = new Error(`${scriptName} encerrou com código de erro ${code}`);
+        err.code = code;
+        reject(err);
       }
     });
 
@@ -81,7 +88,7 @@ function runScript(scriptName, scriptArgs) {
 }
 
 async function main() {
-  let { inputFile, color, limit, sku, collection } = parseArgs();
+  let { inputFile, color, limit, sku, collection, retryErrors } = parseArgs();
   const resolvedInput = inputFile ? resolve(process.cwd(), inputFile) : null;
   const isExcel = resolvedInput && /\.(xlsx?)$/i.test(resolvedInput);
 
@@ -105,8 +112,12 @@ async function main() {
     if (limit) scraperArgs.push("--limit", limit);
     if (sku) scraperArgs.push("--sku", sku);
     if (collection) scraperArgs.push("--collection", collection);
+    if (retryErrors) scraperArgs.push("--retry-errors");
 
-    await runScript("scraper.mjs", scraperArgs);
+    const code = await runScript("scraper.mjs", scraperArgs);
+    if (code === 2) {
+      process.exit(2);
+    }
   } else {
     // É CSV ou sem arquivo fornecido: vai direto para o scraper
     const scraperArgs = [];
@@ -114,14 +125,21 @@ async function main() {
     if (limit) scraperArgs.push("--limit", limit);
     if (sku) scraperArgs.push("--sku", sku);
     if (collection) scraperArgs.push("--collection", collection);
+    if (retryErrors) scraperArgs.push("--retry-errors");
 
-    await runScript("scraper.mjs", scraperArgs);
+    const code = await runScript("scraper.mjs", scraperArgs);
+    if (code === 2) {
+      process.exit(2);
+    }
   }
 
   console.log("\n🎉 Pipeline do Agente 1 finalizado com sucesso!\n");
 }
 
 main().catch((err) => {
+  if (err.code === 2) {
+    process.exit(2);
+  }
   console.error("\n❌ Erro no pipeline do Agente 1:", err.message);
-  process.exit(1);
+  process.exit(err.code || 1);
 });
