@@ -282,6 +282,8 @@ export async function runAgent0(options = {}) {
     console.log(`   📂 Arquivo: ${generatedFile}`);
     console.log(`   📊 Total de linhas: ${totalLinhas} | Códigos 5 dígitos: ${comCodigo} | Sem código: ${semCodigo}`);
 
+    await client.close();
+
     const resultPayload = {
       success: true,
       file: generatedFile,
@@ -292,8 +294,6 @@ export async function runAgent0(options = {}) {
     };
 
     console.log(`AGENT0_RESULT ${JSON.stringify(resultPayload)}`);
-
-    await client.close();
     return resultPayload;
   } catch (error) {
     console.error(`\n❌ Erro no Agente 0:`, error.message);

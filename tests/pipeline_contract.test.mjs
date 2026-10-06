@@ -590,5 +590,34 @@ test("AGENTE 1 BACKOFF & IMAGENS: Trata HTTP 429 com retry e valida imagens stri
   }
 });
 
+test("FRONTEND SINCRONIA: Arquivos raiz e vercel.json estão sincronizados com agent2-enricher/painel.html", () => {
+  const projectRoot = path.resolve(".");
+  const enricherPainel = path.join(projectRoot, "agent2-enricher", "painel.html");
+  const rootPainel = path.join(projectRoot, "painel.html");
+  const agent0 = path.join(projectRoot, "agent0.html");
+  const agent1 = path.join(projectRoot, "agent1.html");
+
+  const sourceContent = fs.readFileSync(enricherPainel, "utf8");
+  const rootContent = fs.readFileSync(rootPainel, "utf8");
+  const a0Content = fs.readFileSync(agent0, "utf8");
+  const a1Content = fs.readFileSync(agent1, "utf8");
+
+  assert.strictEqual(rootContent, sourceContent, "painel.html raiz deve ser idêntico ao de agent2-enricher");
+  assert.strictEqual(a0Content, sourceContent, "agent0.html raiz deve ser idêntico ao de agent2-enricher");
+  assert.strictEqual(a1Content, sourceContent, "agent1.html raiz deve ser idêntico ao de agent2-enricher");
+
+  const vercelJsonPath = path.join(projectRoot, "vercel.json");
+  const vercelJson = JSON.parse(fs.readFileSync(vercelJsonPath, "utf8"));
+  const rewrites = vercelJson.rewrites || [];
+  
+  const rootRewrite = rewrites.find(r => r.source === "/");
+  assert.ok(rootRewrite, "vercel.json deve conter rewrite para /");
+  assert.strictEqual(rootRewrite.destination, "/painel.html", "/ deve apontar para /painel.html");
+
+  const agent1Rewrite = rewrites.find(r => r.source === "/agent1");
+  assert.ok(agent1Rewrite, "vercel.json deve conter rewrite para /agent1");
+  assert.strictEqual(agent1Rewrite.destination, "/painel.html", "/agent1 deve apontar para /painel.html");
+});
+
 
 

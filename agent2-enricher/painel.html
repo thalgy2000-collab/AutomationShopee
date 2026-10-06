@@ -4443,6 +4443,13 @@
     let wasRecentlyCompleted = false; // Guarda se a execução concluiu recentemente
     let lastLogCount = 0;
     let availableFiles = [];
+
+    // Exposição global para automação e testes E2E
+    Object.defineProperty(window, 'currentAgent', {
+      get() { return currentAgent; },
+      set(v) { currentAgent = v; }
+    });
+    window.isAgentRunning = () => isAgentRunning;
     let latestSpreadsheetFile = null;
     let isContinuousPipelineEnabled = false;
 
@@ -4471,7 +4478,7 @@
 
     async function updateActiveBatchUi() {
       try {
-        const res = await fetch('/api/active-batch');
+        const res = await fetch('/api/active-batch', { headers: getPanelAuthHeaders() });
         const data = await res.json();
         const batchNameEl = document.getElementById('header-batch-name');
         const pillEl = document.getElementById('header-batch-pill');
@@ -5918,13 +5925,36 @@
           headers: getPanelAuthHeaders(),
           body: JSON.stringify(payload)
         });
-        const data = await res.json();
+        
+        let data = {};
+        try {
+          data = await res.json();
+        } catch {
+          data = { error: `Resposta inválida do servidor (HTTP ${res.status})` };
+        }
+        
         isStartingAgent = false;
-        if (data.error) {
+        if (!res.ok || data.error) {
           isAgentRunning = false;
           updateLiveCardVisibility();
-          showToast(`Erro: ${data.error}`, true);
-          appendBotMessage(payload.agent, `❌ **Erro ao iniciar o robô:** ${data.error}`);
+          const errorMsg = data.error || `Erro de execução (HTTP ${res.status})`;
+          showToast(`Erro: ${errorMsg}`, true);
+          
+          if (res.status === 401) {
+            appendBotMessage(
+              payload.agent || currentAgent,
+              `🔒 **Acesso Não Autorizado (401):** O servidor exige token de autenticação.\n\n` +
+              `👉 Clique no botão **🔑 Token de Acesso** no canto superior direito para inserir seu token configurado.`
+            );
+          } else if (res.status === 409 || errorMsg.includes('já está em execução')) {
+            appendBotMessage(
+              payload.agent || currentAgent,
+              `⏳ **Robô Ocupado:** ${errorMsg}\n\n` +
+              `👉 Aguarde a finalização do agente atual ou utilize o botão **Interromper** para liberar a esteira.`
+            );
+          } else {
+            appendBotMessage(payload.agent || currentAgent, `❌ **Erro ao iniciar o robô:** ${errorMsg}`);
+          }
           return;
         }
         showToast(`Robô iniciado com sucesso!`);
@@ -5933,6 +5963,7 @@
         isAgentRunning = false;
         updateLiveCardVisibility();
         showToast(`Falha de conexão: ${err.message}`, true);
+        appendBotMessage(payload.agent || currentAgent, `⚠️ **Falha de rede ao contatar o servidor:** ${err.message}`);
       }
     }
 
@@ -5968,28 +5999,36 @@
           break;
 
         case 'runAgent1Auto':
-          appendUserMessage('Iniciar Coleta Completa no Agente 1');
-          appendBotMessage('agent1', 'Iniciando extração do lote e download das fotos em alta resolução da Shopify...');
-          sendAgent1FolderCard('📂 **Destino das fotos que estão sendo baixadas:**');
+          try {
+            appendUserMessage('Iniciar Coleta Completa no Agente 1');
+            appendBotMessage('agent1', 'Iniciando extração do lote e download das fotos em alta resolução da Shopify...');
+            sendAgent1FolderCard('📂 **Destino das fotos que estão sendo baixadas:**');
+          } catch (uiErr) {
+            console.warn('Erro ao renderizar mensagens prévias do Agente 1:', uiErr);
+          }
           sendAgentStartRequest({
             agent: 'agent1',
             options: {
               action: 'auto',
-              inputFile: latestSpreadsheetFile ? latestSpreadsheetFile.path : null,
+              inputFile: latestSpreadsheetFile ? (latestSpreadsheetFile.name || latestSpreadsheetFile.path) : null,
               collection: 'Planilha'
             }
           });
           break;
 
         case 'runAgent1RetryErrors':
-          appendUserMessage('Reprocessar itens com erro no Agente 1');
-          appendBotMessage('agent1', 'Reprocessando produtos com erro anterior para buscar fotos oficiais...');
-          sendAgent1FolderCard('📂 **Destino das fotos:**');
+          try {
+            appendUserMessage('Reprocessar itens com erro no Agente 1');
+            appendBotMessage('agent1', 'Reprocessando produtos com erro anterior para buscar fotos oficiais...');
+            sendAgent1FolderCard('📂 **Destino das fotos:**');
+          } catch (uiErr) {
+            console.warn('Erro ao renderizar mensagens prévias do Agente 1:', uiErr);
+          }
           sendAgentStartRequest({
             agent: 'agent1',
             options: {
               action: 'auto',
-              inputFile: latestSpreadsheetFile ? latestSpreadsheetFile.path : null,
+              inputFile: latestSpreadsheetFile ? (latestSpreadsheetFile.name || latestSpreadsheetFile.path) : null,
               collection: 'Planilha',
               retryErrors: true
             }
@@ -7300,8 +7339,8 @@
     function sendAgent1FolderCard(customMsg = null, folderTarget = 'downloads') {
       const isSub = folderTarget && folderTarget !== 'downloads';
       const folderPath = isSub
-        ? `c:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\agent1-scraper\\downloads\\${folderTarget}`
-        : 'c:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\agent1-scraper\\downloads';
+        ? `agent1-scraper/downloads/${folderTarget}`
+        : 'agent1-scraper/downloads';
       const webHref = isSub ? `/downloads/${encodeURIComponent(folderTarget)}/` : '/downloads/';
       const cardId = 'folder-card-' + Date.now();
       const escapedPath = folderPath.replace(/\\/g, '\\\\');
@@ -7359,7 +7398,7 @@
         }
         const res = await fetch('/api/open-folder', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: getPanelAuthHeaders(),
           body: JSON.stringify({ folder })
         });
         const data = await res.json();

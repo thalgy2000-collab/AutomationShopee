@@ -342,7 +342,19 @@ function stopCurrentAgent() {
   return false;
 }
 
-function startAgent(agentId, options = {}) {
+async function waitForAgentAvailable(timeoutMs = 4000) {
+  const start = Date.now();
+  while (Date.now() - start < timeoutMs) {
+    const existingLock = isAgentLocked();
+    if (!currentProcess && !existingLock) {
+      return true;
+    }
+    await new Promise(resolve => setTimeout(resolve, 200));
+  }
+  return false;
+}
+
+async function startAgent(agentId, options = {}) {
   // Garantia contra execução em ambiente Vercel / AWS Lambda
   const isVercelServerless = Boolean(
     process.env.VERCEL ||
@@ -354,10 +366,15 @@ function startAgent(agentId, options = {}) {
     throw new Error('Os agentes de RPA não rodam na Vercel. Use o servidor local/VPS.');
   }
 
-  const existingLock = isAgentLocked();
+  // Grace period de até 4s para aguardar processo anterior finalizar (evita rejeição prematura no avanço entre etapas)
+  let existingLock = isAgentLocked();
   if (currentProcess || existingLock) {
-    const runningId = currentAgent || existingLock?.agentId || 'agente';
-    throw new Error(`Um agente já está em execução (${runningId}). Aguarde ou interrompa antes.`);
+    await waitForAgentAvailable(4000);
+    existingLock = isAgentLocked();
+    if (currentProcess || existingLock) {
+      const runningId = currentAgent || existingLock?.agentId || 'agente';
+      throw new Error(`Um agente já está em execução (${runningId}). Aguarde a finalização ou interrompa antes.`);
+    }
   }
 
   currentAgentOptions = { ...options };
@@ -824,6 +841,7 @@ function startAgent(agentId, options = {}) {
 
   child.on('close', (code) => {
     releaseAgentLock();
+    addLog(`AGENT_FINISHED ${JSON.stringify({ agentId, code })}`);
     addLog(`🏁 ${agentId.toUpperCase()} finalizou com código de saída: ${code}`, (code === 0 || (agentId === 'agent1' && code === 2)) ? 'stdout' : 'stderr');
 
     const isAgent1ZeroPending = agentId === 'agent1' && code === 2;
@@ -1378,14 +1396,14 @@ const server = http.createServer(async (req, res) => {
     if (!authenticateRequest(req, res)) return;
     let body = '';
     req.on('data', chunk => { body += chunk; });
-    req.on('end', () => {
+    req.on('end', async () => {
       try {
         const payload = JSON.parse(body || '{}');
         const { agent, options } = payload;
         if (!agent) {
           return sendJson(400, { error: 'Campo "agent" é obrigatório (agent0, agent1, agent2, agent3, agent4)' });
         }
-        const result = startAgent(agent, options || {});
+        const result = await startAgent(agent, options || {});
         return sendJson(200, result);
       } catch (err) {
         return sendJson(500, { error: err.message });

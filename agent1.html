@@ -3745,7 +3745,19 @@
               <line x1="6" y1="20" x2="6" y2="14"></line>
             </svg>
           </div>
-          <span class="shopee-nav-title">Relatório de Validação</span>
+          <span class="shopee-nav-title">Auditoria Catálogo</span>
+        </a>
+
+        <!-- ⚡ RELATÓRIO EXECUTIVO DA ESTEIRA -->
+        <a href="/relatorio-esteira.html" target="_blank" class="shopee-nav-item" title="Relatório Executivo da Esteira (Agentes 0, 1, 2 e 3)">
+          <div class="shopee-nav-icon">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="18" height="18" rx="2"></rect>
+              <path d="M3 9h18"></path>
+              <path d="M9 21V9"></path>
+            </svg>
+          </div>
+          <span class="shopee-nav-title">Relatório da Esteira</span>
         </a>
       </div>
 
@@ -3894,6 +3906,15 @@
       </div>
 
       <div class="shopee-topbar-right">
+
+        <!-- Token de Autenticação / Acesso Remoto -->
+        <button class="btn-header" id="btn-panel-auth" onclick="promptPanelAuthToken()" title="Configurar Token de Autenticação (Acesso Remoto/Túnel)">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+          </svg>
+          <span id="panel-auth-label">Auth Token</span>
+        </button>
         <!-- Indicador de Lote Ativo -->
         <div class="header-batch-pill" id="header-batch-pill" title="Lote / Planilha ativa da esteira">
           <span class="batch-pill-label">LOTE ATIVO:</span>
@@ -4422,6 +4443,13 @@
     let wasRecentlyCompleted = false; // Guarda se a execução concluiu recentemente
     let lastLogCount = 0;
     let availableFiles = [];
+
+    // Exposição global para automação e testes E2E
+    Object.defineProperty(window, 'currentAgent', {
+      get() { return currentAgent; },
+      set(v) { currentAgent = v; }
+    });
+    window.isAgentRunning = () => isAgentRunning;
     let latestSpreadsheetFile = null;
     let isContinuousPipelineEnabled = false;
 
@@ -4450,7 +4478,7 @@
 
     async function updateActiveBatchUi() {
       try {
-        const res = await fetch('/api/active-batch');
+        const res = await fetch('/api/active-batch', { headers: getPanelAuthHeaders() });
         const data = await res.json();
         const batchNameEl = document.getElementById('header-batch-name');
         const pillEl = document.getElementById('header-batch-pill');
@@ -4619,7 +4647,7 @@
         },
         chips: [
           { label: 'Iniciar Coleta Completa (Auto)', action: 'runAgent1Auto' },
-          { label: 'Baixar FUSION123', action: 'downloadFusion' },
+          { label: '🔄 Reprocessar Erros', action: 'runAgent1RetryErrors' },
           { label: 'Apenas Download de Imagens', action: 'runAgent1ScraperOnly' },
           { label: 'Ver Pasta de Fotos', action: 'openAgent1Folder' }
         ]
@@ -5060,11 +5088,11 @@
 
     window.addEventListener('DOMContentLoaded', async () => {
       // Inicia com o Agente selecionado pela URL verticalizada (/agent0, /agent1, etc)
-      let initialAgent = 'agent1';
+      let initialAgent = 'agent0';
       const pathMatch = window.location.pathname.match(/\/agent([0-4])/i);
       const urlParams = new URLSearchParams(window.location.search);
       if (pathMatch) {
-        initialAgent = gent\;
+        initialAgent = "agent" + (pathMatch[1] || "0");
       } else if (urlParams.get('agent') && ['agent0','agent1','agent2','agent3','agent4'].includes(urlParams.get('agent'))) {
         initialAgent = urlParams.get('agent');
       } else if (window.location.hash) {
@@ -5170,7 +5198,7 @@
         if (window.history && window.history.replaceState) {
           const currentPath = window.location.pathname;
           if (currentPath === '/' || currentPath.startsWith('/agent') || currentPath === '/painel') {
-            const newPath = /\;
+            const newPath = "/" + agentId;
             if (currentPath !== newPath) {
               window.history.replaceState({ agent: agentId }, '', newPath + window.location.search);
             }
@@ -5481,11 +5509,15 @@
           cleaned = cleaned.replace(/\b(sem\s*full|padrao|padrão|fabrica[çc][ãa]o)\b/gi, '').trim();
         }
 
-        const parts = cleaned.split(/[\s,\n\r]+/).map(s => s.trim()).filter(Boolean);
-        // Se for explicitamente coleção OU contiver espaços OU não se parecer com um SKU de produto (geralmente começa com C0, BA, FUSION, etc, ou tem sufixo de tamanho)
-        const isSingleWordCollection = parts.length === 1 && !/^(C\d{4,}|BA\d+|BORAPLUS|FUSION\d+|BT\d+|[A-Z]\d{5})/i.test(parts[0]);
+        const parts = cleaned.split(/[\s,\n\r]+/).map(s => s.trim().toUpperCase()).filter(Boolean);
+        const isSkuPattern = (s) => /^[A-Z0-9_-]{3,25}$/i.test(s);
+        const allLookLikeSkus = parts.length > 0 && parts.every(isSkuPattern);
+        const hasCommas = raw.includes(',');
 
-        if (isCollectionExplicit || isSingleWordCollection || (parts.length > 0 && cleaned.includes(' '))) {
+        // Se o usuário digitou múltiplos códigos (ex: C02887BL, C02877BL, C02883) OU separou com vírgulas, é sempre lista de SKUs
+        if (!isCollectionExplicit && (allLookLikeSkus || (parts.length > 1 && !cleaned.includes('"')))) {
+          startAgent0(parts);
+        } else if (isCollectionExplicit || (!allLookLikeSkus && parts.length === 1)) {
           startAgent0Collection(cleaned, filterFull);
         } else if (parts.length > 0) {
           startAgent0(parts);
@@ -5815,6 +5847,26 @@
       }
     }
 
+    async function startAgent1Manual(skuOrSkus) {
+      const isArray = Array.isArray(skuOrSkus);
+      const skus = isArray ? skuOrSkus : [skuOrSkus];
+      const skuLabel = skus.join(', ');
+      appendBotMessage(
+        'agent1',
+        `🔍 Buscando produto **\`${skuLabel}\`** nos sites oficiais (BRK Fishing, Agro, Motors) e baixando fotos em alta resolução...`
+      );
+      sendAgent1FolderCard(`📂 As fotos do produto **\`${skuLabel}\`** serão salvas aqui:`);
+
+      const payload = {
+        agent: 'agent1',
+        options: {
+          action: 'scraper',
+          sku: isArray ? skus.join(',') : String(skuOrSkus).trim()
+        }
+      };
+      await sendAgentStartRequest(payload);
+    }
+
     async function startAgent2Manual(sku) {
       const cleanSku = String(sku).trim().toUpperCase();
       appendBotMessage(
@@ -5873,13 +5925,36 @@
           headers: getPanelAuthHeaders(),
           body: JSON.stringify(payload)
         });
-        const data = await res.json();
+        
+        let data = {};
+        try {
+          data = await res.json();
+        } catch {
+          data = { error: `Resposta inválida do servidor (HTTP ${res.status})` };
+        }
+        
         isStartingAgent = false;
-        if (data.error) {
+        if (!res.ok || data.error) {
           isAgentRunning = false;
           updateLiveCardVisibility();
-          showToast(`Erro: ${data.error}`, true);
-          appendBotMessage(payload.agent, `❌ **Erro ao iniciar o robô:** ${data.error}`);
+          const errorMsg = data.error || `Erro de execução (HTTP ${res.status})`;
+          showToast(`Erro: ${errorMsg}`, true);
+          
+          if (res.status === 401) {
+            appendBotMessage(
+              payload.agent || currentAgent,
+              `🔒 **Acesso Não Autorizado (401):** O servidor exige token de autenticação.\n\n` +
+              `👉 Clique no botão **🔑 Token de Acesso** no canto superior direito para inserir seu token configurado.`
+            );
+          } else if (res.status === 409 || errorMsg.includes('já está em execução')) {
+            appendBotMessage(
+              payload.agent || currentAgent,
+              `⏳ **Robô Ocupado:** ${errorMsg}\n\n` +
+              `👉 Aguarde a finalização do agente atual ou utilize o botão **Interromper** para liberar a esteira.`
+            );
+          } else {
+            appendBotMessage(payload.agent || currentAgent, `❌ **Erro ao iniciar o robô:** ${errorMsg}`);
+          }
           return;
         }
         showToast(`Robô iniciado com sucesso!`);
@@ -5888,6 +5963,7 @@
         isAgentRunning = false;
         updateLiveCardVisibility();
         showToast(`Falha de conexão: ${err.message}`, true);
+        appendBotMessage(payload.agent || currentAgent, `⚠️ **Falha de rede ao contatar o servidor:** ${err.message}`);
       }
     }
 
@@ -5923,15 +5999,38 @@
           break;
 
         case 'runAgent1Auto':
-          appendUserMessage('Iniciar Coleta Completa no Agente 1');
-          appendBotMessage('agent1', 'Iniciando extração do lote e download das fotos em alta resolução da Shopify...');
-          sendAgent1FolderCard('📂 **Destino das fotos que estão sendo baixadas:**');
+          try {
+            appendUserMessage('Iniciar Coleta Completa no Agente 1');
+            appendBotMessage('agent1', 'Iniciando extração do lote e download das fotos em alta resolução da Shopify...');
+            sendAgent1FolderCard('📂 **Destino das fotos que estão sendo baixadas:**');
+          } catch (uiErr) {
+            console.warn('Erro ao renderizar mensagens prévias do Agente 1:', uiErr);
+          }
           sendAgentStartRequest({
             agent: 'agent1',
             options: {
               action: 'auto',
-              inputFile: latestSpreadsheetFile ? latestSpreadsheetFile.path : null,
+              inputFile: latestSpreadsheetFile ? (latestSpreadsheetFile.name || latestSpreadsheetFile.path) : null,
               collection: 'Planilha'
+            }
+          });
+          break;
+
+        case 'runAgent1RetryErrors':
+          try {
+            appendUserMessage('Reprocessar itens com erro no Agente 1');
+            appendBotMessage('agent1', 'Reprocessando produtos com erro anterior para buscar fotos oficiais...');
+            sendAgent1FolderCard('📂 **Destino das fotos:**');
+          } catch (uiErr) {
+            console.warn('Erro ao renderizar mensagens prévias do Agente 1:', uiErr);
+          }
+          sendAgentStartRequest({
+            agent: 'agent1',
+            options: {
+              action: 'auto',
+              inputFile: latestSpreadsheetFile ? (latestSpreadsheetFile.name || latestSpreadsheetFile.path) : null,
+              collection: 'Planilha',
+              retryErrors: true
             }
           });
           break;
@@ -6144,7 +6243,7 @@
 
         case 'openEsteiraFullPage':
           appendUserMessage('Abrir Painel Consolidado da Esteira');
-          window.open('/relatorio.html', '_blank');
+          window.open('/relatorio-esteira.html', '_blank');
           break;
       }
     }
@@ -6211,7 +6310,7 @@
 
             <!-- Botões de Ação do Relatório -->
             <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-              <a href="/relatorio.html" target="_blank" class="btn-action-primary" style="background: #0284c7; border-color: #0369a1; text-decoration: none; padding: 8px 14px; font-size: 0.84rem; display: inline-flex; align-items: center; gap: 6px;">
+              <a href="/relatorio-esteira.html" target="_blank" class="btn-action-primary" style="background: #0284c7; border-color: #0369a1; text-decoration: none; padding: 8px 14px; font-size: 0.84rem; display: inline-flex; align-items: center; gap: 6px;">
                 <span>🌐</span> Abrir Relatório Completo em Tela Cheia &rarr;
               </a>
               <button type="button" class="btn-action-secondary" onclick="executeChipAction('runBatchFunnelAudit')" style="padding: 8px 14px; font-size: 0.84rem; display: inline-flex; align-items: center; gap: 6px;">
@@ -6272,7 +6371,7 @@
               </tbody>
             </table>
             <div style="margin-top: 10px; text-align: center;">
-              <a href="/relatorio.html" target="_blank" style="color: #38bdf8; font-size: 0.8rem; text-decoration: underline;">
+              <a href="/relatorio-esteira.html" target="_blank" style="color: #38bdf8; font-size: 0.8rem; text-decoration: underline;">
                 Ver todos os ${funnel.length} produtos na página completa &rarr;
               </a>
             </div>
@@ -6316,7 +6415,7 @@
               ${itemsHtml}
             </div>
             <div style="margin-top: 10px; text-align: center;">
-              <a href="/relatorio.html" target="_blank" style="color: #38bdf8; font-size: 0.8rem; text-decoration: underline;">
+              <a href="/relatorio-esteira.html" target="_blank" style="color: #38bdf8; font-size: 0.8rem; text-decoration: underline;">
                 Ver galeria completa de comprovantes &rarr;
               </a>
             </div>
@@ -6894,19 +6993,49 @@
               terminalContent.scrollTop = terminalContent.scrollHeight;
             }
 
-            // Detecção da planilha gerada pelo Agente 0
-            if (txt.includes('Planilha gerada com sucesso') || txt.includes('planilha_sankhya_') || (txt.includes('.xlsx') && txt.includes('LOTE VINCULADO'))) {
-              const match = txt.match(/([A-Za-z]:\\[^\s\r\n]+\.xlsx|\/[^\s\r\n]+\.xlsx|planilha_sankhya_[0-9]+\.xlsx|[a-zA-Z0-9_\-]+\.xlsx)/i);
-              if (match && !isTransitioning) {
+            // Detecção de AGENT0_RESULT ou planilha gerada pelo Agente 0
+            if (txt.includes('AGENT0_RESULT ')) {
+              try {
+                const markerIdx = txt.indexOf('AGENT0_RESULT ');
+                const jsonStr = txt.slice(markerIdx + 'AGENT0_RESULT '.length).trim();
+                const resJson = JSON.parse(jsonStr);
+                if (resJson.file && !isTransitioning) {
+                  const fileName = resJson.file.split(/[\\/]/).pop();
+                  latestSpreadsheetFile = {
+                    path: resJson.file,
+                    name: fileName,
+                    downloadUrl: '/uploads/' + encodeURIComponent(fileName),
+                    metrics: {
+                      total: resJson.total || 0,
+                      comCodigo: resJson.comCodigo || 0,
+                      semCodigo: resJson.semCodigo || 0,
+                      naoEncontrados: resJson.naoEncontrados || []
+                    }
+                  };
+                  showSpreadsheetReadyCard(latestSpreadsheetFile);
+                }
+              } catch (e) {
+                console.warn('Erro ao decodificar AGENT0_RESULT:', e);
+              }
+            } else if (txt.includes('AGENT1_RESULT ')) {
+              try {
+                const markerIdx = txt.indexOf('AGENT1_RESULT ');
+                const jsonStr = txt.slice(markerIdx + 'AGENT1_RESULT '.length).trim();
+                const resJson = JSON.parse(jsonStr);
+                showAgent1ResultCard(resJson);
+              } catch (e) {
+                console.warn('Erro ao decodificar AGENT1_RESULT:', e);
+              }
+            } else if (txt.includes('Planilha gerada com sucesso') || txt.includes('planilha_sankhya_') || (txt.includes('.xlsx') && txt.includes('LOTE VINCULADO'))) {
+              const match = txt.match(/([A-Za-z]:\[^\s\r\n]+\.xlsx|\/[^\s\r\n]+\.xlsx|planilha_sankhya_[0-9]+\.xlsx|[a-zA-Z0-9_\-]+\.xlsx)/i);
+              if (match && !isTransitioning && !latestSpreadsheetFile?.metrics) {
                 const rawMatch = match[1];
-                const fileName = rawMatch.split(/[/\\]/).pop();
+                const fileName = rawMatch.split(/[\\/]/).pop();
                 latestSpreadsheetFile = {
                   path: rawMatch,
                   name: fileName,
-                  downloadUrl: `/uploads/${encodeURIComponent(fileName)}`
+                  downloadUrl: '/uploads/' + encodeURIComponent(fileName)
                 };
-
-                // Exibe card interativo de sucesso com botão de download no chat do Agente 0
                 showSpreadsheetReadyCard(latestSpreadsheetFile);
               }
             }
@@ -6914,6 +7043,114 @@
         }
       } catch (err) {
         // Erro silencioso de conexão
+      }
+
+      // Checagem de solicitações de preço pendentes (Decisão D1)
+      checkPendingPriceRequests();
+    }
+
+    const promptedPriceSkus = new Set();
+        function getPanelAuthHeaders() {
+      const token = sessionStorage.getItem('PANEL_TOKEN') || '';
+      const headers = { 'Content-Type': 'application/json' };
+      if (token) headers['x-panel-token'] = token;
+      return headers;
+    }
+
+    function promptPanelAuthToken() {
+      const current = sessionStorage.getItem('PANEL_TOKEN') || '';
+      const entered = window.prompt('🔒 Digite o PANEL_TOKEN configurado no servidor (necessário apenas para acesso externo ou túnel Cloudflare/Ngrok):', current);
+      if (entered !== null) {
+        const trimmed = entered.trim();
+        if (trimmed) {
+          sessionStorage.setItem('PANEL_TOKEN', trimmed);
+          updateAuthButtonState();
+          showToast('🔑 Token de autenticação salvo na sessão do navegador!');
+        } else {
+          sessionStorage.removeItem('PANEL_TOKEN');
+          updateAuthButtonState();
+          showToast('ℹ️ Token removido da sessão.');
+        }
+      }
+    }
+
+    function updateAuthButtonState() {
+      const btn = document.getElementById('btn-panel-auth');
+      const label = document.getElementById('panel-auth-label');
+      if (!btn || !label) return;
+      const token = sessionStorage.getItem('PANEL_TOKEN');
+      if (token) {
+        btn.classList.add('notif-active');
+        btn.style.borderColor = 'rgba(16, 185, 129, 0.4)';
+        btn.style.color = '#10B981';
+        label.textContent = 'Token: Ativo';
+      } else {
+        btn.classList.remove('notif-active');
+        btn.style.borderColor = '';
+        btn.style.color = '';
+        label.textContent = 'Auth Token';
+      }
+    }
+    async function checkPendingPriceRequests() {
+      try {
+        const res = await fetch('/api/price-requests/pending', { headers: getPanelAuthHeaders() });
+        if (!res.ok) return;
+        const data = await res.json();
+        if (data.pending && data.pending.length > 0) {
+          for (const item of data.pending) {
+            if (item.status === 'pending' && !promptedPriceSkus.has(item.sku)) {
+              promptedPriceSkus.add(item.sku);
+              showPricePromptCard(item);
+            }
+          }
+        }
+      } catch {}
+    }
+
+    function showPricePromptCard(item) {
+      const cardHtml = `
+        <div style="background: rgba(238, 77, 45, 0.08); border: 1px solid rgba(238, 77, 45, 0.35); border-radius: 8px; padding: 12px; margin-top: 8px;">
+          <div style="font-weight: 700; color: #FFF; font-size: 0.85rem; margin-bottom: 4px;">
+            💰 SKU sem preço na Shopify: <span style="color: #EE4D2D;">${item.sku}</span>
+          </div>
+          <div style="font-size: 0.78rem; color: var(--text-muted); margin-bottom: 8px;">
+            "${item.title}". Informe o preço regular (ex: 189,90 ou 199.90):
+          </div>
+          <div style="display: flex; gap: 8px; align-items: center;">
+            <input type="text" id="price-input-${item.sku}" placeholder="R$ 0,00" style="width: 110px; padding: 6px 10px; background: #0D121E; border: 1px solid rgba(255,255,255,0.15); border-radius: 6px; color: #FFF; font-size: 0.82rem;" />
+            <button class="chip-btn chip-highlight" onclick="submitPriceResponse('${item.sku}')" style="padding: 6px 12px; font-size: 0.8rem;">
+              Salvar Preço
+            </button>
+          </div>
+        </div>
+      `;
+      appendBotMessage('agent2', `❓ **Preço regular obrigatório para SKU ${item.sku}**`, cardHtml);
+      showToast(`Atenção: SKU ${item.sku} aguardando definição de preço`);
+    }
+
+    async function submitPriceResponse(sku) {
+      const input = document.getElementById(`price-input-${sku}`);
+      if (!input) return;
+      const val = input.value.trim();
+      if (!val) {
+        showToast('Digite o preço antes de salvar');
+        return;
+      }
+      try {
+        const res = await fetch('/api/price-requests/respond', {
+          method: 'POST',
+          headers: getPanelAuthHeaders(),
+          body: JSON.stringify({ sku, price: val })
+        });
+        const data = await res.json();
+        if (data.success) {
+          showToast(`Preço do SKU ${sku} salvo com sucesso!`);
+          appendBotMessage('agent2', `✅ Preço R$ ${data.request.price.toFixed(2)} registrado para o SKU **${sku}**. O enriquecimento continuará.`);
+        } else {
+          showToast(`Erro: ${data.error || 'Preço inválido'}`);
+        }
+      } catch (err) {
+        showToast(`Erro ao enviar preço: ${err.message}`);
       }
     }
 
@@ -7102,8 +7339,8 @@
     function sendAgent1FolderCard(customMsg = null, folderTarget = 'downloads') {
       const isSub = folderTarget && folderTarget !== 'downloads';
       const folderPath = isSub
-        ? `c:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\agent1-scraper\\downloads\\${folderTarget}`
-        : 'c:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\agent1-scraper\\downloads';
+        ? `agent1-scraper/downloads/${folderTarget}`
+        : 'agent1-scraper/downloads';
       const webHref = isSub ? `/downloads/${encodeURIComponent(folderTarget)}/` : '/downloads/';
       const cardId = 'folder-card-' + Date.now();
       const escapedPath = folderPath.replace(/\\/g, '\\\\');
@@ -7161,7 +7398,7 @@
         }
         const res = await fetch('/api/open-folder', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: getPanelAuthHeaders(),
           body: JSON.stringify({ folder })
         });
         const data = await res.json();
@@ -7206,14 +7443,22 @@
           <div style="font-size: 0.83rem; color: #d1d5db; margin-bottom: 8px; line-height: 1.4;">
             As variações de produtos foram consultadas no Sankhya e salvas na pasta uploads:
           </div>
+          ${file.metrics ? `
+            <div style="display: flex; gap: 10px; margin-bottom: 10px; flex-wrap: wrap;">
+              <span style="background: rgba(59,130,246,0.15); border: 1px solid rgba(59,130,246,0.3); border-radius: 4px; padding: 2px 8px; font-size: 0.75rem; color: #93c5fd;"><strong>Total:</strong> ${file.metrics.total} itens</span>
+              <span style="background: rgba(16,185,129,0.15); border: 1px solid rgba(16,185,129,0.3); border-radius: 4px; padding: 2px 8px; font-size: 0.75rem; color: #6ee7b7;"><strong>Com Cód Sankhya:</strong> ${file.metrics.comCodigo}</span>
+              <span style="background: rgba(245,158,11,0.15); border: 1px solid rgba(245,158,11,0.3); border-radius: 4px; padding: 2px 8px; font-size: 0.75rem; color: #fde68a;"><strong>Sem Cód:</strong> ${file.metrics.semCodigo}</span>
+              ${file.metrics.naoEncontrados && file.metrics.naoEncontrados.length > 0 ? `<span style="background: rgba(239,68,68,0.15); border: 1px solid rgba(239,68,68,0.3); border-radius: 4px; padding: 2px 8px; font-size: 0.75rem; color: #fca5a5;"><strong>Não encontrados:</strong> ${file.metrics.naoEncontrados.join(', ')}</span>` : ''}
+            </div>
+          ` : ''}
           <div style="font-family: monospace; font-size: 0.78rem; color: #93C5FD; background: rgba(0,0,0,0.3); padding: 6px 10px; border-radius: 6px; margin-bottom: 12px; word-break: break-all;">
             📄 ${escapeHtml(fileName)}
           </div>
           <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-            <a href="${dlUrl}" download="${escapeHtml(fileName)}" class="btn-action-primary" style="background: #2563EB; border-color: #1D4ED8; padding: 8px 16px; font-size: 0.85rem; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; color: #fff; border-radius: 6px; font-weight: 600;">
+            <button type="button" class="btn-action-primary" style="background: #2563EB; border-color: #1D4ED8; padding: 8px 16px; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 6px; color: #fff; border-radius: 6px; font-weight: 600; cursor: pointer;" onclick="downloadFileWithAuth('${dlUrl}', '${escapeHtml(fileName)}')">
               <span>📥</span> Baixar Planilha (.xlsx)
-            </a>
-            <button class="btn-action-secondary" style="background: #10B981; border-color: #059669; padding: 8px 16px; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 6px; color: #fff; border-radius: 6px; font-weight: 600;" onclick="goToNextAgent('agent1', 'runAgent1Auto')">
+            </button>
+            <button type="button" class="btn-action-secondary" style="background: #10B981; border-color: #059669; padding: 8px 16px; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 6px; color: #fff; border-radius: 6px; font-weight: 600; cursor: pointer;" onclick="advanceToAgent1WithBatch('${escapeHtml(file.path || file.name)}')">
               <span>⚡</span> Avançar e Baixar Fotos (Agente 1)
             </button>
           </div>
@@ -7227,6 +7472,68 @@
         setTimeout(() => {
           goToNextAgent('agent1', 'runAgent1Auto');
         }, 3000);
+      }
+    }
+
+    function showAgent1ResultCard(res) {
+      if (!res) return;
+      const isZeroPending = res.pendentesEncontrados === 0;
+
+      let cardHtml = '';
+      if (isZeroPending) {
+        cardHtml = `
+          <div class="chat-action-card" style="border-left: 4px solid #F59E0B; background: linear-gradient(135deg, rgba(15,23,42,0.95), rgba(30,41,59,0.95)); border: 1px solid rgba(245,158,11,0.3); border-radius: 10px; padding: 14px; margin-top: 10px;">
+            <div style="font-weight: 700; color: #F59E0B; margin-bottom: 6px; display: flex; align-items: center; gap: 8px;">
+              <span>ℹ️</span> 0 Produtos Pendentes no Lote
+            </div>
+            <div style="font-size: 0.83rem; color: #d1d5db; margin-bottom: 10px; line-height: 1.4;">
+              Todos os itens deste lote já foram processados anteriormente.
+            </div>
+            <div style="display: flex; gap: 10px; margin-bottom: 12px; flex-wrap: wrap;">
+              <span style="background: rgba(16,185,129,0.15); border: 1px solid rgba(16,185,129,0.3); border-radius: 4px; padding: 2px 8px; font-size: 0.75rem; color: #6ee7b7;"><strong>Já Baixados:</strong> ${res.scraped || 0}</span>
+              <span style="background: rgba(239,68,68,0.15); border: 1px solid rgba(239,68,68,0.3); border-radius: 4px; padding: 2px 8px; font-size: 0.75rem; color: #fca5a5;"><strong>Com Erro:</strong> ${res.erros || 0}</span>
+              <span style="background: rgba(59,130,246,0.15); border: 1px solid rgba(59,130,246,0.3); border-radius: 4px; padding: 2px 8px; font-size: 0.75rem; color: #93c5fd;"><strong>Total Lote:</strong> ${res.totalLote || 0}</span>
+            </div>
+            <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+              <button type="button" class="btn-action-primary" style="background: #D97706; border-color: #B45309; padding: 8px 16px; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 6px; color: #fff; border-radius: 6px; font-weight: 600; cursor: pointer;" onclick="executeChipAction('runAgent1RetryErrors')">
+                <span>🔄</span> Reprocessar Erros do Lote
+              </button>
+              <button type="button" class="btn-action-secondary" style="background: #8B5CF6; border-color: #7C3AED; padding: 8px 16px; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 6px; color: #fff; border-radius: 6px; font-weight: 600; cursor: pointer;" onclick="goToNextAgent('agent2', 'enrichLot')">
+                <span>⚡</span> Avançar para Agente 2 (IA Vision)
+              </button>
+            </div>
+          </div>
+        `;
+        appendBotMessage('agent1', 'Relatório de execução do Agente 1:', cardHtml);
+      } else {
+        const novos = res.baixadosNovos != null ? res.baixadosNovos : (res.scraped - (res.reutilizados || 0));
+        cardHtml = `
+          <div class="chat-action-card" style="border-left: 4px solid #10B981; background: linear-gradient(135deg, rgba(15,23,42,0.95), rgba(30,41,59,0.95)); border: 1px solid rgba(16,185,129,0.3); border-radius: 10px; padding: 14px; margin-top: 10px;">
+            <div style="font-weight: 700; color: #10B981; margin-bottom: 6px; display: flex; align-items: center; gap: 8px;">
+              <span>🎉</span> Download de Fotos Concluído!
+            </div>
+            <div style="font-size: 0.83rem; color: #d1d5db; margin-bottom: 10px; line-height: 1.4;">
+              Imagens coletadas e validadas dos sites da BRK:
+            </div>
+            <div style="display: flex; gap: 10px; margin-bottom: 12px; flex-wrap: wrap;">
+              <span style="background: rgba(16,185,129,0.15); border: 1px solid rgba(16,185,129,0.3); border-radius: 4px; padding: 2px 8px; font-size: 0.75rem; color: #6ee7b7;"><strong>Fotos Novas:</strong> ${novos}</span>
+              <span style="background: rgba(59,130,246,0.15); border: 1px solid rgba(59,130,246,0.3); border-radius: 4px; padding: 2px 8px; font-size: 0.75rem; color: #93c5fd;"><strong>Reutilizados (Cache):</strong> ${res.reutilizados || 0}</span>
+              <span style="background: rgba(239,68,68,0.15); border: 1px solid rgba(239,68,68,0.3); border-radius: 4px; padding: 2px 8px; font-size: 0.75rem; color: #fca5a5;"><strong>Falhas:</strong> ${res.erros || 0}</span>
+              ${res.ambiguos && res.ambiguos.length > 0 ? `<span style="background: rgba(245,158,11,0.15); border: 1px solid rgba(245,158,11,0.3); border-radius: 4px; padding: 2px 8px; font-size: 0.75rem; color: #fde68a;"><strong>Ambíguos:</strong> ${res.ambiguos.length}</span>` : ''}
+            </div>
+            <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+              <button type="button" class="btn-action-primary" style="background: #8B5CF6; border-color: #7C3AED; padding: 8px 16px; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 6px; color: #fff; border-radius: 6px; font-weight: 600; cursor: pointer;" onclick="goToNextAgent('agent2', 'enrichLot')">
+                <span>⚡</span> Avançar e Enriquecer com IA (Agente 2)
+              </button>
+              ${res.erros > 0 ? `
+                <button type="button" class="btn-action-secondary" style="background: #D97706; border-color: #B45309; padding: 8px 16px; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 6px; color: #fff; border-radius: 6px; font-weight: 600; cursor: pointer;" onclick="executeChipAction('runAgent1RetryErrors')">
+                  <span>🔄</span> Reprocessar Erros
+                </button>
+              ` : ''}
+            </div>
+          </div>
+        `;
+        appendBotMessage('agent1', 'Coleta de fotos finalizada com sucesso:', cardHtml);
       }
     }
 
@@ -7261,6 +7568,52 @@
       } catch { }
     }
 
+    async function downloadFileWithAuth(url, suggestedFileName = 'planilha.xlsx') {
+      try {
+        const token = sessionStorage.getItem('PANEL_TOKEN') || '';
+        let fetchUrl = url;
+        if (token && !fetchUrl.includes('token=')) {
+          fetchUrl += (fetchUrl.includes('?') ? '&' : '?') + 'token=' + encodeURIComponent(token);
+        }
+        const headers = {};
+        if (token) headers['x-panel-token'] = token;
+
+        showToast(`⏳ Baixando ${suggestedFileName}...`);
+        const res = await fetch(fetchUrl, { headers });
+        if (!res.ok) {
+          const errText = await res.text().catch(() => '');
+          throw new Error(errText || ('HTTP ' + res.status));
+        }
+        const blob = await res.blob();
+        const blobUrl = window.URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = blobUrl;
+        link.download = suggestedFileName;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        setTimeout(() => window.URL.revokeObjectURL(blobUrl), 10000);
+        showToast(`📥 Download concluído: ${suggestedFileName}`);
+      } catch (err) {
+        showToast(`Erro ao baixar arquivo: ${err.message}`, true);
+      }
+    }
+
+    async function advanceToAgent1WithBatch(batchPath) {
+      if (batchPath) {
+        try {
+          await fetch('/api/active-batch', {
+            method: 'POST',
+            headers: getPanelAuthHeaders(),
+            body: JSON.stringify({ path: batchPath })
+          });
+        } catch (e) {
+          console.warn('Falha ao definir lote ativo para Agente 1:', e);
+        }
+      }
+      goToNextAgent('agent1', 'runAgent1Auto');
+    }
+
     async function downloadLatestSpreadsheet() {
       try {
         let file = latestSpreadsheetFile;
@@ -7275,13 +7628,7 @@
         if (file && (file.downloadUrl || file.name)) {
           const dlUrl = file.downloadUrl || `/uploads/${encodeURIComponent(file.name)}`;
           const fileName = file.name || (file.path ? file.path.split(/[/\\]/).pop() : 'planilha_sankhya.xlsx');
-          const link = document.createElement('a');
-          link.href = dlUrl;
-          link.download = fileName;
-          document.body.appendChild(link);
-          link.click();
-          document.body.removeChild(link);
-          showToast(`📥 Baixando planilha: ${fileName}`);
+          await downloadFileWithAuth(dlUrl, fileName);
         } else {
           showToast('Nenhuma planilha disponível para download no momento.', true);
         }
@@ -7490,7 +7837,7 @@
 
             <!-- Botões de Ação do Relatório -->
             <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-              <a href="/relatorio.html" target="_blank" class="btn-action-primary" style="background: #0284c7; border-color: #0369a1; text-decoration: none; padding: 8px 14px; font-size: 0.84rem; display: inline-flex; align-items: center; gap: 6px;">
+              <a href="/relatorio-esteira.html" target="_blank" class="btn-action-primary" style="background: #0284c7; border-color: #0369a1; text-decoration: none; padding: 8px 14px; font-size: 0.84rem; display: inline-flex; align-items: center; gap: 6px;">
                 <span>🌐</span> Abrir Relatório Completo em Tela Cheia &rarr;
               </a>
               <button type="button" class="btn-action-secondary" onclick="executeChipAction('runBatchFunnelAudit')" style="padding: 8px 14px; font-size: 0.84rem; display: inline-flex; align-items: center; gap: 6px;">
@@ -7551,7 +7898,7 @@
               </tbody>
             </table>
             <div style="margin-top: 10px; text-align: center;">
-              <a href="/relatorio.html" target="_blank" style="color: #38bdf8; font-size: 0.8rem; text-decoration: underline;">
+              <a href="/relatorio-esteira.html" target="_blank" style="color: #38bdf8; font-size: 0.8rem; text-decoration: underline;">
                 Ver todos os ${funnel.length} produtos na página completa &rarr;
               </a>
             </div>
@@ -7595,7 +7942,7 @@
               ${itemsHtml}
             </div>
             <div style="margin-top: 10px; text-align: center;">
-              <a href="/relatorio.html" target="_blank" style="color: #38bdf8; font-size: 0.8rem; text-decoration: underline;">
+              <a href="/relatorio-esteira.html" target="_blank" style="color: #38bdf8; font-size: 0.8rem; text-decoration: underline;">
                 Ver galeria completa de comprovantes &rarr;
               </a>
             </div>
@@ -7792,9 +8139,9 @@
                         </div>
                       </div>
                       <div class="hist-file-actions">
-                        <a href="${dUrl}" download="${fName}" class="btn-action-primary" title="Baixar esta planilha para o seu computador">
+                        <button type="button" class="btn-action-primary" style="cursor: pointer;" onclick="downloadFileWithAuth('${dUrl}', '${fName}')" title="Baixar esta planilha para o seu computador">
                           <span>📥</span> Baixar Planilha (.xlsx)
-                        </a>
+                        </button>
                         <button type="button" class="btn-action-secondary" onclick="setActiveBatchFromHistory('${escapeHtml(f.path || f.name)}')" title="Definir esta planilha como o lote ativo para os Agentes 1, 2 e 3">
                           <span>⚡</span> Usar como Lote
                         </button>
