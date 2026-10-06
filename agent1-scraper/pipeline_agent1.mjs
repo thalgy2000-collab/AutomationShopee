@@ -24,6 +24,7 @@ function parseArgs() {
   let limit = null;
   let sku = null;
   let collection = null;
+  let retryErrors = false;
 
   for (let i = 0; i < args.length; i++) {
     if (args[i] === "--input") {

@@ -390,7 +390,7 @@ export async function downloadAndEnhanceImage(imgItem, destPath) {
 
 async function main() {
   setupLockAutoRelease("agent1");
-  const { inputFile, limit, targetSku, collection: argCollection } = parseArgs();
+  const { inputFile, limit, targetSku, collection: argCollection, retryErrors } = parseArgs();
 
   console.log("═══════════════════════════════════════════════════════════════");
   console.log("  🎣 AGENTE 1 — SCRAPER COM ENHANCEMENT DE IMAGENS (OPÇÃO A)");

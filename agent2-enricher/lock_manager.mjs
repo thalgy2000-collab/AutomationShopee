@@ -53,7 +53,7 @@ export function checkAndCleanOrphanLock() {
  */
 export function acquireAgentLock(agentId, pid = process.pid) {
   const existing = checkAndCleanOrphanLock();
-  if (existing && existing.pid !== pid) {
+  if (existing && existing.pid !== pid && existing.agentId !== agentId) {
     const msg = `❌ [LOCK] O agente '${existing.agentId}' já está em execução (PID: ${existing.pid}, iniciado em: ${existing.acquiredAt}). Aguarde a conclusão ou interrompa o processo antes de rodar outro.`;
     throw new Error(msg);
   }
@@ -67,10 +67,10 @@ export function acquireAgentLock(agentId, pid = process.pid) {
   } catch (err) {
     if (err.code === 'EEXIST') {
       const current = checkAndCleanOrphanLock();
-      if (current && current.pid !== pid) {
+      if (current && current.pid !== pid && current.agentId !== agentId) {
         throw new Error(`❌ [LOCK] O agente '${current.agentId}' já está em execução (PID: ${current.pid}). Race condition prevenida.`);
       }
-      // Se era órfão ou o mesmo PID, sobrescreve
+      // Se era órfão, o mesmo PID ou o mesmo agente (servidor registrando filho), sobrescreve
       fs.writeFileSync(LOCK_FILE, JSON.stringify(payload, null, 2), 'utf-8');
     } else {
       throw err;
