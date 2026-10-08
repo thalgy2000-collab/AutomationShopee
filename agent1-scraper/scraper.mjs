@@ -475,19 +475,23 @@ async function main() {
     console.log("═══════════════════════════════════════════════════════════════\n");
 
     const zeroResult = {
+      totalLote: totalRecords,
       processados: 0,
+      comFotos: scrapedCount,
       scraped: scrapedCount,
       reutilizados: 0,
-      erros: errorCount,
       naoEncontrados: [],
-      errosRede: [],
       semFotos: [],
+      errosRede: [],
       ambiguos: [],
+      pendentesRestantes: 0,
+      baixadosNovos: 0,
+      erros: errorCount,
       pendentesEncontrados: 0,
-      totalLote: totalRecords
+      totalRequisicoesRede: 0
     };
     console.log(`AGENT1_RESULT ${JSON.stringify(zeroResult)}`);
-    process.exit(2);
+    process.exit(scrapedCount > 0 && errorCount === 0 ? 0 : (scrapedCount > 0 ? 3 : 2));
   }
 
   if (limit && limit > 0) {
@@ -536,7 +540,9 @@ async function main() {
         try {
           const updatedCsv = stringify(records, { header: true, columns: Object.keys(records[0]) });
           await writeFile(inputFile, updatedCsv, "utf-8");
-        } catch {}
+        } catch (csvErr) {
+          console.error(`⚠️ [SCRAPER] Erro ao salvar progresso no CSV (${inputFile}):`, csvErr.message);
+        }
       }
       continue;
     }
@@ -568,10 +574,14 @@ async function main() {
           try {
             const updatedCsv = stringify(records, { header: true, columns: Object.keys(records[0]) });
             await writeFile(inputFile, updatedCsv, "utf-8");
-          } catch {}
+          } catch (csvErr) {
+            console.error(`⚠️ [SCRAPER] Erro ao salvar progresso no CSV (${inputFile}):`, csvErr.message);
+          }
         }
         continue;
-      } catch {}
+      } catch (cacheErr) {
+        console.warn(`  ⚠️ Falha ao vincular imagens do cache local para ${sku}: ${cacheErr.message}`);
+      }
     }
 
     // Caso contrário: busca produto na Shopify (apenas para a 1ª variação encontrada)
@@ -650,33 +660,53 @@ async function main() {
       try {
         const updatedCsv = stringify(records, { header: true, columns: Object.keys(records[0]) });
         await writeFile(inputFile, updatedCsv, "utf-8");
-      } catch {}
+      } catch (csvErr) {
+        console.error(`⚠️ [SCRAPER] Erro ao salvar progresso no CSV (${inputFile}):`, csvErr.message);
+      }
     }
 
     await sleep(400);
   }
 
   const scrapedNovo = sucessos - reutilizados;
+  const pendentesRestantes = records.filter(r => r.status === "pendente" || !r.status).length;
+  const totalLote = records.length;
+
   const resultPayload = {
+    totalLote,
     processados: pendentes.length,
+    comFotos: sucessos,
     scraped: sucessos,
-    baixadosNovos: scrapedNovo,
     reutilizados,
-    erros,
     naoEncontrados,
-    errosRede,
     semFotos,
+    errosRede,
     ambiguos,
+    pendentesRestantes,
+    baixadosNovos: scrapedNovo,
+    erros,
     pendentesEncontrados: totalPendentesEncontrados,
     totalRequisicoesRede: totalShopifyRequests
   };
 
   console.log("\n═══════════════════════════════════════════════════════════════");
-  console.log(`  🎉 Concluído! Sucessos: ${sucessos} (Novos baixados: ${scrapedNovo}, Reutilizados/Cache: ${reutilizados}) | Erros: ${erros}`);
+  console.log(`  🎉 Concluído! Com fotos: ${sucessos} (Novos baixados: ${scrapedNovo}, Reutilizados/Cache: ${reutilizados}) | Erros: ${erros} | Pendentes restantes: ${pendentesRestantes}`);
   console.log(`  🌐 Total de requisições Shopify realizadas: ${totalShopifyRequests}`);
   console.log("═══════════════════════════════════════════════════════════════\n");
 
   console.log(`AGENT1_RESULT ${JSON.stringify(resultPayload)}`);
+
+  // Códigos de saída fiéis contratuais:
+  // 0: 100% de sucesso sem erros e sem pendentes restantes
+  // 3: Sucesso parcial (parte obteve fotos, mas houve erros ou pendentes)
+  // 2: Zero SKUs obtiveram fotos (falha total do lote)
+  if (sucessos === 0) {
+    process.exit(2);
+  } else if (erros > 0 || pendentesRestantes > 0) {
+    process.exit(3);
+  } else {
+    process.exit(0);
+  }
 }
 
 const isDirectRun = process.argv[1] && resolve(process.argv[1]) === resolve(fileURLToPath(import.meta.url));
@@ -686,3 +716,4 @@ if (isDirectRun) {
     process.exit(1);
   });
 }
+

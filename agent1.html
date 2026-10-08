@@ -7458,7 +7458,7 @@
             <button type="button" class="btn-action-primary" style="background: #2563EB; border-color: #1D4ED8; padding: 8px 16px; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 6px; color: #fff; border-radius: 6px; font-weight: 600; cursor: pointer;" onclick="downloadFileWithAuth('${dlUrl}', '${escapeHtml(fileName)}')">
               <span>📥</span> Baixar Planilha (.xlsx)
             </button>
-            <button type="button" class="btn-action-secondary" style="background: #10B981; border-color: #059669; padding: 8px 16px; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 6px; color: #fff; border-radius: 6px; font-weight: 600; cursor: pointer;" onclick="advanceToAgent1WithBatch('${escapeHtml(file.path || file.name)}')">
+            <button type="button" class="btn-action-secondary" style="background: #10B981; border-color: #059669; padding: 8px 16px; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 6px; color: #fff; border-radius: 6px; font-weight: 600; cursor: pointer;" onclick="window.advanceToAgent1WithBatch ? window.advanceToAgent1WithBatch('${escapeHtml(String(file.path || file.name || '').replace(/\\/g, '/'))}') : advanceToAgent1WithBatch('${escapeHtml(String(file.path || file.name || '').replace(/\\/g, '/'))}')">
               <span>⚡</span> Avançar e Baixar Fotos (Agente 1)
             </button>
           </div>
@@ -7477,63 +7477,116 @@
 
     function showAgent1ResultCard(res) {
       if (!res) return;
-      const isZeroPending = res.pendentesEncontrados === 0;
+      const totalLote = res.totalLote || (res.processados || 0);
+      const comFotos = res.comFotos != null ? res.comFotos : (res.scraped || 0);
+      const falhas = res.erros || 0;
+      const pendentes = res.pendentesRestantes != null ? res.pendentesRestantes : 0;
+      const novos = res.baixadosNovos != null ? res.baixadosNovos : (comFotos - (res.reutilizados || 0));
 
       let cardHtml = '';
-      if (isZeroPending) {
+
+      if (comFotos === 0) {
+        // CENÁRIO ZERO SUCESSO: Nenhum SKU obteve fotos
+        const motivos = [];
+        if (res.naoEncontrados && res.naoEncontrados.length > 0) {
+          motivos.push(`${res.naoEncontrados.length} não encontrados nos sites BRK: ${res.naoEncontrados.slice(0, 5).join(', ')}${res.naoEncontrados.length > 5 ? '...' : ''}`);
+        }
+        if (res.semFotos && res.semFotos.length > 0) {
+          motivos.push(`${res.semFotos.length} publicados sem fotos cadastradas: ${res.semFotos.slice(0, 5).join(', ')}${res.semFotos.length > 5 ? '...' : ''}`);
+        }
+        if (res.errosRede && res.errosRede.length > 0) {
+          motivos.push(`${res.errosRede.length} com falha de rede/timeout`);
+        }
+        if (res.ambiguos && res.ambiguos.length > 0) {
+          motivos.push(`${res.ambiguos.length} ambíguos: ${res.ambiguos.slice(0, 5).join(', ')}${res.ambiguos.length > 5 ? '...' : ''}`);
+        }
+
         cardHtml = `
-          <div class="chat-action-card" style="border-left: 4px solid #F59E0B; background: linear-gradient(135deg, rgba(15,23,42,0.95), rgba(30,41,59,0.95)); border: 1px solid rgba(245,158,11,0.3); border-radius: 10px; padding: 14px; margin-top: 10px;">
-            <div style="font-weight: 700; color: #F59E0B; margin-bottom: 6px; display: flex; align-items: center; gap: 8px;">
-              <span>ℹ️</span> 0 Produtos Pendentes no Lote
+          <div class="chat-action-card" style="border-left: 4px solid #EF4444; background: linear-gradient(135deg, rgba(15,23,42,0.95), rgba(30,41,59,0.95)); border: 1px solid rgba(239,68,68,0.3); border-radius: 10px; padding: 14px; margin-top: 10px;">
+            <div style="font-weight: 700; color: #EF4444; margin-bottom: 6px; display: flex; align-items: center; gap: 8px;">
+              <span>❌</span> Nenhum SKU Obteve Fotos (0 de ${totalLote} com fotos)
             </div>
             <div style="font-size: 0.83rem; color: #d1d5db; margin-bottom: 10px; line-height: 1.4;">
-              Todos os itens deste lote já foram processados anteriormente.
+              Nenhuma imagem oficial foi localizada para os produtos deste lote. O avanço para o Agente 2 está bloqueado até que haja fotos disponíveis.
             </div>
-            <div style="display: flex; gap: 10px; margin-bottom: 12px; flex-wrap: wrap;">
-              <span style="background: rgba(16,185,129,0.15); border: 1px solid rgba(16,185,129,0.3); border-radius: 4px; padding: 2px 8px; font-size: 0.75rem; color: #6ee7b7;"><strong>Já Baixados:</strong> ${res.scraped || 0}</span>
-              <span style="background: rgba(239,68,68,0.15); border: 1px solid rgba(239,68,68,0.3); border-radius: 4px; padding: 2px 8px; font-size: 0.75rem; color: #fca5a5;"><strong>Com Erro:</strong> ${res.erros || 0}</span>
-              <span style="background: rgba(59,130,246,0.15); border: 1px solid rgba(59,130,246,0.3); border-radius: 4px; padding: 2px 8px; font-size: 0.75rem; color: #93c5fd;"><strong>Total Lote:</strong> ${res.totalLote || 0}</span>
-            </div>
+            ${motivos.length > 0 ? `
+              <div style="background: rgba(0,0,0,0.3); border-radius: 6px; padding: 8px 12px; margin-bottom: 12px; font-size: 0.8rem; color: #fca5a5;">
+                ${motivos.map(m => `<div>• ${escapeHtml(m)}</div>`).join('')}
+              </div>
+            ` : ''}
             <div style="display: flex; gap: 8px; flex-wrap: wrap;">
               <button type="button" class="btn-action-primary" style="background: #D97706; border-color: #B45309; padding: 8px 16px; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 6px; color: #fff; border-radius: 6px; font-weight: 600; cursor: pointer;" onclick="executeChipAction('runAgent1RetryErrors')">
                 <span>🔄</span> Reprocessar Erros do Lote
               </button>
-              <button type="button" class="btn-action-secondary" style="background: #8B5CF6; border-color: #7C3AED; padding: 8px 16px; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 6px; color: #fff; border-radius: 6px; font-weight: 600; cursor: pointer;" onclick="goToNextAgent('agent2', 'enrichLot')">
-                <span>⚡</span> Avançar para Agente 2 (IA Vision)
+            </div>
+          </div>
+        `;
+        appendBotMessage('agent1', 'Falha na coleta de fotos do Agente 1:', cardHtml);
+      } else if (falhas > 0 || pendentes > 0) {
+        // CENÁRIO PARCIAL: Parte com fotos, parte com falhas ou pendentes
+        const motivos = [];
+        if (res.naoEncontrados && res.naoEncontrados.length > 0) {
+          motivos.push(`Não publicado nos sites BRK: ${res.naoEncontrados.slice(0, 4).join(', ')}${res.naoEncontrados.length > 4 ? '...' : ''}`);
+        }
+        if (res.semFotos && res.semFotos.length > 0) {
+          motivos.push(`Sem fotos cadastradas: ${res.semFotos.slice(0, 4).join(', ')}${res.semFotos.length > 4 ? '...' : ''}`);
+        }
+        if (res.ambiguos && res.ambiguos.length > 0) {
+          motivos.push(`Múltiplos modelos coincidentes (ambíguo): ${res.ambiguos.slice(0, 4).join(', ')}${res.ambiguos.length > 4 ? '...' : ''}`);
+        }
+
+        cardHtml = `
+          <div class="chat-action-card" style="border-left: 4px solid #F59E0B; background: linear-gradient(135deg, rgba(15,23,42,0.95), rgba(30,41,59,0.95)); border: 1px solid rgba(245,158,11,0.3); border-radius: 10px; padding: 14px; margin-top: 10px;">
+            <div style="font-weight: 700; color: #F59E0B; margin-bottom: 6px; display: flex; align-items: center; gap: 8px;">
+              <span>⚠️</span> Coleta Parcial: ${comFotos} de ${totalLote} SKUs com fotos; ${falhas} sem foto; ${pendentes} pendentes
+            </div>
+            <div style="font-size: 0.83rem; color: #d1d5db; margin-bottom: 10px; line-height: 1.4;">
+              Alguns produtos tiveram fotos baixadas com sucesso, enquanto outros falharam ou ainda estão pendentes:
+            </div>
+            <div style="display: flex; gap: 10px; margin-bottom: 12px; flex-wrap: wrap;">
+              <span style="background: rgba(16,185,129,0.15); border: 1px solid rgba(16,185,129,0.3); border-radius: 4px; padding: 2px 8px; font-size: 0.75rem; color: #6ee7b7;"><strong>Com Fotos:</strong> ${comFotos}</span>
+              <span style="background: rgba(239,68,68,0.15); border: 1px solid rgba(239,68,68,0.3); border-radius: 4px; padding: 2px 8px; font-size: 0.75rem; color: #fca5a5;"><strong>Sem Foto:</strong> ${falhas}</span>
+              ${pendentes > 0 ? `<span style="background: rgba(59,130,246,0.15); border: 1px solid rgba(59,130,246,0.3); border-radius: 4px; padding: 2px 8px; font-size: 0.75rem; color: #93c5fd;"><strong>Pendentes:</strong> ${pendentes}</span>` : ''}
+            </div>
+            ${motivos.length > 0 ? `
+              <div style="background: rgba(0,0,0,0.3); border-radius: 6px; padding: 8px 12px; margin-bottom: 12px; font-size: 0.8rem; color: #fde68a;">
+                ${motivos.map(m => `<div>• ${escapeHtml(m)}</div>`).join('')}
+              </div>
+            ` : ''}
+            <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+              <button type="button" class="btn-action-primary" style="background: #D97706; border-color: #B45309; padding: 8px 16px; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 6px; color: #fff; border-radius: 6px; font-weight: 600; cursor: pointer;" onclick="executeChipAction('runAgent1RetryErrors')">
+                <span>🔄</span> Reprocessar erros
+              </button>
+              <button type="button" class="btn-action-secondary" style="background: #8B5CF6; border-color: #7C3AED; padding: 8px 16px; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 6px; color: #fff; border-radius: 6px; font-weight: 600; cursor: pointer;" onclick="goToNextAgent('agent2', 'runAgent2WithActiveBatch')">
+                <span>⚡</span> Avançar apenas com os SKUs que têm fotos
               </button>
             </div>
           </div>
         `;
-        appendBotMessage('agent1', 'Relatório de execução do Agente 1:', cardHtml);
+        appendBotMessage('agent1', 'Resultado parcial da coleta de fotos:', cardHtml);
       } else {
-        const novos = res.baixadosNovos != null ? res.baixadosNovos : (res.scraped - (res.reutilizados || 0));
+        // CENÁRIO 100% COM FOTOS
         cardHtml = `
           <div class="chat-action-card" style="border-left: 4px solid #10B981; background: linear-gradient(135deg, rgba(15,23,42,0.95), rgba(30,41,59,0.95)); border: 1px solid rgba(16,185,129,0.3); border-radius: 10px; padding: 14px; margin-top: 10px;">
             <div style="font-weight: 700; color: #10B981; margin-bottom: 6px; display: flex; align-items: center; gap: 8px;">
-              <span>🎉</span> Download de Fotos Concluído!
+              <span>🎉</span> Download Concluído! 100% dos SKUs com Fotos
             </div>
             <div style="font-size: 0.83rem; color: #d1d5db; margin-bottom: 10px; line-height: 1.4;">
-              Imagens coletadas e validadas dos sites da BRK:
+              Todas as fotos oficiais dos produtos foram coletadas, aprimoradas e validadas:
             </div>
             <div style="display: flex; gap: 10px; margin-bottom: 12px; flex-wrap: wrap;">
-              <span style="background: rgba(16,185,129,0.15); border: 1px solid rgba(16,185,129,0.3); border-radius: 4px; padding: 2px 8px; font-size: 0.75rem; color: #6ee7b7;"><strong>Fotos Novas:</strong> ${novos}</span>
-              <span style="background: rgba(59,130,246,0.15); border: 1px solid rgba(59,130,246,0.3); border-radius: 4px; padding: 2px 8px; font-size: 0.75rem; color: #93c5fd;"><strong>Reutilizados (Cache):</strong> ${res.reutilizados || 0}</span>
-              <span style="background: rgba(239,68,68,0.15); border: 1px solid rgba(239,68,68,0.3); border-radius: 4px; padding: 2px 8px; font-size: 0.75rem; color: #fca5a5;"><strong>Falhas:</strong> ${res.erros || 0}</span>
-              ${res.ambiguos && res.ambiguos.length > 0 ? `<span style="background: rgba(245,158,11,0.15); border: 1px solid rgba(245,158,11,0.3); border-radius: 4px; padding: 2px 8px; font-size: 0.75rem; color: #fde68a;"><strong>Ambíguos:</strong> ${res.ambiguos.length}</span>` : ''}
+              <span style="background: rgba(16,185,129,0.15); border: 1px solid rgba(16,185,129,0.3); border-radius: 4px; padding: 2px 8px; font-size: 0.75rem; color: #6ee7b7;"><strong>Total com Fotos:</strong> ${comFotos}</span>
+              <span style="background: rgba(59,130,246,0.15); border: 1px solid rgba(59,130,246,0.3); border-radius: 4px; padding: 2px 8px; font-size: 0.75rem; color: #93c5fd;"><strong>Novas Baixadas:</strong> ${novos}</span>
+              <span style="background: rgba(147,197,253,0.15); border: 1px solid rgba(147,197,253,0.3); border-radius: 4px; padding: 2px 8px; font-size: 0.75rem; color: #bfdbfe;"><strong>Reutilizadas (Cache):</strong> ${res.reutilizados || 0}</span>
             </div>
             <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-              <button type="button" class="btn-action-primary" style="background: #8B5CF6; border-color: #7C3AED; padding: 8px 16px; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 6px; color: #fff; border-radius: 6px; font-weight: 600; cursor: pointer;" onclick="goToNextAgent('agent2', 'enrichLot')">
-                <span>⚡</span> Avançar e Enriquecer com IA (Agente 2)
+              <button type="button" class="btn-action-primary" style="background: #10B981; border-color: #059669; padding: 8px 16px; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 6px; color: #fff; border-radius: 6px; font-weight: 600; cursor: pointer;" onclick="goToNextAgent('agent2', 'runAgent2WithActiveBatch')">
+                <span>⚡</span> Avançar e Enriquecer com Agente 2 (IA Vision & SEO)
               </button>
-              ${res.erros > 0 ? `
-                <button type="button" class="btn-action-secondary" style="background: #D97706; border-color: #B45309; padding: 8px 16px; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 6px; color: #fff; border-radius: 6px; font-weight: 600; cursor: pointer;" onclick="executeChipAction('runAgent1RetryErrors')">
-                  <span>🔄</span> Reprocessar Erros
-                </button>
-              ` : ''}
             </div>
           </div>
         `;
-        appendBotMessage('agent1', 'Coleta de fotos finalizada com sucesso:', cardHtml);
+        appendBotMessage('agent1', 'Download de fotos 100% concluído:', cardHtml);
       }
     }
 
@@ -7607,12 +7660,14 @@
             headers: getPanelAuthHeaders(),
             body: JSON.stringify({ path: batchPath })
           });
+          await updateActiveBatchUi();
         } catch (e) {
           console.warn('Falha ao definir lote ativo para Agente 1:', e);
         }
       }
       goToNextAgent('agent1', 'runAgent1Auto');
     }
+    window.advanceToAgent1WithBatch = advanceToAgent1WithBatch;
 
     async function downloadLatestSpreadsheet() {
       try {

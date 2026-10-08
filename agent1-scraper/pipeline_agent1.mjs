@@ -70,11 +70,8 @@ function runScript(scriptName, scriptArgs) {
     });
 
     child.on("close", (code) => {
-      if (code === 0) {
-        resolvePromise(0);
-      } else if (code === 2) {
-        // Código 2 = 0 produtos pendentes no lote
-        resolvePromise(2);
+      if (code === 0 || code === 2 || code === 3) {
+        resolvePromise(code);
       } else {
         const err = new Error(`${scriptName} encerrou com código de erro ${code}`);
         err.code = code;
@@ -99,6 +96,7 @@ async function main() {
 
   let loteCsv = resolve(SCRIPT_DIR, "lote_d1fae5.csv");
 
+  let exitCode = 0;
   if (isExcel) {
     console.log("📌 Etapa 1/2: Extraindo produtos da planilha Excel...");
     const extractArgs = ["--input", resolvedInput, "--output", loteCsv];
@@ -115,10 +113,7 @@ async function main() {
     if (collection) scraperArgs.push("--collection", collection);
     if (retryErrors) scraperArgs.push("--retry-errors");
 
-    const code = await runScript("scraper.mjs", scraperArgs);
-    if (code === 2) {
-      process.exit(2);
-    }
+    exitCode = await runScript("scraper.mjs", scraperArgs);
   } else {
     // É CSV ou sem arquivo fornecido: vai direto para o scraper
     const scraperArgs = [];
@@ -128,18 +123,22 @@ async function main() {
     if (collection) scraperArgs.push("--collection", collection);
     if (retryErrors) scraperArgs.push("--retry-errors");
 
-    const code = await runScript("scraper.mjs", scraperArgs);
-    if (code === 2) {
-      process.exit(2);
-    }
+    exitCode = await runScript("scraper.mjs", scraperArgs);
   }
 
-  console.log("\n🎉 Pipeline do Agente 1 finalizado com sucesso!\n");
+  if (exitCode === 0) {
+    console.log("\n🎉 Pipeline do Agente 1 finalizado com 100% de sucesso!\n");
+  } else if (exitCode === 3) {
+    console.log("\n⚠️ Pipeline do Agente 1 finalizado com sucessos parciais (alguns produtos com erro/pendentes).\n");
+  } else if (exitCode === 2) {
+    console.log("\nℹ️ Pipeline do Agente 1: 0 produtos obtiveram novas fotos ou todos já processados.\n");
+  }
+  process.exit(exitCode);
 }
 
 main().catch((err) => {
-  if (err.code === 2) {
-    process.exit(2);
+  if (err.code === 2 || err.code === 3) {
+    process.exit(err.code);
   }
   console.error("\n❌ Erro no pipeline do Agente 1:", err.message);
   process.exit(err.code || 1);

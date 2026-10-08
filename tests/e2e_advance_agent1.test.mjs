@@ -219,3 +219,126 @@ test("E2E FRONTEND: Tratamento resiliente de erro 401 e 409 em sendAgentStartReq
   }
 });
 
+test("E2E FRONTEND: Painel exibe cards fiéis nos três cenários do Agente 1 (100% sucesso, parcial e zero)", async () => {
+  const panelHtml = fs.readFileSync(path.resolve("painel.html"), "utf8");
+
+  const server = http.createServer((req, res) => {
+    const url = new URL(req.url, `http://${req.headers.host}`);
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader("Access-Control-Allow-Headers", "*");
+
+    if (url.pathname === "/" || url.pathname === "/painel.html") {
+      res.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });
+      res.end(panelHtml);
+      return;
+    }
+
+    if (url.pathname === "/api/agents/logs") {
+      res.writeHead(200, { "Content-Type": "application/json" });
+      res.end(JSON.stringify({ logs: [] }));
+      return;
+    }
+
+    if (url.pathname === "/api/stats") {
+      res.writeHead(200, { "Content-Type": "application/json" });
+      res.end(JSON.stringify({ telemetry: { currentAgent: null, status: "idle" } }));
+      return;
+    }
+
+    res.writeHead(200, { "Content-Type": "application/json" });
+    res.end(JSON.stringify({}));
+  });
+
+  await new Promise(resolve => server.listen(0, "127.0.0.1", resolve));
+  const port = server.address().port;
+  const baseUrl = `http://127.0.0.1:${port}`;
+
+  let browser;
+  try {
+    browser = await chromium.launch({ headless: true });
+    const page = await browser.newPage();
+    await page.goto(`${baseUrl}/painel.html`);
+
+    // Cenário 1: 100% com foto
+    await page.evaluate(() => {
+      window.showAgent1ResultCard({
+        totalLote: 5,
+        processados: 5,
+        comFotos: 5,
+        reutilizados: 0,
+        naoEncontrados: [],
+        semFotos: [],
+        errosRede: [],
+        pendentesRestantes: 0
+      }, "lote_teste.csv");
+    });
+    await page.waitForTimeout(300);
+
+    const chat100 = await page.locator("#chat-feed-agent1").innerText();
+    assert.ok(
+      chat100.includes("Download Concluído! 100% dos SKUs com Fotos") || chat100.includes("100%"),
+      "Deve mostrar sucesso total"
+    );
+    const advanceBtn100 = page.locator('button:has-text("Avançar e Enriquecer com Agente 2")');
+    assert.ok(await advanceBtn100.count() > 0, "Botão Avançar e Enriquecer com Agente 2 deve existir em 100% sucesso");
+
+    // Cenário 2: Parcial (parte com foto, parte sem)
+    await page.evaluate(() => {
+      window.showAgent1ResultCard({
+        totalLote: 5,
+        processados: 5,
+        comFotos: 3,
+        erros: 2,
+        reutilizados: 0,
+        naoEncontrados: ["SKU_FALHA_1"],
+        semFotos: ["SKU_FALHA_2"],
+        errosRede: [],
+        pendentesRestantes: 0
+      }, "lote_teste.csv");
+    });
+    await page.waitForTimeout(300);
+
+    const chatParcial = await page.locator("#chat-feed-agent1").innerText();
+    assert.ok(
+      chatParcial.includes("Coleta Parcial") || chatParcial.includes("3 de 5 SKUs com fotos"),
+      "Deve mostrar card parcial com contagem"
+    );
+    const partialBtn = page.locator('button:has-text("Avançar apenas com os SKUs que têm fotos")');
+    assert.ok(await partialBtn.count() > 0, "Deve oferecer botão de avançar apenas com SKUs que têm fotos");
+    const retryBtn = page.locator('button:has-text("Reprocessar erros")');
+    assert.ok(await retryBtn.count() > 0, "Deve oferecer botão para reprocessar erros");
+
+    // Cenário 3: Zero com foto
+    await page.evaluate(() => {
+      // Limpa as mensagens anteriores do chat-feed-agent1 para validar especificamente o card de zero
+      const feed = document.getElementById("chat-feed-agent1");
+      if (feed) feed.innerHTML = "";
+      window.showAgent1ResultCard({
+        totalLote: 4,
+        processados: 4,
+        comFotos: 0,
+        reutilizados: 0,
+        naoEncontrados: ["SKU_1", "SKU_2"],
+        semFotos: ["SKU_3", "SKU_4"],
+        errosRede: [],
+        pendentesRestantes: 0
+      }, "lote_teste.csv");
+    });
+    await page.waitForTimeout(300);
+
+    const chatZero = await page.locator("#chat-feed-agent1").innerText();
+    assert.ok(
+      chatZero.includes("Nenhum SKU Obteve Fotos") || chatZero.includes("Nenhum SKU"),
+      "Deve exibir erro informando que nenhum obteve fotos"
+    );
+    const advanceBtnZero = page.locator('#chat-feed-agent1 button:has-text("Avançar e Enriquecer com Agente 2")');
+    // Em zero fotos, o botão de avançar para Agente 2 NÃO deve ser liberado no card
+    assert.equal(await advanceBtnZero.count(), 0, "NÃO deve ter botão de avançar com Agente 2 no card de zero fotos");
+
+  } finally {
+    if (browser) await browser.close();
+    await new Promise(resolve => server.close(resolve));
+  }
+});
+
+

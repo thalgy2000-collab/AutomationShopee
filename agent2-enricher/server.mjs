@@ -845,11 +845,12 @@ async function startAgent(agentId, options = {}) {
     addLog(`🏁 ${agentId.toUpperCase()} finalizou com código de saída: ${code}`, (code === 0 || (agentId === 'agent1' && code === 2)) ? 'stdout' : 'stderr');
 
     const isAgent1ZeroPending = agentId === 'agent1' && code === 2;
-    const isSuccess = code === 0 || isAgent1ZeroPending;
+    const isAgent1Partial = agentId === 'agent1' && code === 3;
+    const isSuccess = code === 0 || isAgent1ZeroPending || isAgent1Partial;
 
     agentStatus = isSuccess ? 'done' : 'error';
     agentTelemetry.status = isSuccess ? 'done' : 'error';
-    if (isSuccess) {
+    if (code === 0) {
       agentTelemetry.lastError = null;
     }
     if (agentTelemetry.startTime) {
@@ -859,8 +860,11 @@ async function startAgent(agentId, options = {}) {
     let summaryText = '';
     if (code === 0) {
       summaryText = `Execução concluída com sucesso (${agentTelemetry.currentSku ? 'SKU ' + agentTelemetry.currentSku : 'Concluído'})`;
+    } else if (isAgent1Partial) {
+      const res = agentTelemetry.agent1Result;
+      summaryText = `Coleta parcial: ${res?.comFotos || res?.scraped || 0} com fotos, ${res?.erros || 0} sem foto/erro.`;
     } else if (isAgent1ZeroPending) {
-      summaryText = '0 produtos pendentes para download no lote atual';
+      summaryText = '0 novos produtos baixados (todos processados ou nenhum SKU obteve fotos)';
     } else {
       summaryText = `Execução finalizou com erro (código ${code})`;
     }
@@ -873,13 +877,19 @@ async function startAgent(agentId, options = {}) {
 
     if (code === 0) {
       agentTelemetry.currentStep = 'Concluído com sucesso';
-    } else if (isAgent1ZeroPending) {
-      agentTelemetry.currentStep = '0 pendentes no lote';
+    } else if (isAgent1Partial) {
+      agentTelemetry.currentStep = 'Coleta parcial finalizada';
       if (agentTelemetry.agent1Result) {
         const r = agentTelemetry.agent1Result;
-        agentTelemetry.stepDetail = `Lote sem pendências: ${r.scraped || 0} já baixados, ${r.erros || 0} com erro. Ative 'Reprocessar erros' se desejar tentar novamente.`;
+        agentTelemetry.stepDetail = `${r.comFotos || r.scraped || 0} SKUs com fotos salvas; ${r.erros || 0} falharam. Você pode reprocessar erros ou prosseguir com os prontos.`;
+      }
+    } else if (isAgent1ZeroPending) {
+      agentTelemetry.currentStep = '0 produtos com novas fotos';
+      if (agentTelemetry.agent1Result) {
+        const r = agentTelemetry.agent1Result;
+        agentTelemetry.stepDetail = `Lote finalizado: ${r.comFotos || r.scraped || 0} já baixados, ${r.erros || 0} com erro.`;
       } else {
-        agentTelemetry.stepDetail = "Todos os itens já foram processados anteriormente. Para tentar baixar os itens que falharam, marque 'Reprocessar erros'.";
+        agentTelemetry.stepDetail = "Todos os itens já foram processados anteriormente ou nenhum obteve fotos.";
       }
     } else {
       agentTelemetry.currentStep = 'Finalizado com erro';

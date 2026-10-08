@@ -975,14 +975,62 @@ async function main() {
       });
     }
 
+    // REGRA 2c: Agente 2 só deve processar SKUs com fotos em disco e relatar os ignorados
+    const groupsWithPhotos = [];
+    const ignoredGroupsWithoutPhotos = [];
+
+    for (const g of pendentesGroups) {
+      let hasPhotos = false;
+      const directParentImgs = await getVariationImages(g.parentSku);
+      if (directParentImgs.length > 0) {
+        hasPhotos = true;
+      } else {
+        for (const it of g.items) {
+          const vImgs = await getVariationImages(it.sku, g.parentSku, it.variationName);
+          if (vImgs.length > 0) {
+            hasPhotos = true;
+            break;
+          }
+        }
+      }
+
+      if (hasPhotos) {
+        groupsWithPhotos.push(g);
+      } else {
+        ignoredGroupsWithoutPhotos.push(g);
+      }
+    }
+
+    if (ignoredGroupsWithoutPhotos.length > 0) {
+      log(`⚠️ Agente 2: ${ignoredGroupsWithoutPhotos.length} produto(s) pai sem fotos em disco ignorados:`);
+      for (const ig of ignoredGroupsWithoutPhotos) {
+        const motivo = "ignorado pelo Agente 2: sem fotos baixadas em disco";
+        log(`   - ${ig.parentSku}: ${motivo}`);
+        for (const it of ig.items) {
+          if (it.record && it.record.status !== "enriched") {
+            it.record.status = `ignorado: ${motivo}`;
+          }
+        }
+      }
+      if (activeCsvFile && existsSync(activeCsvFile)) {
+        try {
+          await writeCsv(activeCsvFile, records);
+        } catch (err) {
+          logError(`Erro ao atualizar CSV com SKUs ignorados: ${err.message}`);
+        }
+      }
+    }
+
+    pendentesGroups = groupsWithPhotos;
+
     const totalVariacoes = records.length;
     const enrichedVariacoes = records.filter((r) => r.status === "enriched").length;
     log(`Total de SKUs no CSV: ${totalVariacoes} (${allGroups.length} anúncios pai agrupados)`);
     log(`SKUs já enriquecidos: ${enrichedVariacoes}`);
-    log(`Grupos selecionados para processar: ${pendentesGroups.length}`);
+    log(`Grupos selecionados para processar (com fotos): ${pendentesGroups.length}`);
 
     if (pendentesGroups.length === 0) {
-      log(`Nenhum produto pendente para enriquecer.`);
+      log(`Nenhum produto pendente com fotos para enriquecer.`);
       return;
     }
 

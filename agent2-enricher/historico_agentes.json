@@ -1,5 +1,994 @@
 [
   {
+    "id": "exec_1791463171379_u1cv",
+    "agentId": "agent1",
+    "agentName": "Agente 1 — Coletor de Imagens",
+    "timestamp": "2026-10-08T12:39:31.379Z",
+    "formattedDate": "08/10/2026",
+    "formattedTime": "09:39:31",
+    "status": "error",
+    "durationSeconds": 0,
+    "durationFormatted": "0s",
+    "summary": "Execução finalizou com erro (código 1)",
+    "details": [
+      "errno: \u001b[33m-4058\u001b[39m,\ncode: \u001b[32m'ENOENT'\u001b[39m,\nsyscall: \u001b[32m'open'\u001b[39m,\npath: \u001b[32m'C:\\\\Users\\\\marke\\\\.gemini\\\\antigravity-ide\\\\scratch\\\\shopee-automation\\\\agent1-scraper\\\\planilha_sankhya_1791463138975.xlsx'\u001b[39m\n❌ Erro no pipeline do Agente 1: create_lote.mjs encerrou com código de erro 1"
+    ],
+    "skus": [],
+    "files": [],
+    "metadata": {
+      "exitCode": 1,
+      "model": "gemini-2.5-flash"
+    }
+  },
+  {
+    "id": "exec_1791463139552_hegr",
+    "agentId": "agent0",
+    "agentName": "Agente 0 — Sankhya Scout",
+    "timestamp": "2026-10-08T12:38:59.552Z",
+    "formattedDate": "08/10/2026",
+    "formattedTime": "09:38:59",
+    "status": "success",
+    "durationSeconds": 169,
+    "durationFormatted": "2m 49s",
+    "summary": "Execução concluída com sucesso (SKU OC1047)",
+    "details": [
+      "Planilha .xlsx gerada e vinculada a todos os agentes",
+      "Progresso: 9/9"
+    ],
+    "skus": [
+      "OC1047"
+    ],
+    "files": [
+      {
+        "name": "planilha_sankhya_1791463138975.xlsx",
+        "path": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\uploads\\planilha_sankhya_1791463138975.xlsx",
+        "size": 17937,
+        "downloadUrl": "/uploads/planilha_sankhya_1791463138975.xlsx",
+        "sizeFormatted": "17.5 KB"
+      }
+    ],
+    "metadata": {
+      "exitCode": 0,
+      "model": "gemini-2.5-flash"
+    }
+  },
+  {
+    "id": "exec_sankhya_planilha_sankhya_1791463138975_xlsx",
+    "agentId": "agent0",
+    "agentName": "Agente 0 — Sankhya Scout",
+    "timestamp": "2026-10-08T12:38:58.975Z",
+    "formattedDate": "08/10/2026",
+    "formattedTime": "09:38:58",
+    "status": "success",
+    "durationSeconds": 45,
+    "durationFormatted": "45s",
+    "summary": "Planilha exportada do Sankhya: planilha_sankhya_1791463138975.xlsx",
+    "details": [
+      "Arquivo de dados cadastrais Sankhya: planilha_sankhya_1791463138975.xlsx",
+      "Tamanho do arquivo: 17.5 KB",
+      "Pronta para download e processamento pelos Agentes 1, 2 e 3"
+    ],
+    "skus": [],
+    "files": [
+      {
+        "name": "planilha_sankhya_1791463138975.xlsx",
+        "path": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\uploads\\planilha_sankhya_1791463138975.xlsx",
+        "size": 17937,
+        "sizeFormatted": "17.5 KB",
+        "downloadUrl": "/uploads/planilha_sankhya_1791463138975.xlsx"
+      }
+    ],
+    "metadata": {
+      "autoDiscovered": true,
+      "fileName": "planilha_sankhya_1791463138975.xlsx"
+    }
+  },
+  {
+    "id": "exec_1791461871488_xzw8",
+    "agentId": "agent2",
+    "agentName": "Agente 2 — IA Vision & SEO",
+    "timestamp": "2026-10-08T12:17:51.488Z",
+    "formattedDate": "08/10/2026",
+    "formattedTime": "09:17:51",
+    "status": "success",
+    "durationSeconds": 22,
+    "durationFormatted": "22s",
+    "summary": "Execução concluída com sucesso (Concluído)",
+    "details": [
+      "279 produtos encontrados. Gerando relatório...",
+      "Progresso: 1/1"
+    ],
+    "skus": [],
+    "files": [],
+    "metadata": {
+      "exitCode": 0,
+      "model": "gemini-2.5-flash"
+    }
+  },
+  {
+    "id": "exec_1791461813101_6t1k",
+    "agentId": "agent0",
+    "agentName": "Agente 0 — Sankhya Scout",
+    "timestamp": "2026-10-08T12:16:53.101Z",
+    "formattedDate": "08/10/2026",
+    "formattedTime": "09:16:53",
+    "status": "success",
+    "durationSeconds": 44,
+    "durationFormatted": "44s",
+    "summary": "Execução concluída com sucesso (SKU OC1028)",
+    "details": [
+      "Planilha .xlsx gerada e vinculada a todos os agentes",
+      "Progresso: 1/1"
+    ],
+    "skus": [
+      "OC1028"
+    ],
+    "files": [
+      {
+        "name": "planilha_sankhya_1791461812278.xlsx",
+        "path": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\uploads\\planilha_sankhya_1791461812278.xlsx",
+        "size": 16473,
+        "downloadUrl": "/uploads/planilha_sankhya_1791461812278.xlsx",
+        "sizeFormatted": "16.1 KB"
+      }
+    ],
+    "metadata": {
+      "exitCode": 0,
+      "model": "gemini-2.5-flash"
+    }
+  },
+  {
+    "id": "exec_sankhya_planilha_sankhya_1791461812278_xlsx",
+    "agentId": "agent0",
+    "agentName": "Agente 0 — Sankhya Scout",
+    "timestamp": "2026-10-08T12:16:52.278Z",
+    "formattedDate": "08/10/2026",
+    "formattedTime": "09:16:52",
+    "status": "success",
+    "durationSeconds": 45,
+    "durationFormatted": "45s",
+    "summary": "Planilha exportada do Sankhya: planilha_sankhya_1791461812278.xlsx",
+    "details": [
+      "Arquivo de dados cadastrais Sankhya: planilha_sankhya_1791461812278.xlsx",
+      "Tamanho do arquivo: 16.1 KB",
+      "Pronta para download e processamento pelos Agentes 1, 2 e 3"
+    ],
+    "skus": [],
+    "files": [
+      {
+        "name": "planilha_sankhya_1791461812278.xlsx",
+        "path": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\uploads\\planilha_sankhya_1791461812278.xlsx",
+        "size": 16473,
+        "sizeFormatted": "16.1 KB",
+        "downloadUrl": "/uploads/planilha_sankhya_1791461812278.xlsx"
+      }
+    ],
+    "metadata": {
+      "autoDiscovered": true,
+      "fileName": "planilha_sankhya_1791461812278.xlsx"
+    }
+  },
+  {
+    "id": "exec_sankhya_planilha_sankhya_1791461812278_1791461842470_xlsx",
+    "agentId": "agent0",
+    "agentName": "Agente 0 — Sankhya Scout",
+    "timestamp": "2026-10-08T12:16:52.278Z",
+    "formattedDate": "08/10/2026",
+    "formattedTime": "09:16:52",
+    "status": "success",
+    "durationSeconds": 45,
+    "durationFormatted": "45s",
+    "summary": "Planilha exportada do Sankhya: planilha_sankhya_1791461812278_1791461842470.xlsx",
+    "details": [
+      "Arquivo de dados cadastrais Sankhya: planilha_sankhya_1791461812278_1791461842470.xlsx",
+      "Tamanho do arquivo: 16.1 KB",
+      "Pronta para download e processamento pelos Agentes 1, 2 e 3"
+    ],
+    "skus": [],
+    "files": [
+      {
+        "name": "planilha_sankhya_1791461812278_1791461842470.xlsx",
+        "path": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\uploads\\planilha_sankhya_1791461812278_1791461842470.xlsx",
+        "size": 16473,
+        "sizeFormatted": "16.1 KB",
+        "downloadUrl": "/uploads/planilha_sankhya_1791461812278_1791461842470.xlsx"
+      }
+    ],
+    "metadata": {
+      "autoDiscovered": true,
+      "fileName": "planilha_sankhya_1791461812278_1791461842470.xlsx"
+    }
+  },
+  {
+    "id": "exec_1791461636703_1i7l",
+    "agentId": "agent0",
+    "agentName": "Agente 0 — Sankhya Scout",
+    "timestamp": "2026-10-08T12:13:56.703Z",
+    "formattedDate": "08/10/2026",
+    "formattedTime": "09:13:56",
+    "status": "success",
+    "durationSeconds": 43,
+    "durationFormatted": "43s",
+    "summary": "Execução concluída com sucesso (SKU OC1066)",
+    "details": [
+      "Planilha .xlsx gerada e vinculada a todos os agentes",
+      "Progresso: 1/1"
+    ],
+    "skus": [
+      "OC1066"
+    ],
+    "files": [
+      {
+        "name": "planilha_sankhya_1791461634981.xlsx",
+        "path": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\uploads\\planilha_sankhya_1791461634981.xlsx",
+        "size": 16410,
+        "downloadUrl": "/uploads/planilha_sankhya_1791461634981.xlsx",
+        "sizeFormatted": "16.0 KB"
+      }
+    ],
+    "metadata": {
+      "exitCode": 0,
+      "model": "gemini-2.5-flash"
+    }
+  },
+  {
+    "id": "exec_sankhya_planilha_sankhya_1791461634981_xlsx",
+    "agentId": "agent0",
+    "agentName": "Agente 0 — Sankhya Scout",
+    "timestamp": "2026-10-08T12:13:54.981Z",
+    "formattedDate": "08/10/2026",
+    "formattedTime": "09:13:54",
+    "status": "success",
+    "durationSeconds": 45,
+    "durationFormatted": "45s",
+    "summary": "Planilha exportada do Sankhya: planilha_sankhya_1791461634981.xlsx",
+    "details": [
+      "Arquivo de dados cadastrais Sankhya: planilha_sankhya_1791461634981.xlsx",
+      "Tamanho do arquivo: 16.0 KB",
+      "Pronta para download e processamento pelos Agentes 1, 2 e 3"
+    ],
+    "skus": [],
+    "files": [
+      {
+        "name": "planilha_sankhya_1791461634981.xlsx",
+        "path": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\uploads\\planilha_sankhya_1791461634981.xlsx",
+        "size": 16410,
+        "sizeFormatted": "16.0 KB",
+        "downloadUrl": "/uploads/planilha_sankhya_1791461634981.xlsx"
+      }
+    ],
+    "metadata": {
+      "autoDiscovered": true,
+      "fileName": "planilha_sankhya_1791461634981.xlsx"
+    }
+  },
+  {
+    "id": "exec_1791317356527_0adg",
+    "agentId": "agent1",
+    "agentName": "Agente 1 — Coletor de Imagens",
+    "timestamp": "2026-10-06T20:09:16.526Z",
+    "formattedDate": "06/10/2026",
+    "formattedTime": "17:09:16",
+    "status": "success",
+    "durationSeconds": 4,
+    "durationFormatted": "4s",
+    "summary": "Execução concluída com sucesso (SKU OC1028)",
+    "details": [
+      "Carregando dependências e ambiente de execução...",
+      "Progresso: 1/1"
+    ],
+    "skus": [
+      "OC1028"
+    ],
+    "files": [],
+    "metadata": {
+      "exitCode": 0,
+      "model": "gemini-2.5-flash"
+    }
+  },
+  {
+    "id": "exec_1791317341501_794w",
+    "agentId": "agent0",
+    "agentName": "Agente 0 — Sankhya Scout",
+    "timestamp": "2026-10-06T20:09:01.501Z",
+    "formattedDate": "06/10/2026",
+    "formattedTime": "17:09:01",
+    "status": "success",
+    "durationSeconds": 21,
+    "durationFormatted": "21s",
+    "summary": "Execução concluída com sucesso (SKU OC1028)",
+    "details": [
+      "Planilha .xlsx gerada e vinculada a todos os agentes",
+      "Progresso: 1/1"
+    ],
+    "skus": [
+      "OC1028"
+    ],
+    "files": [
+      {
+        "name": "planilha_sankhya_1791317340773.xlsx",
+        "path": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\uploads\\planilha_sankhya_1791317340773.xlsx",
+        "size": 16473,
+        "downloadUrl": "/uploads/planilha_sankhya_1791317340773.xlsx",
+        "sizeFormatted": "16.1 KB"
+      }
+    ],
+    "metadata": {
+      "exitCode": 0,
+      "model": "gemini-2.5-flash"
+    }
+  },
+  {
+    "id": "exec_sankhya_planilha_sankhya_1791317340773_xlsx",
+    "agentId": "agent0",
+    "agentName": "Agente 0 — Sankhya Scout",
+    "timestamp": "2026-10-06T20:09:00.773Z",
+    "formattedDate": "06/10/2026",
+    "formattedTime": "17:09:00",
+    "status": "success",
+    "durationSeconds": 45,
+    "durationFormatted": "45s",
+    "summary": "Planilha exportada do Sankhya: planilha_sankhya_1791317340773.xlsx",
+    "details": [
+      "Arquivo de dados cadastrais Sankhya: planilha_sankhya_1791317340773.xlsx",
+      "Tamanho do arquivo: 16.1 KB",
+      "Pronta para download e processamento pelos Agentes 1, 2 e 3"
+    ],
+    "skus": [],
+    "files": [
+      {
+        "name": "planilha_sankhya_1791317340773.xlsx",
+        "path": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\uploads\\planilha_sankhya_1791317340773.xlsx",
+        "size": 16473,
+        "sizeFormatted": "16.1 KB",
+        "downloadUrl": "/uploads/planilha_sankhya_1791317340773.xlsx"
+      }
+    ],
+    "metadata": {
+      "autoDiscovered": true,
+      "fileName": "planilha_sankhya_1791317340773.xlsx"
+    }
+  },
+  {
+    "id": "exec_1791316890309_9xzc",
+    "agentId": "agent1",
+    "agentName": "Agente 1 — Coletor de Imagens",
+    "timestamp": "2026-10-06T20:01:30.309Z",
+    "formattedDate": "06/10/2026",
+    "formattedTime": "17:01:30",
+    "status": "success",
+    "durationSeconds": 2,
+    "durationFormatted": "2s",
+    "summary": "Execução concluída com sucesso (SKU OC1021)",
+    "details": [
+      "Carregando dependências e ambiente de execução...",
+      "Progresso: 1/1"
+    ],
+    "skus": [
+      "OC1021"
+    ],
+    "files": [],
+    "metadata": {
+      "exitCode": 0,
+      "model": "gemini-2.5-flash"
+    }
+  },
+  {
+    "id": "exec_1791316859183_vf67",
+    "agentId": "agent1",
+    "agentName": "Agente 1 — Coletor de Imagens",
+    "timestamp": "2026-10-06T20:00:59.183Z",
+    "formattedDate": "06/10/2026",
+    "formattedTime": "17:00:59",
+    "status": "error",
+    "durationSeconds": 0,
+    "durationFormatted": "0s",
+    "summary": "Execução finalizou com erro (código 1)",
+    "details": [
+      "errno: \u001b[33m-4058\u001b[39m,\ncode: \u001b[32m'ENOENT'\u001b[39m,\nsyscall: \u001b[32m'open'\u001b[39m,\npath: \u001b[32m'C:\\\\Users\\\\marke\\\\.gemini\\\\antigravity-ide\\\\scratch\\\\shopee-automation\\\\agent1-scraper\\\\planilha_sankhya_1791316529629_1791316565235.xlsx'\u001b[39m\n❌ Erro no pipeline do Agente 1: create_lote.mjs encerrou com código de erro 1"
+    ],
+    "skus": [],
+    "files": [],
+    "metadata": {
+      "exitCode": 1,
+      "model": "gemini-2.5-flash"
+    }
+  },
+  {
+    "id": "exec_1791316818985_leqz",
+    "agentId": "agent1",
+    "agentName": "Agente 1 — Coletor de Imagens",
+    "timestamp": "2026-10-06T20:00:18.985Z",
+    "formattedDate": "06/10/2026",
+    "formattedTime": "17:00:18",
+    "status": "success",
+    "durationSeconds": 3,
+    "durationFormatted": "3s",
+    "summary": "Execução concluída com sucesso (SKU OC1021)",
+    "details": [
+      "Carregando dependências e ambiente de execução...",
+      "Progresso: 1/1"
+    ],
+    "skus": [
+      "OC1021"
+    ],
+    "files": [],
+    "metadata": {
+      "exitCode": 0,
+      "model": "gemini-2.5-flash"
+    }
+  },
+  {
+    "id": "exec_1791316725002_09iq",
+    "agentId": "agent3",
+    "agentName": "Agente 3 — RPA Publicador Magis5",
+    "timestamp": "2026-10-06T19:58:45.001Z",
+    "formattedDate": "06/10/2026",
+    "formattedTime": "16:58:45",
+    "status": "error",
+    "durationSeconds": 1,
+    "durationFormatted": "1s",
+    "summary": "Execução finalizou com erro (código 1)",
+    "details": [
+      "\u001b[90m    at afterResolve (node:internal/modules/esm/loader:607:52)\u001b[39m\n\u001b[90m    at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:613:12)\u001b[39m\n\u001b[90m    at ModuleJob.syncLink (node:internal/modules/esm/module_job:163:33)\u001b[39m\n\u001b[90m    at ModuleJob.link (node:internal/modules/esm/module_job:253:17)\u001b[39m\nNode.js v24.19.0",
+      "Progresso: 0/10"
+    ],
+    "skus": [],
+    "files": [],
+    "metadata": {
+      "exitCode": 1,
+      "model": "gemini-2.5-flash"
+    }
+  },
+  {
+    "id": "exec_1791316622577_s3m6",
+    "agentId": "agent2",
+    "agentName": "Agente 2 — IA Vision & SEO",
+    "timestamp": "2026-10-06T19:57:02.577Z",
+    "formattedDate": "06/10/2026",
+    "formattedTime": "16:57:02",
+    "status": "success",
+    "durationSeconds": 15,
+    "durationFormatted": "15s",
+    "summary": "Execução concluída com sucesso (Concluído)",
+    "details": [
+      "278 produtos encontrados. Gerando relatório...",
+      "Progresso: 1/1"
+    ],
+    "skus": [],
+    "files": [],
+    "metadata": {
+      "exitCode": 0,
+      "model": "gemini-2.5-flash"
+    }
+  },
+  {
+    "id": "exec_1791316569877_6eil",
+    "agentId": "agent1",
+    "agentName": "Agente 1 — Coletor de Imagens",
+    "timestamp": "2026-10-06T19:56:09.877Z",
+    "formattedDate": "06/10/2026",
+    "formattedTime": "16:56:09",
+    "status": "success",
+    "durationSeconds": 4,
+    "durationFormatted": "4s",
+    "summary": "Execução concluída com sucesso (Concluído)",
+    "details": [
+      "[1/1] 📥 Baixando e validando 3 fotos para T672...",
+      "Progresso: 1/1"
+    ],
+    "skus": [],
+    "files": [],
+    "metadata": {
+      "exitCode": 0,
+      "model": "gemini-2.5-flash"
+    }
+  },
+  {
+    "id": "exec_1791316530291_t5lr",
+    "agentId": "agent0",
+    "agentName": "Agente 0 — Sankhya Scout",
+    "timestamp": "2026-10-06T19:55:30.291Z",
+    "formattedDate": "06/10/2026",
+    "formattedTime": "16:55:30",
+    "status": "success",
+    "durationSeconds": 30,
+    "durationFormatted": "30s",
+    "summary": "Execução concluída com sucesso (SKU T672)",
+    "details": [
+      "Planilha .xlsx gerada e vinculada a todos os agentes",
+      "Progresso: 1/1"
+    ],
+    "skus": [
+      "T672"
+    ],
+    "files": [
+      {
+        "name": "planilha_sankhya_1791316529629.xlsx",
+        "path": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\uploads\\planilha_sankhya_1791316529629.xlsx",
+        "size": 16459,
+        "downloadUrl": "/uploads/planilha_sankhya_1791316529629.xlsx",
+        "sizeFormatted": "16.1 KB"
+      }
+    ],
+    "metadata": {
+      "exitCode": 0,
+      "model": "gemini-2.5-flash"
+    }
+  },
+  {
+    "id": "exec_sankhya_planilha_sankhya_1791316529629_xlsx",
+    "agentId": "agent0",
+    "agentName": "Agente 0 — Sankhya Scout",
+    "timestamp": "2026-10-06T19:55:29.629Z",
+    "formattedDate": "06/10/2026",
+    "formattedTime": "16:55:29",
+    "status": "success",
+    "durationSeconds": 45,
+    "durationFormatted": "45s",
+    "summary": "Planilha exportada do Sankhya: planilha_sankhya_1791316529629.xlsx",
+    "details": [
+      "Arquivo de dados cadastrais Sankhya: planilha_sankhya_1791316529629.xlsx",
+      "Tamanho do arquivo: 16.1 KB",
+      "Pronta para download e processamento pelos Agentes 1, 2 e 3"
+    ],
+    "skus": [],
+    "files": [
+      {
+        "name": "planilha_sankhya_1791316529629.xlsx",
+        "path": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\uploads\\planilha_sankhya_1791316529629.xlsx",
+        "size": 16459,
+        "sizeFormatted": "16.1 KB",
+        "downloadUrl": "/uploads/planilha_sankhya_1791316529629.xlsx"
+      }
+    ],
+    "metadata": {
+      "autoDiscovered": true,
+      "fileName": "planilha_sankhya_1791316529629.xlsx"
+    }
+  },
+  {
+    "id": "exec_sankhya_planilha_sankhya_1791316529629_1791316565235_xlsx",
+    "agentId": "agent0",
+    "agentName": "Agente 0 — Sankhya Scout",
+    "timestamp": "2026-10-06T19:55:29.629Z",
+    "formattedDate": "06/10/2026",
+    "formattedTime": "16:55:29",
+    "status": "success",
+    "durationSeconds": 45,
+    "durationFormatted": "45s",
+    "summary": "Planilha exportada do Sankhya: planilha_sankhya_1791316529629_1791316565235.xlsx",
+    "details": [
+      "Arquivo de dados cadastrais Sankhya: planilha_sankhya_1791316529629_1791316565235.xlsx",
+      "Tamanho do arquivo: 16.1 KB",
+      "Pronta para download e processamento pelos Agentes 1, 2 e 3"
+    ],
+    "skus": [],
+    "files": [
+      {
+        "name": "planilha_sankhya_1791316529629_1791316565235.xlsx",
+        "path": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\uploads\\planilha_sankhya_1791316529629_1791316565235.xlsx",
+        "size": 16459,
+        "sizeFormatted": "16.1 KB",
+        "downloadUrl": "/uploads/planilha_sankhya_1791316529629_1791316565235.xlsx"
+      }
+    ],
+    "metadata": {
+      "autoDiscovered": true,
+      "fileName": "planilha_sankhya_1791316529629_1791316565235.xlsx"
+    }
+  },
+  {
+    "id": "exec_1791316247587_b531",
+    "agentId": "agent2",
+    "agentName": "Agente 2 — IA Vision & SEO",
+    "timestamp": "2026-10-06T19:50:47.587Z",
+    "formattedDate": "06/10/2026",
+    "formattedTime": "16:50:47",
+    "status": "success",
+    "durationSeconds": 14,
+    "durationFormatted": "14s",
+    "summary": "Execução concluída com sucesso (Concluído)",
+    "details": [
+      "277 produtos encontrados. Gerando relatório...",
+      "Progresso: 1/1"
+    ],
+    "skus": [],
+    "files": [],
+    "metadata": {
+      "exitCode": 0,
+      "model": "gemini-2.5-flash"
+    }
+  },
+  {
+    "id": "exec_1791316228917_6z07",
+    "agentId": "agent1",
+    "agentName": "Agente 1 — Coletor de Imagens",
+    "timestamp": "2026-10-06T19:50:28.917Z",
+    "formattedDate": "06/10/2026",
+    "formattedTime": "16:50:28",
+    "status": "success",
+    "durationSeconds": 7,
+    "durationFormatted": "7s",
+    "summary": "Execução concluída com sucesso (Concluído)",
+    "details": [
+      "[1/1] 📥 Baixando e validando 6 fotos para OC1041...",
+      "Progresso: 1/1"
+    ],
+    "skus": [],
+    "files": [],
+    "metadata": {
+      "exitCode": 0,
+      "model": "gemini-2.5-flash"
+    }
+  },
+  {
+    "id": "exec_1791316169031_mh5y",
+    "agentId": "agent1",
+    "agentName": "Agente 1 — Coletor de Imagens",
+    "timestamp": "2026-10-06T19:49:29.031Z",
+    "formattedDate": "06/10/2026",
+    "formattedTime": "16:49:29",
+    "status": "success",
+    "durationSeconds": 2,
+    "durationFormatted": "2s",
+    "summary": "Execução concluída com sucesso (SKU OC1021)",
+    "details": [
+      "Carregando dependências e ambiente de execução...",
+      "Progresso: 1/1"
+    ],
+    "skus": [
+      "OC1021"
+    ],
+    "files": [],
+    "metadata": {
+      "exitCode": 0,
+      "model": "gemini-2.5-flash"
+    }
+  },
+  {
+    "id": "exec_1791316125754_dayc",
+    "agentId": "agent0",
+    "agentName": "Agente 0 — Sankhya Scout",
+    "timestamp": "2026-10-06T19:48:45.754Z",
+    "formattedDate": "06/10/2026",
+    "formattedTime": "16:48:45",
+    "status": "success",
+    "durationSeconds": 24,
+    "durationFormatted": "24s",
+    "summary": "Execução concluída com sucesso (SKU OC1041)",
+    "details": [
+      "Planilha .xlsx gerada e vinculada a todos os agentes",
+      "Progresso: 1/1"
+    ],
+    "skus": [
+      "OC1041"
+    ],
+    "files": [
+      {
+        "name": "planilha_sankhya_1791316124793.xlsx",
+        "path": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\uploads\\planilha_sankhya_1791316124793.xlsx",
+        "size": 16476,
+        "downloadUrl": "/uploads/planilha_sankhya_1791316124793.xlsx",
+        "sizeFormatted": "16.1 KB"
+      }
+    ],
+    "metadata": {
+      "exitCode": 0,
+      "model": "gemini-2.5-flash"
+    }
+  },
+  {
+    "id": "exec_sankhya_planilha_sankhya_1791316124793_xlsx",
+    "agentId": "agent0",
+    "agentName": "Agente 0 — Sankhya Scout",
+    "timestamp": "2026-10-06T19:48:44.793Z",
+    "formattedDate": "06/10/2026",
+    "formattedTime": "16:48:44",
+    "status": "success",
+    "durationSeconds": 45,
+    "durationFormatted": "45s",
+    "summary": "Planilha exportada do Sankhya: planilha_sankhya_1791316124793.xlsx",
+    "details": [
+      "Arquivo de dados cadastrais Sankhya: planilha_sankhya_1791316124793.xlsx",
+      "Tamanho do arquivo: 16.1 KB",
+      "Pronta para download e processamento pelos Agentes 1, 2 e 3"
+    ],
+    "skus": [],
+    "files": [
+      {
+        "name": "planilha_sankhya_1791316124793.xlsx",
+        "path": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\uploads\\planilha_sankhya_1791316124793.xlsx",
+        "size": 16476,
+        "sizeFormatted": "16.1 KB",
+        "downloadUrl": "/uploads/planilha_sankhya_1791316124793.xlsx"
+      }
+    ],
+    "metadata": {
+      "autoDiscovered": true,
+      "fileName": "planilha_sankhya_1791316124793.xlsx"
+    }
+  },
+  {
+    "id": "exec_sankhya_planilha_sankhya_1791316124793_1791316221418_xlsx",
+    "agentId": "agent0",
+    "agentName": "Agente 0 — Sankhya Scout",
+    "timestamp": "2026-10-06T19:48:44.793Z",
+    "formattedDate": "06/10/2026",
+    "formattedTime": "16:48:44",
+    "status": "success",
+    "durationSeconds": 45,
+    "durationFormatted": "45s",
+    "summary": "Planilha exportada do Sankhya: planilha_sankhya_1791316124793_1791316221418.xlsx",
+    "details": [
+      "Arquivo de dados cadastrais Sankhya: planilha_sankhya_1791316124793_1791316221418.xlsx",
+      "Tamanho do arquivo: 16.1 KB",
+      "Pronta para download e processamento pelos Agentes 1, 2 e 3"
+    ],
+    "skus": [],
+    "files": [
+      {
+        "name": "planilha_sankhya_1791316124793_1791316221418.xlsx",
+        "path": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\uploads\\planilha_sankhya_1791316124793_1791316221418.xlsx",
+        "size": 16476,
+        "sizeFormatted": "16.1 KB",
+        "downloadUrl": "/uploads/planilha_sankhya_1791316124793_1791316221418.xlsx"
+      }
+    ],
+    "metadata": {
+      "autoDiscovered": true,
+      "fileName": "planilha_sankhya_1791316124793_1791316221418.xlsx"
+    }
+  },
+  {
+    "id": "exec_sankhya_planilha_sankhya_1791315031369_xlsx",
+    "agentId": "agent0",
+    "agentName": "Agente 0 — Sankhya Scout",
+    "timestamp": "2026-10-06T19:30:31.369Z",
+    "formattedDate": "06/10/2026",
+    "formattedTime": "16:30:31",
+    "status": "success",
+    "durationSeconds": 45,
+    "durationFormatted": "45s",
+    "summary": "Planilha exportada do Sankhya: planilha_sankhya_1791315031369.xlsx",
+    "details": [
+      "Arquivo de dados cadastrais Sankhya: planilha_sankhya_1791315031369.xlsx",
+      "Tamanho do arquivo: 22.3 KB",
+      "Pronta para download e processamento pelos Agentes 1, 2 e 3"
+    ],
+    "skus": [],
+    "files": [
+      {
+        "name": "planilha_sankhya_1791315031369.xlsx",
+        "path": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\uploads\\planilha_sankhya_1791315031369.xlsx",
+        "size": 22865,
+        "sizeFormatted": "22.3 KB",
+        "downloadUrl": "/uploads/planilha_sankhya_1791315031369.xlsx"
+      }
+    ],
+    "metadata": {
+      "autoDiscovered": true,
+      "fileName": "planilha_sankhya_1791315031369.xlsx"
+    }
+  },
+  {
+    "id": "exec_sankhya_planilha_sankhya_1791315031369_1791315062418_xlsx",
+    "agentId": "agent0",
+    "agentName": "Agente 0 — Sankhya Scout",
+    "timestamp": "2026-10-06T19:30:31.369Z",
+    "formattedDate": "06/10/2026",
+    "formattedTime": "16:30:31",
+    "status": "success",
+    "durationSeconds": 45,
+    "durationFormatted": "45s",
+    "summary": "Planilha exportada do Sankhya: planilha_sankhya_1791315031369_1791315062418.xlsx",
+    "details": [
+      "Arquivo de dados cadastrais Sankhya: planilha_sankhya_1791315031369_1791315062418.xlsx",
+      "Tamanho do arquivo: 22.3 KB",
+      "Pronta para download e processamento pelos Agentes 1, 2 e 3"
+    ],
+    "skus": [],
+    "files": [
+      {
+        "name": "planilha_sankhya_1791315031369_1791315062418.xlsx",
+        "path": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\uploads\\planilha_sankhya_1791315031369_1791315062418.xlsx",
+        "size": 22865,
+        "sizeFormatted": "22.3 KB",
+        "downloadUrl": "/uploads/planilha_sankhya_1791315031369_1791315062418.xlsx"
+      }
+    ],
+    "metadata": {
+      "autoDiscovered": true,
+      "fileName": "planilha_sankhya_1791315031369_1791315062418.xlsx"
+    }
+  },
+  {
+    "id": "exec_sankhya_planilha_sankhya_1791290611575_xlsx",
+    "agentId": "agent0",
+    "agentName": "Agente 0 — Sankhya Scout",
+    "timestamp": "2026-10-06T12:43:31.575Z",
+    "formattedDate": "06/10/2026",
+    "formattedTime": "09:43:31",
+    "status": "success",
+    "durationSeconds": 45,
+    "durationFormatted": "45s",
+    "summary": "Planilha exportada do Sankhya: planilha_sankhya_1791290611575.xlsx",
+    "details": [
+      "Arquivo de dados cadastrais Sankhya: planilha_sankhya_1791290611575.xlsx",
+      "Tamanho do arquivo: 17.4 KB",
+      "Pronta para download e processamento pelos Agentes 1, 2 e 3"
+    ],
+    "skus": [],
+    "files": [
+      {
+        "name": "planilha_sankhya_1791290611575.xlsx",
+        "path": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\uploads\\planilha_sankhya_1791290611575.xlsx",
+        "size": 17812,
+        "sizeFormatted": "17.4 KB",
+        "downloadUrl": "/uploads/planilha_sankhya_1791290611575.xlsx"
+      }
+    ],
+    "metadata": {
+      "autoDiscovered": true,
+      "fileName": "planilha_sankhya_1791290611575.xlsx"
+    }
+  },
+  {
+    "id": "exec_sankhya_planilha_sankhya_1791290611575_1791290648890_xlsx",
+    "agentId": "agent0",
+    "agentName": "Agente 0 — Sankhya Scout",
+    "timestamp": "2026-10-06T12:43:31.575Z",
+    "formattedDate": "06/10/2026",
+    "formattedTime": "09:43:31",
+    "status": "success",
+    "durationSeconds": 45,
+    "durationFormatted": "45s",
+    "summary": "Planilha exportada do Sankhya: planilha_sankhya_1791290611575_1791290648890.xlsx",
+    "details": [
+      "Arquivo de dados cadastrais Sankhya: planilha_sankhya_1791290611575_1791290648890.xlsx",
+      "Tamanho do arquivo: 17.4 KB",
+      "Pronta para download e processamento pelos Agentes 1, 2 e 3"
+    ],
+    "skus": [],
+    "files": [
+      {
+        "name": "planilha_sankhya_1791290611575_1791290648890.xlsx",
+        "path": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\uploads\\planilha_sankhya_1791290611575_1791290648890.xlsx",
+        "size": 17812,
+        "sizeFormatted": "17.4 KB",
+        "downloadUrl": "/uploads/planilha_sankhya_1791290611575_1791290648890.xlsx"
+      }
+    ],
+    "metadata": {
+      "autoDiscovered": true,
+      "fileName": "planilha_sankhya_1791290611575_1791290648890.xlsx"
+    }
+  },
+  {
+    "id": "exec_sankhya_planilha_sankhya_1791290493080_xlsx",
+    "agentId": "agent0",
+    "agentName": "Agente 0 — Sankhya Scout",
+    "timestamp": "2026-10-06T12:41:33.080Z",
+    "formattedDate": "06/10/2026",
+    "formattedTime": "09:41:33",
+    "status": "success",
+    "durationSeconds": 45,
+    "durationFormatted": "45s",
+    "summary": "Planilha exportada do Sankhya: planilha_sankhya_1791290493080.xlsx",
+    "details": [
+      "Arquivo de dados cadastrais Sankhya: planilha_sankhya_1791290493080.xlsx",
+      "Tamanho do arquivo: 16.0 KB",
+      "Pronta para download e processamento pelos Agentes 1, 2 e 3"
+    ],
+    "skus": [],
+    "files": [
+      {
+        "name": "planilha_sankhya_1791290493080.xlsx",
+        "path": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\uploads\\planilha_sankhya_1791290493080.xlsx",
+        "size": 16410,
+        "sizeFormatted": "16.0 KB",
+        "downloadUrl": "/uploads/planilha_sankhya_1791290493080.xlsx"
+      }
+    ],
+    "metadata": {
+      "autoDiscovered": true,
+      "fileName": "planilha_sankhya_1791290493080.xlsx"
+    }
+  },
+  {
+    "id": "exec_sankhya_planilha_sankhya_1791209091674_xlsx",
+    "agentId": "agent0",
+    "agentName": "Agente 0 — Sankhya Scout",
+    "timestamp": "2026-10-05T14:04:51.674Z",
+    "formattedDate": "05/10/2026",
+    "formattedTime": "11:04:51",
+    "status": "success",
+    "durationSeconds": 45,
+    "durationFormatted": "45s",
+    "summary": "Planilha exportada do Sankhya: planilha_sankhya_1791209091674.xlsx",
+    "details": [
+      "Arquivo de dados cadastrais Sankhya: planilha_sankhya_1791209091674.xlsx",
+      "Tamanho do arquivo: 36.8 KB",
+      "Pronta para download e processamento pelos Agentes 1, 2 e 3"
+    ],
+    "skus": [],
+    "files": [
+      {
+        "name": "planilha_sankhya_1791209091674.xlsx",
+        "path": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\uploads\\planilha_sankhya_1791209091674.xlsx",
+        "size": 37703,
+        "sizeFormatted": "36.8 KB",
+        "downloadUrl": "/uploads/planilha_sankhya_1791209091674.xlsx"
+      }
+    ],
+    "metadata": {
+      "autoDiscovered": true,
+      "fileName": "planilha_sankhya_1791209091674.xlsx"
+    }
+  },
+  {
+    "id": "exec_sankhya_planilha_sankhya_1791208288642_xlsx",
+    "agentId": "agent0",
+    "agentName": "Agente 0 — Sankhya Scout",
+    "timestamp": "2026-10-05T13:51:28.642Z",
+    "formattedDate": "05/10/2026",
+    "formattedTime": "10:51:28",
+    "status": "success",
+    "durationSeconds": 45,
+    "durationFormatted": "45s",
+    "summary": "Planilha exportada do Sankhya: planilha_sankhya_1791208288642.xlsx",
+    "details": [
+      "Arquivo de dados cadastrais Sankhya: planilha_sankhya_1791208288642.xlsx",
+      "Tamanho do arquivo: 16.0 KB",
+      "Pronta para download e processamento pelos Agentes 1, 2 e 3"
+    ],
+    "skus": [],
+    "files": [
+      {
+        "name": "planilha_sankhya_1791208288642.xlsx",
+        "path": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\uploads\\planilha_sankhya_1791208288642.xlsx",
+        "size": 16408,
+        "sizeFormatted": "16.0 KB",
+        "downloadUrl": "/uploads/planilha_sankhya_1791208288642.xlsx"
+      }
+    ],
+    "metadata": {
+      "autoDiscovered": true,
+      "fileName": "planilha_sankhya_1791208288642.xlsx"
+    }
+  },
+  {
+    "id": "exec_sankhya_planilha_sankhya_1790863456580_xlsx",
+    "agentId": "agent0",
+    "agentName": "Agente 0 — Sankhya Scout",
+    "timestamp": "2026-10-01T14:04:16.580Z",
+    "formattedDate": "01/10/2026",
+    "formattedTime": "11:04:16",
+    "status": "success",
+    "durationSeconds": 45,
+    "durationFormatted": "45s",
+    "summary": "Planilha exportada do Sankhya: planilha_sankhya_1790863456580.xlsx",
+    "details": [
+      "Arquivo de dados cadastrais Sankhya: planilha_sankhya_1790863456580.xlsx",
+      "Tamanho do arquivo: 30.7 KB",
+      "Pronta para download e processamento pelos Agentes 1, 2 e 3"
+    ],
+    "skus": [],
+    "files": [
+      {
+        "name": "planilha_sankhya_1790863456580.xlsx",
+        "path": "C:\\Users\\marke\\.gemini\\antigravity-ide\\scratch\\shopee-automation\\uploads\\planilha_sankhya_1790863456580.xlsx",
+        "size": 31434,
+        "sizeFormatted": "30.7 KB",
+        "downloadUrl": "/uploads/planilha_sankhya_1790863456580.xlsx"
+      }
+    ],
+    "metadata": {
+      "autoDiscovered": true,
+      "fileName": "planilha_sankhya_1790863456580.xlsx"
+    }
+  },
+  {
     "id": "exec_1790769447312_jlzc",
     "agentId": "agent0",
     "agentName": "Agente 0 — Sankhya Scout",
