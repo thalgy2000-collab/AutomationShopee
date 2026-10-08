@@ -6780,6 +6780,28 @@
       });
     }
 
+    // Fluxo da Esteira: Escolha do Usuário entre Estrutura 1 ou Anúncios Separados
+    async function chooseEstrutura1Workflow() {
+      switchAgent('agent2', false);
+      appendUserMessage('Opção selecionada: Estrutura 1 (Agrupar modelos em um único anúncio)');
+      appendBotMessage(
+        'agent2',
+        '🧩 **Carregando os modelos baixados pelo Agente 1 para a Estrutura 1...**\n\n' +
+        'O formulário abaixo já puxou as fotos prontas. Defina o SKU Pai mestre e clique em **Gerar & Publicar no Magis5** para a esteira prosseguir automaticamente!'
+      );
+      await openEstrutura1Recent();
+    }
+
+    function chooseSeparatedWorkflow() {
+      appendUserMessage('Opção selecionada: Anúncios Separados (Individual por SKU)');
+      appendBotMessage(
+        'agent2',
+        '⚡ **Avançando no fluxo de Anúncios Separados:**\n\n' +
+        'O Agente 2 enriquecerá cada produto do lote individualmente. Se a Esteira Contínua estiver ativa, o Agente 3 publicará cada um em seguida!'
+      );
+      goToNextAgent('agent2', 'runAgent2WithActiveBatch');
+    }
+
 
     // ─────────────────────────────────────────────────────────────────────────
     // Polling de Status, Logs & Telemetria em Tempo Real
@@ -7192,27 +7214,60 @@
         triggerAgentNotification('agent1', true, 'Download e tratamento das fotos dos produtos concluídos com sucesso.');
         sendAgent1FolderCard('✅ **Download de fotos concluído! Todas as fotos foram salvas e organizadas nesta pasta:**');
 
-        // Card de ação no próprio chat do Agente 1 para o usuário avançar quando desejar
+        // Card de decisão interativa: Estrutura 1 (Agrupados) vs Anúncios Separados
         const nextActionCard = `
-          <div class="chat-action-card" style="border-left: 4px solid #10B981; background: linear-gradient(135deg, rgba(15,23,42,0.95), rgba(30,41,59,0.95)); border: 1px solid rgba(16,185,129,0.3); border-radius: 10px; padding: 14px; margin-top: 10px;">
-            <div style="font-weight: 700; color: #10B981; font-size: 0.88rem; margin-bottom: 6px;">
-              ✨ FOTOS PRONTAS &bull; PRÓXIMA ETAPA DISPONÍVEL
+          <div class="chat-action-card" style="border-left: 4px solid #10B981; background: linear-gradient(135deg, rgba(15,23,42,0.95), rgba(30,41,59,0.95)); border: 1px solid rgba(16,185,129,0.3); border-radius: 12px; padding: 16px; margin-top: 10px; box-shadow: 0 10px 25px rgba(0,0,0,0.4);">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+              <span style="font-weight: 700; color: #10B981; font-size: 0.92rem; display: flex; align-items: center; gap: 6px;">
+                ✨ FOTOS PRONTAS &bull; COMO DESEJA ESTRUTURAR OS ANÚNCIOS?
+              </span>
+              <span style="background: rgba(16, 185, 129, 0.15); color: #34d399; padding: 2px 8px; border-radius: 10px; font-size: 0.72rem; font-weight: 600;">
+                Aguardando sua escolha
+              </span>
             </div>
-            <div style="font-size: 0.83rem; color: #d1d5db; margin-bottom: 12px; line-height: 1.4;">
-              As fotos estão salvas e prontas no seu computador. Para dar sequência e enriquecer os títulos (SEO 60 carac.), gerar fichas técnicas e descrições com IA a partir do lote ativo, clique no botão abaixo:
+            <div style="font-size: 0.84rem; color: #d1d5db; margin-bottom: 14px; line-height: 1.45;">
+              As fotos estão salvas e validadas! Antes de avançar para o Agente 2 e 3, escolha o modelo de anúncio para este lote:
             </div>
-            <button class="btn-action-primary" style="background: #10B981; border-color: #059669; padding: 8px 16px; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 6px;" onclick="goToNextAgent('agent2', 'runAgent2WithActiveBatch')">
-              <span>⚡</span> Avançar e Enriquecer com Agente 2 (IA Vision & SEO)
-            </button>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 8px;">
+              <!-- Opção A: Estrutura 1 (Agrupados no mesmo anúncio) -->
+              <div style="background: rgba(2, 132, 199, 0.12); border: 1px solid rgba(2, 132, 199, 0.35); border-radius: 8px; padding: 12px; display: flex; flex-direction: column; justify-content: space-between;">
+                <div>
+                  <div style="font-weight: 700; color: #38bdf8; font-size: 0.85rem; margin-bottom: 4px; display: flex; align-items: center; gap: 6px;">
+                    <span>🧩</span> ESTRUTURA 1 (UNIFICADO)
+                  </div>
+                  <div style="font-size: 0.78rem; color: #94a3b8; line-height: 1.35; margin-bottom: 10px;">
+                    Cria <strong>1 único anúncio campeão</strong> com um SKU Pai mestre, agrupando todos os modelos como variações com grade de tamanhos (PP ao G2).
+                  </div>
+                </div>
+                <button class="btn-action-primary" style="background: #0284c7; border-color: #0369a1; padding: 8px 12px; font-size: 0.82rem; width: 100%; display: inline-flex; align-items: center; justify-content: center; gap: 6px;" onclick="chooseEstrutura1Workflow()">
+                  <span>🧩</span> Agrupar na Estrutura 1
+                </button>
+              </div>
+
+              <!-- Opção B: Anúncios Separados (Individual) -->
+              <div style="background: rgba(16, 185, 129, 0.12); border: 1px solid rgba(16, 185, 129, 0.35); border-radius: 8px; padding: 12px; display: flex; flex-direction: column; justify-content: space-between;">
+                <div>
+                  <div style="font-weight: 700; color: #34d399; font-size: 0.85rem; margin-bottom: 4px; display: flex; align-items: center; gap: 6px;">
+                    <span>📄</span> ANÚNCIOS SEPARADOS
+                  </div>
+                  <div style="font-size: 0.78rem; color: #94a3b8; line-height: 1.35; margin-bottom: 10px;">
+                    Cada código da planilha gera um <strong>anúncio próprio individual</strong>, enriquecido e publicado separadamente na Shopee.
+                  </div>
+                </div>
+                <button class="btn-action-primary" style="background: #10B981; border-color: #059669; padding: 8px 12px; font-size: 0.82rem; width: 100%; display: inline-flex; align-items: center; justify-content: center; gap: 6px;" onclick="chooseSeparatedWorkflow()">
+                  <span>⚡</span> Publicar Separadamente
+                </button>
+              </div>
+            </div>
           </div>
         `;
-        appendBotMessage('agent1', 'Fotos finalizadas! Quando quiser continuar o fluxo:', nextActionCard);
+        appendBotMessage('agent1', 'Fotos finalizadas! Escolha como prosseguir na esteira:', nextActionCard);
 
+        // Se esteira contínua estiver ligada, avisa com som/notificação e pausa para aguardar a escolha do usuário
         if (isContinuousPipelineEnabled) {
-          appendBotMessage('agent1', '🔄 *Esteira Contínua Ativada:* Avançando automaticamente para o **Agente 2 (IA Vision & SEO)** em 3 segundos...');
-          setTimeout(() => {
-            goToNextAgent('agent2', 'runAgent2WithActiveBatch');
-          }, 3000);
+          triggerAgentNotification('agent1', true, 'A esteira concluiu as fotos e aguarda sua decisão: Estrutura 1 (Agrupados) ou Anúncios Separados?');
+          showToast('🔔 Esteira pausada no ponto de decisão: escolha Estrutura 1 ou Anúncios Separados para continuar.');
         }
 
       } else if (agentId === 'agent2') {
