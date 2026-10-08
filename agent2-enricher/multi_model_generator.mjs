@@ -32,10 +32,14 @@ export const DEFAULT_SIZES = ["PP", "P", "M", "G", "GG", "G1", "G2"];
  */
 function findLocalPhotos(sku) {
   const clean = sku.trim();
+  const prefix2 = clean.substring(0, 2);
   const candidates = [
     join(DOWNLOADS_DIR, clean),
+    join(DOWNLOADS_DIR, prefix2, clean),
     join(DOWNLOADS_DIR, clean.replace(/BL$/i, "")),
+    join(DOWNLOADS_DIR, prefix2, clean.replace(/BL$/i, "")),
     join(DOWNLOADS_DIR, clean.replace(/_FULL$/i, "")),
+    join(DOWNLOADS_DIR, prefix2, clean.replace(/_FULL$/i, "")),
   ];
 
   for (const dir of candidates) {
