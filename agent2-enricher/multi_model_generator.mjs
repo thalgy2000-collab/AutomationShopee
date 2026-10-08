@@ -65,16 +65,57 @@ function findLocalPhotos(sku) {
  * @param {string} [params.genero] - 'Feminino', 'Masculino' ou 'Unissex' (padrão detectado por BL)
  */
 /**
- * Resolve o nome comercial do modelo (ex: "Peru Machu Picchu Verde") via Shopify ou objeto
+ * Formata e encurta o nome do modelo/variação para NO MÁXIMO 10 caracteres
+ * Mantém apenas a parte distintiva da estampa (ex: 'Amazon Escamas...' -> 'Escamas', 'Boto-cor-de-rosa' -> 'Boto Rosa')
+ */
+export function sanitizeModelName10(name, sku = '') {
+  if (!name) return (sku || 'Modelo').slice(0, 10).trim();
+  let clean = String(name)
+    .replace(/^Amazon\s+/i, '')
+    .replace(/\b(camisa|baby\s*look|feminina|masculina|manga\s*longa|manga\s*curta|com\s*protecao|protecao|solar|uv\d*\+?)\b/gi, '')
+    .replace(/\s{2,}/g, ' ')
+    .trim();
+
+  // Tratamentos específicos das estampas mais comuns BRK
+  clean = clean
+    .replace(/boto[\s-]*(?:cor[\s-]*)?de[\s-]*rosa/i, 'Boto Rosa')
+    .replace(/escamas?\s*(?:de\s*)?tucunar[eé]/i, 'Escamas')
+    .replace(/tucunar[eé]\s*rei(?:\s*dos\s*rios)?/i, 'Tucunaré')
+    .trim();
+
+  if (clean.length <= 10) return clean;
+
+  // Tenta encaixar palavras inteiras até 10 caracteres
+  const words = clean.split(/[\s-]+/);
+  let result = '';
+  for (const w of words) {
+    const candidate = result ? `${result} ${w}` : w;
+    if (candidate.length <= 10) {
+      result = candidate;
+    } else {
+      break;
+    }
+  }
+
+  if (result.length >= 3) return result;
+  return clean.slice(0, 10).trim();
+}
+
+/**
+ * Resolve o nome comercial do modelo (limitado estritamente a 10 caracteres) via Shopify ou objeto
  */
 export async function resolveModelCommercialName(skuOrObj) {
   if (typeof skuOrObj === "object" && skuOrObj !== null) {
-    if (skuOrObj.nome) return { sku: String(skuOrObj.sku || "").toUpperCase(), nome: skuOrObj.nome };
+    if (skuOrObj.nome) {
+      const cleanSku = String(skuOrObj.sku || "").toUpperCase();
+      return { sku: cleanSku, nome: sanitizeModelName10(skuOrObj.nome, cleanSku) };
+    }
   }
   const str = String(skuOrObj || "").trim();
   if (str.includes(":")) {
     const [skuPart, ...rest] = str.split(":");
-    return { sku: skuPart.trim().toUpperCase(), nome: rest.join(":").trim() };
+    const cleanSku = skuPart.trim().toUpperCase();
+    return { sku: cleanSku, nome: sanitizeModelName10(rest.join(":").trim(), cleanSku) };
   }
 
   const cleanSku = str.toUpperCase();
@@ -104,7 +145,7 @@ export async function resolveModelCommercialName(skuOrObj) {
         name = stripSkusFromTitle(name);
         name = name.split(" ").map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase()).join(" ").trim();
         if (name.length >= 3) {
-          return { sku: cleanSku, nome: name };
+          return { sku: cleanSku, nome: sanitizeModelName10(name, cleanSku) };
         }
       }
     } catch {}
@@ -127,16 +168,16 @@ export async function resolveModelCommercialName(skuOrObj) {
           .replace(/\s{2,}/g, " ")
           .trim();
         if (rawName.length >= 3) {
-          return { sku: cleanSku, nome: rawName };
+          return { sku: cleanSku, nome: sanitizeModelName10(rawName, cleanSku) };
         }
       }
     }
   } catch {}
 
-  // Fallback 2: Nome comercial limpo baseado na estampa/cor sem SKU
+  // Fallback 2: Nome comercial limpo baseado na estampa/cor sem SKU (máx 10 chars)
   const cleaned = cleanSku.replace(/^(?:ADV|CAM|BABY|T\d+|C0\d+|KIT)/i, "").replace(/BL$/i, "").trim();
-  const fallbackNome = cleaned.length >= 3 ? `Modelo ${cleaned}` : `Modelo ${cleanSku}`;
-  return { sku: cleanSku, nome: fallbackNome };
+  const fallbackNome = cleaned.length >= 3 ? `Mod ${cleaned}` : `Mod ${cleanSku}`;
+  return { sku: cleanSku, nome: sanitizeModelName10(fallbackNome, cleanSku) };
 }
 
 /**
