@@ -408,7 +408,21 @@ async function startAgent(agentId, options = {}) {
   if (agentId === 'agent1') {
     cwd = SCRAPER_DIR;
     const action = options.action || 'auto';
-    const inputFile = effectiveInput;
+    let inputFile = effectiveInput;
+    if (inputFile) {
+      if (!path.isAbsolute(inputFile)) {
+        const candidateInUploads = path.resolve(UPLOADS_DIR, inputFile);
+        const candidateInRoot = path.resolve(REPO_ROOT, inputFile);
+        const candidateInScraper = path.resolve(SCRAPER_DIR, inputFile);
+        if (fs.existsSync(candidateInUploads)) {
+          inputFile = candidateInUploads;
+        } else if (fs.existsSync(candidateInRoot)) {
+          inputFile = candidateInRoot;
+        } else if (fs.existsSync(candidateInScraper)) {
+          inputFile = candidateInScraper;
+        }
+      }
+    }
     const isExcel = inputFile && /\.(xlsx?)$/i.test(inputFile);
 
     if (options.sku || options.skus) {
