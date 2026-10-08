@@ -191,7 +191,7 @@ export const CATEGORY_RULES = [
     atributos: {
       pais_de_origem: "Brasil",
       condicao: "Novo",
-      material: "Poliéster",
+      material: "XTechPro",
       quantidade_da_embalagem: 1,
       quantidade_por_pacote: 1,
       tamanho_do_pacote: "",

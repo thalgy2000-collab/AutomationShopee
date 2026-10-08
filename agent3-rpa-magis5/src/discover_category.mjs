@@ -131,7 +131,7 @@ function printSimulatedDiscovery(term) {
   if (norm.includes("mala")) {
     console.log(`📦 Tipo: CAPA DE MALA (status: DEFINIDA)`);
     console.log(`   Categoria oficial: Viagens e Bagagens > Acessórios de Viagem > Protetores e Capas de Bagagem`);
-    console.log(`   Ficha Técnica: Material (Poliéster), Condição (Novo), Quantidade da embalagem (1)`);
+    console.log(`   Ficha Técnica: Material (XTechPro), Condição (Novo), Quantidade da embalagem (1)`);
     console.log(`   Ação atual do sistema: Categoria oficial configurada no category_rules.mjs.`);
   } else if (norm.includes("oculo") || norm.includes("óculo")) {
     console.log(`🕶️ Tipo: ÓCULOS DE SOL / POLARIZADO (status: DEFINIDA)`);

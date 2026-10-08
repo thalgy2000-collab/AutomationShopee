@@ -642,6 +642,16 @@ export function normalizeShopeeAttributes(data) {
     return data;
   }
 
+  // 0.1 CAPA DE MALA (Regra Definida no Registro Central)
+  if (rule && rule.id === "capa_mala") {
+    Object.assign(attrs, rule.atributos);
+    attrs.material = attrs.material || "XTechPro";
+    for (const blankKey of rule.blankFields || []) {
+      if (attrs[blankKey] !== undefined) attrs[blankKey] = "";
+    }
+    return data;
+  }
+
   const isAnzol =
     /anzol|encastoado|hook/i.test(data.titulo_shopee || "") ||
     /anzol|encastoado|hook/i.test(data.modelo || "");

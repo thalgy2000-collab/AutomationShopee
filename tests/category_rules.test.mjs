@@ -99,9 +99,22 @@ test("REGRAS DEFINIDAS: Capa de Mala e Óculos de Sol possuem categorias oficiai
   const ruleMala = getCategoryRule(pMala);
   assert.strictEqual(ruleMala.id, "capa_mala");
   assert.strictEqual(ruleMala.status, "definida");
+  assert.strictEqual(ruleMala.atributos.material, "XTechPro", "Material padrão de capa de mala deve ser XTechPro");
   const catMala = resolveShopeeCategoryWithRule(pMala);
   assert.strictEqual(catMala, "Viagens e Bagagens > Acessórios de Viagem > Protetores e Capas de Bagagem");
   assert.strictEqual(pMala.revisao_categoria, false);
+
+  const normMala = validateAndNormalize({
+    sku: "ML01",
+    titulo_shopee: "Capa de Mala Viagem Protetora BRK",
+    modelo: "Viagem",
+    marca: "BRK",
+    descricao: "Capa protetora para mala de viagem confeccionada com tecido resistente.",
+    palavras_chave: ["mala", "viagem"],
+    atributos: {},
+  }, "ML01");
+  assert.ok(normMala.valid);
+  assert.strictEqual(normMala.data.atributos.material, "XTechPro");
 
   const ruleOculos = getCategoryRule(pOculos);
   assert.strictEqual(ruleOculos.id, "oculos");
