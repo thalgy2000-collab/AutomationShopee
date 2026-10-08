@@ -91,23 +91,26 @@ test("ESTAMPA ALMOFADA: Estampa duvidosa/não encontrada deixa em branco e marca
   assert.match(normalized.data.motivo_revisao_atributos, /estampa/i);
 });
 
-test("REGRAS PENDENTES: Capa de Mala, Óculos e Manguito ficam como pendente, D3 e sem inventar dados", () => {
+test("REGRAS DEFINIDAS: Capa de Mala e Óculos de Sol possuem categorias oficiais e status definida", () => {
   const pMala = { sku: "ML01", titulo_shopee: "Capa de Mala Viagem Protetora BRK", modelo: "Viagem" };
   const pOculos = { sku: "OC1047", titulo_shopee: "Óculos de Sol Polarizado Round Black", modelo: "Round" };
   const pManguito = { sku: "MG01", titulo_shopee: "Manguito Proteção Solar UV50+", modelo: "UV50" };
 
   const ruleMala = getCategoryRule(pMala);
   assert.strictEqual(ruleMala.id, "capa_mala");
-  assert.strictEqual(ruleMala.status, "pendente");
-  resolveShopeeCategoryWithRule(pMala);
-  assert.strictEqual(pMala.revisao_categoria, true);
+  assert.strictEqual(ruleMala.status, "definida");
+  const catMala = resolveShopeeCategoryWithRule(pMala);
+  assert.strictEqual(catMala, "Viagens e Bagagens > Acessórios de Viagem > Protetores e Capas de Bagagem");
+  assert.strictEqual(pMala.revisao_categoria, false);
 
   const ruleOculos = getCategoryRule(pOculos);
   assert.strictEqual(ruleOculos.id, "oculos");
-  assert.strictEqual(ruleOculos.status, "pendente");
-  resolveShopeeCategoryWithRule(pOculos);
-  assert.strictEqual(pOculos.revisao_categoria, true);
+  assert.strictEqual(ruleOculos.status, "definida");
+  const catOculos = resolveShopeeCategoryWithRule(pOculos);
+  assert.strictEqual(catOculos, "Acessórios de Moda > Óculos > Óculos de sol");
+  assert.strictEqual(pOculos.revisao_categoria, false);
 
+  // Manguito permanece pendente
   const ruleManguito = getCategoryRule(pManguito);
   assert.strictEqual(ruleManguito.id, "manguito");
   assert.strictEqual(ruleManguito.status, "pendente");

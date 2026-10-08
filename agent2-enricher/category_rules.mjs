@@ -27,6 +27,8 @@ export function normalizeText(text) {
  */
 export const CATEGORIAS_OFICIAIS = {
   almofadas: "Casa e Decoração > Móveis > Almofadas",
+  capas_mala: "Viagens e Bagagens > Acessórios de Viagem > Protetores e Capas de Bagagem",
+  oculos_sol: "Acessórios de Moda > Óculos > Óculos de sol",
   camisas_masculinas: "Roupas Masculinas > Blusas > Camisas",
   camisas_femininas: "Roupas Femininas > Blusas > Camisas e Blusas",
   camisas_infantis: "Moda Infantil > Roupas Infantis > Blusas",
@@ -167,15 +169,14 @@ export const CATEGORY_RULES = [
   },
 
   // ───────────────────────────────────────────────────────────────────────────
-  // 2. CAPA DE MALA (PENDENTE) — Prioridade 90
+  // 2. CAPA DE MALA (DEFINIDA) — Prioridade 90
   // ───────────────────────────────────────────────────────────────────────────
   {
     id: "capa_mala",
     nome: "Capa de Mala",
     prioridade: 90,
-    status: "pendente",
-    // Categoria temporária mais próxima enquanto pendente
-    categoria: CATEGORIAS_OFICIAIS.acessorios_pesca,
+    status: "definida",
+    categoria: CATEGORIAS_OFICIAIS.capas_mala,
     match: (textHeader, sku) => {
       // Exclui colisões como capa de chuva, capa de celular, capa de moto
       if (/capa\s*(?:de|para)?\s*(?:chuva|celular|moto|carro|almofada|sofa|banco)/i.test(textHeader)) {
@@ -184,22 +185,30 @@ export const CATEGORY_RULES = [
       return /\bcapas?\s*(?:de|para|protetora\s*de)?\s*malas?\b/i.test(textHeader);
     },
     evaluateFlags: () => ({
-      revisao_categoria: true,
-      motivo_revisao_categoria: "Definição de categoria pendente para Capa de Mala. Produto mantido em RASCUNHO para revisão manual.",
+      revisao_categoria: false,
+      motivo_revisao_categoria: null,
     }),
-    atributos: {},
-    blankFields: [],
+    atributos: {
+      pais_de_origem: "Brasil",
+      condicao: "Novo",
+      material: "Poliéster",
+      quantidade_da_embalagem: 1,
+      quantidade_por_pacote: 1,
+      tamanho_do_pacote: "",
+      produto_personalizado: "Não",
+    },
+    blankFields: ["tamanhodopacote", "tamanhopacote"],
   },
 
   // ───────────────────────────────────────────────────────────────────────────
-  // 3. ÓCULOS (PENDENTE) — Prioridade 85
+  // 3. ÓCULOS DE SOL (DEFINIDA) — Prioridade 85
   // ───────────────────────────────────────────────────────────────────────────
   {
     id: "oculos",
     nome: "Óculos de Sol / Polarizado",
     prioridade: 85,
-    status: "pendente",
-    categoria: CATEGORIAS_OFICIAIS.acessorios_pesca,
+    status: "definida",
+    categoria: CATEGORIAS_OFICIAIS.oculos_sol,
     match: (textHeader, sku) => {
       // Exclui óculos de natação, mergulho, solda, grau
       if (/oculos\s*(?:de)?\s*(?:natacao|mergulho|solda|grau|leitura)/i.test(textHeader)) {
@@ -208,11 +217,19 @@ export const CATEGORY_RULES = [
       return /\b[oó]culos\b/i.test(textHeader) || /^OC\d+/i.test(sku || "");
     },
     evaluateFlags: () => ({
-      revisao_categoria: true,
-      motivo_revisao_categoria: "Definição de categoria pendente para Óculos. Produto mantido em RASCUNHO para revisão manual.",
+      revisao_categoria: false,
+      motivo_revisao_categoria: null,
     }),
-    atributos: {},
-    blankFields: [],
+    atributos: {
+      pais_de_origem: "Brasil",
+      condicao: "Novo",
+      duracao_da_garantia: "1 Mês",
+      quantidade_da_embalagem: 1,
+      quantidade_por_pacote: 1,
+      tamanho_do_pacote: "",
+      produto_personalizado: "Não",
+    },
+    blankFields: ["tamanhodopacote", "tamanhopacote"],
   },
 
   // ───────────────────────────────────────────────────────────────────────────

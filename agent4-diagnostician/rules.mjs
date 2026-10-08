@@ -21,6 +21,8 @@ export const SHOPEE_OFFICIAL_CATEGORIES = {
   camisas_femininas: CATEGORIAS_OFICIAIS.camisas_femininas,
   camisas_infantis: CATEGORIAS_OFICIAIS.camisas_infantis,
   almofadas: CATEGORIAS_OFICIAIS.almofadas,
+  capas_mala: CATEGORIAS_OFICIAIS.capas_mala,
+  oculos: CATEGORIAS_OFICIAIS.oculos_sol,
 };
 
 /**

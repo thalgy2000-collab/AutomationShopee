@@ -169,6 +169,10 @@ Quando o produto for Capa de Almofada ou Almofada, o objeto "atributos" DEVE con
 CATEGORIAS OFICIAIS NA SHOPEE (USE EXATAMENTE ESTAS ÁRVORES RECONHECIDAS):
 - Para Capas de Almofada e Almofadas Decorativas:
   Casa e Decoração > Móveis > Almofadas
+- Para Capas de Mala e Protetores de Bagagem:
+  Viagens e Bagagens > Acessórios de Viagem > Protetores e Capas de Bagagem
+- Para Óculos de Sol e Óculos Polarizados:
+  Acessórios de Moda > Óculos > Óculos de sol
 - Para Bandanas, Tubenecks, Balaclavas e Toucas:
   Acessórios de Moda > Bonés, Chapéus e Toucas
 - Para Camisas e Camisetas Agro / Pesca / Esportivas:

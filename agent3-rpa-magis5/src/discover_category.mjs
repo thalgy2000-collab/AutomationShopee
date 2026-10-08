@@ -129,15 +129,15 @@ function printSimulatedDiscovery(term) {
   console.log(`📋 ESTRUTURA DE CATEGORIAS E FICHA TÉCNICA RECOMENDADA`);
   console.log(`======================================================`);
   if (norm.includes("mala")) {
-    console.log(`📦 Tipo: CAPA DE MALA (status: PENDENTE)`);
-    console.log(`   Categoria candidata: Viagem e Bagagem > Malas e Bolsas de Viagem > Capas e Acessórios de Bagagem`);
-    console.log(`   Campos típicos Shopee: Material, Tamanho da Mala (P/M/G), Gênero, Tipo de Fechamento`);
-    console.log(`   Ação atual do sistema: Marcado como revisao_categoria: true (RASCUNHO no Magis5).`);
+    console.log(`📦 Tipo: CAPA DE MALA (status: DEFINIDA)`);
+    console.log(`   Categoria oficial: Viagens e Bagagens > Acessórios de Viagem > Protetores e Capas de Bagagem`);
+    console.log(`   Ficha Técnica: Material (Poliéster), Condição (Novo), Quantidade da embalagem (1)`);
+    console.log(`   Ação atual do sistema: Categoria oficial configurada no category_rules.mjs.`);
   } else if (norm.includes("oculo") || norm.includes("óculo")) {
-    console.log(`🕶️ Tipo: ÓCULOS DE SOL / POLARIZADO (status: PENDENTE)`);
-    console.log(`   Categoria candidata: Acessórios de Moda > Óculos e Acessórios > Óculos de Sol`);
-    console.log(`   Campos típicos Shopee: Material da Armação, Proteção UV, Polarizado, Gênero, Formato da Armação`);
-    console.log(`   Ação atual do sistema: Marcado como revisao_categoria: true (RASCUNHO no Magis5).`);
+    console.log(`🕶️ Tipo: ÓCULOS DE SOL / POLARIZADO (status: DEFINIDA)`);
+    console.log(`   Categoria oficial: Acessórios de Moda > Óculos > Óculos de sol`);
+    console.log(`   Ficha Técnica: Condição (Novo), Duração da Garantia (1 Mês), Quantidade da embalagem (1)`);
+    console.log(`   Ação atual do sistema: Categoria oficial configurada no category_rules.mjs.`);
   } else if (norm.includes("manguito")) {
     console.log(`🧤 Tipo: MANGUITO (status: PENDENTE)`);
     console.log(`   Categoria candidata: Esportes e Atividades ao Ar Livre > Roupas Esportivas > Acessórios Esportivos`);
