@@ -989,6 +989,7 @@ function enforceMax60Title(t) {
   for (let i = 0; i < variationsToCreate.length; i++) {
     const v = variationsToCreate[i];
     const skuInput = page.locator(`#variationSKU-${i}`);
+    if (await skuInput.isVisible().catch(() => false)) {
       let rawCandidate = (v.cod_sankhya && /^\d{1,16}$/.test(String(v.cod_sankhya).trim()))
         ? String(v.cod_sankhya).trim()
         : ((product.cod_sankhya && /^\d{1,16}$/.test(String(product.cod_sankhya).trim()))
