@@ -6,6 +6,7 @@
  */
 
 import { resolveCorrectShopeeCategory } from "../agent4-diagnostician/rules.mjs";
+import { getCategoryRule } from "./category_rules.mjs";
 
 // Medidas fixas de embalagem (definidas no plano original)
 const MEDIDAS_FIXAS = {
@@ -209,15 +210,18 @@ export function sanitizeDescription(desc, context = {}) {
   cleaned = cleaned.replace(/\bTamanho\s*:\s*(?:Variado|[A-Z0-9\s,\/()\-]+(?=\n|$))/gmi, "");
 
   // 4. REGRA 4: Para camisas: SEMPRE colocar estrutura padrão completa BRK
-  const fullCtx = `${context.title || ""} ${context.modelo || ""} ${cleaned} ${context.categoria || ""} ${context.sku || ""}`.toLowerCase();
+  const matchedRule = getCategoryRule({ titulo_shopee: context.title, modelo: context.modelo, sku: context.sku });
+  const isShirtByRule = matchedRule?.id === "camisas";
+  const isNonShirtRule = matchedRule && matchedRule.id !== "camisas";
+
   const isCamisa =
     context.isCamisa !== undefined
       ? context.isCamisa
-      : (
-          /camisa|camiseta|baby\s*look|manga\s*longa|manga\s*curta|vestu[aá]rio/i.test(fullCtx) ||
-          /^[Cc]0\d|^CBT|^CMB|^APC|^ADV/i.test(context.sku || "") ||
-          /BL/i.test(context.sku || "")
-        );
+      : (!isNonShirtRule && (
+          isShirtByRule ||
+          /camisa|camiseta|baby\s*look|manga\s*longa|manga\s*curta/i.test(`${context.title || ""} ${context.modelo || ""}`) ||
+          /^[Cc]0\d|^CBT|^CMB|^APC|^ADV/i.test(context.sku || "")
+        ));
 
   if (isCamisa) {
     // 4.1. Cuidados para Conservação
@@ -606,6 +610,38 @@ export function normalizeShopeeAttributes(data) {
   }
 
   const attrs = data.atributos;
+  const rule = getCategoryRule(data);
+
+  // 0. CAPA DE ALMOFADA (Regra Definida no Registro Central)
+  if (rule && rule.id === "almofada") {
+    // Aplica atributos fixos da regra de almofada
+    Object.assign(attrs, rule.atributos);
+
+    // Atributos por produto (Estampa)
+    if (rule.perProductAttributes && rule.perProductAttributes.estampa) {
+      const estampaResult = rule.perProductAttributes.estampa(data);
+      if (estampaResult.value) {
+        attrs.estampa = estampaResult.value;
+      } else {
+        attrs.estampa = "";
+        if (estampaResult.needsReview) {
+          data.revisao_atributos = true;
+          data.motivo_revisao_atributos = estampaResult.motivo || "Estampa não identificada com segurança.";
+        }
+      }
+    }
+
+    // Garante que campos em branco fiquem estritamente em branco
+    for (const blankKey of rule.blankFields || []) {
+      if (attrs[blankKey] !== undefined) {
+        attrs[blankKey] = "";
+      }
+    }
+    attrs.quantidade_por_pacote = "";
+
+    return data;
+  }
+
   const isAnzol =
     /anzol|encastoado|hook/i.test(data.titulo_shopee || "") ||
     /anzol|encastoado|hook/i.test(data.modelo || "");
@@ -891,12 +927,16 @@ export function normalizeShopeeAttributes(data) {
 
   // Normalização específica para Camisas / Vestuário (conforme Ficha Técnica da Shopee na Magis5)
   const fullTextCamisa = `${data.titulo_shopee || ""} ${data.modelo || ""} ${data.descricao || ""} ${data.categoria_sugerida || ""} ${data.sku || ""}`.toLowerCase();
+  const isShirtByRegisteredRule = rule?.id === "camisas";
+  const isNonShirtRegisteredRule = rule && rule.id !== "camisas";
+
   const isCamisa =
+    !isNonShirtRegisteredRule &&
     !isBandana &&
     !isFootwear &&
     !isVara &&
     (
-      /camisa|camiseta|vestu[aá]rio|baby\s*look|infantil|manga\s*longa|manga\s*curta|agro/i.test(fullTextCamisa) ||
+      isShirtByRegisteredRule ||
       (data.categoria_sugerida && /camisa|roupa|vestu[aá]rio/i.test(data.categoria_sugerida)) ||
       /^[Cc]0\d+/i.test(data.sku || "") ||
       /^CAX/i.test(data.sku || "") ||
@@ -904,7 +944,8 @@ export function normalizeShopeeAttributes(data) {
       /^CBT/i.test(data.sku || "") ||
       /^CMB/i.test(data.sku || "") ||
       /^APC/i.test(data.sku || "") ||
-      /^ADV/i.test(data.sku || "")
+      /^ADV/i.test(data.sku || "") ||
+      /camisa|camiseta|baby\s*look|manga\s*longa|manga\s*curta/i.test(`${data.titulo_shopee || ""} ${data.modelo || ""}`)
     );
 
   if (isCamisa) {

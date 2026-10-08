@@ -7609,6 +7609,8 @@
       const falhas = res.erros || 0;
       const pendentes = res.pendentesRestantes != null ? res.pendentesRestantes : 0;
       const semFotos = res.ignoradosSemFotos != null ? res.ignoradosSemFotos : 0;
+      const revisoesCategoria = res.revisoesCategoria || (res.comRevisaoCategoria != null ? res.comRevisaoCategoria : 0);
+      const revisoesAtributos = res.revisoesAtributos || (res.comRevisaoAtributos != null ? res.comRevisaoAtributos : 0);
 
       let cardHtml = '';
 
@@ -7662,6 +7664,8 @@
               ${emCache > 0 ? `<span style="background: rgba(59,130,246,0.15); border: 1px solid rgba(59,130,246,0.3); border-radius: 4px; padding: 2px 8px; font-size: 0.75rem; color: #93c5fd;"><strong>Já em disco:</strong> ${emCache}</span>` : ''}
               ${falhas > 0 ? `<span style="background: rgba(239,68,68,0.15); border: 1px solid rgba(239,68,68,0.3); border-radius: 4px; padding: 2px 8px; font-size: 0.75rem; color: #fca5a5;"><strong>Falhas:</strong> ${falhas}</span>` : ''}
               ${semFotos > 0 ? `<span style="background: rgba(245,158,11,0.15); border: 1px solid rgba(245,158,11,0.3); border-radius: 4px; padding: 2px 8px; font-size: 0.75rem; color: #fde68a;"><strong>Sem foto:</strong> ${semFotos}</span>` : ''}
+              ${revisoesCategoria > 0 ? `<span style="background: rgba(245,158,11,0.2); border: 1px solid rgba(245,158,11,0.4); border-radius: 4px; padding: 2px 8px; font-size: 0.75rem; color: #f59e0b;"><strong>📂 Revisão Categoria (Rascunho):</strong> ${revisoesCategoria}</span>` : ''}
+              ${revisoesAtributos > 0 ? `<span style="background: rgba(234,179,8,0.2); border: 1px solid rgba(234,179,8,0.4); border-radius: 4px; padding: 2px 8px; font-size: 0.75rem; color: #eab308;"><strong>📋 Revisão Atributos:</strong> ${revisoesAtributos}</span>` : ''}
             </div>
             <div style="display: flex; gap: 8px; flex-wrap: wrap;">
               <button type="button" class="btn-action-primary" style="background: #8B5CF6; border-color: #7C3AED; padding: 8px 16px; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 6px; color: #fff; border-radius: 6px; font-weight: 600; cursor: pointer;" onclick="goToNextAgent('agent3', 'runAgent3Auto')">

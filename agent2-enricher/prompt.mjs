@@ -146,10 +146,29 @@ Quando o produto for Bandana, Tubeneck, Balaclava ou Lenço, o objeto "atributos
 - "produto_personalizado": "Não"
 - "quantidade_por_pacote": 1 (número inteiro puro)
 
+8d. ATRIBUTOS OBRIGATÓRIOS DA FICHA TÉCNICA SHOPEE (Para Capas de Almofada / Almofadas):
+Quando o produto for Capa de Almofada ou Almofada, o objeto "atributos" DEVE conter exatamente os seguintes campos:
+- "comprimento": 45 (número ou string "45")
+- "duracao_da_garantia": "1 Mês"
+- "quantidade_da_embalagem": 4 (número inteiro)
+- "material": "XTechPro"
+- "estampa": Nome curto em pt-BR da estampa (1 a 3 palavras, ex: "Folhas", "Floral", "Geométrica", "Listrada"), identificado a partir do título e imagens. Se não tiver certeza absoluta, deixe vazio "" (NUNCA coloque SKU, emoji ou marca).
+- "condicao": "Novo"
+- "pais_de_origem": "Brasil"
+- "produto_personalizado": "Não"
+- "quantidade_por_pacote": "" (ATENÇÃO: DEIXAR RIGOROSAMENTE VAZIO/EM BRANCO)
+- "tamanho_do_pacote": "" (sempre vazio)
+- "estofado": "" (sempre vazio)
+- "funcionalidades": "" (sempre vazio)
+- "estilo": "" (sempre vazio)
+- "instrucoes_de_cuidados": "" (sempre vazio)
+
 9. Se o produto tiver variações (cores, tamanhos), liste-as.
 10. As palavras-chave devem ser termos que compradores usariam para buscar o produto na Shopee.
 
 CATEGORIAS OFICIAIS NA SHOPEE (USE EXATAMENTE ESTAS ÁRVORES RECONHECIDAS):
+- Para Capas de Almofada e Almofadas Decorativas:
+  Casa e Decoração > Móveis > Almofadas
 - Para Bandanas, Tubenecks, Balaclavas e Toucas:
   Acessórios de Moda > Bonés, Chapéus e Toucas
 - Para Camisas e Camisetas Agro / Pesca / Esportivas:
@@ -173,6 +192,7 @@ CATEGORIAS OFICIAIS NA SHOPEE (USE EXATAMENTE ESTAS ÁRVORES RECONHECIDAS):
 
 RESPONDA EXCLUSIVAMENTE com o JSON, sem markdown em volta do JSON, sem explicações, sem \`\`\`json.`;
 }
+
 
 /**
  * Gera o prompt do usuário para um produto específico ou produto pai.

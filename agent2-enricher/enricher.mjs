@@ -1246,7 +1246,12 @@ async function main() {
     for (const it of items) {
       it.record.status = "enriched";
     }
-    report.sucesso.push({ sku: parentSku, model: result.model });
+    report.sucesso.push({
+      sku: parentSku,
+      model: result.model,
+      revisao_categoria: !!result.data.revisao_categoria,
+      revisao_atributos: !!result.data.revisao_atributos,
+    });
     report.modelosUsados[result.model] = (report.modelosUsados[result.model] || 0) + 1;
     await writeCsv(activeCsvFile, records);
 
@@ -1308,6 +1313,8 @@ async function main() {
   const cacheJaExistentes = report.sucesso.filter(s => s.model === 'cache').length;
   const falhasEnriquecimento = report.erros.length;
   const pendentesRestantes = records.filter(r => r.status !== 'enriched').length;
+  const comRevisaoCategoria = report.sucesso.filter(s => s.revisao_categoria).length;
+  const comRevisaoAtributos = report.sucesso.filter(s => s.revisao_atributos).length;
 
   const resultPayload = {
     totalLote: records.length,
@@ -1315,6 +1322,8 @@ async function main() {
     enriquecidos: report.sucesso.length,
     novosEnriquecidos,
     cacheJaExistentes,
+    revisoesCategoria: comRevisaoCategoria,
+    revisoesAtributos: comRevisaoAtributos,
     erros: falhasEnriquecimento,
     detalhesErros: report.erros,
     modelosUsados: report.modelosUsados,

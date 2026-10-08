@@ -11,6 +11,7 @@ import {
 import { validateProduct } from "./checkpoint.mjs";
 import { resolveAllProductImages, resolveVariantImage, resolveLocalImage } from "./image_resolver.mjs";
 import { generateFriendlyModel } from "../../agent2-enricher/schemas.mjs";
+import { getCategoryRule, CATEGORIAS_OFICIAIS } from "../../agent2-enricher/category_rules.mjs";
 
 /**
  * Mapeia qualquer peso informado para a opção mais próxima da pré-seleção da Shopee/Magis5:
@@ -312,7 +313,16 @@ function enforceMax60Title(t) {
   // 6. Seleção de Categorias Encadeadas (com mapeamento de sinônimos e resolução automática)
   let resolvedCategory = "";
   let isCamisa = false;
-  if (product.categoria_sugerida) {
+  const matchedRule = getCategoryRule(product);
+
+  if (matchedRule && matchedRule.categoria) {
+    let cat = matchedRule.categoria;
+    if (typeof matchedRule.resolveCategory === "function") {
+      cat = matchedRule.resolveCategory(`${product.titulo_shopee || ""} ${product.modelo || ""}`, product.sku || "");
+    }
+    resolvedCategory = cat;
+    isCamisa = matchedRule.id === "camisas";
+  } else if (product.categoria_sugerida) {
     let catPath = product.categoria_sugerida
       .replace(/Animais de Estimação/gi, "Animais Domésticos")
       .replace(/Esportes e Lazer/gi, "Esportes e Atividades ao Ar Livre")
@@ -331,7 +341,7 @@ function enforceMax60Title(t) {
 
     // Para produtos de vestuário (camisas, camisetas, baby look), define a categoria padrão oficial
     isCamisa = !isFootwear && (
-      /camisa|camiseta|baby\s*look|vestu[aá]rio|agro/i.test(titleAndSku) ||
+      /camisa|camiseta|baby\s*look|manga\s*longa|manga\s*curta/i.test(`${product.titulo_shopee || ""} ${product.modelo || ""}`) ||
       /^(?:c0|cax|fusion|cbt|cmb|apc|adv)/i.test(product.sku || "")
     );
     if (isCamisa) {
@@ -343,7 +353,6 @@ function enforceMax60Title(t) {
         catPath = "Roupas Masculinas > Blusas > Camisas";
       }
     }
-
 
     // Para produtos de pesca (excluindo calçados e vestuário), garante a árvore oficial da Shopee
     const isFishing = !isFootwear && !isCamisa && /pesca|isca|linha|anzol|vara|carretilha|molinete|snap|chumbada/i.test(
@@ -360,6 +369,10 @@ function enforceMax60Title(t) {
     }
 
     resolvedCategory = catPath;
+  }
+
+  if (resolvedCategory) {
+    const catPath = resolvedCategory;
     console.log(`📂 Configurando Categoria Shopee: ${catPath}`);
     const catParts = catPath.split(">").map(p => p.trim()).filter(Boolean);
 
@@ -514,6 +527,36 @@ function enforceMax60Title(t) {
 
       if (!labelText) continue;
       const normLabel = normalize(labelText);
+
+      // Prioridade: Regras específicas de campos em branco por categoria (ex: Almofadas)
+      const isExplicitlyBlank =
+        matchedRule?.blankFields?.some((b) => normLabel === b || normLabel.includes(b)) ||
+        (matchedRule?.id === "almofada" && (
+          normLabel.includes("quantidadeporpacote") ||
+          normLabel.includes("quantidadepacote") ||
+          normLabel.includes("estofado") ||
+          normLabel.includes("funcionalidades") ||
+          normLabel.includes("estilo") ||
+          normLabel.includes("produtopersonalizado") ||
+          normLabel.includes("instrucoesdecuidados") ||
+          normLabel.includes("weave") ||
+          normLabel.includes("cushion") ||
+          normLabel.includes("montagem")
+        ));
+
+      if (isExplicitlyBlank) {
+        await field.fill("");
+        const fieldId = await field.getAttribute("id");
+        if (fieldId) {
+          const unitId = fieldId.replace("field_optional_", "unit_");
+          const unitSelect = page.locator(`#${unitId}`);
+          if (await unitSelect.isVisible().catch(() => false)) {
+            await unitSelect.selectOption("").catch(() => {});
+          }
+        }
+        console.log(`  • ${labelText}: [DEIXADO EM BRANCO - REGRA ${matchedRule?.nome || "ESPECÍFICA"}]`);
+        continue;
+      }
 
       // Regra 1: "no tamanho do pacote sempre deixar em branco"
       if (normLabel.includes("tamanhodopacote") || normLabel.includes("tamanhopacote") || (normLabel.includes("pacote") && normLabel.includes("tamanho"))) {
