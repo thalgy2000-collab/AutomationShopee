@@ -263,6 +263,7 @@ const agentTelemetry = {
   lastStderrLines: [],
   agent0Result: null,
   agent1Result: null,
+  agent2Result: null,
   progress: { current: 0, total: 0 },
   history: {
     agent0: { lastRun: null, status: 'idle', lastAction: 'Pronto para consultar produtos no Sankhya Web e gerar planilhas', count: 0 },
@@ -388,6 +389,7 @@ async function startAgent(agentId, options = {}) {
   agentTelemetry.lastStderrLines = [];
   agentTelemetry.agent0Result = null;
   agentTelemetry.agent1Result = null;
+  agentTelemetry.agent2Result = null;
   agentTelemetry.startTime = Date.now();
   agentTelemetry.elapsedSeconds = 0;
   agentTelemetry.currentSku = options.sku || null;
@@ -483,12 +485,15 @@ async function startAgent(agentId, options = {}) {
         : path.resolve(__dirname, '..', inputFile);
       if (/\.(xlsx?)$/i.test(fullPath)) {
         const lotePath = path.resolve(SCRAPER_DIR, 'lote_d1fae5.csv');
-        try {
-          const script = path.join(SCRAPER_DIR, 'create_lote.mjs');
-          execFileSync(process.execPath, [script, '--input', fullPath, '--output', lotePath, '--color', 'TODAS'], { cwd: SCRAPER_DIR });
-          addLog(`⚡ [LOTE SINCRONIZADO] Planilha ${path.basename(fullPath)} extraída para ${path.basename(lotePath)} (todos os produtos).`);
-        } catch (e) {
-          console.error('Erro ao extrair lote para Agente 2:', e.message);
+        // Se lote_d1fae5.csv ainda não existe ou se foi explicitamente solicitado recriar
+        if (!fs.existsSync(lotePath) || options.forceExtract) {
+          try {
+            const script = path.join(SCRAPER_DIR, 'create_lote.mjs');
+            execFileSync(process.execPath, [script, '--input', fullPath, '--output', lotePath, '--color', 'TODAS'], { cwd: SCRAPER_DIR });
+            addLog(`⚡ [LOTE SINCRONIZADO] Planilha ${path.basename(fullPath)} extraída para ${path.basename(lotePath)} (todos os produtos).`);
+          } catch (e) {
+            console.error('Erro ao extrair lote para Agente 2:', e.message);
+          }
         }
         if (fs.existsSync(lotePath)) {
           fullPath = lotePath;
@@ -507,16 +512,18 @@ async function startAgent(agentId, options = {}) {
     args.push('--model', chosenModel);
     agent2ActiveModel = chosenModel;
     agentTelemetry.history.agent2.lastModel = chosenModel;
-    agentTelemetry.currentModel = chosenModel;
     if (options.limit && parseInt(options.limit, 10) > 0) {
       args.push('--limit', options.limit.toString());
     }
     if (options.batch && parseInt(options.batch, 10) > 0) {
       args.push('--batch', options.batch.toString());
     }
+    if (options.force) {
+      args.push('--force');
+    }
     if (options.sku) {
       args.push('--sku', options.sku.trim());
-      if (options.force !== false) {
+      if (options.force !== false && !args.includes('--force')) {
         args.push('--force');
       }
     }
@@ -789,6 +796,13 @@ async function startAgent(agentId, options = {}) {
         } catch (e) {
           console.warn('Erro ao interpretar AGENT1_RESULT:', e.message);
         }
+      } else if (line.startsWith('AGENT2_RESULT ')) {
+        try {
+          const resJson = JSON.parse(line.replace('AGENT2_RESULT ', '').trim());
+          agentTelemetry.agent2Result = resJson;
+        } catch (e) {
+          console.warn('Erro ao interpretar AGENT2_RESULT:', e.message);
+        }
       } else if (line.includes('Planilha gerada com sucesso') || line.includes('planilha_sankhya_') || (line.includes('.xlsx') && line.includes('uploads'))) {
         agentTelemetry.currentStep = 'Concluído';
         agentTelemetry.stepDetail = 'Planilha .xlsx gerada e vinculada a todos os agentes';
@@ -846,7 +860,9 @@ async function startAgent(agentId, options = {}) {
 
     const isAgent1ZeroPending = agentId === 'agent1' && code === 2;
     const isAgent1Partial = agentId === 'agent1' && code === 3;
-    const isSuccess = code === 0 || isAgent1ZeroPending || isAgent1Partial;
+    const isAgent2ZeroPending = agentId === 'agent2' && code === 2;
+    const isAgent2Partial = agentId === 'agent2' && code === 3;
+    const isSuccess = code === 0 || isAgent1ZeroPending || isAgent1Partial || isAgent2ZeroPending || isAgent2Partial;
 
     agentStatus = isSuccess ? 'done' : 'error';
     agentTelemetry.status = isSuccess ? 'done' : 'error';
@@ -865,6 +881,11 @@ async function startAgent(agentId, options = {}) {
       summaryText = `Coleta parcial: ${res?.comFotos || res?.scraped || 0} com fotos, ${res?.erros || 0} sem foto/erro.`;
     } else if (isAgent1ZeroPending) {
       summaryText = '0 novos produtos baixados (todos processados ou nenhum SKU obteve fotos)';
+    } else if (isAgent2Partial) {
+      const res = agentTelemetry.agent2Result;
+      summaryText = `Enriquecimento parcial: ${res?.enriquecidos || 0} enriquecidos, ${res?.erros || 0} erro(s).`;
+    } else if (isAgent2ZeroPending) {
+      summaryText = '0 produtos enriquecidos (nenhum produto pendente com fotos em disco)';
     } else {
       summaryText = `Execução finalizou com erro (código ${code})`;
     }
@@ -890,6 +911,22 @@ async function startAgent(agentId, options = {}) {
         agentTelemetry.stepDetail = `Lote finalizado: ${r.comFotos || r.scraped || 0} já baixados, ${r.erros || 0} com erro.`;
       } else {
         agentTelemetry.stepDetail = "Todos os itens já foram processados anteriormente ou nenhum obteve fotos.";
+      }
+    } else if (isAgent2Partial) {
+      agentTelemetry.currentStep = 'Enriquecimento parcial';
+      if (agentTelemetry.agent2Result) {
+        const r = agentTelemetry.agent2Result;
+        agentTelemetry.stepDetail = `${r.enriquecidos || 0} produtos enriquecidos; ${r.erros || 0} com erro.`;
+      }
+    } else if (isAgent2ZeroPending) {
+      agentTelemetry.currentStep = '0 produtos enriquecidos';
+      if (agentTelemetry.agent2Result) {
+        const r = agentTelemetry.agent2Result;
+        agentTelemetry.stepDetail = r.ignoradosSemFotos > 0
+          ? `${r.ignoradosSemFotos} produto(s) sem fotos em disco (baixe as fotos no Agente 1 primeiro).`
+          : 'Todos os produtos já possuem JSON enriquecido ou estão pendentes de fotos.';
+      } else {
+        agentTelemetry.stepDetail = 'Nenhum produto pendente com fotos para enriquecer.';
       }
     } else {
       agentTelemetry.currentStep = 'Finalizado com erro';

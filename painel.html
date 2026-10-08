@@ -5302,17 +5302,18 @@
       }
     }
 
-    function startAgent2WithActiveModel() {
+    function startAgent2WithActiveModel(force = false) {
       const inputPath = latestSpreadsheetFile ? latestSpreadsheetFile.path : null;
       const fileName = latestSpreadsheetFile ? latestSpreadsheetFile.name : 'lote ativo';
-      appendUserMessage(`Enriquecer produtos com ${selectedAiModel}`);
+      appendUserMessage(`Enriquecer produtos com ${selectedAiModel}${force ? ' (modo forçado)' : ''}`);
       appendBotMessage('agent2', `Iniciando enriquecimento com IA Vision (**${selectedAiModel}**) de **todos os produtos pendentes**${inputPath ? ` a partir do lote ativo (**${fileName}**)...` : '...'}`);
       sendAgentStartRequest({
         agent: 'agent2',
         options: {
           model: selectedAiModel,
           limit: 0,
-          inputFile: inputPath
+          inputFile: inputPath,
+          force: Boolean(force)
         }
       });
     }
@@ -7026,6 +7027,15 @@
               } catch (e) {
                 console.warn('Erro ao decodificar AGENT1_RESULT:', e);
               }
+            } else if (txt.includes('AGENT2_RESULT ')) {
+              try {
+                const markerIdx = txt.indexOf('AGENT2_RESULT ');
+                const jsonStr = txt.slice(markerIdx + 'AGENT2_RESULT '.length).trim();
+                const resJson = JSON.parse(jsonStr);
+                showAgent2ResultCard(resJson);
+              } catch (e) {
+                console.warn('Erro ao decodificar AGENT2_RESULT:', e);
+              }
             } else if (txt.includes('Planilha gerada com sucesso') || txt.includes('planilha_sankhya_') || (txt.includes('.xlsx') && txt.includes('LOTE VINCULADO'))) {
               const match = txt.match(/([A-Za-z]:\[^\s\r\n]+\.xlsx|\/[^\s\r\n]+\.xlsx|planilha_sankhya_[0-9]+\.xlsx|[a-zA-Z0-9_\-]+\.xlsx)/i);
               if (match && !isTransitioning && !latestSpreadsheetFile?.metrics) {
@@ -7587,6 +7597,109 @@
           </div>
         `;
         appendBotMessage('agent1', 'Download de fotos 100% concluído:', cardHtml);
+      }
+    }
+
+    function showAgent2ResultCard(res) {
+      if (!res) return;
+      const totalLote = res.totalLote || (res.processados || 0);
+      const enriquecidos = res.enriquecidos != null ? res.enriquecidos : 0;
+      const novos = res.novosEnriquecidos != null ? res.novosEnriquecidos : enriquecidos;
+      const emCache = res.cacheJaExistentes != null ? res.cacheJaExistentes : 0;
+      const falhas = res.erros || 0;
+      const pendentes = res.pendentesRestantes != null ? res.pendentesRestantes : 0;
+      const semFotos = res.ignoradosSemFotos != null ? res.ignoradosSemFotos : 0;
+
+      let cardHtml = '';
+
+      if (enriquecidos === 0) {
+        // CENÁRIO ZERO ENRIQUECIDOS
+        const detalhes = [];
+        if (semFotos > 0) {
+          detalhes.push(`${semFotos} produto(s) sem fotos em disco (baixe as fotos no Agente 1)`);
+        }
+        if (res.detalhesErros && res.detalhesErros.length > 0) {
+          detalhes.push(...res.detalhesErros.slice(0, 5).map(e => `${e.sku}: ${e.motivo}`));
+        }
+
+        cardHtml = `
+          <div class="chat-action-card" style="border-left: 4px solid #EF4444; background: linear-gradient(135deg, rgba(15,23,42,0.95), rgba(30,41,59,0.95)); border: 1px solid rgba(239,68,68,0.3); border-radius: 10px; padding: 14px; margin-top: 10px;">
+            <div style="font-weight: 700; color: #EF4444; margin-bottom: 6px; display: flex; align-items: center; gap: 8px;">
+              <span>❌</span> Nenhum Produto Enriquecido (0 de ${totalLote})
+            </div>
+            <div style="font-size: 0.83rem; color: #d1d5db; margin-bottom: 10px; line-height: 1.4;">
+              Nenhum produto foi enriquecido nesta rodada. Verifique se as fotos oficiais foram baixadas no Agente 1 ou se as cotas da IA foram atingidas.
+            </div>
+            ${detalhes.length > 0 ? `
+              <div style="background: rgba(0,0,0,0.3); border-radius: 6px; padding: 8px 12px; margin-bottom: 12px; font-size: 0.8rem; color: #fca5a5;">
+                ${detalhes.map(d => `<div>• ${escapeHtml(d)}</div>`).join('')}
+              </div>
+            ` : ''}
+            <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+              <button type="button" class="btn-action-primary" style="background: #D97706; border-color: #B45309; padding: 8px 16px; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 6px; color: #fff; border-radius: 6px; font-weight: 600; cursor: pointer;" onclick="startAgent2WithActiveModel(true)">
+                <span>🔄</span> Forçar Re-enriquecimento do Lote
+              </button>
+              <button type="button" class="btn-action-secondary" style="background: #3B82F6; border-color: #2563EB; padding: 8px 16px; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 6px; color: #fff; border-radius: 6px; font-weight: 600; cursor: pointer;" onclick="goToNextAgent('agent1')">
+                <span>📸</span> Ir para Agente 1 (Baixar Fotos)
+              </button>
+            </div>
+          </div>
+        `;
+        appendBotMessage('agent2', 'Resultado do Agente 2:', cardHtml);
+      } else if (falhas > 0 || pendentes > 0 || semFotos > 0) {
+        // CENÁRIO PARCIAL
+        cardHtml = `
+          <div class="chat-action-card" style="border-left: 4px solid #F59E0B; background: linear-gradient(135deg, rgba(15,23,42,0.95), rgba(30,41,59,0.95)); border: 1px solid rgba(245,158,11,0.3); border-radius: 10px; padding: 14px; margin-top: 10px;">
+            <div style="font-weight: 700; color: #F59E0B; margin-bottom: 6px; display: flex; align-items: center; gap: 8px;">
+              <span>⚠️</span> Enriquecimento Parcial: ${enriquecidos} de ${totalLote} com JSON gerado
+            </div>
+            <div style="font-size: 0.83rem; color: #d1d5db; margin-bottom: 10px; line-height: 1.4;">
+              Parte dos produtos foi enriquecida com IA Vision e SEO Shopee:
+            </div>
+            <div style="display: flex; gap: 10px; margin-bottom: 12px; flex-wrap: wrap;">
+              <span style="background: rgba(16,185,129,0.15); border: 1px solid rgba(16,185,129,0.3); border-radius: 4px; padding: 2px 8px; font-size: 0.75rem; color: #6ee7b7;"><strong>Enriquecidos:</strong> ${enriquecidos}</span>
+              <span style="background: rgba(139,92,246,0.15); border: 1px solid rgba(139,92,246,0.3); border-radius: 4px; padding: 2px 8px; font-size: 0.75rem; color: #c4b5fd;"><strong>Novos:</strong> ${novos}</span>
+              ${emCache > 0 ? `<span style="background: rgba(59,130,246,0.15); border: 1px solid rgba(59,130,246,0.3); border-radius: 4px; padding: 2px 8px; font-size: 0.75rem; color: #93c5fd;"><strong>Já em disco:</strong> ${emCache}</span>` : ''}
+              ${falhas > 0 ? `<span style="background: rgba(239,68,68,0.15); border: 1px solid rgba(239,68,68,0.3); border-radius: 4px; padding: 2px 8px; font-size: 0.75rem; color: #fca5a5;"><strong>Falhas:</strong> ${falhas}</span>` : ''}
+              ${semFotos > 0 ? `<span style="background: rgba(245,158,11,0.15); border: 1px solid rgba(245,158,11,0.3); border-radius: 4px; padding: 2px 8px; font-size: 0.75rem; color: #fde68a;"><strong>Sem foto:</strong> ${semFotos}</span>` : ''}
+            </div>
+            <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+              <button type="button" class="btn-action-primary" style="background: #8B5CF6; border-color: #7C3AED; padding: 8px 16px; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 6px; color: #fff; border-radius: 6px; font-weight: 600; cursor: pointer;" onclick="goToNextAgent('agent3', 'runAgent3Auto')">
+                <span>🚀</span> Avançar para Publicação no Magis5 (${enriquecidos} prontos)
+              </button>
+              <button type="button" class="btn-action-secondary" style="background: #4B5563; border-color: #374151; padding: 8px 16px; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 6px; color: #fff; border-radius: 6px; font-weight: 600; cursor: pointer;" onclick="startAgent2WithActiveModel(true)">
+                <span>🔄</span> Re-enriquecer
+              </button>
+            </div>
+          </div>
+        `;
+        appendBotMessage('agent2', 'Resultado do enriquecimento:', cardHtml);
+      } else {
+        // CENÁRIO 100% SUCESSO
+        cardHtml = `
+          <div class="chat-action-card" style="border-left: 4px solid #10B981; background: linear-gradient(135deg, rgba(15,23,42,0.95), rgba(30,41,59,0.95)); border: 1px solid rgba(16,185,129,0.3); border-radius: 10px; padding: 14px; margin-top: 10px;">
+            <div style="font-weight: 700; color: #10B981; margin-bottom: 6px; display: flex; align-items: center; gap: 8px;">
+              <span>🎉</span> Enriquecimento 100% Concluído! (${enriquecidos} de ${totalLote})
+            </div>
+            <div style="font-size: 0.83rem; color: #d1d5db; margin-bottom: 10px; line-height: 1.4;">
+              Todos os produtos do lote possuem títulos SEO Shopee (60 carac.), fichas técnicas completas, especificações oficiais e preços catalogados:
+            </div>
+            <div style="display: flex; gap: 10px; margin-bottom: 12px; flex-wrap: wrap;">
+              <span style="background: rgba(16,185,129,0.15); border: 1px solid rgba(16,185,129,0.3); border-radius: 4px; padding: 2px 8px; font-size: 0.75rem; color: #6ee7b7;"><strong>Total Prontos:</strong> ${enriquecidos}</span>
+              <span style="background: rgba(139,92,246,0.15); border: 1px solid rgba(139,92,246,0.3); border-radius: 4px; padding: 2px 8px; font-size: 0.75rem; color: #c4b5fd;"><strong>Novos:</strong> ${novos}</span>
+              ${emCache > 0 ? `<span style="background: rgba(59,130,246,0.15); border: 1px solid rgba(59,130,246,0.3); border-radius: 4px; padding: 2px 8px; font-size: 0.75rem; color: #93c5fd;"><strong>Reaproveitados (Cache):</strong> ${emCache}</span>` : ''}
+            </div>
+            <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+              <button type="button" class="btn-action-primary" style="background: #8B5CF6; border-color: #7C3AED; padding: 8px 16px; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 6px; color: #fff; border-radius: 6px; font-weight: 600; cursor: pointer;" onclick="goToNextAgent('agent3', 'runAgent3Auto')">
+                <span>🚀</span> Avançar e Publicar no Magis5 (Agente 3)
+              </button>
+              <button type="button" class="btn-action-secondary" style="background: #10B981; border-color: #059669; padding: 8px 16px; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 6px; color: #fff; border-radius: 6px; font-weight: 600; cursor: pointer;" onclick="window.open('/relatorio.html', '_blank')">
+                <span>📊</span> Ver Relatório Geral
+              </button>
+            </div>
+          </div>
+        `;
+        appendBotMessage('agent2', 'Enriquecimento finalizado com sucesso:', cardHtml);
       }
     }
 

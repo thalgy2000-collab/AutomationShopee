@@ -1031,7 +1031,18 @@ async function main() {
 
     if (pendentesGroups.length === 0) {
       log(`Nenhum produto pendente com fotos para enriquecer.`);
-      return;
+      const resultPayload = {
+        totalLote: records.length,
+        processados: 0,
+        enriquecidos: 0,
+        cacheJaExistentes: 0,
+        erros: 0,
+        ignoradosSemFotos: ignoredGroupsWithoutPhotos.length,
+        detalhesErros: [],
+        pendentesRestantes: records.filter(r => r.status !== 'enriched').length
+      };
+      console.log(`\nAGENT2_RESULT ${JSON.stringify(resultPayload)}\n`);
+      process.exit(2);
     }
 
     if (limit && limit > 0 && limit < pendentesGroups.length) {
@@ -1077,7 +1088,7 @@ async function main() {
       for (const it of items) {
         it.record.status = "enriched";
       }
-      await writeCsv(inputFile, records);
+      await writeCsv(activeCsvFile, records);
       report.sucesso.push({ sku: parentSku, model: "cache" });
       continue;
     }
@@ -1107,7 +1118,7 @@ async function main() {
         it.record.status = `erro: ${motivo}`;
       }
       report.erros.push({ sku: parentSku, motivo });
-      await writeCsv(inputFile, records);
+      await writeCsv(activeCsvFile, records);
       continue;
     }
 
@@ -1124,7 +1135,7 @@ async function main() {
         it.record.status = `erro: ${motivo}`;
       }
       report.erros.push({ sku: parentSku, motivo });
-      await writeCsv(inputFile, records);
+      await writeCsv(activeCsvFile, records);
       await sleep(REQUEST_DELAY_MS);
       continue;
     }
@@ -1245,7 +1256,7 @@ async function main() {
       log(`   Pausando ${batchPause}s para liberar taxa da API Gemini...`);
       try {
         const { generateReport } = await import("./report.mjs");
-        await generateReport(PRODUTOS_DIR, DOWNLOADS_DIR, inputFile);
+        await generateReport(PRODUTOS_DIR, DOWNLOADS_DIR, activeCsvFile);
       } catch {}
       await sleep(batchPause * 1000);
     } else if (i < pendentesGroups.length - 1) {
@@ -1292,16 +1303,39 @@ async function main() {
   } catch (err) {
     logError(`Erro ao gerar relatório HTML: ${err.message}`);
   }
+
+  const novosEnriquecidos = report.sucesso.filter(s => s.model !== 'cache').length;
+  const cacheJaExistentes = report.sucesso.filter(s => s.model === 'cache').length;
+  const falhasEnriquecimento = report.erros.length;
+  const pendentesRestantes = records.filter(r => r.status !== 'enriched').length;
+
+  const resultPayload = {
+    totalLote: records.length,
+    processados: report.processados,
+    enriquecidos: report.sucesso.length,
+    novosEnriquecidos,
+    cacheJaExistentes,
+    erros: falhasEnriquecimento,
+    detalhesErros: report.erros,
+    modelosUsados: report.modelosUsados,
+    pendentesRestantes
+  };
+
+  console.log(`\nAGENT2_RESULT ${JSON.stringify(resultPayload)}\n`);
+
+  if (report.sucesso.length === 0) {
+    process.exit(2);
+  } else if (falhasEnriquecimento > 0 || pendentesRestantes > 0) {
+    process.exit(3);
+  } else {
+    process.exit(0);
+  }
 }
 
 // Execução
 const isDirectRun = process.argv[1] && resolve(process.argv[1]) === resolve(fileURLToPath(import.meta.url));
 if (isDirectRun) {
   main()
-    .then(() => {
-      // Sucesso: garante exit code 0 mesmo que avisos tenham sido emitidos no stderr
-      process.exit(0);
-    })
     .catch((err) => {
       logError(`Erro fatal: ${err.message}`);
       console.error(err);
