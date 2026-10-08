@@ -1,9 +1,12 @@
 import { extractProductsFromXls, normalizeHexColor } from "./colorFilter.mjs";
 import { getCollectionNameFromFilename } from "./scraper.mjs";
 import { writeFile } from "node:fs/promises";
-import { resolve, join } from "node:path";
+import { existsSync } from "node:fs";
+import { resolve, join, dirname } from "node:path";
+import { fileURLToPath } from "node:url";
 import { stringify } from "csv-stringify/sync";
 
+const SCRIPT_DIR = dirname(fileURLToPath(import.meta.url));
 const userHome = process.env.USERPROFILE || process.env.HOME || ".";
 const DEFAULT_XLS = join(userHome, "Downloads", "Estoque Douglas IMP.xls");
 const DEFAULT_COLOR = "#D1FAE5";
@@ -49,8 +52,20 @@ function parseArgs() {
     collection = getCollectionNameFromFilename(xlsPath);
   }
 
+  let finalXlsPath = resolve(xlsPath);
+  if (!existsSync(finalXlsPath)) {
+    const fileName = xlsPath.replace(/^.*[\\/]/, "");
+    const inUploads = resolve(SCRIPT_DIR, "../uploads", fileName);
+    const inRoot = resolve(SCRIPT_DIR, "..", fileName);
+    if (existsSync(inUploads)) {
+      finalXlsPath = inUploads;
+    } else if (existsSync(inRoot)) {
+      finalXlsPath = inRoot;
+    }
+  }
+
   return {
-    xlsPath: resolve(xlsPath),
+    xlsPath: finalXlsPath,
     color: colorFilter,
     outPath: resolve(outPath),
     limit,
@@ -107,8 +122,6 @@ async function main() {
     console.log(`  ${idx + 1}. SKU: ${p.sku} | ${p.titulo_bruto.substring(0, 45)}...`);
   });
 }
-
-import { fileURLToPath } from "node:url";
 
 const isDirectRun = process.argv[1] && resolve(process.argv[1]) === resolve(fileURLToPath(import.meta.url));
 if (isDirectRun) {
