@@ -1306,7 +1306,7 @@ async function main() {
     logSuccess(`Relatório gerado: ./relatorio.html`);
     log(`Abra com: start relatorio.html`);
   } catch (err) {
-    logError(`Erro ao gerar relatório HTML: ${err.message}`);
+    log(`⚠️ Aviso ao gerar relatório HTML: ${err.message}`);
   }
 
   const novosEnriquecidos = report.sucesso.filter(s => s.model !== 'cache').length;

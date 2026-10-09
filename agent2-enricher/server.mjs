@@ -880,7 +880,7 @@ async function startAgent(agentId, options = {}) {
 
     agentStatus = isSuccess ? 'done' : 'error';
     agentTelemetry.status = isSuccess ? 'done' : 'error';
-    if (code === 0) {
+    if (isSuccess) {
       agentTelemetry.lastError = null;
     }
     if (agentTelemetry.startTime) {
