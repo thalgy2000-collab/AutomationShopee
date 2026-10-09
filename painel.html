@@ -3922,9 +3922,9 @@
         </div>
 
         <!-- Esteira Contínua -->
-        <button class="btn-header" id="btn-toggle-continuous" onclick="toggleContinuousPipeline()" title="Esteira Contínua: avança automaticamente entre agentes sem intervenção">
+        <button class="btn-header" id="btn-toggle-continuous" onclick="toggleContinuousPipeline()" title="Esteira Contínua: avança automaticamente entre agentes sem intervenção" style="background: rgba(16, 185, 129, 0.15); border-color: rgba(16, 185, 129, 0.4); color: #34d399;">
           <svg id="continuous-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>
-          <span id="continuous-label">Esteira Contínua: OFF</span>
+          <span id="continuous-label">Esteira Contínua: ON</span>
         </button>
 
         <!-- Notificações -->
@@ -4451,10 +4451,11 @@
     });
     window.isAgentRunning = () => isAgentRunning;
     let latestSpreadsheetFile = null;
-    let isContinuousPipelineEnabled = false;
+    // Esteira Contínua: padrão ATIVA (ON) por solicitação do usuário, com persistência em localStorage
+    const savedPipelinePref = localStorage.getItem('shopee_continuous_pipeline_enabled');
+    let isContinuousPipelineEnabled = savedPipelinePref !== null ? (savedPipelinePref === 'true') : true;
 
-    function toggleContinuousPipeline() {
-      isContinuousPipelineEnabled = !isContinuousPipelineEnabled;
+    function updateContinuousPipelineUi() {
       const btn = document.getElementById('btn-toggle-continuous');
       const label = document.getElementById('continuous-label');
       if (isContinuousPipelineEnabled) {
@@ -4464,7 +4465,6 @@
           btn.style.color = '#34d399';
         }
         if (label) label.textContent = 'Esteira Contínua: ON';
-        showToast('Esteira Contínua ATIVADA: os agentes executarão em sequência automaticamente.');
       } else {
         if (btn) {
           btn.style.background = '';
@@ -4472,6 +4472,16 @@
           btn.style.color = '';
         }
         if (label) label.textContent = 'Esteira Contínua: OFF';
+      }
+    }
+
+    function toggleContinuousPipeline() {
+      isContinuousPipelineEnabled = !isContinuousPipelineEnabled;
+      localStorage.setItem('shopee_continuous_pipeline_enabled', isContinuousPipelineEnabled ? 'true' : 'false');
+      updateContinuousPipelineUi();
+      if (isContinuousPipelineEnabled) {
+        showToast('Esteira Contínua ATIVADA: os agentes executarão em sequência automaticamente.');
+      } else {
         showToast('Esteira Contínua Desativada (modo avanço manual).');
       }
     }
@@ -5103,6 +5113,7 @@
       }
       switchAgent(initialAgent, false);
       initNotificationSystem();
+      updateContinuousPipelineUi();
 
       // Sincroniza modelo de IA ativo no backend
       try {
