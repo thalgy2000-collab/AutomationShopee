@@ -2161,7 +2161,8 @@ const server = http.createServer(async (req, res) => {
   }
 
   // 11. Páginas HTML
-  if (urlPath === '/' || urlPath === '/painel' || urlPath === '/painel.html') {
+  const isAgentRoute = /^\/agent[0-4](\.html)?$/i.test(urlPath);
+  if (urlPath === '/' || urlPath === '/painel' || urlPath === '/painel.html' || isAgentRoute) {
     if (fs.existsSync(PAINEL_PATH)) {
       res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
       fs.createReadStream(PAINEL_PATH).pipe(res);
