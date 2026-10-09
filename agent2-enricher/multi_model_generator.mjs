@@ -279,11 +279,16 @@ export async function generateMultiModelProduct(params) {
     }
   }
 
-  // Coleta fotos de todos os modelos
+  // Coleta fotos de todos os modelos: exatamente 2 fotos de cada modelo (1 de frente [01.jpg] e 1 de costas [02.jpg])
   const allImages = [];
   for (const modInfo of modelosInfo) {
     if (modInfo.fotos && modInfo.fotos.length > 0) {
-      allImages.push(...modInfo.fotos);
+      // 1 de frente (01.jpg ou primeira)
+      const fotoFrente = modInfo.fotos[0];
+      // 1 de costas (02.jpg ou segunda)
+      const fotoCostas = modInfo.fotos.find(f => /02\.(jpe?g|png|webp)$/i.test(f) || /costa/i.test(f)) || modInfo.fotos[1];
+      if (fotoFrente) allImages.push(fotoFrente);
+      if (fotoCostas && fotoCostas !== fotoFrente) allImages.push(fotoCostas);
     }
   }
 
@@ -328,17 +333,14 @@ export async function generateMultiModelProduct(params) {
   // Aplica estritamente a remoção de SKUs
   finalTitle = stripSkusFromTitle(finalTitle);
 
-  // Descrição estruturada (Regras Shopee: 0 emojis, 0 *, 0 SKU, com tabela de medidas)
-  const descModelos = modelosInfo
-    .map((m) => `- Modelo: ${m.nome}`)
-    .join("\n");
+  // Palavra-chave core compartilhada em todos os modelos para a Ficha Técnica
+  const coreModelKeyword = isBabyLook ? "Baby Look UV50+" : "Manga Longa UV50+";
 
+  // Descrição estruturada (Regras Shopee: 0 emojis, 0 *, 0 SKU, SEM nome dos modelos na descrição, com tabela de medidas)
   const rawDescricao = `${finalTitle}\n\n` +
     `Alta performance em um só produto. Confeccionadas com o tecido exclusivo XTech Pro®, proporcionam conforto, proteção solar UV50+.\n\n` +
     `Vista-se com as vibrantes Camisas Brk, que não desbotam, não precisam ser passadas, possuem costura reforçada e secagem ultra rápida.\n\n` +
-    `Escolha o seu modelo favorito e o seu tamanho ideal no seletor de variações acima.\n\n` +
-    `Modelos disponíveis neste anúncio:\n` +
-    `${descModelos}\n\n` +
+    `Escolha a sua estampa favorita e o seu tamanho ideal no seletor de variações acima.\n\n` +
     `Cuidados para Conservação:\n` +
     `As Camisas Brk são uma inovação no segmento, unindo qualidade, estilo e performance em um só produto. Confeccionadas com o tecido exclusivo XTech Pro®, proporcionam conforto, proteção solar UV50+.\n` +
     `Para preservar as propriedades do tecido e a eficácia da tecnologia utilizada, atente-se aos seguintes cuidados:\n` +
@@ -409,7 +411,7 @@ export async function generateMultiModelProduct(params) {
       stripSkusFromTitle(`Camisa Térmica Solar UV50+ ${genero} Estampada BRK Agro e Pesca`),
     ],
     marca: "BRK",
-    modelo: "Multi-Modelos",
+    modelo: coreModelKeyword,
     categoria_sugerida: categoria,
     preco: {
       preco_sem_promocao: precoSemPromo,
@@ -420,6 +422,7 @@ export async function generateMultiModelProduct(params) {
     },
     descricao,
     atributos: {
+      modelo: coreModelKeyword,
       genero,
       pais_de_origem: "Brasil",
       material: "Poliéster",

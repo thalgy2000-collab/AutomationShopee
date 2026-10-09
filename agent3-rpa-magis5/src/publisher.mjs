@@ -122,6 +122,16 @@ export function sanitizeDescription(desc, product = {}) {
  * @returns {Promise<string[]>}
  */
 export async function resolveProductImages(product) {
+  if (Array.isArray(product.imagens) && product.imagens.length > 0) {
+    const declaredResolved = [];
+    for (const p of product.imagens) {
+      const found = resolveLocalImage(p, product.sku);
+      if (found) declaredResolved.push(found);
+    }
+    if (declaredResolved.length > 0) {
+      return Array.from(new Set(declaredResolved));
+    }
+  }
   return resolveAllProductImages(product);
 }
 
@@ -672,12 +682,16 @@ function enforceMax60Title(t) {
         continue;
       }
 
-      // Regra Modelo: preencher com o SKU do produto
+      // Regra Modelo na Ficha Técnica: NUNCA colocar o SKU; colocar a palavra-chave core
       if (normLabel === "modelo") {
-        const modelVal = atributos.modelo || product.sku || product.modelo || "";
+        let modelVal = atributos.modelo || product.modelo || "";
+        const isSkuFormat = /^[A-Z0-9_\-]{4,15}$/i.test(modelVal) && (modelVal === product.sku || modelVal === product.parent_sku);
+        if (!modelVal || isSkuFormat || modelVal === "N/A" || modelVal === "Multi-Modelos") {
+          modelVal = isCamisa ? (product.titulo_shopee?.toLowerCase().includes("baby") ? "Baby Look UV50+" : "Manga Longa UV50+") : generateFriendlyModel(product.sku, product.titulo_shopee, atributos.estampa, "");
+        }
         if (modelVal) {
           await field.fill(modelVal);
-          console.log(`  • ${labelText}: ${modelVal}`);
+          console.log(`  • ${labelText} (Ficha Técnica): ${modelVal}`);
           continue;
         }
       }
