@@ -11,12 +11,13 @@
  */
 
 import { writeFile, readFile } from "node:fs/promises";
-import { existsSync, readdirSync } from "node:fs";
+import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { join, resolve, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import dotenv from "dotenv";
 import { stripSkusFromTitle, sanitizeDescription } from "./schemas.mjs";
 import { getProductPrices } from "./shopify_prices.mjs";
+import xlsx from "xlsx";
 
 const SCRIPT_DIR = dirname(fileURLToPath(import.meta.url));
 dotenv.config({ path: resolve(SCRIPT_DIR, ".env") });
@@ -24,6 +25,43 @@ dotenv.config();
 
 const DOWNLOADS_DIR = resolve(SCRIPT_DIR, "../agent1-scraper/downloads");
 const PRODUTOS_DIR = resolve(SCRIPT_DIR, "./produtos");
+const SANKHYA_MAP_PATH = resolve(SCRIPT_DIR, "./sankhya_map.json");
+const UPLOADS_DIR = resolve(SCRIPT_DIR, "../uploads");
+
+/**
+ * Carrega dinamicamente o mapa de SKU -> Código Sankhya
+ */
+export function loadSankhyaCodeMap() {
+  let map = {};
+  if (existsSync(SANKHYA_MAP_PATH)) {
+    try {
+      map = JSON.parse(readFileSync(SANKHYA_MAP_PATH, "utf-8"));
+    } catch {}
+  }
+  if (existsSync(UPLOADS_DIR)) {
+    try {
+      const files = readdirSync(UPLOADS_DIR).filter(f => f.startsWith("planilha_sankhya") && f.endsWith(".xlsx"));
+      for (const f of files) {
+        try {
+          const wb = xlsx.readFile(join(UPLOADS_DIR, f));
+          const data = xlsx.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]]);
+          for (const r of data) {
+            const sku = r['Cód. Referência (SKU)'] || r['Cod. Referencia (SKU)'] || r['Referência'] || r.sku || r.SKU;
+            const cod = r['Código (Sankhya)'] || r['Codigo (Sankhya)'] || r['CODPROD'] || r.cod_sankhya;
+            if (sku && cod) {
+              const cleanSku = String(sku).trim().toUpperCase();
+              const cleanCod = String(cod).trim();
+              if (cleanSku && cleanCod) {
+                map[cleanSku] = cleanCod;
+              }
+            }
+          }
+        } catch {}
+      }
+    } catch {}
+  }
+  return map;
+}
 
 export const DEFAULT_SIZES = ["PP", "P", "M", "G", "GG", "G1", "G2"];
 
@@ -249,6 +287,9 @@ export async function generateMultiModelProduct(params) {
     }
   }
 
+  // Carrega mapeamento de Códigos Sankhya das planilhas importadas
+  const sankhyaMap = loadSankhyaCodeMap();
+
   // Gera as variações filhas na ordem exata combinada de Magis5 (Modelos x Tamanhos = Ex: 3 x 7 = 21)
   const variacoes = [];
   for (const modInfo of modelosInfo) {
@@ -257,10 +298,11 @@ export async function generateMultiModelProduct(params) {
     const mainPhoto = modInfo.foto || "";
 
     for (const tam of tamanhos) {
-      const childSku = `${modSku}${tam}`; // Ex: ADV256BLPP
+      const childSku = `${modSku}${tam}`; // Ex: C02874BLPP
+      const realCodSankhya = sankhyaMap[childSku] || sankhyaMap[childSku.toUpperCase()] || childSku;
       variacoes.push({
         sku: childSku,
-        cod_sankhya: childSku,
+        cod_sankhya: realCodSankhya,
         parent_sku: cleanParentSku,
         nome: `${modNome} - ${tam}`,
         modelo: modSku,

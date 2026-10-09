@@ -1,6 +1,7 @@
 import path, { join, resolve, basename } from "node:path";
-import { existsSync } from "node:fs";
+import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { readdir } from "node:fs/promises";
+import xlsx from "xlsx";
 import {
   MAGIS5_BASE_URL,
   FIXED_DIMENSIONS,
@@ -12,6 +13,7 @@ import { validateProduct } from "./checkpoint.mjs";
 import { resolveAllProductImages, resolveVariantImage, resolveLocalImage } from "./image_resolver.mjs";
 import { generateFriendlyModel } from "../../agent2-enricher/schemas.mjs";
 import { getCategoryRule, CATEGORIAS_OFICIAIS } from "../../agent2-enricher/category_rules.mjs";
+import { loadSankhyaCodeMap } from "../../agent2-enricher/multi_model_generator.mjs";
 
 /**
  * Mapeia qualquer peso informado para a opção mais próxima da pré-seleção da Shopee/Magis5:
@@ -898,15 +900,27 @@ function enforceMax60Title(t) {
       }
     }
 
+    // Carrega mapa de Códigos Sankhya das planilhas importadas
+    const sankhyaMap = loadSankhyaCodeMap();
+
     // Lista de variações para preenchimento de SKU Sankhya
-    variationsToCreate = product.variacoes.map((v) => ({
-      nome: String(v.nome || `${v.modelo_nome || v.modelo} - ${v.tamanho}`).trim(),
-      cod_sankhya: String(v.cod_sankhya || v.sku || '').trim(),
-      preco: v.preco_sem_promocao ?? product.preco_sem_promocao ?? product.preco?.preco_sem_promocao ?? v.preco_atual ?? 0,
-      foto: v.imagens?.[0] || '',
-    }));
+    variationsToCreate = product.variacoes.map((v) => {
+      const vSku = String(v.sku || '').trim().toUpperCase();
+      const resolvedSankhya = (v.cod_sankhya && /^\d+$/.test(String(v.cod_sankhya).trim()))
+        ? String(v.cod_sankhya).trim()
+        : (sankhyaMap[vSku] || (product.cod_sankhya && /^\d+$/.test(String(product.cod_sankhya).trim()) ? String(product.cod_sankhya).trim() : ''));
+
+      return {
+        nome: String(v.nome || `${v.modelo_nome || v.modelo} - ${v.tamanho}`).trim(),
+        sku: vSku,
+        cod_sankhya: resolvedSankhya || vSku,
+        preco: v.preco_sem_promocao ?? product.preco_sem_promocao ?? product.preco?.preco_sem_promocao ?? v.preco_atual ?? 0,
+        foto: v.imagens?.[0] || '',
+      };
+    });
   } else {
     // Modo 1 atributo clássico
+    const sankhyaMap = loadSankhyaCodeMap();
     const attrInput = page.locator('#attribute');
     if (await attrInput.isVisible().catch(() => false)) {
       const isSizeVar = isCamisa || (Array.isArray(product.variacoes) && product.variacoes.some(v => /^(?:pp|p|m|g|gg|g[1-5]|xxg|exg|egg|xg|eg|\d{2}\/\d{2})$/i.test(v.nome || "")));
@@ -917,16 +931,30 @@ function enforceMax60Title(t) {
     }
 
     if (Array.isArray(product.variacoes) && product.variacoes.length > 0) {
-      variationsToCreate = product.variacoes.map((v) => ({
-        nome: String(v.nome || v.sku?.replace(product.sku + '_', '') || v.sku || 'Padrão').trim(),
-        cod_sankhya: String(v.cod_sankhya || product.cod_sankhya || '').trim(),
-        preco: v.preco_sem_promocao ?? product.preco_sem_promocao ?? product.preco?.preco_sem_promocao ?? v.preco_atual ?? v.preco_com_promocao ?? 0,
-      }));
+      variationsToCreate = product.variacoes.map((v) => {
+        const vSku = String(v.sku || '').trim().toUpperCase();
+        const resolvedSankhya = (v.cod_sankhya && /^\d+$/.test(String(v.cod_sankhya).trim()))
+          ? String(v.cod_sankhya).trim()
+          : (sankhyaMap[vSku] || (product.cod_sankhya && /^\d+$/.test(String(product.cod_sankhya).trim()) ? String(product.cod_sankhya).trim() : ''));
+
+        return {
+          nome: String(v.nome || v.sku?.replace(product.sku + '_', '') || v.sku || 'Padrão').trim(),
+          sku: vSku,
+          cod_sankhya: resolvedSankhya || vSku,
+          preco: v.preco_sem_promocao ?? product.preco_sem_promocao ?? product.preco?.preco_sem_promocao ?? v.preco_atual ?? v.preco_com_promocao ?? 0,
+        };
+      });
     } else {
+      const pSku = String(product.sku || '').trim().toUpperCase();
+      const resolvedSankhya = (product.cod_sankhya && /^\d+$/.test(String(product.cod_sankhya).trim()))
+        ? String(product.cod_sankhya).trim()
+        : (sankhyaMap[pSku] || pSku);
+
       variationsToCreate = [
         {
           nome: String(product.modelo || 'Padrão').trim(),
-          cod_sankhya: String(product.cod_sankhya || product.sku || '').trim(),
+          sku: pSku,
+          cod_sankhya: resolvedSankhya,
           preco: product.preco_sem_promocao ?? product.preco?.preco_sem_promocao ?? product.preco_atual ?? product.preco_com_promocao ?? 0,
         },
       ];
